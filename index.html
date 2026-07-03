@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kur'an Kavram Konkordansı</title>
+<style>
+  :root{--bg:#f6f3ea;--panel:#fffdf8;--ink:#22201b;--muted:#6b6459;--line:#e5ddcb;
+    --green:#0c5c48;--green2:#0a4a3a;--gold:#a67c2e;--red:#a3341f;--chip:#efe9d8;}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+    font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;font-size:15px}
+  .ar{font-family:"Traditional Arabic","Amiri","Scheherazade New","Sakkal Majalla",serif;direction:rtl;line-height:1.9}
+  header{background:var(--green);color:#fff;padding:12px 18px;display:flex;gap:16px;align-items:center;
+    position:sticky;top:0;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  header h1{font-size:17px;margin:0;font-weight:600;white-space:nowrap}
+  header .sub{font-size:11px;opacity:.8;margin-top:2px}
+  #search{flex:1;max-width:520px;margin-left:auto;padding:9px 14px;border:none;border-radius:22px;
+    font-size:14px;background:rgba(255,255,255,.16);color:#fff;outline:none}
+  #search::placeholder{color:rgba(255,255,255,.7)}
+  #status{font-size:12px;padding:4px 12px;border-radius:14px;white-space:nowrap;font-weight:600}
+  #status.load{background:#e9e2cf;color:#6b6459}
+  #status.online{background:#dff0e6;color:#0c5c48}
+  #status.offline{background:#fbe7b0;color:#8a5a12}
+  #status.err{background:#f6d7cf;color:#a3341f}
+  .adminbadge{background:var(--gold);color:#fff;font-size:11px;padding:2px 9px;border-radius:12px;font-weight:600}
+  .wrap{display:flex;height:calc(100vh - 56px)}
+  #sidebar{width:250px;border-right:1px solid var(--line);overflow:auto;background:var(--panel)}
+  #main{flex:1;overflow:auto;padding:22px 26px}
+  .sure-item{padding:9px 16px;cursor:pointer;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+  .sure-item:hover{background:var(--chip)}
+  .sure-item.active{background:var(--green);color:#fff}
+  .sure-no{font-size:12px;color:var(--muted);min-width:26px}
+  .sure-item.active .sure-no{color:rgba(255,255,255,.75)}
+  .sure-name{flex:1;margin:0 8px;font-weight:500}
+  .sure-cnt{font-size:11px;color:var(--muted)}
+  .sure-item.active .sure-cnt{color:rgba(255,255,255,.75)}
+  .crumb{color:var(--muted);font-size:13px;margin-bottom:4px}
+  .sureread{margin-top:6px}
+  .arow{display:flex;gap:14px;padding:14px 16px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;
+    cursor:pointer;background:var(--panel);transition:border-color .12s,box-shadow .12s;align-items:flex-start}
+  .arow:hover{border-color:var(--green);box-shadow:0 2px 10px rgba(12,92,72,.12)}
+  .anum{min-width:30px;height:30px;border-radius:50%;background:var(--chip);color:var(--green2);
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:0 0 auto}
+  .abody{flex:1;min-width:0}
+  .arow .ar{font-size:23px;color:var(--green2);margin-bottom:6px;text-align:right}
+  .arow .tr{font-size:14px;color:var(--ink);line-height:1.55}
+  .backbtn{display:inline-flex;align-items:center;gap:6px;cursor:pointer;color:var(--green);font-size:13px;margin-bottom:10px;user-select:none}
+  .backbtn:hover{text-decoration:underline}
+  .maincard{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:10px;padding:20px 22px;margin-bottom:22px}
+  .maincard .ar{font-size:30px;color:var(--green2);margin-bottom:12px}
+  .ok{color:var(--gold);font-style:italic;font-size:14px;margin-bottom:10px}
+  .meal{font-size:15px;line-height:1.6}
+  .meal-src{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:10px}
+  .tags{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
+  .tag{background:var(--chip);border-radius:20px;padding:3px 11px;font-size:12px;color:var(--green2)}
+  .sectitle{font-size:15px;font-weight:600;color:var(--green);margin:18px 0 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .sectitle .n{background:var(--green);color:#fff;border-radius:12px;font-size:12px;padding:1px 9px}
+  .draft{background:#f6e2c4;color:#8a5a12;border-radius:20px;padding:2px 10px;font-size:11px;font-weight:600;margin-left:8px}
+  .rel{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:13px 16px;margin-bottom:10px;cursor:pointer;transition:border-color .15s}
+  .rel:hover{border-color:var(--green)}
+  .rel.approved{border-left:4px solid var(--green)}
+  .rel .ar{font-size:19px;margin-bottom:6px}
+  .rel .ref{font-weight:600;color:var(--green);font-size:12px}
+  .rel .rm{font-size:13px;color:var(--ink);margin-top:3px;line-height:1.5}
+  .relactions{display:flex;gap:6px;margin-top:9px}
+  .minibtn{border:1px solid var(--line);background:#fff;border-radius:6px;padding:3px 11px;font-size:12px;cursor:pointer;color:var(--muted);user-select:none}
+  .minibtn:hover{border-color:var(--green);color:var(--green)}
+  .minibtn.rm:hover{border-color:var(--red);color:var(--red)}
+  .minibtn.ok.on{background:var(--green);color:#fff;border-color:var(--green)}
+  .restore{font-size:13px;color:var(--gold);cursor:pointer;margin:2px 0 12px;display:inline-block;user-select:none}
+  .restore:hover{text-decoration:underline}
+  .addrow{display:flex;gap:8px;margin:6px 0 14px;align-items:center;flex-wrap:wrap}
+  .addrow input{padding:7px 12px;border:1px solid var(--line);border-radius:7px;font-size:13px;width:130px;outline:none}
+  .empty{color:var(--muted);font-style:italic;padding:10px 0}
+  .hint{color:var(--muted);text-align:center;margin-top:80px;font-size:15px}
+  .hint .big{font-size:30px;color:var(--green);margin-bottom:10px}
+  mark{background:#fbe7b0;padding:0 2px;border-radius:3px}
+  b.hl{color:var(--red);font-weight:700}
+  .ar b.hl{color:#8a1a0a}
+  .toolbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .btn{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:6px 12px;cursor:pointer;font-size:13px;color:var(--ink)}
+  .btn:hover{border-color:var(--green);color:var(--green)}
+  .btn.on{background:var(--green);color:#fff;border-color:var(--green)}
+  .navbtns{display:flex;gap:6px;margin-right:auto}
+  .navbtn{border:1px solid var(--line);background:var(--panel);border-radius:7px;min-width:38px;height:34px;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--green);user-select:none}
+  .navbtn:hover:not(.disabled){background:var(--green);color:#fff;border-color:var(--green)}
+  .navbtn.disabled{opacity:.35;cursor:default;color:var(--muted)}
+  .navbtn.wide{min-width:auto;padding:0 12px;font-size:13px}
+  .searchhead{font-size:14px;color:var(--muted);margin-bottom:14px}
+  ::-webkit-scrollbar{width:10px}::-webkit-scrollbar-thumb{background:#d9d0bd;border-radius:5px}
+  @media print{header,#sidebar,.toolbar,.versebar,.crumb,.relactions,.restore,.addrow,.backbtn{display:none!important}
+    .wrap{height:auto;display:block}#main{overflow:visible;padding:0}body,html{background:#fff;height:auto}
+    .maincard,.rel,.arow{break-inside:avoid;box-shadow:none}b.hl{color:#a3341f!important}.ar b.hl{color:#8a1a0a!important}
+    *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+    #main::before{content:"Kur\2019an Kavram Konkordans\131  \2014  Ali R\131za ZARARSIZ taraf\131ndan derlenmektedir.";display:block;font-size:12px;color:#888;border-bottom:1px solid #ccc;padding-bottom:6px;margin-bottom:12px}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Kur'an Kavram Konkordansı <span id="abadge"></span></h1>
+    <div class="sub">Ayet ayet ilişkili âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div>
+  </div>
+  <span id="status" class="load">yükleniyor…</span>
+  <input id="search" placeholder="Ara: kelime / meal / konu…  (en az 3 harf)">
+</header>
+<div class="wrap">
+  <div id="sidebar"></div>
+  <div id="main"><div class="hint"><div class="big">☾</div><span id="boothint">Veriler yükleniyor…</span></div></div>
+</div>
+
+<script>
+// ===== YAPILANDIRMA =====
+const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
+const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
+const TRK = {"ربب": ["Rab", "rabb"], "رحم": ["rahmet", "merhamet", "esirge", "Rahman", "Rahim", "acı"], "امن": ["iman", "inan", "mü’min", "mümin", "güven", "emin"], "علم": ["ilim", "bil", "âlim", "alim", "bilgi", "öğren"], "هدي": ["hidayet", "doğru yol", "ilet", "yol göster", "kılavuz"], "كفر": ["kâfir", "kafir", "inkâr", "inkar", "küfr", "nankör", "ört"], "خلق": ["yarat", "halk", "yaratıl"], "عبد": ["kul", "ibadet", "tap", "kulluk"], "رسل": ["elçi", "resul", "peygamber", "gönder"], "نعم": ["nimet"], "ضلل": ["sap", "dalâlet", "dalalet", "şaşır"], "ملك": ["mülk", "hükümran", "melik", "sahib", "hüküm"], "يوم": ["gün"], "دين": ["din", "ceza", "hesap"], "عمل": ["amel", "iş", "yap", "çalış"], "صلح": ["sâlih", "salih", "iyi", "ıslah", "düzelt", "barış"], "ذنب": ["günah", "suç"], "عذب": ["azap", "azab", "işkence"], "جنن": ["cennet", "bahçe"], "نار": ["ateş", "cehennem"], "حقق": ["hak", "gerçek", "doğru"], "صبر": ["sabır", "sabret", "dayan", "katlan"], "شكر": ["şükür", "şükret", "teşekkür"], "رزق": ["rızık", "rızk", "geçim", "nasip"], "دعو": ["dua", "çağır", "davet", "yalvar"], "غفر": ["bağışla", "mağfiret", "affet", "affe"], "سمو": ["gök", "sema", "semâ"], "ارض": ["yer", "yeryüzü", "arz", "toprak"], "نفس": ["nefs", "kendi", "can"], "قلب": ["kalp", "gönül", "yürek"], "ايه": ["âyet", "ayet", "delil", "işaret", "mucize"], "كتب": ["kitap", "yaz", "yazı"], "حكم": ["hüküm", "hikmet", "hakem", "karar"], "قوم": ["kavim", "millet", "topluluk", "kalk", "ayakta"], "ولد": ["çocuk", "oğul", "doğur", "evlat"], "موت": ["ölüm", "öl", "ölü"], "حيي": ["diri", "hayat", "yaşa", "can"], "نور": ["nur", "ışık", "aydınlık"], "ظلم": ["zulüm", "zalim", "haksız", "karanlık"], "صدق": ["doğru", "sadık", "tasdik", "dürüst"], "وحد": ["bir", "tek", "birlik"], "شرك": ["ortak", "şirk", "eş koş", "müşrik"], "تقو": ["takva", "sakın", "korun", "muttaki"], "فسق": ["fâsık", "fasık", "fısk", "yoldan çık"], "نبا": ["haber", "nebi", "peygamber"], "سبح": ["tesbih", "yücelt", "noksanlık"], "حمد": ["hamd", "övgü", "över"], "عظم": ["büyük", "yüce", "azîm", "ulu"], "خشي": ["kork", "haşyet", "çekin"], "رجع": ["dön", "rücû", "geri"], "بصر": ["gör", "basiret", "göz"], "سمع": ["işit", "duy", "dinle"], "فوز": ["kurtuluş", "başarı", "felah", "murad"], "خسر": ["hüsran", "ziyan", "kayıp", "zarar", "aldan"], "صمد": ["samed", "müstağni", "muhtaç"], "كفا": ["denk", "eş", "benzer", "küfüv"], "ندد": ["eş", "rakip", "benzer", "put"], "مثل": ["benzer", "misal", "örnek", "gibi"], "انس": ["insan", "kişi", "insanoğlu"], "عصر": ["zaman", "çağ", "ikindi", "asır"], "وصي": ["tavsiye", "öğüt", "vasiyet", "emret"]};
+// ========================
+
+let DB=null, V=null, S=null, curSure=null, curRef=null, mealMode='md';
+let HIST=[], HPTR=-1;
+const el=(h)=>{const d=document.createElement('div');d.innerHTML=h;return d.firstElementChild;};
+function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+
+// ---- IndexedDB (6 MB önbellek) ----
+function idb(mode,fn){return new Promise((res,rej)=>{const r=indexedDB.open('konkDB',1);
+  r.onupgradeneeded=()=>{if(!r.result.objectStoreNames.contains('kv'))r.result.createObjectStore('kv');};
+  r.onsuccess=()=>{const db=r.result;const st=db.transaction('kv',mode).objectStore('kv');fn(st,res,rej);};
+  r.onerror=()=>rej(r.error);});}
+function idbGet(k){return idb('readonly',(st,res,rej)=>{const q=st.get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);});}
+function idbSet(k,v){return idb('readwrite',(st,res,rej)=>{const q=st.put(v,k);q.onsuccess=()=>res();q.onerror=()=>rej(q.error);});}
+
+function setStatus(cls,txt){const s=document.getElementById('status');s.className=cls;s.textContent=txt;}
+function fmtDate(iso){try{return new Date(iso).toLocaleString('tr-TR');}catch(e){return iso;}}
+
+// ---- Açılış: GitHub'dan çek, olmazsa önbellekten ----
+async function boot(){
+  if(ADMIN) document.getElementById('abadge').innerHTML='<span class="adminbadge">ADMIN</span>';
+  setStatus('load','yükleniyor…');
+  let loaded=false, offline=false, when=null;
+  // Admin: yerel çalışma kopyası varsa önce onu kullan (kaydedilmemiş düzenlemeler kaybolmasın)
+  if(ADMIN){ try{const wc=await idbGet('workingcopy'); if(wc){DB=JSON.parse(wc); loaded=true; when=await idbGet('wc_time'); setStatus('offline','yerel çalışma kopyası · '+(when?fmtDate(when):''));}}catch(e){} }
+  if(!loaded){
+    try{
+      const resp=await fetch(DATA_URL,{cache:'no-store'});
+      if(!resp.ok) throw new Error('http '+resp.status);
+      const txt=await resp.text();
+      DB=JSON.parse(txt);
+      await idbSet('cache',txt); await idbSet('cache_time',new Date().toISOString());
+      setStatus('online','🟢 güncel · '+fmtDate(new Date().toISOString()));
+      loaded=true;
+    }catch(e){
+      // çevrimdışı: önbellekten
+      try{
+        const c=await idbGet('cache');
+        if(c){ DB=JSON.parse(c); const t=await idbGet('cache_time'); offline=true; when=t; loaded=true;
+          setStatus('offline','🟡 çevrimdışı — veri güncel olmayabilir · son: '+(t?fmtDate(t):'?')); }
+      }catch(e2){}
+    }
+  }
+  if(!loaded){
+    setStatus('err','🔴 veri yüklenemedi');
+    document.getElementById('boothint').innerHTML='Veri yüklenemedi. İlk kullanımda internet bağlantısı gerekir.<br><span style="font-size:13px">İnternete bağlanıp sayfayı yenileyin (F5).</span>';
+    return;
+  }
+  V=DB.verses; S=DB.sureler;
+  document.getElementById('boothint').textContent='Soldan bir sûre seçin.';
+  renderSidebar();
+}
+
+// ---- Sidebar ----
+function renderSidebar(){
+  const sb=document.getElementById('sidebar'); sb.innerHTML='';
+  Object.keys(S).map(Number).sort((a,b)=>a-b).forEach(no=>{
+    const s=S[no];
+    const it=el(`<div class="sure-item" data-no="${no}"><span class="sure-no">${no}</span><span class="sure-name">${esc(s.ad)}</span><span class="sure-cnt">${s.ayet}</span></div>`);
+    it.onclick=()=>selectSure(no); sb.appendChild(it);
+  });
+}
+function markActiveSure(no){document.querySelectorAll('.sure-item').forEach(x=>x.classList.toggle('active',+x.dataset.no===no));}
+
+function rootsOf(v){return new Set((v.kr||[]).filter(Boolean));}
+function hlAr(v,roots){const ws=v.ar.split(' '),kr=v.kr||[];
+  return ws.map((w,i)=>(kr[i]&&roots.has(kr[i]))?'<b class="hl">'+esc(w)+'</b>':esc(w)).join(' ');}
+function hlTr(meal,roots){let kws=[];roots.forEach(r=>{if(TRK[r])kws=kws.concat(TRK[r]);});
+  kws=[...new Set(kws)].filter(Boolean).sort((a,b)=>b.length-a.length);let out=esc(meal||'');
+  if(!kws.length)return out;const pat=kws.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|');
+  try{out=out.replace(new RegExp('('+pat+')','gi'),'<b class="hl">$1</b>');}catch(e){}return out;}
+
+// ---- Sure okuma görünümü (Arapça+Türkçe) ----
+function selectSure(no){
+  curSure=no; markActiveSure(no);
+  const s=S[no], m=document.getElementById('main');
+  let rows='';
+  for(let i=1;i<=s.ayet;i++){const ref=no+':'+i,v=V[ref];if(!v)continue;const sr=rootsOf(v);
+    rows+=`<div class="arow" data-ref="${ref}"><div class="anum">${i}</div><div class="abody"><div class="ar">${hlAr(v,sr)}</div><div class="tr">${hlTr(v[mealMode]||v.md,sr)}</div></div></div>`;}
+  m.innerHTML=`<div class="crumb">${esc(s.ad)} sûresi · ${s.ayet} âyet — bir âyete tıklayın (analiz)</div>
+    <div class="toolbar"><button class="btn ${mealMode==='md'?'on':''}" onclick="setMealSure('md')">Diyanet</button>
+    <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealSure('mb')">Ali Bulaç</button>
+    <button class="btn" onclick="window.print()" title="Bu sûreyi PDF kaydet">⤓ PDF</button></div>
+    <div class="sureread">${rows}</div>`;
+  m.querySelectorAll('.arow').forEach(r=>r.onclick=()=>openRef(r.dataset.ref)); m.scrollTop=0;
+}
+function setMealSure(mm){mealMode=mm; if(curSure)selectSure(curSure);}
+
+// ---- Âyet analizi ----
+function pushHist(ref){if(HIST[HPTR]===ref)return;HIST=HIST.slice(0,HPTR+1);HIST.push(ref);HPTR=HIST.length-1;}
+function nextRef(ref){const[s,a]=ref.split(':').map(Number);return (a<S[s].ayet)?s+':'+(a+1):(S[s+1]?(s+1)+':1':null);}
+function prevRef(ref){const[s,a]=ref.split(':').map(Number);return (a>1)?s+':'+(a-1):(S[s-1]?(s-1)+':'+S[s-1].ayet:null);}
+
+function selectVerse(ref,fromHist){
+  curRef=ref; const v=V[ref]; if(!v)return;
+  if(!fromHist) pushHist(ref);
+  const seedRoots=rootsOf(v);
+  const rel=v.r||[];
+  let relHtml='';
+  if(rel.length){
+    rel.forEach(rr=>{const w=V[rr]; if(!w)return;
+      const link=new Set([...rootsOf(w)].filter(x=>seedRoots.has(x)));
+      const ap=(w._ap===ref);
+      relHtml+=`<div class="rel ${ap?'approved':''}" data-ref="${rr}"><div class="ar">${hlAr(w,link)}</div>
+        <div><span class="ref">${esc(w.sa)} ${w.a} (${rr})</span><div class="rm">${hlTr(w[mealMode]||w.md,link)}</div></div>
+        ${ADMIN?`<div class="relactions"><span class="minibtn rm" onclick="event.stopPropagation();adminRemove('${ref}','${rr}')">✕ çıkar</span></div>`:''}</div>`;
+    });
+  } else relHtml=`<div class="empty">Bu âyet için ilişkili âyet verisi yok.</div>`;
+  const tags=(v.ko||[]).slice(0,8).map(t=>`<span class="tag">${esc(t)}</span>`).join('');
+  const addUI = ADMIN?`<div class="addrow"><input id="addref" placeholder="ör. 2:255" onkeydown="if(event.key==='Enter')adminAdd('${ref}')">
+    <button class="btn" onclick="adminAdd('${ref}')">＋ âyet ekle</button>
+    <button class="btn" onclick="exportData()" title="Güncel veriyi app_data.json olarak indir (GitHub'a yükle)">⭳ app_data.json indir</button>
+    <button class="btn" onclick="refetch()" title="GitHub'dan güncel veriyi çek">↻ GitHub'dan çek</button></div>`:'';
+  document.getElementById('main').innerHTML=`
+    <div class="backbtn" onclick="selectSure(${v.s})">‹ ${esc(v.sa)} sûresine dön</div>
+    <div class="toolbar">
+      <div class="navbtns">
+        <div class="navbtn ${HPTR<=0?'disabled':''}" title="Geri" onclick="histBack()">‹</div>
+        <div class="navbtn ${HPTR>=HIST.length-1?'disabled':''}" title="İleri" onclick="histFwd()">›</div>
+        <div class="navbtn wide ${!prevRef(ref)?'disabled':''}" title="Önceki âyet" onclick="stepPrev()">◄ Önceki</div>
+        <div class="navbtn wide ${!nextRef(ref)?'disabled':''}" title="Sonraki âyet" onclick="stepNext()">Sonraki ►</div>
+      </div>
+      <button class="btn ${mealMode==='md'?'on':''}" onclick="setMeal('md')">Diyanet</button>
+      <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMeal('mb')">Ali Bulaç</button>
+      <button class="btn" onclick="window.print()" title="Bu sayfayı PDF kaydet">⤓ PDF</button>
+    </div>
+    <div class="maincard"><div class="ar">${hlAr(v,seedRoots)}</div>
+      ${v.ok?`<div class="ok">${esc(v.ok)}</div>`:''}
+      <div class="meal">${hlTr(v[mealMode]||v.md,seedRoots)}</div>
+      <div class="meal-src">${esc(v.sa)} ${v.a}. âyet — ${ref}</div>
+      ${tags?`<div class="tags">${tags}</div>`:''}</div>
+    <div class="sectitle">İlişkili Âyetler <span class="n">${rel.length}</span>${v.t?'<span class="draft">otomatik taslak</span>':''}</div>
+    ${addUI}
+    <div id="rellist">${relHtml}</div>`;
+  document.querySelectorAll('.rel').forEach(r=>r.onclick=()=>goto(r.dataset.ref));
+}
+function setMeal(m){mealMode=m; if(curRef)selectVerse(curRef,true);}
+function openRef(ref,fromHist){if(!ref)return;const s=+ref.split(':')[0];if(s!==curSure)selectSure(s);selectVerse(ref,fromHist);document.getElementById('main').scrollTop=0;}
+function goto(ref){openRef(ref,false);}
+function histBack(){if(HPTR>0){HPTR--;openRef(HIST[HPTR],true);}}
+function histFwd(){if(HPTR<HIST.length-1){HPTR++;openRef(HIST[HPTR],true);}}
+function stepPrev(){const r=prevRef(curRef);if(r)openRef(r);}
+function stepNext(){const r=nextRef(curRef);if(r)openRef(r);}
+
+// ---- ADMIN: ekle / çıkar / kaydet / dışa aktar ----
+function saveWorking(){ if(!ADMIN)return; try{ idbSet('workingcopy',JSON.stringify(DB)); idbSet('wc_time',new Date().toISOString()); }catch(e){} }
+function adminRemove(seed,ref){ const v=V[seed]; v.r=(v.r||[]).filter(x=>x!==ref); saveWorking(); selectVerse(seed,true); }
+function adminAdd(seed){ const inp=document.getElementById('addref'); if(!inp)return; const ref=inp.value.trim();
+  if(!/^\d+:\d+$/.test(ref)){alert('Geçerli bir âyet yazın (ör. 2:255).');return;}
+  if(!V[ref]){alert('Böyle bir âyet yok.');return;}
+  const v=V[seed]; v.r=v.r||[]; if(v.r.includes(ref)){alert('Zaten ekli.');return;}
+  v.r.push(ref); v.r.sort((a,b)=>{const[s1,a1]=a.split(':').map(Number),[s2,a2]=b.split(':').map(Number);return s1-s2||a1-a2;});
+  saveWorking(); selectVerse(seed,true);
+}
+function exportData(){ const blob=new Blob([JSON.stringify(DB)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='app_data.json'; a.click(); }
+async function refetch(){ if(!confirm('GitHub\'dan güncel veri çekilecek. Kaydedilmemiş yerel düzenlemeler kaybolabilir. Devam?'))return;
+  try{ const resp=await fetch(DATA_URL,{cache:'no-store'}); const txt=await resp.text(); DB=JSON.parse(txt);
+    await idbSet('cache',txt); await idbSet('cache_time',new Date().toISOString());
+    try{ await idb('readwrite',(st,res)=>{st.delete('workingcopy');res();}); }catch(e){}
+    V=DB.verses; S=DB.sureler; setStatus('online','🟢 güncel · '+fmtDate(new Date().toISOString()));
+    if(curRef)selectVerse(curRef,true); alert('Güncel veri çekildi.'); }catch(e){alert('Çekilemedi (internet?).');}
+}
+
+// ---- Arama ----
+let stimer=null;
+document.getElementById('search').addEventListener('input',e=>{clearTimeout(stimer);const q=e.target.value.trim();stimer=setTimeout(()=>runSearch(q),200);});
+function runSearch(q){
+  if(!V)return;
+  if(q.length<3){if(curSure)selectSure(curSure);return;}
+  const ql=q.toLowerCase();const res=[];
+  for(const ref in V){const v=V[ref];
+    if((v.md&&v.md.toLowerCase().includes(ql))||(v.mb&&v.mb.toLowerCase().includes(ql))||(v.ko&&v.ko.some(k=>k.toLowerCase().includes(ql)))||v.ar.includes(q)){res.push(ref);if(res.length>=200)break;}}
+  const m=document.getElementById('main');
+  m.innerHTML=`<div class="searchhead">"${esc(q)}" için ${res.length}${res.length>=200?'+':''} sonuç</div>`;
+  const list=el('<div></div>');
+  res.forEach(ref=>{const v=V[ref];
+    const r=el(`<div class="rel" data-ref="${ref}"><div class="ar">${esc(v.ar)}</div><div><span class="ref">${esc(v.sa)} ${v.a} (${ref})</span><div class="rm">${hi(esc(v[mealMode]||v.md),q)}</div></div></div>`);
+    r.onclick=()=>goto(ref);list.appendChild(r);});
+  m.appendChild(list);m.scrollTop=0;
+}
+function hi(t,q){try{return t.replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');}catch(e){return t;}}
+
+document.addEventListener('keydown',e=>{
+  if(document.activeElement.id==='search'||document.activeElement.id==='addref')return;
+  if(e.altKey&&e.key==='ArrowLeft')histBack();
+  else if(e.altKey&&e.key==='ArrowRight')histFwd();
+  else if(e.key==='ArrowLeft')stepPrev();
+  else if(e.key==='ArrowRight')stepNext();
+});
+boot();
+</script>
+</body>
+</html>

@@ -197,6 +197,7 @@ function markActiveSure(no){document.querySelectorAll('.sure-item').forEach(x=>x
 
 function rootsOf(v){return new Set((v.kr||[]).filter(Boolean));}
 function showMeal(v,roots){ return mealMode==='me' ? esc(v.me||'') : hlTr(v.mb||'',roots); }
+function mealSrc(){ return mealMode==='me' ? 'Saheeh International' : 'Ali Bulaç'; }
 function sortRefs(arr){ return arr.sort((a,b)=>{const x=a.split(':').map(Number),y=b.split(':').map(Number);return x[0]-y[0]||x[1]-y[1];}); }
 function hlAr(v,roots){const ws=v.ar.split(' '),kr=v.kr||[];
   return ws.map((w,i)=>(kr[i]&&roots.has(kr[i]))?'<b class="hl">'+esc(w)+'</b>':esc(w)).join(' ');}
@@ -213,8 +214,8 @@ function selectSure(no){
   for(let i=1;i<=s.ayet;i++){const ref=no+':'+i,v=V[ref];if(!v)continue;const sr=rootsOf(v);
     rows+=`<div class="arow" data-ref="${ref}"><div class="anum">${i}</div><div class="abody"><div class="ar">${hlAr(v,sr)}</div><div class="tr">${showMeal(v,sr)}</div></div></div>`;}
   m.innerHTML=`<div class="crumb">${esc(s.ad)} sûresi · ${s.ayet} âyet — bir âyete tıklayın (analiz)</div>
-    <div class="toolbar"><button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealSure('mb')">Türkçe</button>
-    <button class="btn ${mealMode==='me'?'on':''}" onclick="setMealSure('me')">İngilizce</button>
+    <div class="toolbar"><button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealSure('mb')">Türkçe (Ali Bulaç)</button>
+    <button class="btn ${mealMode==='me'?'on':''}" onclick="setMealSure('me')">İngilizce (Saheeh Int'l)</button>
     <button class="btn" onclick="window.print()" title="Bu sûreyi PDF kaydet">⤓ PDF</button></div>
     <div class="sureread">${rows}</div>`;
   m.querySelectorAll('.arow').forEach(r=>r.onclick=()=>openRef(r.dataset.ref)); m.scrollTop=0;
@@ -255,14 +256,14 @@ function selectVerse(ref,fromHist){
         <div class="navbtn wide ${!prevRef(ref)?'disabled':''}" title="Önceki âyet" onclick="stepPrev()">◄ Önceki</div>
         <div class="navbtn wide ${!nextRef(ref)?'disabled':''}" title="Sonraki âyet" onclick="stepNext()">Sonraki ►</div>
       </div>
-      <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMeal('mb')">Türkçe</button>
-      <button class="btn ${mealMode==='me'?'on':''}" onclick="setMeal('me')">İngilizce</button>
+      <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMeal('mb')">Türkçe (Ali Bulaç)</button>
+      <button class="btn ${mealMode==='me'?'on':''}" onclick="setMeal('me')">İngilizce (Saheeh Int'l)</button>
       <button class="btn" onclick="window.print()" title="Bu sayfayı PDF kaydet">⤓ PDF</button>
     </div>
     <div class="maincard"><div class="ar">${hlAr(v,seedRoots)}</div>
       ${v.ok?`<div class="ok">${esc(v.ok)}</div>`:''}
       <div class="meal">${showMeal(v,seedRoots)}</div>
-      <div class="meal-src">${esc(v.sa)} ${v.a}. âyet — ${ref}</div>
+      <div class="meal-src">${esc(v.sa)} ${v.a}. âyet — ${ref} · Meâl: ${mealSrc()}</div>
       ${tags?`<div class="tags">${tags}</div>`:''}</div>
     <div class="sectitle">İlişkili Âyetler <span class="n">${rel.length}</span>${v.t?'<span class="draft">otomatik taslak</span>':''}</div>
     ${addUI}

@@ -72,11 +72,6 @@ Eserle ilgili görüş, öneri ve düzeltmelerinizi aşağıdaki adrese iletebil
 
 "Otomatik taslak" işareti taşıyan âyetlerin ilişkili listesi, henüz elle işlenmemiş bölümler için, aynı yöntemin (kavram kökü, anlam ayıklaması, ilgili olan kadar) bilgisayarla uygulanmasıyla üretilmiş bir başlangıç önerisidir ve gözden geçirilmektedir. Elle derlenmiş bölümler bu işareti taşımaz.
 
-## İletişim
-
-Görüş, öneri, düzeltme veya katkılarınız için:
-
-**E-posta:** ali-zarasiz@hotmail.com
 
 ---
 

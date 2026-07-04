@@ -65,4 +65,4 @@ Bu metin zaman zaman güncellenmektedir.
 
 © ayatulkuran
 
-Teknik destek: M. Mustafa MURAT 
+Teknik destek: M. Mustafa MURAT  

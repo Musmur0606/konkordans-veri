@@ -55,6 +55,7 @@
   .esma-baslik{font-size:27px;font-weight:700;color:var(--green)}
   .esma-say2{font-size:14px;color:var(--muted)}
   .esmatop{background:#efe9d8!important;font-weight:600;color:var(--gold)}
+  .surehead{background:#eaf1ea!important;font-weight:600;color:var(--green2)}
   .esma-side{gap:10px}
   .esma-side-ar{font-family:"Traditional Arabic","Amiri","Scheherazade New","Sakkal Majalla",serif;color:var(--gold);font-size:18px;direction:rtl;flex:0 0 auto}
   .esma-side-tr{flex:1;font-weight:600;color:var(--green2)}
@@ -240,6 +241,7 @@ function renderSidebar(mode){
     });
   } else {
     const es=el('<div class="sure-item esmatop"><span>❈ Esmâ-i Hüsnâ</span></div>'); es.onclick=()=>showEsmaList(); head.appendChild(es);
+    const sh=el('<div class="sure-item surehead" style="cursor:default"><span>☰ Sûreler · '+Object.keys(S).length+'</span></div>'); head.appendChild(sh);
     Object.keys(S).map(Number).sort((a,b)=>a-b).forEach(no=>{
       const s=S[no];
       const it=el(`<div class="sure-item" data-no="${no}"><span class="sure-no">${no}</span><span class="sure-name">${esc(s.ad)}</span><span class="sure-cnt">${s.ayet}</span></div>`);

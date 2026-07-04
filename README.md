@@ -1,4 +1,4 @@
-# konkordans-veriayatulkuran — Kavram Konkordansı
+# ayatulkuran — Kavram Konkordansı
 Ali Rıza ZARARSIZ tarafından derlenmektedir.
 
 Bu çalışma, Kur'an-ı Kerim'in her âyetini merkeze alarak, o âyette geçen kavramı paylaşan diğer âyetleri bir araya getiren bir kavram konkordansıdır. Amaç, Kur'an'ın kendi kendini açıklaması (tefsîru'l-Kur'an bi'l-Kur'an) ilkesini, âyetler arası anlam bağlarını görünür kılarak somutlaştırmaktır.

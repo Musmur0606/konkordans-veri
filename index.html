@@ -20,6 +20,8 @@
     font-size:14px;background:rgba(255,255,255,.16);color:#fff;outline:none}
   #search::placeholder{color:rgba(255,255,255,.7)}
   #status{font-size:12px;padding:4px 12px;border-radius:14px;white-space:nowrap;font-weight:600}
+  .hbtn{background:rgba(255,255,255,.16);color:#fff;border:none;border-radius:16px;padding:7px 15px;cursor:pointer;font-size:13px;white-space:nowrap;font-weight:500}
+  .hbtn:hover{background:rgba(255,255,255,.28)}
   #status.load{background:#e9e2cf;color:#6b6459}
   #status.online{background:#dff0e6;color:#0c5c48}
   #status.offline{background:#fbe7b0;color:#8a5a12}
@@ -27,7 +29,31 @@
   .adminbadge{background:var(--gold);color:#fff;font-size:11px;padding:2px 9px;border-radius:12px;font-weight:600}
   .wrap{display:flex;height:calc(100vh - 56px)}
   #sidebar{width:250px;border-right:1px solid var(--line);overflow:auto;background:var(--panel)}
-  #main{flex:1;overflow:auto;padding:22px 26px}
+  #main{flex:1;min-width:0;min-height:0;overflow:auto;padding:22px 26px}
+  #main.lockmode{overflow:hidden;padding:0;display:flex;flex-direction:column}
+  .locktop{flex:0 0 auto;padding:14px 26px 8px;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:0 3px 8px rgba(0,0,0,.05);z-index:2;max-height:54vh;overflow:auto}
+  .locktop .maincard{margin-bottom:8px}
+  .locktop .sectitle{margin:10px 0 4px}
+  .scrollbody{flex:1 1 auto;overflow:auto;min-height:0;padding:16px 26px}
+  .esma-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(152px,1fr));gap:10px;margin-top:10px}
+  .esma-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:border-color .12s,box-shadow .12s}
+  .esma-card:hover{border-color:var(--green);box-shadow:0 2px 10px rgba(12,92,72,.12)}
+  .esma-ad{font-weight:600;color:var(--green2);font-size:16px}
+  .esma-say{font-size:12px;color:var(--muted);background:var(--chip);border-radius:12px;padding:2px 9px;flex:0 0 auto}
+  .esma-clead{display:flex;flex-direction:column;gap:1px;min-width:0}
+  .esma-ar{font-family:"Traditional Arabic","Amiri","Scheherazade New","Sakkal Majalla",serif;direction:rtl;color:var(--gold);font-size:20px;line-height:1.25}
+  .esma-ar-big{font-family:"Traditional Arabic","Amiri","Scheherazade New","Sakkal Majalla",serif;direction:rtl;color:var(--gold);font-size:30px}
+  .ar b.esmahl{color:#8a1a0a;background:#f6e2c4;border-radius:3px;padding:0 3px;font-weight:700}
+  .esma-head{display:flex;align-items:baseline;gap:14px;margin-top:4px}
+  .esma-baslik{font-size:27px;font-weight:700;color:var(--green)}
+  .esma-say2{font-size:14px;color:var(--muted)}
+  .esmatop{background:#efe9d8!important;font-weight:600;color:var(--gold)}
+  .esma-side{gap:10px}
+  .esma-side-ar{font-family:"Traditional Arabic","Amiri","Scheherazade New","Sakkal Majalla",serif;color:var(--gold);font-size:18px;direction:rtl;flex:0 0 auto}
+  .esma-side-tr{flex:1;font-weight:600;color:var(--green2)}
+  .esma-side.active .esma-side-ar,.esma-side.active .esma-side-tr{color:#fff}
+  .tekdestek{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+  .filigran{margin-top:40px;text-align:center;color:#c9c1b0;font-size:12px;letter-spacing:1px;opacity:.6;font-style:italic}
   .sure-item{padding:9px 16px;cursor:pointer;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
   .sure-item:hover{background:var(--chip)}
   .sure-item.active{background:var(--green);color:#fff}
@@ -117,6 +143,7 @@
     <div class="sub">Ayet ayet ilişkili âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div>
   </div>
   <span id="status" class="load">yükleniyor…</span>
+  <button class="hbtn" onclick="showAbout()">ⓘ Hakkında</button>
   <input id="search" placeholder="Ara: kelime / meal / konu…  (en az 3 harf)">
 </header>
 <div class="wrap">
@@ -130,6 +157,8 @@ const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/r
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
 const TRK = {"ربب": ["Rab", "rabb"], "رحم": ["rahmet", "merhamet", "esirge", "Rahman", "Rahim", "acı"], "امن": ["iman", "inan", "mü’min", "mümin", "güven", "emin"], "علم": ["ilim", "bil", "âlim", "alim", "bilgi", "öğren"], "هدي": ["hidayet", "doğru yol", "ilet", "yol göster", "kılavuz"], "كفر": ["kâfir", "kafir", "inkâr", "inkar", "küfr", "nankör", "ört"], "خلق": ["yarat", "halk", "yaratıl"], "عبد": ["kul", "ibadet", "tap", "kulluk"], "رسل": ["elçi", "resul", "peygamber", "gönder"], "نعم": ["nimet"], "ضلل": ["sap", "dalâlet", "dalalet", "şaşır"], "ملك": ["mülk", "hükümran", "melik", "sahib", "hüküm"], "يوم": ["gün"], "دين": ["din", "ceza", "hesap"], "عمل": ["amel", "iş", "yap", "çalış"], "صلح": ["sâlih", "salih", "iyi", "ıslah", "düzelt", "barış"], "ذنب": ["günah", "suç"], "عذب": ["azap", "azab", "işkence"], "جنن": ["cennet", "bahçe"], "نار": ["ateş", "cehennem"], "حقق": ["hak", "gerçek", "doğru"], "صبر": ["sabır", "sabret", "dayan", "katlan"], "شكر": ["şükür", "şükret", "teşekkür"], "رزق": ["rızık", "rızk", "geçim", "nasip"], "دعو": ["dua", "çağır", "davet", "yalvar"], "غفر": ["bağışla", "mağfiret", "affet", "affe"], "سمو": ["gök", "sema", "semâ"], "ارض": ["yer", "yeryüzü", "arz", "toprak"], "نفس": ["nefs", "kendi", "can"], "قلب": ["kalp", "gönül", "yürek"], "ايه": ["âyet", "ayet", "delil", "işaret", "mucize"], "كتب": ["kitap", "yaz", "yazı"], "حكم": ["hüküm", "hikmet", "hakem", "karar"], "قوم": ["kavim", "millet", "topluluk", "kalk", "ayakta"], "ولد": ["çocuk", "oğul", "doğur", "evlat"], "موت": ["ölüm", "öl", "ölü"], "حيي": ["diri", "hayat", "yaşa", "can"], "نور": ["nur", "ışık", "aydınlık"], "ظلم": ["zulüm", "zalim", "haksız", "karanlık"], "صدق": ["doğru", "sadık", "tasdik", "dürüst"], "وحد": ["bir", "tek", "birlik"], "شرك": ["ortak", "şirk", "eş koş", "müşrik"], "تقو": ["takva", "sakın", "korun", "muttaki"], "فسق": ["fâsık", "fasık", "fısk", "yoldan çık"], "نبا": ["haber", "nebi", "peygamber"], "سبح": ["tesbih", "yücelt", "noksanlık"], "حمد": ["hamd", "övgü", "över"], "عظم": ["büyük", "yüce", "azîm", "ulu"], "خشي": ["kork", "haşyet", "çekin"], "رجع": ["dön", "rücû", "geri"], "بصر": ["gör", "basiret", "göz"], "سمع": ["işit", "duy", "dinle"], "فوز": ["kurtuluş", "başarı", "felah", "murad"], "خسر": ["hüsran", "ziyan", "kayıp", "zarar", "aldan"], "صمد": ["samed", "müstağni", "muhtaç"], "كفا": ["denk", "eş", "benzer", "küfüv"], "ندد": ["eş", "rakip", "benzer", "put"], "مثل": ["benzer", "misal", "örnek", "gibi"], "انس": ["insan", "kişi", "insanoğlu"], "عصر": ["zaman", "çağ", "ikindi", "asır"], "وصي": ["tavsiye", "öğüt", "vasiyet", "emret"]};
+const ESMA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/esma_index.json";
+let ESMA = {esmalar:[],index:{}};
 // ========================
 
 let DB=null, V=null, S=null, curSure=null, curRef=null, mealMode='mb';
@@ -179,21 +208,40 @@ async function boot(){
     return;
   }
   V=DB.verses; S=DB.sureler;
+  // Esmâ dizinini çek (çevrimdışı için önbellek)
+  try{ const er=await fetch(ESMA_URL+'?t='+Date.now(),{cache:'no-store'});
+    if(er.ok){ ESMA=JSON.parse(await er.text()); try{await idbSet('esma',JSON.stringify(ESMA));}catch(e){} } }
+  catch(e){ try{ const c=await idbGet('esma'); if(c) ESMA=JSON.parse(c); }catch(e2){} }
+  document.getElementById('boothint').className='';
+  document.getElementById('main').className='scrollmode';
   document.getElementById('boothint').textContent='Soldan bir sûre seçin.';
   renderSidebar();
 }
 
 // ---- Sidebar ----
-function renderSidebar(){
+let sbMode='sure';
+function renderSidebar(mode){
+  mode=mode||'sure'; sbMode=mode;
   const sb=document.getElementById('sidebar'); sb.innerHTML='';
-  const ab=el('<div class="sure-item abouttop"><span>ⓘ Hakkında</span></div>'); ab.onclick=()=>showAbout(); sb.appendChild(ab);
-  Object.keys(S).map(Number).sort((a,b)=>a-b).forEach(no=>{
-    const s=S[no];
-    const it=el(`<div class="sure-item" data-no="${no}"><span class="sure-no">${no}</span><span class="sure-name">${esc(s.ad)}</span><span class="sure-cnt">${s.ayet}</span></div>`);
-    it.onclick=()=>selectSure(no); sb.appendChild(it);
-  });
+  if(mode==='esma'){
+    const bk=el('<div class="sure-item abouttop"><span>◀ Sûrelere dön</span></div>'); bk.onclick=()=>backToSure(); sb.appendChild(bk);
+    const hd=el('<div class="sure-item esmatop" style="cursor:default"><span>❈ Esmâ-i Hüsnâ · 99</span></div>'); sb.appendChild(hd);
+    ESMA.esmalar.forEach(e=>{const o=ESMA.index[e];
+      const it=el(`<div class="sure-item esma-side" data-esma="${esc(e)}"><span class="esma-side-ar">${esc(o.ar||'')}</span><span class="esma-side-tr">${esc(e)}</span><span class="sure-cnt">${o.n}</span></div>`);
+      it.onclick=()=>showEsma(e); sb.appendChild(it);
+    });
+  } else {
+    const es=el('<div class="sure-item esmatop"><span>❈ Esmâ-i Hüsnâ</span></div>'); es.onclick=()=>showEsmaList(); sb.appendChild(es);
+    Object.keys(S).map(Number).sort((a,b)=>a-b).forEach(no=>{
+      const s=S[no];
+      const it=el(`<div class="sure-item" data-no="${no}"><span class="sure-no">${no}</span><span class="sure-name">${esc(s.ad)}</span><span class="sure-cnt">${s.ayet}</span></div>`);
+      it.onclick=()=>selectSure(no); sb.appendChild(it);
+    });
+  }
 }
 function markActiveSure(no){document.querySelectorAll('.sure-item').forEach(x=>x.classList.toggle('active',+x.dataset.no===no));}
+function markActiveEsma(name){document.querySelectorAll('.esma-side').forEach(x=>x.classList.toggle('active',x.dataset.esma===name));}
+function backToSure(){ renderSidebar('sure'); curEsma=null; curSure=null; const m=document.getElementById('main'); m.className=''; m.innerHTML='<div class="hint"><div class="big">☾</div><span>Soldan bir sûre seçin.</span></div>'; }
 
 function rootsOf(v){return new Set((v.kr||[]).filter(Boolean));}
 function showMeal(v,roots){ return mealMode==='me' ? esc(v.me||'') : hlTr(v.mb||'',roots); }
@@ -201,6 +249,8 @@ function mealSrc(){ return mealMode==='me' ? 'Saheeh International' : 'Ali Bula�
 function sortRefs(arr){ return arr.sort((a,b)=>{const x=a.split(':').map(Number),y=b.split(':').map(Number);return x[0]-y[0]||x[1]-y[1];}); }
 function hlAr(v,roots){const ws=v.ar.split(' '),kr=v.kr||[];
   return ws.map((w,i)=>(kr[i]&&roots.has(kr[i]))?'<b class="hl">'+esc(w)+'</b>':esc(w)).join(' ');}
+function hlArEsma(v,root){ if(!root) return esc(v.ar); const ws=v.ar.split(' '),kr=v.kr||[];
+  return ws.map((w,i)=>(kr[i]&&kr[i]===root)?'<b class="esmahl">'+esc(w)+'</b>':esc(w)).join(' '); }
 function hlTr(meal,roots){let kws=[];roots.forEach(r=>{if(TRK[r])kws=kws.concat(TRK[r]);});
   kws=[...new Set(kws)].filter(Boolean).sort((a,b)=>b.length-a.length);let out=esc(meal||'');
   if(!kws.length)return out;const pat=kws.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|');
@@ -208,8 +258,10 @@ function hlTr(meal,roots){let kws=[];roots.forEach(r=>{if(TRK[r])kws=kws.concat(
 
 // ---- Sure okuma görünümü (Arapça+Türkçe) ----
 function selectSure(no){
-  curSure=no; markActiveSure(no);
-  const s=S[no], m=document.getElementById('main');
+  curSure=no; curEsma=null;
+  if(sbMode!=='sure') renderSidebar('sure');
+  markActiveSure(no);
+  const s=S[no], m=document.getElementById('main'); m.className='';
   let rows='';
   for(let i=1;i<=s.ayet;i++){const ref=no+':'+i,v=V[ref];if(!v)continue;const sr=rootsOf(v);
     rows+=`<div class="arow" data-ref="${ref}"><div class="anum">${i}</div><div class="abody"><div class="ar">${hlAr(v,sr)}</div><div class="tr">${showMeal(v,sr)}</div></div></div>`;}
@@ -247,7 +299,8 @@ function selectVerse(ref,fromHist){
     <button class="btn" onclick="adminAdd('${ref}')">＋ âyet ekle</button>
     <button class="btn" onclick="exportData()" title="Güncel veriyi app_data.json olarak indir (GitHub'a yükle)">⭳ app_data.json indir</button>
     <button class="btn" onclick="refetch()" title="GitHub'dan güncel veriyi çek">↻ GitHub'dan çek</button></div>`:'';
-  document.getElementById('main').innerHTML=`
+  const M=document.getElementById('main'); M.className='lockmode'; M.innerHTML=`
+    <div class="locktop">
     <div class="backbtn" onclick="selectSure(${v.s})">‹ ${esc(v.sa)} sûresine dön</div>
     <div class="toolbar">
       <div class="navbtns">
@@ -267,7 +320,8 @@ function selectVerse(ref,fromHist){
       ${tags?`<div class="tags">${tags}</div>`:''}</div>
     <div class="sectitle">İlişkili Âyetler <span class="n">${rel.length}</span>${v.t?'<span class="draft">otomatik taslak</span>':''}</div>
     ${addUI}
-    <div id="rellist">${relHtml}</div>`;
+    </div>
+    <div class="scrollbody"><div id="rellist">${relHtml}</div></div>`;
   document.querySelectorAll('.rel').forEach(r=>r.onclick=()=>goto(r.dataset.ref));
 }
 function setMeal(m){mealMode=m; if(curRef)selectVerse(curRef,true);}
@@ -314,7 +368,7 @@ function runSearch(q){
   const ql=q.toLowerCase();const res=[];
   for(const ref in V){const v=V[ref];
     if((v.mb&&v.mb.toLowerCase().includes(ql))||(v.me&&v.me.toLowerCase().includes(ql))||(v.ko&&v.ko.some(k=>k.toLowerCase().includes(ql)))||v.ar.includes(q)){res.push(ref);if(res.length>=200)break;}}
-  const m=document.getElementById('main');
+  const m=document.getElementById('main'); m.className='';
   m.innerHTML=`<div class="searchhead">"${esc(q)}" için ${res.length}${res.length>=200?'+':''} sonuç</div>`;
   const list=el('<div></div>');
   res.forEach(ref=>{const v=V[ref];
@@ -349,8 +403,8 @@ function mdToHtml(md){
   cl(); return h;
 }
 async function showAbout(){
-  markActiveSure(-1);
-  const m=document.getElementById('main');
+  markActiveSure(-1); curEsma=null;
+  const m=document.getElementById('main'); m.className='';
   m.innerHTML='<div class="aboutwrap"><p style="color:var(--muted)">Hakkında yükleniyor…</p></div>';
   let md=null;
   try{ const r=await fetch(ABOUT_URL+'?t='+Date.now(),{cache:'no-store'});
@@ -358,10 +412,49 @@ async function showAbout(){
   if(md===null){ try{ md=await idbGet('about'); }catch(e){} }
   const counter='<div class="counter">Ziyaretçi sayısı<br><br><img src="https://api.visitorbadge.io/api/visitors?path=ayatulkuran-konkordans&label=Ziyaret%C3%A7i&labelColor=%230c5c48&countColor=%23a67c2e&style=for-the-badge" alt="ziyaretci sayaci"></div>';
   const body = md ? mdToHtml(md) : '<p>Hakkında metni yüklenemedi. İnternete bağlanıp tekrar deneyin.</p>';
-  m.innerHTML='<div class="aboutwrap">'+counter+body+'<p style="margin-top:24px;color:var(--muted);font-size:13px">© ayatulkuran</p></div>';
+  m.innerHTML='<div class="aboutwrap">'+counter+body+'<p style="margin-top:24px;color:var(--muted);font-size:13px">© ayatulkuran</p><p class="filigran">Teknik destek: M. Mustafa MURAT</p></div>';
   m.scrollTop=0;
 }
 
+let curEsma=null;
+function showEsmaList(){
+  curEsma=null; curSure=null;
+  renderSidebar('esma');
+  const m=document.getElementById('main'); m.className='';
+  m.innerHTML=`<div class="hint"><div class="big">❈</div><span>Esmâ-i Hüsnâ — ${ESMA.esmalar.length} isim</span><br><span style="font-size:14px;color:var(--muted)">Soldan bir esmâ seçin.</span>
+    <div class="tekdestek" style="max-width:420px;margin:26px auto 0;text-align:center">Teknik destek: M. Mustafa Murat</div></div>`;
+  m.scrollTop=0;
+}
+function showEsma(name){
+  const info=ESMA.index[name]; if(!info)return;
+  curEsma=name; markActiveSure(-1); curSure=null;
+  const root=info.k||''; const i=ESMA.esmalar.indexOf(name), N=ESMA.esmalar.length;
+  if(sbMode!=='esma') renderSidebar('esma');
+  markActiveEsma(name);
+  let rows='';
+  info.r.forEach(rr=>{const w=V[rr]; if(!w)return;
+    rows+=`<div class="rel" data-ref="${rr}"><div class="ar">${hlArEsma(w,root)}</div>
+      <div><span class="ref">${esc(w.sa)} ${w.a} (${rr})</span><div class="rm">${showMeal(w,new Set())}</div></div></div>`;});
+  const m=document.getElementById('main'); m.className='lockmode';
+  m.innerHTML=`
+    <div class="locktop">
+      <div class="toolbar">
+        <div class="navbtns">
+          <div class="navbtn wide ${i<=0?'disabled':''}" title="Önceki esmâ" onclick="esmaAt(-1)">◄ Önceki</div>
+          <div class="navbtn wide ${i>=N-1?'disabled':''}" title="Sonraki esmâ" onclick="esmaAt(1)">Sonraki ►</div>
+        </div>
+        <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealEsma('mb')">Türkçe (Ali Bulaç)</button>
+        <button class="btn ${mealMode==='me'?'on':''}" onclick="setMealEsma('me')">İngilizce (Saheeh Int'l)</button>
+        <button class="btn" onclick="window.print()" title="PDF kaydet">⤓ PDF</button>
+      </div>
+      <div class="esma-head"><span class="esma-ar-big">${esc(info.ar||'')}</span><span class="esma-baslik">${esc(name)}</span><span class="esma-say2">${info.n} âyet</span></div>
+    </div>
+    <div class="scrollbody">${rows}</div>`;
+  m.querySelectorAll('.rel').forEach(r=>r.onclick=()=>goto(r.dataset.ref));
+  m.scrollTop=0;
+}
+function esmaAt(d){ const i=ESMA.esmalar.indexOf(curEsma), j=i+d; if(j>=0&&j<ESMA.esmalar.length) showEsma(ESMA.esmalar[j]); }
+function setMealEsma(mm){ mealMode=mm; if(curEsma)showEsma(curEsma); }
 boot();
 </script>
 </body>

@@ -51,10 +51,7 @@ Kur'an'ın tamamı: 6236 âyet — Arapça (Uthmani hattı) ve Türkçe okunuş
 Meâl: Türkçe (Ali Bulaç) ve İngilizce (Saheeh International)
 Her âyet için kavram kökleri, konular ve ilişkili âyetler
 Kavram kökünün hem Arapça hem meâlde vurgulanması
-İletişim
-Eserle ilgili görüş, öneri ve düzeltmelerinizi aşağıdaki adrese iletebilirsiniz:
 
-E-posta: ali-zararsiz@hotmail.com
 
 Bir Not
 "Otomatik taslak" işareti taşıyan âyetlerin ilişkili listesi, henüz elle işlenmemiş bölümler için, aynı yöntemin (kavram kökü, anlam ayıklaması, ilgili olan kadar) bilgisayarla uygulanmasıyla üretilmiş bir başlangıç önerisidir ve gözden geçirilmektedir. Elle derlenmiş bölümler bu işareti taşımaz.

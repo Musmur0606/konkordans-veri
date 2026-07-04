@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kur'an Kavram Konkordansı</title>
+<title>ayatulkuran</title>
 <style>
   :root{--bg:#f6f3ea;--panel:#fffdf8;--ink:#22201b;--muted:#6b6459;--line:#e5ddcb;
     --green:#0c5c48;--green2:#0a4a3a;--gold:#a67c2e;--red:#a3341f;--chip:#efe9d8;}
@@ -88,19 +88,26 @@
   .navbtn:hover:not(.disabled){background:var(--green);color:#fff;border-color:var(--green)}
   .navbtn.disabled{opacity:.35;cursor:default;color:var(--muted)}
   .navbtn.wide{min-width:auto;padding:0 12px;font-size:13px}
+  .aboutwrap{max-width:760px;line-height:1.7}
+  .aboutwrap h2{color:var(--green);margin:22px 0 8px}
+  .aboutwrap p{margin:8px 0}
+  .aboutwrap .lead{font-size:16px;color:var(--green2)}
+  .aboutwrap ul{margin:8px 0;padding-left:22px}
+  .counter{margin:20px 0;padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;text-align:center}
+  .abouttop{background:#f0ece0!important;font-weight:600;color:var(--green2)}
   .searchhead{font-size:14px;color:var(--muted);margin-bottom:14px}
   ::-webkit-scrollbar{width:10px}::-webkit-scrollbar-thumb{background:#d9d0bd;border-radius:5px}
   @media print{header,#sidebar,.toolbar,.versebar,.crumb,.relactions,.restore,.addrow,.backbtn{display:none!important}
     .wrap{height:auto;display:block}#main{overflow:visible;padding:0}body,html{background:#fff;height:auto}
     .maincard,.rel,.arow{break-inside:avoid;box-shadow:none}b.hl{color:#a3341f!important}.ar b.hl{color:#8a1a0a!important}
     *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-    #main::before{content:"Kur\2019an Kavram Konkordans\131  \2014  Ali R\131za ZARARSIZ taraf\131ndan derlenmektedir.";display:block;font-size:12px;color:#888;border-bottom:1px solid #ccc;padding-bottom:6px;margin-bottom:12px}}
+    #main::before{content:"ayatulkuran  \2014  Ali R\131za ZARARSIZ taraf\131ndan derlenmektedir.";display:block;font-size:12px;color:#888;border-bottom:1px solid #ccc;padding-bottom:6px;margin-bottom:12px}}
 </style>
 </head>
 <body>
 <header>
   <div>
-    <h1>Kur'an Kavram Konkordansı <span id="abadge"></span></h1>
+    <h1>ayatulkuran <span id="abadge"></span></h1>
     <div class="sub">Ayet ayet ilişkili âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div>
   </div>
   <span id="status" class="load">yükleniyor…</span>
@@ -118,7 +125,7 @@ const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıc
 const TRK = {"ربب": ["Rab", "rabb"], "رحم": ["rahmet", "merhamet", "esirge", "Rahman", "Rahim", "acı"], "امن": ["iman", "inan", "mü’min", "mümin", "güven", "emin"], "علم": ["ilim", "bil", "âlim", "alim", "bilgi", "öğren"], "هدي": ["hidayet", "doğru yol", "ilet", "yol göster", "kılavuz"], "كفر": ["kâfir", "kafir", "inkâr", "inkar", "küfr", "nankör", "ört"], "خلق": ["yarat", "halk", "yaratıl"], "عبد": ["kul", "ibadet", "tap", "kulluk"], "رسل": ["elçi", "resul", "peygamber", "gönder"], "نعم": ["nimet"], "ضلل": ["sap", "dalâlet", "dalalet", "şaşır"], "ملك": ["mülk", "hükümran", "melik", "sahib", "hüküm"], "يوم": ["gün"], "دين": ["din", "ceza", "hesap"], "عمل": ["amel", "iş", "yap", "çalış"], "صلح": ["sâlih", "salih", "iyi", "ıslah", "düzelt", "barış"], "ذنب": ["günah", "suç"], "عذب": ["azap", "azab", "işkence"], "جنن": ["cennet", "bahçe"], "نار": ["ateş", "cehennem"], "حقق": ["hak", "gerçek", "doğru"], "صبر": ["sabır", "sabret", "dayan", "katlan"], "شكر": ["şükür", "şükret", "teşekkür"], "رزق": ["rızık", "rızk", "geçim", "nasip"], "دعو": ["dua", "çağır", "davet", "yalvar"], "غفر": ["bağışla", "mağfiret", "affet", "affe"], "سمو": ["gök", "sema", "semâ"], "ارض": ["yer", "yeryüzü", "arz", "toprak"], "نفس": ["nefs", "kendi", "can"], "قلب": ["kalp", "gönül", "yürek"], "ايه": ["âyet", "ayet", "delil", "işaret", "mucize"], "كتب": ["kitap", "yaz", "yazı"], "حكم": ["hüküm", "hikmet", "hakem", "karar"], "قوم": ["kavim", "millet", "topluluk", "kalk", "ayakta"], "ولد": ["çocuk", "oğul", "doğur", "evlat"], "موت": ["ölüm", "öl", "ölü"], "حيي": ["diri", "hayat", "yaşa", "can"], "نور": ["nur", "ışık", "aydınlık"], "ظلم": ["zulüm", "zalim", "haksız", "karanlık"], "صدق": ["doğru", "sadık", "tasdik", "dürüst"], "وحد": ["bir", "tek", "birlik"], "شرك": ["ortak", "şirk", "eş koş", "müşrik"], "تقو": ["takva", "sakın", "korun", "muttaki"], "فسق": ["fâsık", "fasık", "fısk", "yoldan çık"], "نبا": ["haber", "nebi", "peygamber"], "سبح": ["tesbih", "yücelt", "noksanlık"], "حمد": ["hamd", "övgü", "över"], "عظم": ["büyük", "yüce", "azîm", "ulu"], "خشي": ["kork", "haşyet", "çekin"], "رجع": ["dön", "rücû", "geri"], "بصر": ["gör", "basiret", "göz"], "سمع": ["işit", "duy", "dinle"], "فوز": ["kurtuluş", "başarı", "felah", "murad"], "خسر": ["hüsran", "ziyan", "kayıp", "zarar", "aldan"], "صمد": ["samed", "müstağni", "muhtaç"], "كفا": ["denk", "eş", "benzer", "küfüv"], "ندد": ["eş", "rakip", "benzer", "put"], "مثل": ["benzer", "misal", "örnek", "gibi"], "انس": ["insan", "kişi", "insanoğlu"], "عصر": ["zaman", "çağ", "ikindi", "asır"], "وصي": ["tavsiye", "öğüt", "vasiyet", "emret"]};
 // ========================
 
-let DB=null, V=null, S=null, curSure=null, curRef=null, mealMode='md';
+let DB=null, V=null, S=null, curSure=null, curRef=null, mealMode='mb';
 let HIST=[], HPTR=-1;
 const el=(h)=>{const d=document.createElement('div');d.innerHTML=h;return d.firstElementChild;};
 function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
@@ -172,6 +179,7 @@ async function boot(){
 // ---- Sidebar ----
 function renderSidebar(){
   const sb=document.getElementById('sidebar'); sb.innerHTML='';
+  const ab=el('<div class="sure-item abouttop"><span>ⓘ Hakkında</span></div>'); ab.onclick=()=>showAbout(); sb.appendChild(ab);
   Object.keys(S).map(Number).sort((a,b)=>a-b).forEach(no=>{
     const s=S[no];
     const it=el(`<div class="sure-item" data-no="${no}"><span class="sure-no">${no}</span><span class="sure-name">${esc(s.ad)}</span><span class="sure-cnt">${s.ayet}</span></div>`);
@@ -181,6 +189,8 @@ function renderSidebar(){
 function markActiveSure(no){document.querySelectorAll('.sure-item').forEach(x=>x.classList.toggle('active',+x.dataset.no===no));}
 
 function rootsOf(v){return new Set((v.kr||[]).filter(Boolean));}
+function showMeal(v,roots){ return mealMode==='me' ? esc(v.me||'') : hlTr(v.mb||'',roots); }
+function sortRefs(arr){ return arr.sort((a,b)=>{const x=a.split(':').map(Number),y=b.split(':').map(Number);return x[0]-y[0]||x[1]-y[1];}); }
 function hlAr(v,roots){const ws=v.ar.split(' '),kr=v.kr||[];
   return ws.map((w,i)=>(kr[i]&&roots.has(kr[i]))?'<b class="hl">'+esc(w)+'</b>':esc(w)).join(' ');}
 function hlTr(meal,roots){let kws=[];roots.forEach(r=>{if(TRK[r])kws=kws.concat(TRK[r]);});
@@ -194,10 +204,10 @@ function selectSure(no){
   const s=S[no], m=document.getElementById('main');
   let rows='';
   for(let i=1;i<=s.ayet;i++){const ref=no+':'+i,v=V[ref];if(!v)continue;const sr=rootsOf(v);
-    rows+=`<div class="arow" data-ref="${ref}"><div class="anum">${i}</div><div class="abody"><div class="ar">${hlAr(v,sr)}</div><div class="tr">${hlTr(v[mealMode]||v.md,sr)}</div></div></div>`;}
+    rows+=`<div class="arow" data-ref="${ref}"><div class="anum">${i}</div><div class="abody"><div class="ar">${hlAr(v,sr)}</div><div class="tr">${showMeal(v,sr)}</div></div></div>`;}
   m.innerHTML=`<div class="crumb">${esc(s.ad)} sûresi · ${s.ayet} âyet — bir âyete tıklayın (analiz)</div>
-    <div class="toolbar"><button class="btn ${mealMode==='md'?'on':''}" onclick="setMealSure('md')">Diyanet</button>
-    <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealSure('mb')">Ali Bulaç</button>
+    <div class="toolbar"><button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealSure('mb')">Türkçe</button>
+    <button class="btn ${mealMode==='me'?'on':''}" onclick="setMealSure('me')">İngilizce</button>
     <button class="btn" onclick="window.print()" title="Bu sûreyi PDF kaydet">⤓ PDF</button></div>
     <div class="sureread">${rows}</div>`;
   m.querySelectorAll('.arow').forEach(r=>r.onclick=()=>openRef(r.dataset.ref)); m.scrollTop=0;
@@ -220,7 +230,7 @@ function selectVerse(ref,fromHist){
       const link=new Set([...rootsOf(w)].filter(x=>seedRoots.has(x)));
       const ap=(w._ap===ref);
       relHtml+=`<div class="rel ${ap?'approved':''}" data-ref="${rr}"><div class="ar">${hlAr(w,link)}</div>
-        <div><span class="ref">${esc(w.sa)} ${w.a} (${rr})</span><div class="rm">${hlTr(w[mealMode]||w.md,link)}</div></div>
+        <div><span class="ref">${esc(w.sa)} ${w.a} (${rr})</span><div class="rm">${showMeal(w,link)}</div></div>
         ${ADMIN?`<div class="relactions"><span class="minibtn rm" onclick="event.stopPropagation();adminRemove('${ref}','${rr}')">✕ çıkar</span></div>`:''}</div>`;
     });
   } else relHtml=`<div class="empty">Bu âyet için ilişkili âyet verisi yok.</div>`;
@@ -238,13 +248,13 @@ function selectVerse(ref,fromHist){
         <div class="navbtn wide ${!prevRef(ref)?'disabled':''}" title="Önceki âyet" onclick="stepPrev()">◄ Önceki</div>
         <div class="navbtn wide ${!nextRef(ref)?'disabled':''}" title="Sonraki âyet" onclick="stepNext()">Sonraki ►</div>
       </div>
-      <button class="btn ${mealMode==='md'?'on':''}" onclick="setMeal('md')">Diyanet</button>
-      <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMeal('mb')">Ali Bulaç</button>
+      <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMeal('mb')">Türkçe</button>
+      <button class="btn ${mealMode==='me'?'on':''}" onclick="setMeal('me')">İngilizce</button>
       <button class="btn" onclick="window.print()" title="Bu sayfayı PDF kaydet">⤓ PDF</button>
     </div>
     <div class="maincard"><div class="ar">${hlAr(v,seedRoots)}</div>
       ${v.ok?`<div class="ok">${esc(v.ok)}</div>`:''}
-      <div class="meal">${hlTr(v[mealMode]||v.md,seedRoots)}</div>
+      <div class="meal">${showMeal(v,seedRoots)}</div>
       <div class="meal-src">${esc(v.sa)} ${v.a}. âyet — ${ref}</div>
       ${tags?`<div class="tags">${tags}</div>`:''}</div>
     <div class="sectitle">İlişkili Âyetler <span class="n">${rel.length}</span>${v.t?'<span class="draft">otomatik taslak</span>':''}</div>
@@ -262,12 +272,12 @@ function stepNext(){const r=nextRef(curRef);if(r)openRef(r);}
 
 // ---- ADMIN: ekle / çıkar / kaydet / dışa aktar ----
 function saveWorking(){ if(!ADMIN)return; try{ idbSet('workingcopy',JSON.stringify(DB)); idbSet('wc_time',new Date().toISOString()); }catch(e){} }
-function adminRemove(seed,ref){ const v=V[seed]; v.r=(v.r||[]).filter(x=>x!==ref); saveWorking(); selectVerse(seed,true); }
+function adminRemove(seed,ref){ const v=V[seed]; v.r=sortRefs((v.r||[]).filter(x=>x!==ref)); saveWorking(); selectVerse(seed,true); }
 function adminAdd(seed){ const inp=document.getElementById('addref'); if(!inp)return; const ref=inp.value.trim();
   if(!/^\d+:\d+$/.test(ref)){alert('Geçerli bir âyet yazın (ör. 2:255).');return;}
   if(!V[ref]){alert('Böyle bir âyet yok.');return;}
   const v=V[seed]; v.r=v.r||[]; if(v.r.includes(ref)){alert('Zaten ekli.');return;}
-  v.r.push(ref); v.r.sort((a,b)=>{const[s1,a1]=a.split(':').map(Number),[s2,a2]=b.split(':').map(Number);return s1-s2||a1-a2;});
+  v.r.push(ref); sortRefs(v.r);
   saveWorking(); selectVerse(seed,true);
 }
 function exportData(){ const blob=new Blob([JSON.stringify(DB)],{type:'application/json'});
@@ -288,12 +298,12 @@ function runSearch(q){
   if(q.length<3){if(curSure)selectSure(curSure);return;}
   const ql=q.toLowerCase();const res=[];
   for(const ref in V){const v=V[ref];
-    if((v.md&&v.md.toLowerCase().includes(ql))||(v.mb&&v.mb.toLowerCase().includes(ql))||(v.ko&&v.ko.some(k=>k.toLowerCase().includes(ql)))||v.ar.includes(q)){res.push(ref);if(res.length>=200)break;}}
+    if((v.mb&&v.mb.toLowerCase().includes(ql))||(v.me&&v.me.toLowerCase().includes(ql))||(v.ko&&v.ko.some(k=>k.toLowerCase().includes(ql)))||v.ar.includes(q)){res.push(ref);if(res.length>=200)break;}}
   const m=document.getElementById('main');
   m.innerHTML=`<div class="searchhead">"${esc(q)}" için ${res.length}${res.length>=200?'+':''} sonuç</div>`;
   const list=el('<div></div>');
   res.forEach(ref=>{const v=V[ref];
-    const r=el(`<div class="rel" data-ref="${ref}"><div class="ar">${esc(v.ar)}</div><div><span class="ref">${esc(v.sa)} ${v.a} (${ref})</span><div class="rm">${hi(esc(v[mealMode]||v.md),q)}</div></div></div>`);
+    const r=el(`<div class="rel" data-ref="${ref}"><div class="ar">${esc(v.ar)}</div><div><span class="ref">${esc(v.sa)} ${v.a} (${ref})</span><div class="rm">${hi(esc(mealMode==='me'?v.me:v.mb),q)}</div></div></div>`);
     r.onclick=()=>goto(ref);list.appendChild(r);});
   m.appendChild(list);m.scrollTop=0;
 }
@@ -306,6 +316,44 @@ document.addEventListener('keydown',e=>{
   else if(e.key==='ArrowLeft')stepPrev();
   else if(e.key==='ArrowRight')stepNext();
 });
+function showAbout(){
+  markActiveSure(-1);
+  const m=document.getElementById('main');
+  m.innerHTML=`<div class="aboutwrap">
+    <h1 style="color:var(--green);margin-bottom:4px">ayatulkuran</h1>
+    <p class="lead">Kur'an-ı Kerim kavram konkordansı — her âyet için, aynı kavramı ve konuyu paylaşan <b>ilişkili âyetler</b>.</p>
+    <p><i>Ali Rıza ZARARSIZ tarafından derlenmektedir.</i></p>
+    <div class="counter">Ziyaretçi sayısı<br><br>
+      <img src="https://api.visitorbadge.io/api/visitors?path=ayatulkuran-konkordans&label=Ziyaret%C3%A7i&labelColor=%230c5c48&countColor=%23a67c2e&style=for-the-badge" alt="ziyaretçi sayacı">
+    </div>
+    <h2>Nedir?</h2>
+    <p>Bu çalışma, Kur'an'daki her âyeti merkeze alıp, o âyetin kavramını (kökünü, konusunu, temasını) paylaşan diğer âyetleri bir araya getirir. Bir âyete tıkladığınızda, onunla anlamca ilişkili âyetleri Arapça ve meâliyle görürsünüz; kavram kökü her iki metinde de vurgulanır.</p>
+    <h2>İçerik</h2>
+    <ul>
+      <li>6236 âyet — Arapça (Uthmani hattı) + Türkçe okunuş</li>
+      <li>Meâl: <b>Türkçe</b> (Ali Bulaç) ve <b>İngilizce</b> (Saheeh International)</li>
+      <li>Her âyet için kavram kökleri, konular ve ilişkili âyetler</li>
+    </ul>
+    <h2>Nasıl kullanılır?</h2>
+    <ul>
+      <li>Soldan bir <b>sûre</b> seçin → âyetler Arapça ve meâliyle gelir.</li>
+      <li>Bir <b>âyete tıklayın</b> → onunla ilişkili âyetler açılır.</li>
+      <li>Üstteki kutudan <b>arama</b> yapın (kelime / meâl / konu).</li>
+      <li><b>Türkçe / İngilizce</b> meâl arasında geçiş yapın.</li>
+      <li><b>⤓ PDF</b> ile görüntülediğiniz sayfayı kaydedin.</li>
+    </ul>
+    <h2>Notlar</h2>
+    <p>"<span class="draft" style="margin:0">otomatik taslak</span>" işaretli âyetlerin ilişkili listesi, henüz elle işlenmemiş sûreler için otomatik üretilmiştir ve gözden geçirilmektedir. Elle derlenmiş sûreler bu işareti taşımaz.</p>
+    <h2>Kaynaklar</h2>
+    <ul>
+      <li>Morfoloji: Quranic Arabic Corpus</li>
+      <li>Kavram/tema: Quranic Universal Library (QUL)</li>
+      <li>İngilizce meâl: Saheeh International (risan/quran-json)</li>
+    </ul>
+    <p style="margin-top:24px;color:var(--muted);font-size:13px">© ayatulkuran — Ali Rıza ZARARSIZ</p>
+  </div>`;
+  m.scrollTop=0;
+}
 boot();
 </script>
 </body>

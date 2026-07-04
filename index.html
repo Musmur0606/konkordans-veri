@@ -92,6 +92,7 @@
   .aboutwrap h2{color:var(--green);margin:22px 0 8px}
   .aboutwrap p{margin:8px 0}
   .aboutwrap .lead{font-size:16px;color:var(--green2)}
+  .aboutwrap a{color:var(--green);text-decoration:underline}
   .aboutwrap ul{margin:8px 0;padding-left:22px}
   .aboutwrap blockquote{border-left:3px solid var(--gold);background:var(--panel);margin:12px 0;padding:12px 16px;border-radius:0 8px 8px 0;color:var(--ink);line-height:1.6}
   .counter{margin:20px 0;padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;text-align:center}
@@ -152,7 +153,7 @@ async function boot(){
   if(ADMIN){ try{const wc=await idbGet('workingcopy'); if(wc){DB=JSON.parse(wc); loaded=true; when=await idbGet('wc_time'); setStatus('offline','yerel çalışma kopyası · '+(when?fmtDate(when):''));}}catch(e){} }
   if(!loaded){
     try{
-      const resp=await fetch(DATA_URL,{cache:'no-store'});
+      const resp=await fetch(DATA_URL+'?t='+Date.now(),{cache:'no-store'});
       if(!resp.ok) throw new Error('http '+resp.status);
       const txt=await resp.text();
       DB=JSON.parse(txt);
@@ -285,7 +286,7 @@ function adminAdd(seed){ const inp=document.getElementById('addref'); if(!inp)re
 function exportData(){ const blob=new Blob([JSON.stringify(DB)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='app_data.json'; a.click(); }
 async function refetch(){ if(!confirm('GitHub\'dan güncel veri çekilecek. Kaydedilmemiş yerel düzenlemeler kaybolabilir. Devam?'))return;
-  try{ const resp=await fetch(DATA_URL,{cache:'no-store'}); const txt=await resp.text(); DB=JSON.parse(txt);
+  try{ const resp=await fetch(DATA_URL+'?t='+Date.now(),{cache:'no-store'}); const txt=await resp.text(); DB=JSON.parse(txt);
     await idbSet('cache',txt); await idbSet('cache_time',new Date().toISOString());
     try{ await idb('readwrite',(st,res)=>{st.delete('workingcopy');res();}); }catch(e){}
     V=DB.verses; S=DB.sureler; setStatus('online','🟢 güncel · '+fmtDate(new Date().toISOString()));
@@ -320,7 +321,7 @@ document.addEventListener('keydown',e=>{
 });
 function mdToHtml(md){
   const e=(x)=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  const inl=(x)=>e(x).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/\*([^*]+)\*/g,'<i>$1</i>');
+  const inl=(x)=>e(x).replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>').replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/\*([^*]+)\*/g,'<i>$1</i>');
   const lines=md.replace(/\r/g,'').split('\n'); let h='', inList=false;
   const cl=()=>{ if(inList){h+='</ul>'; inList=false;} };
   for(const raw of lines){ const t=raw.replace(/\s+$/,'');

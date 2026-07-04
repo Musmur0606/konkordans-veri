@@ -62,9 +62,21 @@ Nihayetinde, Rabbimin yardımı ve tevfîkiyle bu çalışmayı hakkıyla tamaml
 - Her âyet için kavram kökleri, konular ve ilişkili âyetler
 - Kavram kökünün hem Arapça hem meâlde vurgulanması
 
+## İletişim
+
+Eserle ilgili görüş, öneri ve düzeltmelerinizi aşağıdaki adrese iletebilirsiniz:
+
+**E-posta:** [ali-zararsiz@hotmail.com](mailto:ali-zararsiz@hotmail.com)
+
 ## Bir Not
 
 "Otomatik taslak" işareti taşıyan âyetlerin ilişkili listesi, henüz elle işlenmemiş bölümler için, aynı yöntemin (kavram kökü, anlam ayıklaması, ilgili olan kadar) bilgisayarla uygulanmasıyla üretilmiş bir başlangıç önerisidir ve gözden geçirilmektedir. Elle derlenmiş bölümler bu işareti taşımaz.
+
+## İletişim
+
+Görüş, öneri, düzeltme veya katkılarınız için:
+
+**E-posta:** ali-zarasiz@hotmail.com
 
 ---
 

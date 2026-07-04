@@ -93,6 +93,7 @@
   .aboutwrap p{margin:8px 0}
   .aboutwrap .lead{font-size:16px;color:var(--green2)}
   .aboutwrap ul{margin:8px 0;padding-left:22px}
+  .aboutwrap blockquote{border-left:3px solid var(--gold);background:var(--panel);margin:12px 0;padding:12px 16px;border-radius:0 8px 8px 0;color:var(--ink);line-height:1.6}
   .counter{margin:20px 0;padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;text-align:center}
   .abouttop{background:#f0ece0!important;font-weight:600;color:var(--green2)}
   .searchhead{font-size:14px;color:var(--muted);margin-bottom:14px}
@@ -121,6 +122,7 @@
 <script>
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
+const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
 const TRK = {"ربب": ["Rab", "rabb"], "رحم": ["rahmet", "merhamet", "esirge", "Rahman", "Rahim", "acı"], "امن": ["iman", "inan", "mü’min", "mümin", "güven", "emin"], "علم": ["ilim", "bil", "âlim", "alim", "bilgi", "öğren"], "هدي": ["hidayet", "doğru yol", "ilet", "yol göster", "kılavuz"], "كفر": ["kâfir", "kafir", "inkâr", "inkar", "küfr", "nankör", "ört"], "خلق": ["yarat", "halk", "yaratıl"], "عبد": ["kul", "ibadet", "tap", "kulluk"], "رسل": ["elçi", "resul", "peygamber", "gönder"], "نعم": ["nimet"], "ضلل": ["sap", "dalâlet", "dalalet", "şaşır"], "ملك": ["mülk", "hükümran", "melik", "sahib", "hüküm"], "يوم": ["gün"], "دين": ["din", "ceza", "hesap"], "عمل": ["amel", "iş", "yap", "çalış"], "صلح": ["sâlih", "salih", "iyi", "ıslah", "düzelt", "barış"], "ذنب": ["günah", "suç"], "عذب": ["azap", "azab", "işkence"], "جنن": ["cennet", "bahçe"], "نار": ["ateş", "cehennem"], "حقق": ["hak", "gerçek", "doğru"], "صبر": ["sabır", "sabret", "dayan", "katlan"], "شكر": ["şükür", "şükret", "teşekkür"], "رزق": ["rızık", "rızk", "geçim", "nasip"], "دعو": ["dua", "çağır", "davet", "yalvar"], "غفر": ["bağışla", "mağfiret", "affet", "affe"], "سمو": ["gök", "sema", "semâ"], "ارض": ["yer", "yeryüzü", "arz", "toprak"], "نفس": ["nefs", "kendi", "can"], "قلب": ["kalp", "gönül", "yürek"], "ايه": ["âyet", "ayet", "delil", "işaret", "mucize"], "كتب": ["kitap", "yaz", "yazı"], "حكم": ["hüküm", "hikmet", "hakem", "karar"], "قوم": ["kavim", "millet", "topluluk", "kalk", "ayakta"], "ولد": ["çocuk", "oğul", "doğur", "evlat"], "موت": ["ölüm", "öl", "ölü"], "حيي": ["diri", "hayat", "yaşa", "can"], "نور": ["nur", "ışık", "aydınlık"], "ظلم": ["zulüm", "zalim", "haksız", "karanlık"], "صدق": ["doğru", "sadık", "tasdik", "dürüst"], "وحد": ["bir", "tek", "birlik"], "شرك": ["ortak", "şirk", "eş koş", "müşrik"], "تقو": ["takva", "sakın", "korun", "muttaki"], "فسق": ["fâsık", "fasık", "fısk", "yoldan çık"], "نبا": ["haber", "nebi", "peygamber"], "سبح": ["tesbih", "yücelt", "noksanlık"], "حمد": ["hamd", "övgü", "över"], "عظم": ["büyük", "yüce", "azîm", "ulu"], "خشي": ["kork", "haşyet", "çekin"], "رجع": ["dön", "rücû", "geri"], "بصر": ["gör", "basiret", "göz"], "سمع": ["işit", "duy", "dinle"], "فوز": ["kurtuluş", "başarı", "felah", "murad"], "خسر": ["hüsran", "ziyan", "kayıp", "zarar", "aldan"], "صمد": ["samed", "müstağni", "muhtaç"], "كفا": ["denk", "eş", "benzer", "küfüv"], "ندد": ["eş", "rakip", "benzer", "put"], "مثل": ["benzer", "misal", "örnek", "gibi"], "انس": ["insan", "kişi", "insanoğlu"], "عصر": ["zaman", "çağ", "ikindi", "asır"], "وصي": ["tavsiye", "öğüt", "vasiyet", "emret"]};
 // ========================
@@ -316,44 +318,37 @@ document.addEventListener('keydown',e=>{
   else if(e.key==='ArrowLeft')stepPrev();
   else if(e.key==='ArrowRight')stepNext();
 });
-function showAbout(){
+function mdToHtml(md){
+  const e=(x)=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const inl=(x)=>e(x).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/\*([^*]+)\*/g,'<i>$1</i>');
+  const lines=md.replace(/\r/g,'').split('\n'); let h='', inList=false;
+  const cl=()=>{ if(inList){h+='</ul>'; inList=false;} };
+  for(const raw of lines){ const t=raw.replace(/\s+$/,'');
+    if(/^---+$/.test(t)){ cl(); h+='<hr>'; }
+    else if(/^### /.test(t)){ cl(); h+='<h3>'+inl(t.slice(4))+'</h3>'; }
+    else if(/^## /.test(t)){ cl(); h+='<h2>'+inl(t.slice(3))+'</h2>'; }
+    else if(/^# /.test(t)){ cl(); h+='<h1>'+inl(t.slice(2))+'</h1>'; }
+    else if(/^> /.test(t)){ cl(); h+='<blockquote>'+inl(t.slice(2))+'</blockquote>'; }
+    else if(/^[-*] /.test(t)){ if(!inList){h+='<ul>';inList=true;} h+='<li>'+inl(t.slice(2))+'</li>'; }
+    else if(t===''){ cl(); }
+    else { cl(); h+='<p>'+inl(t)+'</p>'; }
+  }
+  cl(); return h;
+}
+async function showAbout(){
   markActiveSure(-1);
   const m=document.getElementById('main');
-  m.innerHTML=`<div class="aboutwrap">
-    <h1 style="color:var(--green);margin-bottom:4px">ayatulkuran</h1>
-    <p class="lead">Kur'an-ı Kerim kavram konkordansı — her âyet için, aynı kavramı ve konuyu paylaşan <b>ilişkili âyetler</b>.</p>
-    <p><i>Ali Rıza ZARARSIZ tarafından derlenmektedir.</i></p>
-    <div class="counter">Ziyaretçi sayısı<br><br>
-      <img src="https://api.visitorbadge.io/api/visitors?path=ayatulkuran-konkordans&label=Ziyaret%C3%A7i&labelColor=%230c5c48&countColor=%23a67c2e&style=for-the-badge" alt="ziyaretçi sayacı">
-    </div>
-    <h2>Nedir?</h2>
-    <p>Bu çalışma, Kur'an'daki her âyeti merkeze alıp, o âyetin kavramını (kökünü, konusunu, temasını) paylaşan diğer âyetleri bir araya getirir. Bir âyete tıkladığınızda, onunla anlamca ilişkili âyetleri Arapça ve meâliyle görürsünüz; kavram kökü her iki metinde de vurgulanır.</p>
-    <h2>İçerik</h2>
-    <ul>
-      <li>6236 âyet — Arapça (Uthmani hattı) + Türkçe okunuş</li>
-      <li>Meâl: <b>Türkçe</b> (Ali Bulaç) ve <b>İngilizce</b> (Saheeh International)</li>
-      <li>Her âyet için kavram kökleri, konular ve ilişkili âyetler</li>
-    </ul>
-    <h2>Nasıl kullanılır?</h2>
-    <ul>
-      <li>Soldan bir <b>sûre</b> seçin → âyetler Arapça ve meâliyle gelir.</li>
-      <li>Bir <b>âyete tıklayın</b> → onunla ilişkili âyetler açılır.</li>
-      <li>Üstteki kutudan <b>arama</b> yapın (kelime / meâl / konu).</li>
-      <li><b>Türkçe / İngilizce</b> meâl arasında geçiş yapın.</li>
-      <li><b>⤓ PDF</b> ile görüntülediğiniz sayfayı kaydedin.</li>
-    </ul>
-    <h2>Notlar</h2>
-    <p>"<span class="draft" style="margin:0">otomatik taslak</span>" işaretli âyetlerin ilişkili listesi, henüz elle işlenmemiş sûreler için otomatik üretilmiştir ve gözden geçirilmektedir. Elle derlenmiş sûreler bu işareti taşımaz.</p>
-    <h2>Kaynaklar</h2>
-    <ul>
-      <li>Morfoloji: Quranic Arabic Corpus</li>
-      <li>Kavram/tema: Quranic Universal Library (QUL)</li>
-      <li>İngilizce meâl: Saheeh International (risan/quran-json)</li>
-    </ul>
-    <p style="margin-top:24px;color:var(--muted);font-size:13px">© ayatulkuran — Ali Rıza ZARARSIZ</p>
-  </div>`;
+  m.innerHTML='<div class="aboutwrap"><p style="color:var(--muted)">Hakkında yükleniyor…</p></div>';
+  let md=null;
+  try{ const r=await fetch(ABOUT_URL+'?t='+Date.now(),{cache:'no-store'});
+    if(r.ok){ md=await r.text(); try{await idbSet('about',md);}catch(e){} } }catch(e){}
+  if(md===null){ try{ md=await idbGet('about'); }catch(e){} }
+  const counter='<div class="counter">Ziyaretçi sayısı<br><br><img src="https://api.visitorbadge.io/api/visitors?path=ayatulkuran-konkordans&label=Ziyaret%C3%A7i&labelColor=%230c5c48&countColor=%23a67c2e&style=for-the-badge" alt="ziyaretci sayaci"></div>';
+  const body = md ? mdToHtml(md) : '<p>Hakkında metni yüklenemedi. İnternete bağlanıp tekrar deneyin.</p>';
+  m.innerHTML='<div class="aboutwrap">'+counter+body+'<p style="margin-top:24px;color:var(--muted);font-size:13px">© ayatulkuran</p></div>';
   m.scrollTop=0;
 }
+
 boot();
 </script>
 </body>

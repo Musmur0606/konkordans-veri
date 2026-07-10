@@ -61,6 +61,13 @@
   .esma-side-tr{flex:1;font-weight:600;color:var(--green2)}
   .esma-side.active .esma-side-ar,.esma-side.active .esma-side-tr{color:#fff}
   .tekdestek{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+  .social-follow{margin-top:22px;text-align:center}
+  .social-follow .sf-label{color:var(--muted);font-size:13px;margin-bottom:10px}
+  .social-follow a{display:inline-block;margin:0 10px;color:#0c5c48;transition:transform .15s ease,color .15s ease;vertical-align:middle}
+  .social-follow a:hover{transform:scale(1.18)}
+  .social-follow a.sf-x:hover{color:#000}
+  .social-follow a.sf-ig:hover{color:#E1306C}
+  .social-follow svg{width:27px;height:27px;display:block}
   .filigran{margin-top:40px;text-align:center;color:#c9c1b0;font-size:12px;letter-spacing:1px;opacity:.6;font-style:italic}
   .sure-item{padding:9px 16px;cursor:pointer;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
   .sure-item:hover{background:var(--chip)}
@@ -423,7 +430,7 @@ async function showAbout(){
   if(md===null){ try{ md=await idbGet('about'); }catch(e){} }
   const counter='<div class="counter">Ziyaretçi sayısı<br><br><img src="https://api.visitorbadge.io/api/visitors?path=ayatulkuran-konkordans&label=Ziyaret%C3%A7i&labelColor=%230c5c48&countColor=%23a67c2e&style=for-the-badge" alt="ziyaretci sayaci"></div>';
   const body = md ? mdToHtml(md) : '<p>Hakkında metni yüklenemedi. İnternete bağlanıp tekrar deneyin.</p>';
-  m.innerHTML='<div class="aboutwrap">'+counter+body+'<p style="margin-top:24px;color:var(--muted);font-size:13px">© ayatulkuran</p><p class="filigran">Teknik destek: M. Mustafa MURAT</p></div>';
+  m.innerHTML='<div class="aboutwrap">'+counter+body+'<p style="margin-top:24px;color:var(--muted);font-size:13px">© ayatulkuran</p><div class="social-follow"><div class="sf-label">Bizi takip edin</div><a class="sf-x" href="https://x.com/ayatulkuran" target="_blank" rel="noopener" title="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a class="sf-ig" href="https://instagram.com/ayat_ulkuran" target="_blank" rel="noopener" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.41-10.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg></a></div><p class="filigran">Teknik destek: M. Mustafa MURAT</p></div>';
   m.scrollTop=0;
 }
 

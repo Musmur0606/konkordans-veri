@@ -153,6 +153,35 @@
   .abouttop{background:#f0ece0!important;font-weight:600;color:var(--green2)}
   .searchhead{font-size:14px;color:var(--muted);margin-bottom:14px}
   ::-webkit-scrollbar{width:10px}::-webkit-scrollbar-thumb{background:#d9d0bd;border-radius:5px}
+  #mobilgeri{display:none;align-items:center;gap:8px;padding:11px 14px;background:var(--panel);
+    border-bottom:1px solid var(--line);color:var(--green);font-size:14px;font-weight:600;cursor:pointer;flex:0 0 auto}
+
+  /* ================= CEP (dar ekran) ================= */
+  @media (max-width:760px){
+    header{padding:8px 12px;gap:8px;flex-wrap:wrap}
+    header h1{font-size:15px}
+    header .sub{display:none}
+    #status{font-size:10px;padding:3px 9px}
+    .hbtn{font-size:11px;padding:4px 9px}
+    #search{order:10;flex:1 0 100%;max-width:none;margin-left:0;padding:8px 13px;font-size:14px}
+    body{display:flex;flex-direction:column}
+    .wrap{flex:1;min-height:0;height:auto;flex-direction:column}
+    #sidebar{width:100%;border-right:none;flex:1;min-height:0}
+    #main{display:none;padding:14px 14px 44px}
+    body.icerik #sidebar{display:none}
+    body.icerik #main{display:block;flex:1;min-height:0}
+    body.icerik #mobilgeri{display:flex}
+    .arow{padding:11px 12px;gap:10px}
+    .arow .ar{font-size:20px}
+    .arow .tr{font-size:14px}
+    .anum{min-width:26px;height:26px;font-size:12px}
+    .maincard{padding:15px 16px}
+    .maincard .ar{font-size:25px}
+    .rel .ar{font-size:18px}
+    .sb-head{padding:11px 14px}
+    .toolbar{gap:6px}
+    .toolbar .btn{font-size:12px;padding:6px 10px}
+  }
   @media print{header,#sidebar,.toolbar,.versebar,.crumb,.relactions,.restore,.addrow,.backbtn{display:none!important}
     .wrap{height:auto;display:block}#main{overflow:visible;padding:0}body,html{background:#fff;height:auto}
     .maincard,.rel,.arow{break-inside:avoid;box-shadow:none}b.hl{color:#a3341f!important}.ar b.hl{color:#8a1a0a!important}
@@ -172,6 +201,7 @@
   <input id="search" placeholder="Ara: kelime / meal / konu…  (en az 3 harf)">
 </header>
 <div class="wrap">
+<div id="mobilgeri">‹ Sûreler</div>
   <div id="sidebar"></div>
   <div id="main"><div class="hint"><div class="big">☾</div><span id="boothint">Veriler yükleniyor…</span></div></div>
 </div>
@@ -180,6 +210,7 @@
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
+const SITE_SURUM = '1.2.0';   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
 const TRK = {"ربب": ["Rab", "rabb"], "رحم": ["rahmet", "merhamet", "esirge", "Rahman", "Rahim", "acı"], "امن": ["iman", "inan", "mü’min", "mümin", "güven", "emin"], "علم": ["ilim", "bil", "âlim", "alim", "bilgi", "öğren"], "هدي": ["hidayet", "doğru yol", "ilet", "yol göster", "kılavuz"], "كفر": ["kâfir", "kafir", "inkâr", "inkar", "küfr", "nankör", "ört"], "خلق": ["yarat", "halk", "yaratıl"], "عبد": ["kul", "ibadet", "tap", "kulluk"], "رسل": ["elçi", "resul", "peygamber", "gönder"], "نعم": ["nimet"], "ضلل": ["sap", "dalâlet", "dalalet", "şaşır"], "ملك": ["mülk", "hükümran", "melik", "sahib", "hüküm"], "يوم": ["gün"], "دين": ["din", "ceza", "hesap"], "عمل": ["amel", "iş", "yap", "çalış"], "صلح": ["sâlih", "salih", "iyi", "ıslah", "düzelt", "barış"], "ذنب": ["günah", "suç"], "عذب": ["azap", "azab", "işkence"], "جنن": ["cennet", "bahçe"], "نار": ["ateş", "cehennem"], "حقق": ["hak", "gerçek", "doğru"], "صبر": ["sabır", "sabret", "dayan", "katlan"], "شكر": ["şükür", "şükret", "teşekkür"], "رزق": ["rızık", "rızk", "geçim", "nasip"], "دعو": ["dua", "çağır", "davet", "yalvar"], "غفر": ["bağışla", "mağfiret", "affet", "affe"], "سمو": ["gök", "sema", "semâ"], "ارض": ["yer", "yeryüzü", "arz", "toprak"], "نفس": ["nefs", "kendi", "can"], "قلب": ["kalp", "gönül", "yürek"], "ايه": ["âyet", "ayet", "delil", "işaret", "mucize"], "كتب": ["kitap", "yaz", "yazı"], "حكم": ["hüküm", "hikmet", "hakem", "karar"], "قوم": ["kavim", "millet", "topluluk", "kalk", "ayakta"], "ولد": ["çocuk", "oğul", "doğur", "evlat"], "موت": ["ölüm", "öl", "ölü"], "حيي": ["diri", "hayat", "yaşa", "can"], "نور": ["nur", "ışık", "aydınlık"], "ظلم": ["zulüm", "zalim", "haksız", "karanlık"], "صدق": ["doğru", "sadık", "tasdik", "dürüst"], "وحد": ["bir", "tek", "birlik"], "شرك": ["ortak", "şirk", "eş koş", "müşrik"], "تقو": ["takva", "sakın", "korun", "muttaki"], "فسق": ["fâsık", "fasık", "fısk", "yoldan çık"], "نبا": ["haber", "nebi", "peygamber"], "سبح": ["tesbih", "yücelt", "noksanlık"], "حمد": ["hamd", "övgü", "över"], "عظم": ["büyük", "yüce", "azîm", "ulu"], "خشي": ["kork", "haşyet", "çekin"], "رجع": ["dön", "rücû", "geri"], "بصر": ["gör", "basiret", "göz"], "سمع": ["işit", "duy", "dinle"], "فوز": ["kurtuluş", "başarı", "felah", "murad"], "خسر": ["hüsran", "ziyan", "kayıp", "zarar", "aldan"], "صمد": ["samed", "müstağni", "muhtaç"], "كفا": ["denk", "eş", "benzer", "küfüv"], "ندد": ["eş", "rakip", "benzer", "put"], "مثل": ["benzer", "misal", "örnek", "gibi"], "انس": ["insan", "kişi", "insanoğlu"], "عصر": ["zaman", "çağ", "ikindi", "asır"], "وصي": ["tavsiye", "öğüt", "vasiyet", "emret"]};
 const ESMA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/esma_index.json";
@@ -242,6 +273,7 @@ async function boot(){
   document.getElementById('main').className='scrollmode';
   document.getElementById('boothint').textContent='Soldan bir sûre seçin.';
   renderSidebar();
+  document.getElementById('mobilgeri').onclick=listeyeDon;
 }
 
 // ---- Sidebar ----
@@ -315,7 +347,7 @@ function ayeteGit(no,a){
 }
 function markActiveSure(no){document.querySelectorAll('.sure-item').forEach(x=>x.classList.toggle('active',+x.dataset.no===no));}
 function markActiveEsma(name){document.querySelectorAll('.esma-side').forEach(x=>x.classList.toggle('active',x.dataset.esma===name));}
-function backToSure(){ renderSidebar('sure'); curEsma=null; curSure=null; const m=document.getElementById('main'); m.className=''; m.innerHTML='<div class="hint"><div class="big">☾</div><span>Soldan bir sûre seçin.</span></div>'; }
+function backToSure(){ listeyeDon(); renderSidebar('sure'); curEsma=null; curSure=null; const m=document.getElementById('main'); m.className=''; m.innerHTML='<div class="hint"><div class="big">☾</div><span>Soldan bir sûre seçin.</span></div>'; }
 
 function rootsOf(v){return new Set((v.kr||[]).filter(Boolean));}
 function showMeal(v,roots){ return mealMode==='me' ? esc(v.me||'') : hlTr(v.mb||'',roots); }
@@ -331,8 +363,12 @@ function hlTr(meal,roots){let kws=[];roots.forEach(r=>{if(TRK[r])kws=kws.concat(
   try{out=out.replace(new RegExp('('+pat+')','gi'),'<b class="hl">$1</b>');}catch(e){}return out;}
 
 // ---- Sure okuma görünümü (Arapça+Türkçe) ----
+const MOBIL=()=>matchMedia('(max-width:760px)').matches;
+function icerigeGec(){ if(MOBIL()) document.body.classList.add('icerik'); }
+function listeyeDon(){ document.body.classList.remove('icerik'); }
+
 function selectSure(no){
-  curSure=no; curEsma=null;
+  curSure=no; curEsma=null; icerigeGec();
   if(sbMode!=='sure') renderSidebar('sure');
   markActiveSure(no);
   ayetKutusu(no);
@@ -355,6 +391,7 @@ function nextRef(ref){const[s,a]=ref.split(':').map(Number);return (a<S[s].ayet)
 function prevRef(ref){const[s,a]=ref.split(':').map(Number);return (a>1)?s+':'+(a-1):(S[s-1]?(s-1)+':'+S[s-1].ayet:null);}
 
 function selectVerse(ref,fromHist){
+  icerigeGec();
   curRef=ref; const v=V[ref]; if(!v)return;
   if(!fromHist) pushHist(ref);
   const seedRoots=rootsOf(v);
@@ -491,9 +528,10 @@ async function showAbout(){
   try{ const r=await fetch(ABOUT_URL+'?t='+Date.now(),{cache:'no-store'});
     if(r.ok){ md=await r.text(); try{await idbSet('about',md);}catch(e){} } }catch(e){}
   if(md===null){ try{ md=await idbGet('about'); }catch(e){} }
+  const damga='<div class="meal-src" style="margin-top:18px">ayatulkuran · sürüm '+SITE_SURUM+'</div>';
   const counter='<div class="counter">Ziyaretçi sayısı<br><br><img src="https://api.visitorbadge.io/api/visitors?path=ayatulkuran-konkordans&label=Ziyaret%C3%A7i&labelColor=%230c5c48&countColor=%23a67c2e&style=for-the-badge" alt="ziyaretci sayaci"></div>';
   const body = md ? mdToHtml(md) : '<p>Hakkında metni yüklenemedi. İnternete bağlanıp tekrar deneyin.</p>';
-  m.innerHTML='<div class="aboutwrap">'+counter+body+'<p style="margin-top:24px;color:var(--muted);font-size:13px">© ayatulkuran</p><div class="social-follow"><div class="sf-label">Bizi takip edin</div><a class="sf-x" href="https://x.com/ayatulkuran" target="_blank" rel="noopener" title="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a class="sf-ig" href="https://instagram.com/ayat_ulkuran" target="_blank" rel="noopener" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.41-10.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg></a></div><p class="filigran">Teknik destek: M. Mustafa MURAT</p></div>';
+  m.innerHTML='<div class="aboutwrap">'+counter+body+damga+'<p style="margin-top:24px;color:var(--muted);font-size:13px">© ayatulkuran</p><div class="social-follow"><div class="sf-label">Bizi takip edin</div><a class="sf-x" href="https://x.com/ayatulkuran" target="_blank" rel="noopener" title="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a class="sf-ig" href="https://instagram.com/ayat_ulkuran" target="_blank" rel="noopener" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.41-10.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg></a></div><p class="filigran">Teknik destek: M. Mustafa MURAT</p></div>';
   m.scrollTop=0;
 }
 
@@ -507,6 +545,7 @@ function showEsmaList(){
   m.scrollTop=0;
 }
 function showEsma(name){
+  icerigeGec();
   const info=ESMA.index[name]; if(!info)return;
   curEsma=name; markActiveSure(-1); curSure=null;
   const root=info.k||''; const i=ESMA.esmalar.indexOf(name), N=ESMA.esmalar.length;

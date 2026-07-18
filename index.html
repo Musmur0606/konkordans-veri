@@ -185,7 +185,9 @@
     .sure-item{padding:11px 14px}
     /* analiz gorunumu: cepte ic kaydirma yerine sayfa kaydirmasi */
     body.icerik #main.lockmode{display:block;overflow:auto;padding:0}
-    body.icerik #main.lockmode .locktop{box-shadow:none;padding:12px 14px 6px}
+    body.icerik #main.lockmode .locktop{position:sticky;top:0;z-index:3;padding:12px 14px 6px;
+      max-height:52vh;overflow:auto;background:var(--bg);border-bottom:1px solid var(--line);
+      box-shadow:0 3px 10px rgba(0,0,0,.07)}
     body.icerik #main.lockmode .scrollbody{overflow:visible;min-height:0;padding:10px 14px 48px}
     .locktop .maincard{margin-bottom:10px}
   }
@@ -217,7 +219,7 @@
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '1.2.2';   // 18.07.2026 · cep duzeni
+const SITE_SURUM = '1.3.0';   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
 const TRK = {"ربب": ["Rab", "rabb"], "رحم": ["rahmet", "merhamet", "esirge", "Rahman", "Rahim", "acı"], "امن": ["iman", "inan", "mü’min", "mümin", "güven", "emin"], "علم": ["ilim", "bil", "âlim", "alim", "bilgi", "öğren"], "هدي": ["hidayet", "doğru yol", "ilet", "yol göster", "kılavuz"], "كفر": ["kâfir", "kafir", "inkâr", "inkar", "küfr", "nankör", "ört"], "خلق": ["yarat", "halk", "yaratıl"], "عبد": ["kul", "ibadet", "tap", "kulluk"], "رسل": ["elçi", "resul", "peygamber", "gönder"], "نعم": ["nimet"], "ضلل": ["sap", "dalâlet", "dalalet", "şaşır"], "ملك": ["mülk", "hükümran", "melik", "sahib", "hüküm"], "يوم": ["gün"], "دين": ["din", "ceza", "hesap"], "عمل": ["amel", "iş", "yap", "çalış"], "صلح": ["sâlih", "salih", "iyi", "ıslah", "düzelt", "barış"], "ذنب": ["günah", "suç"], "عذب": ["azap", "azab", "işkence"], "جنن": ["cennet", "bahçe"], "نار": ["ateş", "cehennem"], "حقق": ["hak", "gerçek", "doğru"], "صبر": ["sabır", "sabret", "dayan", "katlan"], "شكر": ["şükür", "şükret", "teşekkür"], "رزق": ["rızık", "rızk", "geçim", "nasip"], "دعو": ["dua", "çağır", "davet", "yalvar"], "غفر": ["bağışla", "mağfiret", "affet", "affe"], "سمو": ["gök", "sema", "semâ"], "ارض": ["yer", "yeryüzü", "arz", "toprak"], "نفس": ["nefs", "kendi", "can"], "قلب": ["kalp", "gönül", "yürek"], "ايه": ["âyet", "ayet", "delil", "işaret", "mucize"], "كتب": ["kitap", "yaz", "yazı"], "حكم": ["hüküm", "hikmet", "hakem", "karar"], "قوم": ["kavim", "millet", "topluluk", "kalk", "ayakta"], "ولد": ["çocuk", "oğul", "doğur", "evlat"], "موت": ["ölüm", "öl", "ölü"], "حيي": ["diri", "hayat", "yaşa", "can"], "نور": ["nur", "ışık", "aydınlık"], "ظلم": ["zulüm", "zalim", "haksız", "karanlık"], "صدق": ["doğru", "sadık", "tasdik", "dürüst"], "وحد": ["bir", "tek", "birlik"], "شرك": ["ortak", "şirk", "eş koş", "müşrik"], "تقو": ["takva", "sakın", "korun", "muttaki"], "فسق": ["fâsık", "fasık", "fısk", "yoldan çık"], "نبا": ["haber", "nebi", "peygamber"], "سبح": ["tesbih", "yücelt", "noksanlık"], "حمد": ["hamd", "övgü", "över"], "عظم": ["büyük", "yüce", "azîm", "ulu"], "خشي": ["kork", "haşyet", "çekin"], "رجع": ["dön", "rücû", "geri"], "بصر": ["gör", "basiret", "göz"], "سمع": ["işit", "duy", "dinle"], "فوز": ["kurtuluş", "başarı", "felah", "murad"], "خسر": ["hüsran", "ziyan", "kayıp", "zarar", "aldan"], "صمد": ["samed", "müstağni", "muhtaç"], "كفا": ["denk", "eş", "benzer", "küfüv"], "ندد": ["eş", "rakip", "benzer", "put"], "مثل": ["benzer", "misal", "örnek", "gibi"], "انس": ["insan", "kişi", "insanoğlu"], "عصر": ["zaman", "çağ", "ikindi", "asır"], "وصي": ["tavsiye", "öğüt", "vasiyet", "emret"]};
 const ESMA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/esma_index.json";
@@ -398,6 +400,11 @@ function pushHist(ref){if(HIST[HPTR]===ref)return;HIST=HIST.slice(0,HPTR+1);HIST
 function nextRef(ref){const[s,a]=ref.split(':').map(Number);return (a<S[s].ayet)?s+':'+(a+1):(S[s+1]?(s+1)+':1':null);}
 function prevRef(ref){const[s,a]=ref.split(':').map(Number);return (a>1)?s+':'+(a-1):(S[s-1]?(s-1)+':'+S[s-1].ayet:null);}
 
+function sureEk(ref){
+  const b=(S||{})[ref.split(':')[0]]||{};
+  if(!b.nz) return '';
+  return ' · Mushaf '+ref.split(':')[0]+' · Nüzul '+b.nz+' · Alfabetik '+b.alf+(b.mm?' · '+b.mm:'');
+}
 function selectVerse(ref,fromHist){
   icerigeGec();
   curRef=ref; const v=V[ref]; if(!v)return;
@@ -436,7 +443,7 @@ function selectVerse(ref,fromHist){
     <div class="maincard"><div class="ar">${hlAr(v,seedRoots)}</div>
       ${v.ok?`<div class="ok">${esc(v.ok)}</div>`:''}
       <div class="meal">${showMeal(v,seedRoots)}</div>
-      <div class="meal-src">${esc(v.sa)} ${v.a}. âyet — ${gr(ref)} · Meâl: ${mealSrc()}</div>
+      <div class="meal-src">${esc(v.sa)} ${v.a}. âyet — ${gr(ref)}${sureEk(ref)} · Meâl: ${mealSrc()}</div>
       ${tags?`<div class="tags">${tags}</div>`:''}</div>
     <div class="sectitle">İlişkili Âyetler <span class="n">${rel.length}</span>${v.t?'<span class="draft">otomatik taslak</span>':''}</div>
     ${addUI}

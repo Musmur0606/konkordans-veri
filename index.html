@@ -86,6 +86,7 @@
   .ayetsec input:focus{background:#fff;color:var(--green2)}
   .sure-cnt.gizli{display:none}
   .sure-item.active .sure-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #sidebar,.sb-head,.sure-item{user-select:none;-webkit-user-select:none}
   .arow.hedef{border-color:var(--green);box-shadow:0 0 0 3px rgba(12,92,72,.20)}
   .arow{display:flex;gap:14px;padding:14px 16px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;
     cursor:pointer;background:var(--panel);transition:border-color .12s,box-shadow .12s;align-items:flex-start}
@@ -573,12 +574,17 @@ document.addEventListener('webkitfullscreenchange', fsIkon);
 
 if (OTO_TAM_EKRAN){
   const ilk = () => {
-    removeEventListener('pointerdown', ilk, true);
-    removeEventListener('keydown', ilk, true);
-    if (!tamMi()) tamEkran();
+    removeEventListener('click', ilk, true);
+    removeEventListener('keyup', ilk, true);
+    if (tamMi()) return;
+    tamEkran();
+    // gecis sirasinda takili kalan metin secimini temizle
+    setTimeout(()=>{ try{ getSelection().removeAllRanges(); }catch(e){} }, 350);
   };
-  addEventListener('pointerdown', ilk, true);
-  addEventListener('keydown', ilk, true);
+  // click/keyup = etkilesim BITTIKTEN sonra; pointerdown'da gecince
+  // tarayici mouseup'i kaybediyor ve surukleme-secim kilitleniyor
+  addEventListener('click', ilk, true);
+  addEventListener('keyup', ilk, true);
 }
 </script>
 </body>

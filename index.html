@@ -219,7 +219,7 @@
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '1.3.1';   // 18.07.2026 · cep duzeni
+const SITE_SURUM = '1.3.0';   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
 const TRK = {"ربب": ["Rab", "rabb"], "رحم": ["rahmet", "merhamet", "esirge", "Rahman", "Rahim", "acı"], "امن": ["iman", "inan", "mü’min", "mümin", "güven", "emin"], "علم": ["ilim", "bil", "âlim", "alim", "bilgi", "öğren"], "هدي": ["hidayet", "doğru yol", "ilet", "yol göster", "kılavuz"], "كفر": ["kâfir", "kafir", "inkâr", "inkar", "küfr", "nankör", "ört"], "خلق": ["yarat", "halk", "yaratıl"], "عبد": ["kul", "ibadet", "tap", "kulluk"], "رسل": ["elçi", "resul", "peygamber", "gönder"], "نعم": ["nimet"], "ضلل": ["sap", "dalâlet", "dalalet", "şaşır"], "ملك": ["mülk", "hükümran", "melik", "sahib", "hüküm"], "يوم": ["gün"], "دين": ["din", "ceza", "hesap"], "عمل": ["amel", "iş", "yap", "çalış"], "صلح": ["sâlih", "salih", "iyi", "ıslah", "düzelt", "barış"], "ذنب": ["günah", "suç"], "عذب": ["azap", "azab", "işkence"], "جنن": ["cennet", "bahçe"], "نار": ["ateş", "cehennem"], "حقق": ["hak", "gerçek", "doğru"], "صبر": ["sabır", "sabret", "dayan", "katlan"], "شكر": ["şükür", "şükret", "teşekkür"], "رزق": ["rızık", "rızk", "geçim", "nasip"], "دعو": ["dua", "çağır", "davet", "yalvar"], "غفر": ["bağışla", "mağfiret", "affet", "affe"], "سمو": ["gök", "sema", "semâ"], "ارض": ["yer", "yeryüzü", "arz", "toprak"], "نفس": ["nefs", "kendi", "can"], "قلب": ["kalp", "gönül", "yürek"], "ايه": ["âyet", "ayet", "delil", "işaret", "mucize"], "كتب": ["kitap", "yaz", "yazı"], "حكم": ["hüküm", "hikmet", "hakem", "karar"], "قوم": ["kavim", "millet", "topluluk", "kalk", "ayakta"], "ولد": ["çocuk", "oğul", "doğur", "evlat"], "موت": ["ölüm", "öl", "ölü"], "حيي": ["diri", "hayat", "yaşa", "can"], "نور": ["nur", "ışık", "aydınlık"], "ظلم": ["zulüm", "zalim", "haksız", "karanlık"], "صدق": ["doğru", "sadık", "tasdik", "dürüst"], "وحد": ["bir", "tek", "birlik"], "شرك": ["ortak", "şirk", "eş koş", "müşrik"], "تقو": ["takva", "sakın", "korun", "muttaki"], "فسق": ["fâsık", "fasık", "fısk", "yoldan çık"], "نبا": ["haber", "nebi", "peygamber"], "سبح": ["tesbih", "yücelt", "noksanlık"], "حمد": ["hamd", "övgü", "över"], "عظم": ["büyük", "yüce", "azîm", "ulu"], "خشي": ["kork", "haşyet", "çekin"], "رجع": ["dön", "rücû", "geri"], "بصر": ["gör", "basiret", "göz"], "سمع": ["işit", "duy", "dinle"], "فوز": ["kurtuluş", "başarı", "felah", "murad"], "خسر": ["hüsran", "ziyan", "kayıp", "zarar", "aldan"], "صمد": ["samed", "müstağni", "muhtaç"], "كفا": ["denk", "eş", "benzer", "küfüv"], "ندد": ["eş", "rakip", "benzer", "put"], "مثل": ["benzer", "misal", "örnek", "gibi"], "انس": ["insan", "kişi", "insanoğlu"], "عصر": ["zaman", "çağ", "ikindi", "asır"], "وصي": ["tavsiye", "öğüt", "vasiyet", "emret"]};
 const ESMA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/esma_index.json";
@@ -494,14 +494,57 @@ document.getElementById('search').addEventListener('input',e=>{clearTimeout(stim
 document.getElementById('search').addEventListener('keydown',e=>{
   if(e.key!=='Enter')return;
   const rq=e.target.value.trim().replace(/\s/g,'').replace('.',':');
-  if(/^\d{1,3}:\d{1,3}$/.test(rq) && V && V[rq]) openRef(rq);
+  if(/^\d{1,3}:\d{1,3}$/.test(rq) && V && V[rq]){ openRef(rq); e.target.blur(); }
 });
+// --- arama normalizasyonu: Turkce/Ingilizce/Arapca + 2.3 gibi referans ---
+let SIDX=null; const SKEL={};
+const trKucuk=(x)=>(x||'').replace(/\u0130/g,'i').replace(/I/g,'\u0131').toLowerCase();
+const trYalin=(x)=>trKucuk(x).replace(/[\u00e2]/g,'a').replace(/[\u00ee]/g,'i')
+                             .replace(/[\u00fb]/g,'u').replace(/['\u2019\u2018\u0060]/g,'');
+const arYalin=(x)=>(x||'').normalize('NFC')
+  .replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/g,'')
+  .replace(/[\u0623\u0625\u0622\u0671]/g,'\u0627').replace(/\u0649/g,'\u064A').replace(/\u0629/g,'\u0647');
+function aramaDizini(){
+  if(SIDX) return SIDX;
+  SIDX={};
+  for(const ref in V){ const v=V[ref];
+    SIDX[ref]=trYalin((v.mb||'')+' \n'+(v.me||'')+' \n'+((v.ko||[]).join(' ')))+' \n'+arYalin(v.ar||'');
+    SKEL[ref]=arYalin(v.ar||'').replace(/\u0627/g,'');   // elifsiz iskelet (kitab/kitab imla farki)
+  }
+  return SIDX;
+}
 function runSearch(q){
   if(!V)return;
+  const rq=q.trim().replace(/\s/g,'').replace('.',':');
+  if(/^\d{1,3}:\d{1,3}$/.test(rq)){                 // 2.3 / 2:3 -> dogrudan o ayet
+    if(V[rq]) return aramaSonuc(q,[rq]);
+    return aramaSonuc(q,[]);
+  }
   if(q.length<3){if(curSure)selectSure(curSure);return;}
-  const ql=q.toLowerCase();const res=[];
-  for(const ref in V){const v=V[ref];
-    if((v.mb&&v.mb.toLowerCase().includes(ql))||(v.me&&v.me.toLowerCase().includes(ql))||(v.ko&&v.ko.some(k=>k.toLowerCase().includes(ql)))||v.ar.includes(q)){res.push(ref);if(res.length>=200)break;}}
+  const idx=aramaDizini();
+  const arapca=/[\u0600-\u06FF]/.test(q);
+  const ara=arapca?arYalin(q):trYalin(q);
+  if(!ara) return;
+  // Mushaf imlasi: salat/zekat/hayat gibi kelimeler vav ile yazilir (\u0635\u0644\u0648\u0629).
+  // Modern yazimla arananin da bulunmasi icin degiskeler denenir.
+  const adaylar=[ara];
+  if(arapca){
+    if(ara.includes('\u0627\u0647')) adaylar.push(ara.replace(/\u0627\u0647/g,'\u0648\u0647'));
+    if(ara.includes('\u0631\u0628\u0627')) adaylar.push(ara.replace(/\u0631\u0628\u0627/g,'\u0631\u0628\u0648\u0627'));
+  }
+  const bulunan=new Set();
+  for(const ref in idx){
+    if(adaylar.some(x=>idx[ref].includes(x))){ bulunan.add(ref); if(bulunan.size>=200)break; }
+  }
+  if(arapca && bulunan.size<200){                // elifsiz iskelet: kitab/kitab, insan/insan imla farki
+    const isk=ara.replace(/\u0627/g,'');
+    if(isk.length>=2) for(const ref in SKEL){ if(SKEL[ref].includes(isk)){ bulunan.add(ref); if(bulunan.size>=200)break; } }
+  }
+  const res=[...bulunan].sort((x,y)=>{const a1=x.split(':'),b1=y.split(':');return a1[0]-b1[0]||a1[1]-b1[1];});
+  aramaSonuc(q,res);
+}
+function aramaSonuc(q,res){
+  icerigeGec();                                     // cepte liste kapansin, sonuc gorunsun
   const m=document.getElementById('main'); m.className='';
   m.innerHTML=`<div class="searchhead">"${esc(q)}" için ${res.length}${res.length>=200?'+':''} sonuç</div>`;
   const list=el('<div></div>');

@@ -188,6 +188,7 @@ let ESMA = {esmalar:[],index:{}};
 let DB=null, V=null, S=null, curSure=null, curRef=null, mealMode='mb';
 let HIST=[], HPTR=-1;
 const el=(h)=>{const d=document.createElement('div');d.innerHTML=h;return d.firstElementChild;};
+const gr=(r)=>String(r).replace(':','.');   // GORUNUM: 2:42 -> 2.42  (veri anahtarlari ':' kalir)
 function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
 
 // ---- IndexedDB (6 MB önbellek) ----
@@ -363,12 +364,12 @@ function selectVerse(ref,fromHist){
       const link=new Set([...rootsOf(w)].filter(x=>seedRoots.has(x)));
       const ap=(w._ap===ref);
       relHtml+=`<div class="rel ${ap?'approved':''}" data-ref="${rr}"><div class="ar">${hlAr(w,link)}</div>
-        <div><span class="ref">${esc(w.sa)} ${w.a} (${rr})</span><div class="rm">${showMeal(w,link)}</div></div>
+        <div><span class="ref">${esc(w.sa)} ${w.a} (${gr(rr)})</span><div class="rm">${showMeal(w,link)}</div></div>
         ${ADMIN?`<div class="relactions"><span class="minibtn rm" onclick="event.stopPropagation();adminRemove('${ref}','${rr}')">✕ çıkar</span></div>`:''}</div>`;
     });
   } else relHtml=`<div class="empty">Bu âyet için ilişkili âyet verisi yok.</div>`;
   const tags=(v.ko||[]).slice(0,8).map(t=>`<span class="tag">${esc(t)}</span>`).join('');
-  const addUI = ADMIN?`<div class="addrow"><input id="addref" placeholder="ör. 2:255" onkeydown="if(event.key==='Enter')adminAdd('${ref}')">
+  const addUI = ADMIN?`<div class="addrow"><input id="addref" placeholder="ör. 2.255" onkeydown="if(event.key==='Enter')adminAdd('${ref}')">
     <button class="btn" onclick="adminAdd('${ref}')">＋ âyet ekle</button>
     <button class="btn" onclick="exportData()" title="Güncel veriyi app_data.json olarak indir (GitHub'a yükle)">⭳ app_data.json indir</button>
     <button class="btn" onclick="refetch()" title="GitHub'dan güncel veriyi çek">↻ GitHub'dan çek</button></div>`:'';
@@ -389,7 +390,7 @@ function selectVerse(ref,fromHist){
     <div class="maincard"><div class="ar">${hlAr(v,seedRoots)}</div>
       ${v.ok?`<div class="ok">${esc(v.ok)}</div>`:''}
       <div class="meal">${showMeal(v,seedRoots)}</div>
-      <div class="meal-src">${esc(v.sa)} ${v.a}. âyet — ${ref} · Meâl: ${mealSrc()}</div>
+      <div class="meal-src">${esc(v.sa)} ${v.a}. âyet — ${gr(ref)} · Meâl: ${mealSrc()}</div>
       ${tags?`<div class="tags">${tags}</div>`:''}</div>
     <div class="sectitle">İlişkili Âyetler <span class="n">${rel.length}</span>${v.t?'<span class="draft">otomatik taslak</span>':''}</div>
     ${addUI}
@@ -412,12 +413,13 @@ function adminRemove(seed,ref){
   if(!confirm('Bu âyet ilişkili listeden ÇIKARILSIN mı?\n\n'+bilgi)) return;
   const v=V[seed]; v.r=sortRefs((v.r||[]).filter(x=>x!==ref)); saveWorking(); selectVerse(seed,true);
 }
-function adminAdd(seed){ const inp=document.getElementById('addref'); if(!inp)return; const ref=inp.value.trim();
-  if(!/^\d+:\d+$/.test(ref)){alert('Geçerli bir âyet yazın (ör. 2:255).');return;}
+function adminAdd(seed){ const inp=document.getElementById('addref'); if(!inp)return;
+  const ref=inp.value.trim().replace('.',':');   // 2.255 de yazilabilir
+  if(!/^\d+:\d+$/.test(ref)){alert('Geçerli bir âyet yazın (ör. 2.255).');return;}
   if(!V[ref]){alert('Böyle bir âyet yok.');return;}
   const v=V[seed]; v.r=v.r||[]; if(v.r.includes(ref)){alert('Zaten ekli.');return;}
   const w=V[ref];
-  if(!confirm('Bu âyet ilişkili listeye EKLENSİN mi?\n\n'+w.sa+' '+w.a+' ('+ref+')\n'+(w.mb||'').slice(0,80))) return;
+  if(!confirm('Bu âyet ilişkili listeye EKLENSİN mi?\n\n'+w.sa+' '+w.a+' ('+gr(ref)+')\n'+(w.mb||'').slice(0,80))) return;
   v.r.push(ref); sortRefs(v.r);
   if(inp) inp.value='';
   saveWorking(); selectVerse(seed,true);
@@ -435,6 +437,11 @@ async function refetch(){ if(!confirm('GitHub\'dan güncel veri çekilecek. Kayd
 // ---- Arama ----
 let stimer=null;
 document.getElementById('search').addEventListener('input',e=>{clearTimeout(stimer);const q=e.target.value.trim();stimer=setTimeout(()=>runSearch(q),200);});
+document.getElementById('search').addEventListener('keydown',e=>{
+  if(e.key!=='Enter')return;
+  const rq=e.target.value.trim().replace(/\s/g,'').replace('.',':');
+  if(/^\d{1,3}:\d{1,3}$/.test(rq) && V && V[rq]) openRef(rq);
+});
 function runSearch(q){
   if(!V)return;
   if(q.length<3){if(curSure)selectSure(curSure);return;}
@@ -445,7 +452,7 @@ function runSearch(q){
   m.innerHTML=`<div class="searchhead">"${esc(q)}" için ${res.length}${res.length>=200?'+':''} sonuç</div>`;
   const list=el('<div></div>');
   res.forEach(ref=>{const v=V[ref];
-    const r=el(`<div class="rel" data-ref="${ref}"><div class="ar">${esc(v.ar)}</div><div><span class="ref">${esc(v.sa)} ${v.a} (${ref})</span><div class="rm">${hi(esc(mealMode==='me'?v.me:v.mb),q)}</div></div></div>`);
+    const r=el(`<div class="rel" data-ref="${ref}"><div class="ar">${esc(v.ar)}</div><div><span class="ref">${esc(v.sa)} ${v.a} (${gr(ref)})</span><div class="rm">${hi(esc(mealMode==='me'?v.me:v.mb),q)}</div></div></div>`);
     r.onclick=()=>goto(ref);list.appendChild(r);});
   m.appendChild(list);m.scrollTop=0;
 }
@@ -507,7 +514,7 @@ function showEsma(name){
   let rows='';
   info.r.forEach(rr=>{const w=V[rr]; if(!w)return;
     rows+=`<div class="esma-verse" data-ref="${rr}"><div class="ar">${hlArEsma(w,root)}</div>
-      <div class="ev-ref">${esc(w.sa)} ${w.a} (${rr})</div>
+      <div class="ev-ref">${esc(w.sa)} ${w.a} (${gr(rr)})</div>
       <div class="ev-meal">${showMeal(w,new Set())}</div></div>`;});
   const m=document.getElementById('main'); m.className='lockmode';
   m.innerHTML=`

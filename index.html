@@ -79,6 +79,14 @@
   .sure-item.active .sure-cnt{color:rgba(255,255,255,.75)}
   .crumb{color:var(--muted);font-size:13px;margin-bottom:4px}
   .sureread{margin-top:6px}
+  .ayetsec{display:flex;align-items:center}
+  .ayetsec input{width:56px;padding:3px 8px;border:none;border-radius:12px;text-align:center;
+    background:rgba(255,255,255,.20);color:#fff;font-size:12px;font-weight:600;outline:none;cursor:text}
+  .ayetsec input::placeholder{color:rgba(255,255,255,.75);font-weight:600}
+  .ayetsec input:focus{background:#fff;color:var(--green2)}
+  .sure-cnt.gizli{display:none}
+  .sure-item.active .sure-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .arow.hedef{border-color:var(--green);box-shadow:0 0 0 3px rgba(12,92,72,.20)}
   .arow{display:flex;gap:14px;padding:14px 16px;border:1px solid var(--line);border-radius:10px;margin-bottom:10px;
     cursor:pointer;background:var(--panel);transition:border-color .12s,box-shadow .12s;align-items:flex-start}
   .arow:hover{border-color:var(--green);box-shadow:0 2px 10px rgba(12,92,72,.12)}
@@ -159,6 +167,7 @@
   </div>
   <span id="status" class="load">yükleniyor…</span>
   <button class="hbtn" onclick="showAbout()">ⓘ Hakkında</button>
+  <button class="hbtn" id="fsbtn" onclick="tamEkran()" title="Tam ekran (F11 gibi)">⛶</button>
   <input id="search" placeholder="Ara: kelime / meal / konu…  (en az 3 harf)">
 </header>
 <div class="wrap">
@@ -257,6 +266,51 @@ function renderSidebar(mode){
   }
   sb.appendChild(head); sb.appendChild(list);
 }
+/* ===== KENAR CUBUGU AYET KUTUSU =====================================
+   Secili surenin altinda, yazilabilir + asagi acilan ayet numarasi kutusu.
+   AYET_KUTUSU_ANALIZ = false -> sure metninde o ayete kayar ve isaretler
+   AYET_KUTUSU_ANALIZ = true  -> dogrudan ayet analizini acar
+   ================================================================== */
+const AYET_KUTUSU_ANALIZ = false;
+
+function ayetKutusu(no){
+  document.querySelectorAll('.ayetsec').forEach(x=>x.remove());
+  document.querySelectorAll('.sure-cnt.gizli').forEach(x=>x.classList.remove('gizli'));
+  const sat=document.querySelector('.sure-item.active');
+  if(!sat || !S[no]) return;
+  const n=S[no].ayet;
+  const cnt=sat.querySelector('.sure-cnt'); if(cnt) cnt.classList.add('gizli');
+  const box=el('<span class="ayetsec"><input type="text" inputmode="numeric" autocomplete="off" list="ayetliste"'+
+    ' placeholder="'+n+'" title="\u00c2yet numaras\u0131 yaz\u0131n veya listeden se\u00e7in \u00b7 1\u2013'+n+'"><datalist id="ayetliste"></datalist></span>');
+  let o=''; for(let i=1;i<=n;i++) o+='<option value="'+i+'">';
+  box.querySelector('datalist').innerHTML=o;
+  const inp=box.querySelector('input');
+  const git=()=>{ const a=parseInt(inp.value,10);
+                  inp.value='';
+                  if(!a||a<1||a>n) return;
+                  ayeteGit(no,a);
+                  const y=document.querySelector('.ayetsec input'); if(y){ y.value=''; y.focus(); } };
+  const listeAc=()=>{ try{ inp.showPicker(); }catch(e){} };
+  inp.onmousedown=e=>e.stopPropagation();
+  inp.onclick=e=>{ e.stopPropagation(); inp.select(); listeAc(); };
+  inp.onfocus=()=>inp.select();
+  inp.onchange=git;
+  inp.onkeydown=e=>{ if(e.key==='Enter'){ e.preventDefault(); git(); }
+                     if(e.key==='Escape'){ inp.value=''; inp.blur(); } };
+  sat.appendChild(box);
+}
+
+function ayeteGit(no,a){
+  const ref=no+':'+a;
+  if(AYET_KUTUSU_ANALIZ){ openRef(ref); return; }
+  if(curSure!==no) selectSure(no);
+  const r=document.querySelector('.arow[data-ref="'+ref+'"]');
+  if(!r){ openRef(ref); return; }
+  document.querySelectorAll('.arow.hedef').forEach(x=>x.classList.remove('hedef'));
+  r.classList.add('hedef');
+  r.scrollIntoView({block:'start',behavior:'smooth'});
+  setTimeout(()=>{ r.classList.remove('hedef'); }, 2200);
+}
 function markActiveSure(no){document.querySelectorAll('.sure-item').forEach(x=>x.classList.toggle('active',+x.dataset.no===no));}
 function markActiveEsma(name){document.querySelectorAll('.esma-side').forEach(x=>x.classList.toggle('active',x.dataset.esma===name));}
 function backToSure(){ renderSidebar('sure'); curEsma=null; curSure=null; const m=document.getElementById('main'); m.className=''; m.innerHTML='<div class="hint"><div class="big">☾</div><span>Soldan bir sûre seçin.</span></div>'; }
@@ -279,6 +333,7 @@ function selectSure(no){
   curSure=no; curEsma=null;
   if(sbMode!=='sure') renderSidebar('sure');
   markActiveSure(no);
+  ayetKutusu(no);
   const s=S[no], m=document.getElementById('main'); m.className='';
   let rows='';
   for(let i=1;i<=s.ayet;i++){const ref=no+':'+i,v=V[ref];if(!v)continue;const sr=rootsOf(v);
@@ -475,6 +530,49 @@ function showEsma(name){
 function esmaAt(d){ const i=ESMA.esmalar.indexOf(curEsma), j=i+d; if(j>=0&&j<ESMA.esmalar.length) showEsma(ESMA.esmalar[j]); }
 function setMealEsma(mm){ mealMode=mm; if(curEsma)showEsma(curEsma); }
 boot();
+</script>
+<script>
+/* ===== TAM EKRAN (F11 etkisi) =========================================
+   OTO_TAM_EKRAN = true  -> sayfadaki ilk tiklama/tus basiminda kendiliginden
+                            tam ekrana gecer (tarayicilar kullanici hareketi
+                            olmadan tam ekrana izin vermiyor; "sayfa acilir
+                            acilmaz" teknik olarak mumkun degil).
+   OTO_TAM_EKRAN = false -> sadece basliktaki tam ekran dugmesiyle.
+   Cikis: Esc tusu veya ayni dugme.
+   ==================================================================== */
+const OTO_TAM_EKRAN = true;
+
+const tamMi = () => document.fullscreenElement || document.webkitFullscreenElement;
+
+function tamEkran(){
+  const de = document.documentElement;
+  if (tamMi()){
+    const f = document.exitFullscreen || document.webkitExitFullscreen;
+    if (f) f.call(document);
+  } else {
+    const f = de.requestFullscreen || de.webkitRequestFullscreen;
+    if (f){ const p = f.call(de); if (p && p.catch) p.catch(()=>{}); }
+  }
+}
+
+function fsIkon(){
+  const b = document.getElementById('fsbtn'); if(!b) return;
+  const t = !!tamMi();
+  b.textContent = t ? '\u2921' : '\u26F6';
+  b.title = t ? 'Tam ekrandan \u00e7\u0131k (Esc)' : 'Tam ekran (F11 gibi)';
+}
+document.addEventListener('fullscreenchange', fsIkon);
+document.addEventListener('webkitfullscreenchange', fsIkon);
+
+if (OTO_TAM_EKRAN){
+  const ilk = () => {
+    removeEventListener('pointerdown', ilk, true);
+    removeEventListener('keydown', ilk, true);
+    if (!tamMi()) tamEkran();
+  };
+  addEventListener('pointerdown', ilk, true);
+  addEventListener('keydown', ilk, true);
+}
 </script>
 </body>
 </html>

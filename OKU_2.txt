@@ -1,0 +1,12 @@
+IKINCI PARTI  (bu zip'in icindekiler)
+=====================================
+Birinci parti commit edildikten sonra yukleyin.
+Icerik: sure-58 ... sure-114 arasi sayfalar + sitemap.xml
+
+sitemap.xml'i bilerek en sona biraktim: butun sayfalar yerine oturmadan
+sitemap giderse Google eksik adreslerde 404 bulur.
+
+YUKLEDIKTEN SONRA KONTROL
+  ayatulkuran.com/sureler.html        -> 114 surelik liste
+  ayatulkuran.com/sure-2-bakara.html  -> Bakara sayfasi
+  Hakkinda penceresi                  -> "surum 1.7.0"

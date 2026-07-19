@@ -1,0 +1,10 @@
+BIRINCI PARTI  (bu zip'in icindekiler)
+======================================
+Musmur0606/konkordans-veri  ->  Add file -> Upload files
+Zip'i acin, ICINDEKI TUM DOSYALARI secip surukleyin. Klasor yok, hepsi tek
+duzeyde; "choose your files" dugmesiyle de secebilirsiniz (Ctrl+A).
+
+Icerik: index.html (mevcut dosyanin uzerine yazar), sureler.html,
+sure-1 ... sure-57 arasi sayfalar, robots.txt, og.png, manifest.json, simgeler.
+
+Commit edin, sonra IKINCI PARTIYI yukleyin.

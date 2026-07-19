@@ -19,13 +19,14 @@
   #search{flex:1;max-width:520px;margin-left:auto;padding:9px 14px;border:none;border-radius:22px;
     font-size:14px;background:rgba(255,255,255,.16);color:#fff;outline:none}
   #search::placeholder{color:rgba(255,255,255,.7)}
-  #status{font-size:12px;padding:4px 12px;border-radius:14px;white-space:nowrap;font-weight:600}
+  #status{font-size:13px;padding:3px 8px;border-radius:14px;white-space:nowrap;font-weight:600;cursor:default}
   .hbtn{background:rgba(255,255,255,.16);color:#fff;border:none;border-radius:16px;padding:7px 15px;cursor:pointer;font-size:13px;white-space:nowrap;font-weight:500}
   .hbtn:hover{background:rgba(255,255,255,.28)}
   .hsocial{display:inline-flex;align-items:center;gap:10px}
   .hsocial a{display:inline-flex;color:#fff;opacity:.72;transition:opacity .15s ease,transform .15s ease}
   .hsocial a:hover{opacity:1;transform:scale(1.15)}
   .hsocial svg{width:19px;height:19px;display:block}
+  .hver{font-size:11px;opacity:.55;letter-spacing:.3px;white-space:nowrap;font-weight:500}
   #status.load{background:#e9e2cf;color:#6b6459}
   #status.online{background:#dff0e6;color:#0c5c48}
   #status.offline{background:#fbe7b0;color:#8a5a12}
@@ -165,7 +166,7 @@
     header{padding:8px 12px;gap:8px;flex-wrap:wrap}
     header h1{font-size:15px}
     header .sub{display:none}
-    #status{font-size:10px;padding:3px 9px}
+    #status{font-size:12px;padding:2px 6px}
     .hbtn{font-size:11px;padding:4px 9px}
     #search{order:10;flex:1 0 100%;max-width:none;margin-left:0;padding:8px 13px;font-size:14px}
     body{display:flex;flex-direction:column}
@@ -208,7 +209,8 @@
     <h1>ayatulkuran <span id="abadge"></span></h1>
     <div class="sub">Ayet ayet ilişkili âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div>
   </div>
-  <span id="status" class="load">yükleniyor…</span>
+  <span id="status" class="load" title="Yükleniyor…">⏳</span>
+  <span id="surum" class="hver"></span>
   <button class="hbtn" onclick="showAbout()">ⓘ Hakkında</button>
   <span class="hsocial">
     <a href="https://x.com/ayatulkuran" target="_blank" rel="noopener" title="X'te takip edin" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
@@ -247,16 +249,17 @@ function idb(mode,fn){return new Promise((res,rej)=>{const r=indexedDB.open('kon
 function idbGet(k){return idb('readonly',(st,res,rej)=>{const q=st.get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);});}
 function idbSet(k,v){return idb('readwrite',(st,res,rej)=>{const q=st.put(v,k);q.onsuccess=()=>res();q.onerror=()=>rej(q.error);});}
 
-function setStatus(cls,txt){const s=document.getElementById('status');s.className=cls;s.textContent=txt;}
+function setStatus(cls,txt,ipucu){const s=document.getElementById('status');s.className=cls;s.textContent=txt;s.title=ipucu||txt;}
 function fmtDate(iso){try{return new Date(iso).toLocaleString('tr-TR');}catch(e){return iso;}}
 
 // ---- Açılış: GitHub'dan çek, olmazsa önbellekten ----
 async function boot(){
   if(ADMIN) document.getElementById('abadge').innerHTML='<span class="adminbadge">ADMIN</span>';
-  setStatus('load','yükleniyor…');
+  { const sv=document.getElementById('surum'); if(sv){ sv.textContent='v'+SITE_SURUM; sv.title='ayatulkuran sürüm '+SITE_SURUM; } }
+  setStatus('load','⏳','Yükleniyor…');
   let loaded=false, offline=false, when=null;
   // Admin: yerel çalışma kopyası varsa önce onu kullan (kaydedilmemiş düzenlemeler kaybolmasın)
-  if(ADMIN){ try{const wc=await idbGet('workingcopy'); if(wc){DB=JSON.parse(wc); loaded=true; when=await idbGet('wc_time'); setStatus('offline','yerel çalışma kopyası · '+(when?fmtDate(when):''));}}catch(e){} }
+  if(ADMIN){ try{const wc=await idbGet('workingcopy'); if(wc){DB=JSON.parse(wc); loaded=true; when=await idbGet('wc_time'); setStatus('offline','💾','Yerel çalışma kopyası · '+(when?fmtDate(when):''));}}catch(e){} }
   if(!loaded){
     try{
       const resp=await fetch(DATA_URL+'?t='+Date.now(),{cache:'no-store'});
@@ -264,19 +267,19 @@ async function boot(){
       const txt=await resp.text();
       DB=JSON.parse(txt);
       await idbSet('cache',txt); await idbSet('cache_time',new Date().toISOString());
-      setStatus('online','🟢 güncel · '+fmtDate(new Date().toISOString()));
+      setStatus('online','🟢','Güncel · '+fmtDate(new Date().toISOString()));
       loaded=true;
     }catch(e){
       // çevrimdışı: önbellekten
       try{
         const c=await idbGet('cache');
         if(c){ DB=JSON.parse(c); const t=await idbGet('cache_time'); offline=true; when=t; loaded=true;
-          setStatus('offline','🟡 çevrimdışı — veri güncel olmayabilir · son: '+(t?fmtDate(t):'?')); }
+          setStatus('offline','🟡','Çevrimdışı — veri güncel olmayabilir · son: '+(t?fmtDate(t):'?')); }
       }catch(e2){}
     }
   }
   if(!loaded){
-    setStatus('err','🔴 veri yüklenemedi');
+    setStatus('err','🔴','Veri yüklenemedi');
     document.getElementById('boothint').innerHTML='Veri yüklenemedi. İlk kullanımda internet bağlantısı gerekir.<br><span style="font-size:13px">İnternete bağlanıp sayfayı yenileyin (F5).</span>';
     return;
   }
@@ -492,7 +495,7 @@ async function refetch(){ if(!confirm('GitHub\'dan güncel veri çekilecek. Kayd
   try{ const resp=await fetch(DATA_URL+'?t='+Date.now(),{cache:'no-store'}); const txt=await resp.text(); DB=JSON.parse(txt);
     await idbSet('cache',txt); await idbSet('cache_time',new Date().toISOString());
     try{ await idb('readwrite',(st,res)=>{st.delete('workingcopy');res();}); }catch(e){}
-    V=DB.verses; S=DB.sureler; setStatus('online','🟢 güncel · '+fmtDate(new Date().toISOString()));
+    V=DB.verses; S=DB.sureler; setStatus('online','🟢','Güncel · '+fmtDate(new Date().toISOString()));
     if(curRef)selectVerse(curRef,true); alert('Güncel veri çekildi.'); }catch(e){alert('Çekilemedi (internet?).');}
 }
 

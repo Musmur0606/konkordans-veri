@@ -1,0 +1,23 @@
+ayatulkuran — GITHUB'A YUKLENECEK DOSYALAR
+==========================================
+Bu zip'in ICINDEKILERI (zip'in kendisini degil) deponun KOKUNE yukleyin:
+Musmur0606/konkordans-veri  ->  Add file -> Upload files -> hepsini surukleyin
+
+  index.html                 (mevcut dosyanin uzerine yazar — adi zaten dogru)
+  sitemap.xml                (mevcut tek adreslik surumun uzerine yazar)
+  robots.txt
+  og.png                     (paylasim karti)
+  manifest.json              (telefona uygulama olarak kurulum)
+  icon-192.png / icon-512.png / icon-512-maskable.png
+  sure/                      (115 dosya: 114 sure sayfasi + liste)
+
+SIRA: sure klasoru ile sitemap.xml AYNI commit'te gitsin. Sitemap once
+giderse Google 114 adreste 404 bulur ve hata olarak birikir.
+
+YUKLEDIKTEN SONRA KONTROL
+  ayatulkuran.com/sure/          -> 114 surelik liste acilmali
+  ayatulkuran.com/og.png         -> yesil kart acilmali
+  Hakkinda penceresi             -> "surum 1.7.0" yazmali
+
+NOT: ayatulkuran_yerel.zip'i buraya YUKLEMEYIN. O, admin panelli yerel
+calisma kopyasidir, sadece kendi bilgisayarinizda durur.

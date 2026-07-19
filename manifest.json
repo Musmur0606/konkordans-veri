@@ -1,0 +1,19 @@
+{
+  "name": "ayatulkuran — Âyet âyet ilişkili âyetler",
+  "short_name": "ayatulkuran",
+  "description": "Kur'an âyetleri arasındaki ilişkileri gösteren konkordans çalışması. 6.236 âyet, 160 binden fazla bağlantı, 942 kavram, 99 esmâ.",
+  "lang": "tr",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f6f3ea",
+  "theme_color": "#0c5c48",
+  "categories": ["books", "education", "reference"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

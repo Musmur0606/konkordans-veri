@@ -1,6 +1,6 @@
 /* ayatulkuran — servis calisani (cevrimdisi kullanim)
    Yeni surum yayinlarken asagidaki SURUM satirini degistirin; eski onbellek silinir. */
-const SURUM = 'v1.8.1';
+const SURUM = 'v1.8.2';
 const AD    = 'ayatulkuran-' + SURUM;
 
 const CEKIRDEK = [

@@ -1,0 +1,11 @@
+ayatulkuran 1.8.2 — iki dosya
+=============================
+Bu iki dosya, SITEDE SU AN DURAN surumun uzerine yamalandi.
+Yani baska yerden yapilan eklemeler (ana ekrana ekle cubugu vb.)
+KORUNDU, silinmedi.
+
+index.html  <- surum numarasi artik hem masaustunde hem cepte gorunuyor
+               (ve veri yuklenmese bile yaziliyor)
+sw.js       <- SURUM satiri v1.8.2
+
+GitHub -> Add file -> Upload files -> ikisini birakin -> Commit.

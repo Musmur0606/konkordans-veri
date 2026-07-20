@@ -302,7 +302,7 @@
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '1.9.0';
+const SITE_SURUM = '1.9.1';
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
@@ -608,13 +608,17 @@ function selectSure(no){
   const s=S[no], m=document.getElementById('main'); m.className='';
   let rows='';
   for(let i=1;i<=s.ayet;i++){const ref=no+':'+i,v=V[ref];if(!v)continue;const sr=rootsOf(v);
-    rows+=`<div class="arow" data-ref="${ref}"><div class="anum">${i}</div><div class="abody"><div class="ar">${hlAr(v,sr)}</div><div class="tr">${showMeal(v,sr)}</div></div></div>`;}
+    rows+=`<div class="arow" data-ref="${ref}"><div class="anum">${i}</div><div class="abody">`+
+      `<div class="ar">${hlAr(v,sr)}${SES.destek?`<button class="oku sesbtn" data-ses="${ref}" title="Bu âyeti dinle">🔊</button>`:``}</div>`+
+      `<div class="tr">${showMeal(v,sr)}</div></div></div>`;}
   m.innerHTML=`<div class="crumb">${esc(s.ad)} sûresi · ${s.ayet} âyet${sureKunye(no)}<br>bir âyete tıklayın (analiz)</div>
     <div class="toolbar"><button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealSure('mb')">Türkçe (Ali Bulaç)</button>
     <button class="btn ${mealMode==='me'?'on':''}" onclick="setMealSure('me')">İngilizce (Saheeh Int'l)</button>
-    <button class="btn" onclick="window.print()" title="Bu sûreyi PDF kaydet">⤓ PDF</button>${SES.destek?`<button class="btn sesbtn" onclick="sesSure(${no})" title="Sûreyi baştan sona dinle">🔊 Dinle</button>`:``}</div>
+    <button class="btn" onclick="window.print()" title="Bu sûreyi PDF kaydet">⤓ PDF</button></div>
     <div class="sureread">${rows}</div>`;
-  m.querySelectorAll('.arow').forEach(r=>r.onclick=()=>openRef(r.dataset.ref)); m.scrollTop=0;
+  m.querySelectorAll('.arow').forEach(r=>r.onclick=()=>openRef(r.dataset.ref));
+  m.querySelectorAll('.arow .oku').forEach(b=>b.onclick=(e)=>{ e.stopPropagation(); sesAyet(b.dataset.ses); });
+  m.scrollTop=0;
 }
 function setMealSure(mm){mealMode=mm; if(curSure)selectSure(curSure);}
 

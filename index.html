@@ -296,7 +296,7 @@
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '2.0.0';
+const SITE_SURUM = '2.0.1';
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
@@ -687,9 +687,9 @@ function mdToHtml(md){
   const cl=()=>{ if(inList){h+='</ul>'; inList=false;} };
   for(const raw of lines){ const t=raw.replace(/\s+$/,'');
     if(/^---+$/.test(t)){ cl(); h+='<hr>'; }
-    else if(/^### /.test(t)){ cl(); h+='<h3>'+inl(t.slice(4))+'</h3>'; }
-    else if(/^## /.test(t)){ cl(); h+='<h2>'+inl(t.slice(3))+'</h2>'; }
-    else if(/^# /.test(t)){ cl(); h+='<h1>'+inl(t.slice(2))+'</h1>'; }
+    else if(/^###\s*\S/.test(t)){ cl(); h+='<h3>'+inl(t.replace(/^###\s*/,''))+'</h3>'; }
+    else if(/^##\s*\S/.test(t)){ cl(); h+='<h2>'+inl(t.replace(/^##\s*/,''))+'</h2>'; }
+    else if(/^#\s*\S/.test(t)){ cl(); h+='<h1>'+inl(t.replace(/^#\s*/,''))+'</h1>'; }
     else if(/^> /.test(t)){ cl(); h+='<blockquote>'+inl(t.slice(2))+'</blockquote>'; }
     else if(/^[-*] /.test(t)){ if(!inList){h+='<ul>';inList=true;} h+='<li>'+inl(t.slice(2))+'</li>'; }
     else if(t===''){ cl(); }

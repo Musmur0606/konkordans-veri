@@ -179,12 +179,6 @@
   b.hl{color:var(--red);font-weight:700}
   .ar b.hl{color:#8a1a0a}
   .toolbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-  .btn.sesbtn.calisiyor{background:#a3341f;color:#fff;border-color:#a3341f}
-  .oku{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-inline-start:8px;
-    border:1px solid var(--line);background:#fff;color:var(--green);border-radius:50%;cursor:pointer;
-    font-size:12px;vertical-align:middle;line-height:1;padding:0}
-  .oku:hover{background:#eaf1ea;border-color:var(--green)}
-  .oku.calisiyor{background:#a3341f;border-color:#a3341f;color:#fff}
   .btn{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:6px 12px;cursor:pointer;font-size:13px;color:var(--ink)}
   .btn:hover{border-color:var(--green);color:var(--green)}
   .btn.on{background:var(--green);color:#fff;border-color:var(--green)}
@@ -302,7 +296,7 @@
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '1.9.6';
+const SITE_SURUM = '2.0.0';
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
@@ -324,140 +318,6 @@ function idb(mode,fn){return new Promise((res,rej)=>{const r=indexedDB.open('kon
   r.onerror=()=>rej(r.error);});}
 function idbGet(k){return idb('readonly',(st,res,rej)=>{const q=st.get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);});}
 function idbSet(k,v){return idb('readwrite',(st,res,rej)=>{const q=st.put(v,k);q.onsuccess=()=>res();q.onerror=()=>rej(q.error);});}
-
-/* ===== SESLENDIRME (Web Speech API) ================================
-   Cihazin KENDI sesini kullanir: Samsung TTS / Google TTS / Siri sesi /
-   Microsoft sesi. Sunucuya yuk binmez, dosya barindirilmaz.
-   iOS notlari: (1) sesler gec yuklenir -> voiceschanged dinlenir
-                (2) uzun metin ~15sn sonra kesilir -> cumlelere bolunur
-                (3) baslatmak icin kullanici dokunusu sart -> buton zaten oyle
-   ================================================================== */
-const SES = { destek: (typeof speechSynthesis !== 'undefined' && 'SpeechSynthesisUtterance' in window),
-              sesler: [], kuyruk: [], calisiyor: false };
-const SES_KOD = { tr:'tr-TR', en:'en-US', ar:'ar-SA' };
-
-function sesListesiYukle(){ try{ SES.sesler = speechSynthesis.getVoices() || []; }catch(e){ SES.sesler=[]; } }
-if (SES.destek){
-  sesListesiYukle();
-  try{ speechSynthesis.onvoiceschanged = sesListesiYukle; }catch(e){}
-  // Chrome/iOS: uzun oynatmada motor kendini duraklatabiliyor
-  setInterval(()=>{ try{ if(SES.calisiyor && speechSynthesis.paused) speechSynthesis.resume(); }catch(e){} }, 6000);
-}
-
-function sesSec(dil){
-  const tam = (SES_KOD[dil]||dil).toLowerCase();
-  let v = SES.sesler.find(x=>x.lang && x.lang.toLowerCase().replace('_','-')===tam);
-  if(!v) v = SES.sesler.find(x=>x.lang && x.lang.toLowerCase().startsWith(dil));
-  return v || null;
-}
-
-function sesVar(dil){ return !!sesSec(dil); }
-function sesDurumu(){                       // Hakkinda penceresinde gosterilir
-  if(!SES.destek) return 'Seslendirme: bu tarayıcı desteklemiyor.';
-  if(!SES.sesler.length) sesListesiYukle();
-  const d=[['tr','Türkçe'],['en','İngilizce'],['ar','Arapça']]
-    .map(([k,ad])=>{const v=sesSec(k); return ad+': '+(v?('✓ '+(v.name||v.lang)):'✗ yok');}).join(' · ');
-  return 'Bu cihazdaki seslendirme → '+d+'  ('+SES.sesler.length+' ses yüklü)';
-}
-let _sesUyarildi=false;
-function sesUyar(dil){
-  if(_sesUyarildi) return; _sesUyarildi=true;
-  const ad = dil==='ar' ? 'Arapça' : (dil==='en' ? 'İngilizce' : 'Türkçe');
-  alert(ad+' ses paketi cihazınızda yüklü değil.\n\nAndroid: Ayarlar → Erişilebilirlik → Metin okuma çıkışı → '
-        +'Google/Samsung TTS → Ses verilerini yükle\niPhone: Ayarlar → Erişilebilirlik → Sözlü İçerik → Sesler');
-}
-
-function sesParcala(metin){
-  const t = String(metin||'').replace(/\s+/g,' ').trim();
-  if(!t) return [];
-  const kaba=[]; let buf='';
-  for(const ch of t){
-    buf += ch;
-    if('.!?؟۔:;'.indexOf(ch)>=0 && buf.trim().length>4){ kaba.push(buf.trim()); buf=''; }
-  }
-  if(buf.trim()) kaba.push(buf.trim());
-  const son=[];
-  kaba.forEach(p=>{                       // 170 karakteri asanlari da bol (iOS kesme sorunu)
-    while(p.length>170){
-      let k=p.lastIndexOf(' ',170); if(k<50) k=170;
-      son.push(p.slice(0,k).trim()); p=p.slice(k).trim();
-    }
-    if(p) son.push(p);
-  });
-  return son;
-}
-
-function sesButonlar(){
-  document.querySelectorAll('.sesbtn').forEach(b=>{
-    b.textContent = SES.calisiyor ? '⏹ Durdur' : '🔊 Dinle';
-    b.classList.toggle('calisiyor', SES.calisiyor);
-  });
-}
-
-function sesDur(){
-  SES.kuyruk=[]; SES.calisiyor=false;
-  if(SES.destek){ try{ speechSynthesis.cancel(); }catch(e){} }
-  sesButonlar();
-}
-
-function sesSirada(){
-  if(!SES.calisiyor || !SES.kuyruk.length){ SES.calisiyor=false; sesButonlar(); return; }
-  const p = SES.kuyruk.shift();
-  const u = new SpeechSynthesisUtterance(p.metin);
-  const v = sesSec(p.dil);
-  if(v) u.voice = v;
-  u.lang = SES_KOD[p.dil] || p.dil;
-  u.rate = (p.dil==='ar') ? 0.82 : 0.95;
-  u.pitch = 1; u.volume = 1;
-  u.onend   = ()=>setTimeout(sesSirada, 80);
-  u.onerror = ()=>setTimeout(sesSirada, 80);
-  try{ speechSynthesis.speak(u); }
-  catch(e){ SES.calisiyor=false; sesButonlar(); }
-}
-
-function sesBaslat(liste){
-  if(!SES.destek){ alert('Bu tarayıcı seslendirmeyi desteklemiyor.'); return; }
-  sesDur();
-  SES.kuyruk=[];
-  liste.forEach(x=>{ sesParcala(x.metin).forEach(m=>SES.kuyruk.push({metin:m, dil:x.dil})); });
-  if(!SES.kuyruk.length) return;
-  SES.calisiyor=true; sesButonlar();
-  setTimeout(sesSirada, 60);   // iOS: cancel() sonrasi kisa bekleme
-}
-
-function sesDili(){ return (mealMode==='me') ? 'en' : 'tr'; }
-function sesMeal(v){ return (mealMode==='me') ? (v.me||'') : (v.mb||''); }
-
-function sesAyet(ref){
-  if(SES.calisiyor){ sesDur(); return; }
-  const v = V[ref]; if(!v) return;
-  const md = sesDili();
-  const liste=[];
-  if(sesVar('ar')) liste.push({metin:v.ar, dil:'ar'});   // Arapca sesi yoksa atlanir
-  if(sesVar(md))   liste.push({metin:sesMeal(v), dil:md});
-  if(!liste.length){ sesUyar(md); return; }
-  sesBaslat(liste);
-}
-
-function sesSure(no){
-  if(SES.calisiyor){ sesDur(); return; }
-  const s = S[no]; if(!s) return;
-  const dil = sesDili(), liste=[];
-  for(let i=1;i<=s.ayet;i++){
-    const v = V[no+':'+i]; if(!v) continue;
-    liste.push({metin:v.ar, dil:'ar'});
-    const m = sesMeal(v); if(m) liste.push({metin:m, dil:dil});
-  }
-  sesBaslat(liste);
-}
-
-function sesTek(ref,tur){          // tur: 'ar' | 'meal'
-  if(SES.calisiyor){ sesDur(); return; }
-  const v=V[ref]; if(!v) return;
-  const dil = (tur==='ar') ? 'ar' : sesDili();
-  if(!sesVar(dil)){ sesUyar(dil); return; }        // ses paketi yoksa bozuk okuma yapma
-  sesBaslat([{metin: (tur==='ar' ? v.ar : sesMeal(v)), dil:dil}]);
-}
 
 function setStatus(cls,txt,ip){const s=document.getElementById('status');s.className=cls;s.textContent=txt;s.title=(ip===undefined?txt:ip);}
 function fmtDate(iso){try{return new Date(iso).toLocaleString('tr-TR');}catch(e){return iso;}}
@@ -603,7 +463,6 @@ function ayeteGit(no,a){
 function markActiveSure(no){document.querySelectorAll('.sure-item').forEach(x=>x.classList.toggle('active',+x.dataset.no===no));}
 function markActiveEsma(name){document.querySelectorAll('.esma-side').forEach(x=>x.classList.toggle('active',x.dataset.esma===name));}
 function anaEkran(){
-  if(typeof sesDur==='function') sesDur();
   listeyeDon();
   const inp=document.getElementById('search'); if(inp) inp.value='';
   backToSure();
@@ -637,7 +496,7 @@ function selectSure(no){
   let rows='';
   for(let i=1;i<=s.ayet;i++){const ref=no+':'+i,v=V[ref];if(!v)continue;const sr=rootsOf(v);
     rows+=`<div class="arow" data-ref="${ref}"><div class="anum">${i}</div><div class="abody">`+
-      `<div class="ar">${hlAr(v,sr)}${SES.destek?`<button class="oku sesbtn" data-ses="${ref}" title="Bu âyeti dinle">🔊</button>`:``}</div>`+
+      `<div class="ar">${hlAr(v,sr)}</div>`+
       `<div class="tr">${showMeal(v,sr)}</div></div></div>`;}
   m.innerHTML=`<div class="backbtn" onclick="backToSure()">◀ Sûre listesi</div>
     <div class="crumb">${esc(s.ad)} sûresi · ${s.ayet} âyet${sureKunye(no)}<br>bir âyete tıklayın (analiz)</div>
@@ -646,7 +505,6 @@ function selectSure(no){
     <button class="btn" onclick="window.print()" title="Bu sûreyi PDF kaydet">⤓ PDF</button></div>
     <div class="sureread">${rows}</div>`;
   m.querySelectorAll('.arow').forEach(r=>r.onclick=()=>openRef(r.dataset.ref));
-  m.querySelectorAll('.arow .oku').forEach(b=>b.onclick=(e)=>{ e.stopPropagation(); sesAyet(b.dataset.ses); });
   m.scrollTop=0;
 }
 function setMealSure(mm){mealMode=mm; if(curSure)selectSure(curSure);}
@@ -663,7 +521,6 @@ function sureKunye(no){
 }
 function sureEk(ref){ return sureKunye(ref.split(':')[0]); }
 function selectVerse(ref,fromHist){
-  if(typeof sesDur==='function') sesDur();
   icerigeGec();
   if(window.gtag) gtag('event','ayet',{ref:gr(ref)});
   curRef=ref; const v=V[ref]; if(!v)return;
@@ -675,7 +532,7 @@ function selectVerse(ref,fromHist){
     rel.forEach(rr=>{const w=V[rr]; if(!w)return;
       const link=new Set([...rootsOf(w)].filter(x=>seedRoots.has(x)));
       const ap=(w._ap===ref);
-      relHtml+=`<div class="rel ${ap?'approved':''}" data-ref="${rr}"><div class="ar">${hlAr(w,link)}${SES.destek?`<button class="oku sesbtn" data-ses="${rr}" title="Bu âyeti dinle">🔊</button>`:``}</div>
+      relHtml+=`<div class="rel ${ap?'approved':''}" data-ref="${rr}"><div class="ar">${hlAr(w,link)}</div>
         <div><span class="ref">${esc(w.sa)} ${w.a} (${gr(rr)})</span><div class="rm">${showMeal(w,link)}</div></div>
         ${ADMIN?`<div class="relactions"><span class="minibtn rm" onclick="event.stopPropagation();adminRemove('${ref}','${rr}')">✕ çıkar</span></div>`:''}</div>`;
     });
@@ -698,11 +555,10 @@ function selectVerse(ref,fromHist){
       <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMeal('mb')">Türkçe (Ali Bulaç)</button>
       <button class="btn ${mealMode==='me'?'on':''}" onclick="setMeal('me')">İngilizce (Saheeh Int'l)</button>
       <button class="btn" onclick="window.print()" title="Bu sayfayı PDF kaydet">⤓ PDF</button>
-      ${SES.destek?`<button class="btn sesbtn" onclick="sesAyet('${ref}')" title="Arapça + meâl, sırayla">🔊 Dinle</button>`:``}
     </div>
-    <div class="maincard"><div class="ar">${hlAr(v,seedRoots)}${SES.destek?`<button class="oku sesbtn" onclick="sesTek('${ref}','ar')" title="Arapça metni dinle">🔊</button>`:``}</div>
+    <div class="maincard"><div class="ar">${hlAr(v,seedRoots)}</div>
       ${v.ok?`<div class="ok">${esc(v.ok)}</div>`:''}
-      <div class="meal">${showMeal(v,seedRoots)}${SES.destek?`<button class="oku sesbtn" onclick="sesTek('${ref}','meal')" title="Meâli dinle">🔊</button>`:``}</div>
+      <div class="meal">${showMeal(v,seedRoots)}</div>
       <div class="meal-src">${esc(v.sa)} ${v.a}. âyet — ${gr(ref)}${sureEk(ref)} · Meâl: ${mealSrc()}</div>
       ${tags?`<div class="tags">${tags}</div>`:''}</div>
     <div class="sectitle">İlişkili Âyetler <span class="n">${rel.length}</span>${v.t?'<span class="draft">otomatik taslak</span>':''}</div>
@@ -710,7 +566,6 @@ function selectVerse(ref,fromHist){
     </div>
     <div class="scrollbody"><div id="rellist">${relHtml}</div></div>`;
   document.querySelectorAll('.rel').forEach(r=>r.onclick=()=>goto(r.dataset.ref));
-  document.querySelectorAll('.rel .oku').forEach(b=>b.onclick=(e)=>{ e.stopPropagation(); sesAyet(b.dataset.ses); });
 }
 function setMeal(m){mealMode=m; if(curRef)selectVerse(curRef,true);}
 function openRef(ref,fromHist){if(!ref)return;const s=+ref.split(':')[0];if(s!==curSure)selectSure(s);selectVerse(ref,fromHist);document.getElementById('main').scrollTop=0;}
@@ -884,7 +739,7 @@ async function showAbout(){
   try{ const r=await fetch(ABOUT_URL+'?t='+Date.now(),{cache:'no-store'});
     if(r.ok){ md=await r.text(); try{await idbSet('about',md);}catch(e){} } }catch(e){}
   if(md===null){ try{ md=await idbGet('about'); }catch(e){} }
-  const damga='<div class="meal-src" style="margin-top:18px">ayatulkuran · sürüm '+SITE_SURUM+'</div>'+'<div class="meal-src" style="margin-top:4px;text-transform:none">'+sesDurumu()+'</div>';
+  const damga='<div class="meal-src" style="margin-top:18px">ayatulkuran · sürüm '+SITE_SURUM+'</div>';
   const counter='<div class="counter">Ziyaretçi sayısı<br><br><img src="https://api.visitorbadge.io/api/visitors?path=ayatulkuran-konkordans&label=Ziyaret%C3%A7i&labelColor=%230c5c48&countColor=%23a67c2e&style=for-the-badge" alt="ziyaretci sayaci"></div>';
   const body = md ? mdToHtml(md) : '<p>Hakkında metni yüklenemedi. İnternete bağlanıp tekrar deneyin.</p>';
   m.innerHTML='<div class="aboutwrap">'+counter+body+damga+'<p style="margin-top:24px;color:var(--muted);font-size:13px">© ayatulkuran</p><div class="social-follow"><div class="sf-label">Bizi takip edin</div><a class="sf-x" href="https://x.com/ayatulkuran" target="_blank" rel="noopener" title="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a class="sf-ig" href="https://instagram.com/ayat_ulkuran" target="_blank" rel="noopener" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.94 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4zm6.41-10.85a1.44 1.44 0 1 0 1.44 1.44 1.44 1.44 0 0 0-1.44-1.44z"/></svg></a></div><p class="filigran">Teknik destek: M. Mustafa MURAT</p></div>';

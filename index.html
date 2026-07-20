@@ -302,7 +302,7 @@
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '1.9.1';
+const SITE_SURUM = '1.9.2';
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
@@ -349,6 +349,15 @@ function sesSec(dil){
   let v = SES.sesler.find(x=>x.lang && x.lang.toLowerCase().replace('_','-')===tam);
   if(!v) v = SES.sesler.find(x=>x.lang && x.lang.toLowerCase().startsWith(dil));
   return v || null;
+}
+
+function sesVar(dil){ return !!sesSec(dil); }
+let _sesUyarildi=false;
+function sesUyar(dil){
+  if(_sesUyarildi) return; _sesUyarildi=true;
+  const ad = dil==='ar' ? 'Arapça' : (dil==='en' ? 'İngilizce' : 'Türkçe');
+  alert(ad+' ses paketi cihazınızda yüklü değil.\n\nAndroid: Ayarlar → Erişilebilirlik → Metin okuma çıkışı → '
+        +'Google/Samsung TTS → Ses verilerini yükle\niPhone: Ayarlar → Erişilebilirlik → Sözlü İçerik → Sesler');
 }
 
 function sesParcala(metin){
@@ -415,7 +424,12 @@ function sesMeal(v){ return (mealMode==='me') ? (v.me||'') : (v.mb||''); }
 function sesAyet(ref){
   if(SES.calisiyor){ sesDur(); return; }
   const v = V[ref]; if(!v) return;
-  sesBaslat([{metin:v.ar, dil:'ar'}, {metin:sesMeal(v), dil:sesDili()}]);
+  const md = sesDili();
+  const liste=[];
+  if(sesVar('ar')) liste.push({metin:v.ar, dil:'ar'});   // Arapca sesi yoksa atlanir
+  if(sesVar(md))   liste.push({metin:sesMeal(v), dil:md});
+  if(!liste.length){ sesUyar(md); return; }
+  sesBaslat(liste);
 }
 
 function sesSure(no){
@@ -433,8 +447,9 @@ function sesSure(no){
 function sesTek(ref,tur){          // tur: 'ar' | 'meal'
   if(SES.calisiyor){ sesDur(); return; }
   const v=V[ref]; if(!v) return;
-  if(tur==='ar') sesBaslat([{metin:v.ar, dil:'ar'}]);
-  else           sesBaslat([{metin:sesMeal(v), dil:sesDili()}]);
+  const dil = (tur==='ar') ? 'ar' : sesDili();
+  if(!sesVar(dil)){ sesUyar(dil); return; }        // ses paketi yoksa bozuk okuma yapma
+  sesBaslat([{metin: (tur==='ar' ? v.ar : sesMeal(v)), dil:dil}]);
 }
 
 function setStatus(cls,txt,ip){const s=document.getElementById('status');s.className=cls;s.textContent=txt;s.title=(ip===undefined?txt:ip);}
@@ -646,7 +661,7 @@ function selectVerse(ref,fromHist){
     rel.forEach(rr=>{const w=V[rr]; if(!w)return;
       const link=new Set([...rootsOf(w)].filter(x=>seedRoots.has(x)));
       const ap=(w._ap===ref);
-      relHtml+=`<div class="rel ${ap?'approved':''}" data-ref="${rr}"><div class="ar">${hlAr(w,link)}</div>
+      relHtml+=`<div class="rel ${ap?'approved':''}" data-ref="${rr}"><div class="ar">${hlAr(w,link)}${SES.destek?`<button class="oku sesbtn" data-ses="${rr}" title="Bu âyeti dinle">🔊</button>`:``}</div>
         <div><span class="ref">${esc(w.sa)} ${w.a} (${gr(rr)})</span><div class="rm">${showMeal(w,link)}</div></div>
         ${ADMIN?`<div class="relactions"><span class="minibtn rm" onclick="event.stopPropagation();adminRemove('${ref}','${rr}')">✕ çıkar</span></div>`:''}</div>`;
     });
@@ -681,6 +696,7 @@ function selectVerse(ref,fromHist){
     </div>
     <div class="scrollbody"><div id="rellist">${relHtml}</div></div>`;
   document.querySelectorAll('.rel').forEach(r=>r.onclick=()=>goto(r.dataset.ref));
+  document.querySelectorAll('.rel .oku').forEach(b=>b.onclick=(e)=>{ e.stopPropagation(); sesAyet(b.dataset.ses); });
 }
 function setMeal(m){mealMode=m; if(curRef)selectVerse(curRef,true);}
 function openRef(ref,fromHist){if(!ref)return;const s=+ref.split(':')[0];if(s!==curSure)selectSure(s);selectVerse(ref,fromHist);document.getElementById('main').scrollTop=0;}

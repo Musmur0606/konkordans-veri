@@ -44,15 +44,22 @@ Kur'an ilimleri tarihinde konu fihristleri (mu'cem mevzûî), kelime konkordansl
 
 Bununla birlikte, bu çalışmanın kendine has yönü şudur: **her âyeti tek tek ele alıp, o âyetin kavramına göre — eş sesli kullanımları ayıklayarak, ilgili olan kadar — ilişkili âyetleri elle derlemek**, ve bunu neredeyse Kur'an'ın bütününe yaymaktır. Kelime konkordansları kökü verir ama anlamı ayırmaz; konu fihristleri temayı verir ama âyet âyet ilişki ağı kurmaz. **Bu eser, ikisinin arasında, kavram-temelli ve âyet-merkezli bir yaklaşımı, uzun bir emekle hayata geçirmiştir. Bu yönüyle, benzerleri arasında kendine özgü bir yer tutar.**
 
-## Ali Rıza ZARARSIZ Kimdir?
-
-1958 yılında Yozgat'ta dünyaya geldim. İlk tahsilimi Yozgat Cumhuriyet İlkokulu'nda gördüm; orta ve lise öğrenimimi ise Yozgat İmam-Hatip Okulu'nda, 1976 yılında tamamladım. 1981 yılında Ankara Üniversitesi İlâhiyat Fakültesi'nden mezun oldum.
-
-Kapsamını yukarıda arz ettiğim bu çalışmaya 1 Ocak 2017 tarihinde başladım; bu gayret, bugün hâlâ aralıksız devam etmektedir. Bununla birlikte, bu çalışmada kullanılmak üzere hazırlamak zorunda kaldığımız Kur'an-ı Kerim meâli çalışması da devam etmektedir.
-
-Nihayetinde, Rabbimin yardımı ve tevfîkiyle bu çalışmayı hakkıyla tamamlayabilmeyi; ve Rabbimin onu, ardı kesilmeyen bir hayır, bir sadaka-i câriye olarak kabul buyurmasını, bütün gönlümle O'ndan arz ve niyâz ediyorum.
-
-*Ali Rıza ZARARSIZ — 4 Temmuz 2026*
+Ali Rıza ZARARSIZ Kimdir?
+1958 yılında Yozgat'ta doğdu. İlkokulu Yozgat Cumhuriyet İlkokulunda, ortaokul ve lise öğrenimini ise Yozgat İmam-Hatip Okulunda 1976 yılında tamamladı. 1976-1977 öğretim yılında Erzurum Atatürk Üniversitesi İslami İlimler Fakültesinde yükseköğretime başladı 1978-1979 öğretim yılında Ankara Üniversitesi İlahiyat Fakültesine yatay geçiş yaparak 1981 yılında bu Fakülteden mezun oldu.
+İslami ilimler alanındaki ilk tahsiline Yozgat İmam-Hatip okuluna devam ederken 12 yaşında, dönemin Yozgat Müftüsü ve Merkez Vaizi olan babası Ömer Lütfi Zararsız’dan klasik usulde Arapça dersleri alarak başlamıştır. Sarf cümlesinden emsile, bina, nahiv cümlesinden avamil okumuştur.
+Yükseköğretimden mezun olduktan sonra, 1984-1985 yılları arasında bir yıl kadar Suudi Arabistan’da Saraçoğlu şirketinde çalışmıştır. 1986 yılından itibaren ticaretle uğraşmış ve 2007 yılında emekli olmuştur.
+Kapsamı yukarıda arz edilen bu çalışmaya 1 Ocak 2017 tarihinde başlanmış olup bu gayret bugün hâlâ aralıksız devam etmektedir. Bununla birlikte bu çalışmada kullanılmak üzere hazırlamak zorunda kalınan Kur'an-ı Kerim meali çalışması devam etmektedir.
+Nihayetinde, Rabbimin yardımı ve tevfikiyle bu çalışmayı hakkıyla tamamlayabilmeyi ve Rabbimin onu, ardı kesilmeyen bir hayır, bir sadaka-i cariye olarak kabul buyurmasını, bütün gönlümle O'ndan arz ve niyaz ederim.
+كفانا فخرا ان تكون لنا ربا
+و كفانا عزا ان نكون لك عبادا
+و انت كما نحب
+فاجعلنا كما تحب
+Bizim Rabbimiz olman övünç olarak bize yeter
+Senin kulların olmamız da izzet (üstünlük) olarak bize yeter
+Sen bizim sevdiğimiz gibisin
+Bizi de Senin sevdiğin gibi yap
+(Amin)
+Ali Rıza ZARARSIZ — 4 Temmuz 2026
 
 
 ## İçerik

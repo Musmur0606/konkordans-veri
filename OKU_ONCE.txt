@@ -1,0 +1,10 @@
+1. ADIM — KOK DOSYALARI  (9 dosya)
+==================================
+Bu klasordeki dosyalarin HEPSINI secip (Ctrl+A) GitHub'a surukleyin:
+  GitHub -> depo -> Add file -> Upload files -> dosyalari birakin
+  -> Commit changes
+
+Bu 9 dosya sitenin calisan kismidir: cep duzeni, arama, meta etiketleri,
+manifest, cevrimdisi destegi, yeni rozet. Once bunu yapin, site duzelir.
+
+Sure sayfalari (2. ve 3. paket) SEO icindir, acele degil.

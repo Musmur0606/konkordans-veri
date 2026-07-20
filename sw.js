@@ -1,6 +1,6 @@
 /* ayatulkuran — servis calisani (cevrimdisi kullanim)
    Yeni surum yayinlarken asagidaki SURUM satirini degistirin; eski onbellek silinir. */
-const SURUM = 'v1.8.0';
+const SURUM = 'v1.8.1';
 const AD    = 'ayatulkuran-' + SURUM;
 
 const CEKIRDEK = [
@@ -13,6 +13,15 @@ const ATLA = /googletagmanager|google-analytics|visitorbadge/;
 
 // Veri adresleri ?t=zaman ile geliyor; onbellege sorgusuz adresle yaziyoruz,
 // yoksa her istek ayri kayit olur ve cevrimdisi eslesme hic tutmaz.
+// Onbellekten donen yanita isaret koyariz; uygulama boylece gercekten
+// baglantisi mi var yoksa kayitli veriyi mi okuyor, ayirt edebilir.
+function isaretle(y) {
+  if (!y) return y;
+  const h = new Headers(y.headers);
+  h.set('X-Onbellek', '1');
+  return new Response(y.body, { status: y.status, statusText: y.statusText, headers: h });
+}
+
 function anahtar(url) {
   const u = new URL(url);
   return new Request(u.origin + u.pathname, { mode: 'cors' });
@@ -44,7 +53,8 @@ self.addEventListener('fetch', e => {
   if (r.mode === 'navigate' || (r.headers.get('accept') || '').includes('text/html')) {
     e.respondWith(
       fetch(r).then(y => { const k = y.clone(); caches.open(AD).then(c => c.put(r, k)); return y; })
-              .catch(() => caches.match(r).then(x => x || caches.match('/index.html')))
+              .catch(() => caches.match(r).then(x => isaretle(x || undefined) ||
+                        caches.match('/index.html').then(isaretle)))
     );
     return;
   }
@@ -54,7 +64,7 @@ self.addEventListener('fetch', e => {
     const a = anahtar(r.url);
     e.respondWith(
       fetch(r).then(y => { const k = y.clone(); caches.open(AD).then(c => c.put(a, k)); return y; })
-              .catch(() => caches.match(a))
+              .catch(() => caches.match(a).then(isaretle))
     );
     return;
   }

@@ -1,0 +1,13 @@
+ACIL — ANA SAYFAYI GERI GETIRME  (3 dosya)
+==========================================
+Su an sitenin ana sayfasi yanlislikla "sure listesi" sayfasiyla degismis.
+Bu klasordeki 3 dosyayi GitHub'a yukleyin, ana sayfa geri gelir:
+
+  index.html     <- SITENIN KENDISI (surum 1.8.1) — en onemlisi
+  sureler.html   <- 114 surelik liste (artik ayri adla, cakisma yok)
+  sitemap.xml    <- adresler kok duzenine gore guncellendi
+
+GitHub -> Add file -> Upload files -> uc dosyayi da birakin -> Commit
+
+SONRA: 2. ve 3. paketteki sure sayfalarini yukleyin (var olanlarin
+uzerine yazacak, silmeniz gereken hicbir sey yok).

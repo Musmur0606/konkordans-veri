@@ -44,7 +44,8 @@ Kur'an ilimleri tarihinde konu fihristleri (mu'cem mevzûî), kelime konkordansl
 
 Bununla birlikte, bu çalışmanın kendine has yönü şudur: **her âyeti tek tek ele alıp, o âyetin kavramına göre — eş sesli kullanımları ayıklayarak, ilgili olan kadar — ilişkili âyetleri elle derlemek**, ve bunu neredeyse Kur'an'ın bütününe yaymaktır. Kelime konkordansları kökü verir ama anlamı ayırmaz; konu fihristleri temayı verir ama âyet âyet ilişki ağı kurmaz. **Bu eser, ikisinin arasında, kavram-temelli ve âyet-merkezli bir yaklaşımı, uzun bir emekle hayata geçirmiştir. Bu yönüyle, benzerleri arasında kendine özgü bir yer tutar.**
 
-Ali Rıza ZARARSIZ Kimdir?
+##Ali Rıza ZARARSIZ Kimdir?
+
 1958 yılında Yozgat'ta doğdu. İlkokulu Yozgat Cumhuriyet İlkokulunda, ortaokul ve lise öğrenimini ise Yozgat İmam-Hatip Okulunda 1976 yılında tamamladı. 1976-1977 öğretim yılında Erzurum Atatürk Üniversitesi İslami İlimler Fakültesinde yükseköğretime başladı 1978-1979 öğretim yılında Ankara Üniversitesi İlahiyat Fakültesine yatay geçiş yaparak 1981 yılında bu Fakülteden mezun oldu.
 İslami ilimler alanındaki ilk tahsiline Yozgat İmam-Hatip okuluna devam ederken 12 yaşında, dönemin Yozgat Müftüsü ve Merkez Vaizi olan babası Ömer Lütfi Zararsız’dan klasik usulde Arapça dersleri alarak başlamıştır. Sarf cümlesinden emsile, bina, nahiv cümlesinden avamil okumuştur.
 Yükseköğretimden mezun olduktan sonra, 1984-1985 yılları arasında bir yıl kadar Suudi Arabistan’da Saraçoğlu şirketinde çalışmıştır. 1986 yılından itibaren ticaretle uğraşmış ve 2007 yılında emekli olmuştur.

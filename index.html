@@ -179,6 +179,12 @@
   b.hl{color:var(--red);font-weight:700}
   .ar b.hl{color:#8a1a0a}
   .toolbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .btn.sesbtn.calisiyor{background:#a3341f;color:#fff;border-color:#a3341f}
+  .oku{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-inline-start:8px;
+    border:1px solid var(--line);background:#fff;color:var(--green);border-radius:50%;cursor:pointer;
+    font-size:12px;vertical-align:middle;line-height:1;padding:0}
+  .oku:hover{background:#eaf1ea;border-color:var(--green)}
+  .oku.calisiyor{background:#a3341f;border-color:#a3341f;color:#fff}
   .btn{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:6px 12px;cursor:pointer;font-size:13px;color:var(--ink)}
   .btn:hover{border-color:var(--green);color:var(--green)}
   .btn.on{background:var(--green);color:#fff;border-color:var(--green)}
@@ -296,7 +302,7 @@
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '1.8.2';
+const SITE_SURUM = '1.9.0';
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
@@ -318,6 +324,118 @@ function idb(mode,fn){return new Promise((res,rej)=>{const r=indexedDB.open('kon
   r.onerror=()=>rej(r.error);});}
 function idbGet(k){return idb('readonly',(st,res,rej)=>{const q=st.get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error);});}
 function idbSet(k,v){return idb('readwrite',(st,res,rej)=>{const q=st.put(v,k);q.onsuccess=()=>res();q.onerror=()=>rej(q.error);});}
+
+/* ===== SESLENDIRME (Web Speech API) ================================
+   Cihazin KENDI sesini kullanir: Samsung TTS / Google TTS / Siri sesi /
+   Microsoft sesi. Sunucuya yuk binmez, dosya barindirilmaz.
+   iOS notlari: (1) sesler gec yuklenir -> voiceschanged dinlenir
+                (2) uzun metin ~15sn sonra kesilir -> cumlelere bolunur
+                (3) baslatmak icin kullanici dokunusu sart -> buton zaten oyle
+   ================================================================== */
+const SES = { destek: (typeof speechSynthesis !== 'undefined' && 'SpeechSynthesisUtterance' in window),
+              sesler: [], kuyruk: [], calisiyor: false };
+const SES_KOD = { tr:'tr-TR', en:'en-US', ar:'ar-SA' };
+
+function sesListesiYukle(){ try{ SES.sesler = speechSynthesis.getVoices() || []; }catch(e){ SES.sesler=[]; } }
+if (SES.destek){
+  sesListesiYukle();
+  try{ speechSynthesis.onvoiceschanged = sesListesiYukle; }catch(e){}
+  // Chrome/iOS: uzun oynatmada motor kendini duraklatabiliyor
+  setInterval(()=>{ try{ if(SES.calisiyor && speechSynthesis.paused) speechSynthesis.resume(); }catch(e){} }, 6000);
+}
+
+function sesSec(dil){
+  const tam = (SES_KOD[dil]||dil).toLowerCase();
+  let v = SES.sesler.find(x=>x.lang && x.lang.toLowerCase().replace('_','-')===tam);
+  if(!v) v = SES.sesler.find(x=>x.lang && x.lang.toLowerCase().startsWith(dil));
+  return v || null;
+}
+
+function sesParcala(metin){
+  const t = String(metin||'').replace(/\s+/g,' ').trim();
+  if(!t) return [];
+  const kaba=[]; let buf='';
+  for(const ch of t){
+    buf += ch;
+    if('.!?؟۔:;'.indexOf(ch)>=0 && buf.trim().length>4){ kaba.push(buf.trim()); buf=''; }
+  }
+  if(buf.trim()) kaba.push(buf.trim());
+  const son=[];
+  kaba.forEach(p=>{                       // 170 karakteri asanlari da bol (iOS kesme sorunu)
+    while(p.length>170){
+      let k=p.lastIndexOf(' ',170); if(k<50) k=170;
+      son.push(p.slice(0,k).trim()); p=p.slice(k).trim();
+    }
+    if(p) son.push(p);
+  });
+  return son;
+}
+
+function sesButonlar(){
+  document.querySelectorAll('.sesbtn').forEach(b=>{
+    b.textContent = SES.calisiyor ? '⏹ Durdur' : '🔊 Dinle';
+    b.classList.toggle('calisiyor', SES.calisiyor);
+  });
+}
+
+function sesDur(){
+  SES.kuyruk=[]; SES.calisiyor=false;
+  if(SES.destek){ try{ speechSynthesis.cancel(); }catch(e){} }
+  sesButonlar();
+}
+
+function sesSirada(){
+  if(!SES.calisiyor || !SES.kuyruk.length){ SES.calisiyor=false; sesButonlar(); return; }
+  const p = SES.kuyruk.shift();
+  const u = new SpeechSynthesisUtterance(p.metin);
+  const v = sesSec(p.dil);
+  if(v) u.voice = v;
+  u.lang = SES_KOD[p.dil] || p.dil;
+  u.rate = (p.dil==='ar') ? 0.82 : 0.95;
+  u.pitch = 1; u.volume = 1;
+  u.onend   = ()=>setTimeout(sesSirada, 80);
+  u.onerror = ()=>setTimeout(sesSirada, 80);
+  try{ speechSynthesis.speak(u); }
+  catch(e){ SES.calisiyor=false; sesButonlar(); }
+}
+
+function sesBaslat(liste){
+  if(!SES.destek){ alert('Bu tarayıcı seslendirmeyi desteklemiyor.'); return; }
+  sesDur();
+  SES.kuyruk=[];
+  liste.forEach(x=>{ sesParcala(x.metin).forEach(m=>SES.kuyruk.push({metin:m, dil:x.dil})); });
+  if(!SES.kuyruk.length) return;
+  SES.calisiyor=true; sesButonlar();
+  setTimeout(sesSirada, 60);   // iOS: cancel() sonrasi kisa bekleme
+}
+
+function sesDili(){ return (mealMode==='me') ? 'en' : 'tr'; }
+function sesMeal(v){ return (mealMode==='me') ? (v.me||'') : (v.mb||''); }
+
+function sesAyet(ref){
+  if(SES.calisiyor){ sesDur(); return; }
+  const v = V[ref]; if(!v) return;
+  sesBaslat([{metin:v.ar, dil:'ar'}, {metin:sesMeal(v), dil:sesDili()}]);
+}
+
+function sesSure(no){
+  if(SES.calisiyor){ sesDur(); return; }
+  const s = S[no]; if(!s) return;
+  const dil = sesDili(), liste=[];
+  for(let i=1;i<=s.ayet;i++){
+    const v = V[no+':'+i]; if(!v) continue;
+    liste.push({metin:v.ar, dil:'ar'});
+    const m = sesMeal(v); if(m) liste.push({metin:m, dil:dil});
+  }
+  sesBaslat(liste);
+}
+
+function sesTek(ref,tur){          // tur: 'ar' | 'meal'
+  if(SES.calisiyor){ sesDur(); return; }
+  const v=V[ref]; if(!v) return;
+  if(tur==='ar') sesBaslat([{metin:v.ar, dil:'ar'}]);
+  else           sesBaslat([{metin:sesMeal(v), dil:sesDili()}]);
+}
 
 function setStatus(cls,txt,ip){const s=document.getElementById('status');s.className=cls;s.textContent=txt;s.title=(ip===undefined?txt:ip);}
 function fmtDate(iso){try{return new Date(iso).toLocaleString('tr-TR');}catch(e){return iso;}}
@@ -494,7 +612,7 @@ function selectSure(no){
   m.innerHTML=`<div class="crumb">${esc(s.ad)} sûresi · ${s.ayet} âyet${sureKunye(no)}<br>bir âyete tıklayın (analiz)</div>
     <div class="toolbar"><button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealSure('mb')">Türkçe (Ali Bulaç)</button>
     <button class="btn ${mealMode==='me'?'on':''}" onclick="setMealSure('me')">İngilizce (Saheeh Int'l)</button>
-    <button class="btn" onclick="window.print()" title="Bu sûreyi PDF kaydet">⤓ PDF</button></div>
+    <button class="btn" onclick="window.print()" title="Bu sûreyi PDF kaydet">⤓ PDF</button>${SES.destek?`<button class="btn sesbtn" onclick="sesSure(${no})" title="Sûreyi baştan sona dinle">🔊 Dinle</button>`:``}</div>
     <div class="sureread">${rows}</div>`;
   m.querySelectorAll('.arow').forEach(r=>r.onclick=()=>openRef(r.dataset.ref)); m.scrollTop=0;
 }
@@ -512,6 +630,7 @@ function sureKunye(no){
 }
 function sureEk(ref){ return sureKunye(ref.split(':')[0]); }
 function selectVerse(ref,fromHist){
+  if(typeof sesDur==='function') sesDur();
   icerigeGec();
   if(window.gtag) gtag('event','ayet',{ref:gr(ref)});
   curRef=ref; const v=V[ref]; if(!v)return;
@@ -546,10 +665,11 @@ function selectVerse(ref,fromHist){
       <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMeal('mb')">Türkçe (Ali Bulaç)</button>
       <button class="btn ${mealMode==='me'?'on':''}" onclick="setMeal('me')">İngilizce (Saheeh Int'l)</button>
       <button class="btn" onclick="window.print()" title="Bu sayfayı PDF kaydet">⤓ PDF</button>
+      ${SES.destek?`<button class="btn sesbtn" onclick="sesAyet('${ref}')" title="Arapça + meâl, sırayla">🔊 Dinle</button>`:``}
     </div>
-    <div class="maincard"><div class="ar">${hlAr(v,seedRoots)}</div>
+    <div class="maincard"><div class="ar">${hlAr(v,seedRoots)}${SES.destek?`<button class="oku sesbtn" onclick="sesTek('${ref}','ar')" title="Arapça metni dinle">🔊</button>`:``}</div>
       ${v.ok?`<div class="ok">${esc(v.ok)}</div>`:''}
-      <div class="meal">${showMeal(v,seedRoots)}</div>
+      <div class="meal">${showMeal(v,seedRoots)}${SES.destek?`<button class="oku sesbtn" onclick="sesTek('${ref}','meal')" title="Meâli dinle">🔊</button>`:``}</div>
       <div class="meal-src">${esc(v.sa)} ${v.a}. âyet — ${gr(ref)}${sureEk(ref)} · Meâl: ${mealSrc()}</div>
       ${tags?`<div class="tags">${tags}</div>`:''}</div>
     <div class="sectitle">İlişkili Âyetler <span class="n">${rel.length}</span>${v.t?'<span class="draft">otomatik taslak</span>':''}</div>

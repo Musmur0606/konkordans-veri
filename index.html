@@ -280,7 +280,7 @@
 <body>
 <header>
   <div>
-    <h1>ayatulkuran <span id="abadge"></span></h1>
+    <h1 onclick="anaEkran()" style="cursor:pointer" title="Ana ekran">ayatulkuran <span id="abadge"></span></h1>
     <div class="sub">Ayet ayet ilişkili âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div>
     <div class="surum-cep surum-yaz" id="surumcep">v1.8.2</div>
   </div>
@@ -302,7 +302,7 @@
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '1.9.5';
+const SITE_SURUM = '1.9.6';
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
@@ -602,6 +602,12 @@ function ayeteGit(no,a){
 }
 function markActiveSure(no){document.querySelectorAll('.sure-item').forEach(x=>x.classList.toggle('active',+x.dataset.no===no));}
 function markActiveEsma(name){document.querySelectorAll('.esma-side').forEach(x=>x.classList.toggle('active',x.dataset.esma===name));}
+function anaEkran(){
+  if(typeof sesDur==='function') sesDur();
+  listeyeDon();
+  const inp=document.getElementById('search'); if(inp) inp.value='';
+  backToSure();
+}
 function backToSure(){ listeyeDon(); renderSidebar('sure'); curEsma=null; curSure=null; const m=document.getElementById('main'); m.className=''; m.innerHTML='<div class="hint"><div class="big">☾</div><span>Soldan bir sûre seçin.</span></div>'; }
 
 function rootsOf(v){return new Set((v.kr||[]).filter(Boolean));}

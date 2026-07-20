@@ -27,6 +27,9 @@ border-radius:50%;font-size:13px;color:#6b6459;margin-bottom:8px}
 .ar{font-size:26px;line-height:2;text-align:right;direction:rtl;color:#0a4a3a;margin:6px 0 10px}
 .ok{color:#a67c2e;font-size:14px;font-style:italic;margin-bottom:8px}
 .me{margin-bottom:8px}.alt2{font-size:12px;color:#6b6459}
+.ustnav{background:#eef3ee;border-bottom:1px solid #e5ddcb;padding:8px 16px;display:flex;gap:18px;font-size:14px}
+.ustnav a{color:#0c5c48;text-decoration:none;font-weight:600}
+.ustnav a:hover{text-decoration:underline}
 .oku{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-inline-start:8px;
 border:1px solid #e5ddcb;background:#fff;color:#0c5c48;border-radius:50%;cursor:pointer;font-size:12px;
 vertical-align:middle;line-height:1;padding:0}
@@ -43,6 +46,7 @@ footer{border-top:1px solid #e5ddcb;margin-top:34px;padding-top:16px;font-size:1
 <body>
 <header><a href="https://www.ayatulkuran.com/"><div class="ad">ayatulkuran</div>
 <div class="alt">Âyet âyet ilişkili âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div></a></header>
+<nav class="ustnav"><a href="https://www.ayatulkuran.com/">◀ Ana sayfa (uygulama)</a><a href="https://www.ayatulkuran.com/sureler.html">Bütün sûreler</a></nav>
 <main>
 <h1>Kur'an Sûreleri</h1><div class="ust">114 sûre · 6.236 âyet</div><div class="liste">
 <a href="1-fatiha.html">1. Fâtiha<span>7 âyet</span></a>
@@ -167,24 +171,32 @@ Meâl: Ali Bulaç. Arapça metin ve okunuş sayfanın kendi verisindendir.</p>
 </footer>
 
 <script>
-/* Seslendirme: yalniz basilan metni okur, ayetle sinirlidir. */
+/* Seslendirme: basilan ayeti okur. data-ar varsa once Arapca (ses paketi
+   varsa), sonra meal. Ayetle sinirlidir; tekrar basinca durur. */
 (function(){
-  if(!('speechSynthesis' in window)){ document.querySelectorAll('.oku').forEach(b=>b.remove()); return; }
+  if(!('speechSynthesis' in window)){ document.querySelectorAll('.oku').forEach(function(b){b.remove();}); return; }
   var aktif=null;
+  function sesVar(kod){ var L=speechSynthesis.getVoices()||[];
+    return L.some(function(v){return v.lang && v.lang.toLowerCase().indexOf(kod)===0;}); }
+  function sifirla(b){ if(b){ b.textContent='\u{1F50A} Dinle'; b.classList.remove('calisiyor'); } }
   document.addEventListener('click', function(e){
     var b=e.target.closest && e.target.closest('.oku'); if(!b) return;
     var caliyor = speechSynthesis.speaking || speechSynthesis.pending;
-    if(caliyor){ speechSynthesis.cancel(); if(aktif){aktif.textContent='\u{1F50A}'; aktif.classList.remove('calisiyor');} 
-                 if(aktif===b){ aktif=null; return; } }
+    if(caliyor){ speechSynthesis.cancel(); var onceki=aktif; sifirla(onceki); aktif=null; if(onceki===b) return; }
     var kopya=b.parentNode.cloneNode(true);
     Array.prototype.forEach.call(kopya.querySelectorAll('.oku'), function(x){ x.remove(); });
-    var t=kopya.textContent.replace(/[*\u2020]/g,'').replace(/\s+/g,' ').trim();
-    if(!t) return;
-    var u=new SpeechSynthesisUtterance(t);
-    u.lang=b.getAttribute('data-dil'); u.rate=0.95;
-    u.onend=u.onerror=function(){ b.textContent='\u{1F50A}'; b.classList.remove('calisiyor'); aktif=null; };
-    b.textContent='\u25A0'; b.classList.add('calisiyor'); aktif=b;
-    speechSynthesis.speak(u);
+    var meal=kopya.textContent.replace(/[*\u2020]/g,'').replace(/\s+/g,' ').trim();
+    var arapca=(b.getAttribute('data-ar')||'').trim();
+    var kuyruk=[];
+    if(arapca && sesVar('ar')) kuyruk.push([arapca,'ar-SA']);
+    if(meal) kuyruk.push([meal,'tr-TR']);
+    if(!kuyruk.length) return;
+    aktif=b; b.textContent='\u25A0 Durdur'; b.classList.add('calisiyor');
+    (function oku(k){ if(k>=kuyruk.length){ sifirla(b); aktif=null; return; }
+      var u=new SpeechSynthesisUtterance(kuyruk[k][0]); u.lang=kuyruk[k][1]; u.rate=0.95;
+      u.onend=function(){ oku(k+1); }; u.onerror=function(){ sifirla(b); aktif=null; };
+      speechSynthesis.speak(u);
+    })(0);
   });
 })();
 </script>

@@ -62,6 +62,14 @@ Nihayetinde, Rabbimin yardımı ve tevfîkiyle bu çalışmayı hakkıyla tamaml
 - Her âyet için kavram kökleri, konular ve ilişkili âyetler
 - Kavram kökünün hem Arapça hem meâlde vurgulanması
 
+## Telefona Kurulum
+
+ayatulkuran'ı telefonunuzun ana ekranına ekleyip uygulama gibi kullanabilirsiniz. Adres çubuğu görünmez, tam ekran açılır; bir uygulama mağazasından indirme değildir, telefonda yer kaplamaz.
+
+**Android (Chrome):** Sağ üstteki ⋮ menüsünden **"Uygulamayı yükle"** ya da **"Ana ekrana ekle"** seçeneğine dokunun.
+
+**iPhone (Safari):** Alttaki paylaş düğmesine (kutudan yukarı çıkan ok) dokunun, listeyi aşağı kaydırıp **"Ana Ekrana Ekle"**yi seçin. iPhone'da bu işlem yalnız Safari'de çalışır; Chrome'da bu seçenek bulunmaz.
+
 ## İletişim
 
 Eserle ilgili görüş, öneri ve düzeltmelerinizi aşağıdaki adrese iletebilirsiniz:

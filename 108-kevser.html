@@ -27,6 +27,11 @@ border-radius:50%;font-size:13px;color:#6b6459;margin-bottom:8px}
 .ar{font-size:26px;line-height:2;text-align:right;direction:rtl;color:#0a4a3a;margin:6px 0 10px}
 .ok{color:#a67c2e;font-size:14px;font-style:italic;margin-bottom:8px}
 .me{margin-bottom:8px}.alt2{font-size:12px;color:#6b6459}
+.oku{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-inline-start:8px;
+border:1px solid #e5ddcb;background:#fff;color:#0c5c48;border-radius:50%;cursor:pointer;font-size:12px;
+vertical-align:middle;line-height:1;padding:0}
+.oku:hover{background:#eaf1ea;border-color:#0c5c48}
+.oku.calisiyor{background:#a3341f;border-color:#a3341f;color:#fff}
 .gez{display:flex;justify-content:space-between;gap:12px;margin:26px 0 10px;font-size:14px}
 .liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
 .liste a{display:flex;justify-content:space-between;gap:8px;background:#fffdf8;border:1px solid #e5ddcb;
@@ -42,19 +47,19 @@ footer{border-top:1px solid #e5ddcb;margin-top:34px;padding-top:16px;font-size:1
 <h1>Kevser Sûresi</h1>
 <div class="ust">108. sûre · 3 âyet · Mekkî · nüzul sırası 15</div>
 <div class="ayet" id="a1"><div class="no">1</div>
-<div class="ar">إِنَّآ أَعۡطَيۡنَٰكَ ٱلۡكَوۡثَرَ</div>
+<div class="ar">إِنَّآ أَعۡطَيۡنَٰكَ ٱلۡكَوۡثَرَ<button class="oku" data-dil="ar-SA" aria-label="Âyeti dinle">🔊</button></div>
 <div class="ok">innâ a`ṭaynâke-lkevŝer.</div>
-<div class="me">Şüphesiz, Biz sana Kevser'i verdik.</div>
+<div class="me">Şüphesiz, Biz sana Kevser'i verdik.<button class="oku" data-dil="tr-TR" aria-label="Meâli dinle">🔊</button></div>
 <div class="alt2">Kevser 1 (108.1) · <a href="https://www.ayatulkuran.com/?ayet=108.1">24 ilişkili âyet →</a></div></div>
 <div class="ayet" id="a2"><div class="no">2</div>
-<div class="ar">فَصَلِّ لِرَبِّكَ وَٱنۡحَرۡ</div>
+<div class="ar">فَصَلِّ لِرَبِّكَ وَٱنۡحَرۡ<button class="oku" data-dil="ar-SA" aria-label="Âyeti dinle">🔊</button></div>
 <div class="ok">feṣalli lirabbike venḥar.</div>
-<div class="me">Şu halde Rabbin için namaz kıl ve kurban kes.</div>
+<div class="me">Şu halde Rabbin için namaz kıl ve kurban kes.<button class="oku" data-dil="tr-TR" aria-label="Meâli dinle">🔊</button></div>
 <div class="alt2">Kevser 2 (108.2) · <a href="https://www.ayatulkuran.com/?ayet=108.2">21 ilişkili âyet →</a></div></div>
 <div class="ayet" id="a3"><div class="no">3</div>
-<div class="ar">إِنَّ شَانِئَكَ هُوَ ٱلۡأَبۡتَرُ</div>
+<div class="ar">إِنَّ شَانِئَكَ هُوَ ٱلۡأَبۡتَرُ<button class="oku" data-dil="ar-SA" aria-label="Âyeti dinle">🔊</button></div>
 <div class="ok">inne şânieke hüve-l'ebter.</div>
-<div class="me">Doğrusu, asıl ebter (soyu kesik) olan sana kin duyandır.</div>
+<div class="me">Doğrusu, asıl ebter (soyu kesik) olan sana kin duyandır.<button class="oku" data-dil="tr-TR" aria-label="Meâli dinle">🔊</button></div>
 <div class="alt2">Kevser 3 (108.3) · <a href="https://www.ayatulkuran.com/?ayet=108.3">10 ilişkili âyet →</a></div></div>
 <div class="gez"><a href="107-maun.html">← Mâûn</a><a href="sureler.html">Bütün sûreler</a><a href="109-kafirun.html">Kâfirûn →</a></div>
 </main>
@@ -62,5 +67,29 @@ footer{border-top:1px solid #e5ddcb;margin-top:34px;padding-top:16px;font-size:1
 <p><a href="https://www.ayatulkuran.com/">ayatulkuran.com</a> — âyetler arası ilişkileri gösteren konkordans çalışması.
 Meâl: Ali Bulaç. Arapça metin ve okunuş sayfanın kendi verisindendir.</p>
 </footer>
+
+<script>
+/* Seslendirme: yalniz basilan metni okur, ayetle sinirlidir. */
+(function(){
+  if(!('speechSynthesis' in window)){ document.querySelectorAll('.oku').forEach(b=>b.remove()); return; }
+  var aktif=null;
+  document.addEventListener('click', function(e){
+    var b=e.target.closest && e.target.closest('.oku'); if(!b) return;
+    var caliyor = speechSynthesis.speaking || speechSynthesis.pending;
+    if(caliyor){ speechSynthesis.cancel(); if(aktif){aktif.textContent='\u{1F50A}'; aktif.classList.remove('calisiyor');} 
+                 if(aktif===b){ aktif=null; return; } }
+    var kopya=b.parentNode.cloneNode(true);
+    Array.prototype.forEach.call(kopya.querySelectorAll('.oku'), function(x){ x.remove(); });
+    var t=kopya.textContent.replace(/[*\u2020]/g,'').replace(/\s+/g,' ').trim();
+    if(!t) return;
+    var u=new SpeechSynthesisUtterance(t);
+    u.lang=b.getAttribute('data-dil'); u.rate=0.95;
+    u.onend=u.onerror=function(){ b.textContent='\u{1F50A}'; b.classList.remove('calisiyor'); aktif=null; };
+    b.textContent='\u25A0'; b.classList.add('calisiyor'); aktif=b;
+    speechSynthesis.speak(u);
+  });
+})();
+</script>
+
 </body>
 </html>

@@ -12,8 +12,8 @@
   gtag('js', new Date());
   gtag('config', 'G-GR8QBLN1K7');
 </script>
-<title>ayatulkuran — Kur’an konkordansı: âyetler arası ilişkiler</title>
-<meta name="description" content="Kur’an’ı âyet âyet, birbirine bağlanmış hâliyle okuyun. 6.236 âyet, 160 binden fazla âyet ilişkisi, 942 kavram başlığı, 99 esmâ. Kelime, meâl veya konu ile arayın.">
+<title>ayatulkuran — Kur’an konkordansı: birbirine benzeşen âyetler</title>
+<meta name="description" content="Kur’an’ı âyet âyet, birbirine bağlanmış hâliyle okuyun. 6.236 âyet, 160 binden fazla âyet bağı, 942 kavram başlığı, 99 esmâ. Bir âyeti açın, ona benzeşen âyetleri görün.">
 <meta name="author" content="Ali Rıza ZARARSIZ">
 <link rel="canonical" href="https://www.ayatulkuran.com/">
 <meta name="theme-color" content="#0c5c48">
@@ -28,23 +28,23 @@
 <meta property="og:site_name" content="ayatulkuran">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:url" content="https://www.ayatulkuran.com/">
-<meta property="og:title" content="ayatulkuran — Âyet âyet ilişkili âyetler">
-<meta property="og:description" content="6.236 âyet, 160 binden fazla âyet ilişkisi, 942 kavram, 99 esmâ. Bir âyeti açın, onunla ilişkili âyetler karşınıza gelsin.">
+<meta property="og:title" content="ayatulkuran — Âyet âyet benzeşen âyetler">
+<meta property="og:description" content="6.236 âyet, 160 binden fazla âyet bağı, 942 kavram, 99 esmâ. Bir âyeti açın, ona benzeşen âyetler karşınıza gelsin.">
 <meta property="og:image" content="https://www.ayatulkuran.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="ayatulkuran — 6.236 âyet, 160.000+ bağlantı, 942 kavram, 99 esmâ">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ayatulkuran — Âyet âyet ilişkili âyetler">
-<meta name="twitter:description" content="6.236 âyet, 160 binden fazla âyet ilişkisi, 942 kavram, 99 esmâ. Kelime, meâl veya konu ile arayın.">
+<meta name="twitter:title" content="ayatulkuran — Âyet âyet benzeşen âyetler">
+<meta name="twitter:description" content="6.236 âyet, 160 binden fazla âyet bağı, 942 kavram, 99 esmâ. Bir âyeti açın, ona benzeşen âyetleri görün.">
 <meta name="twitter:image" content="https://www.ayatulkuran.com/og.png">
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebSite","name":"ayatulkuran",
  "alternateName":"ayatulkuran — Kur’an konkordansı",
  "url":"https://www.ayatulkuran.com/",
- "description":"Kur’an âyetleri arasındaki ilişkileri gösteren konkordans çalışması.",
+ "description":"Birbirine benzeşen Kur’an âyetlerini gösteren konkordans çalışması.",
  "inLanguage":["tr","ar","en"],
  "author":{"@type":"Person","name":"Ali Rıza ZARARSIZ"},
  "isAccessibleForFree":true}
@@ -278,7 +278,7 @@
 <header>
   <div>
     <h1 onclick="anaEkran()" style="cursor:pointer" title="Ana ekran">ayatulkuran <span id="abadge"></span></h1>
-    <div class="sub">Ayet ayet ilişkili âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div>
+    <div class="sub">Âyet âyet benzeşen âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div>
     <div class="surum-cep surum-yaz" id="surumcep">v1.8.2</div>
   </div>
   <span id="status" class="load">yükleniyor…</span>
@@ -299,7 +299,7 @@
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '2.1.0';
+const SITE_SURUM = '2.2.0';
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
@@ -420,7 +420,7 @@ function renderSidebar(mode){
     head.appendChild(el('<a class="sure-item okusayfa" href="/sureler.html"><span>\u25A4 Sûre okuma sayfaları</span><span class="ok-ok">\u2192</span></a>'));
     Object.keys(S).map(Number).sort((a,b)=>a-b).forEach(no=>{
       const s=S[no];
-      const it=el(`<div class="sure-item" data-no="${no}"><span class="sure-no">${no}</span><span class="sure-name">${esc(s.ad)}</span><span class="sure-cnt"><span class="sc-ayet">${s.ayet} âyet</span><span class="sc-il">${sureIliski(no).toLocaleString('tr-TR')} ilişki</span></span></div>`);
+      const it=el(`<div class="sure-item" data-no="${no}"><span class="sure-no">${no}</span><span class="sure-name">${esc(s.ad)}</span><span class="sure-cnt"><span class="sc-ayet">${s.ayet} âyet</span><span class="sc-il">${sureIliski(no).toLocaleString('tr-TR')} benzeşen</span></span></div>`);
       it.onclick=()=>selectSure(no); list.appendChild(it);
     });
   }
@@ -548,7 +548,7 @@ function selectVerse(ref,fromHist){
         <div><span class="ref">${esc(w.sa)} ${w.a} (${gr(rr)})</span><div class="rm">${showMeal(w,link)}</div></div>
         ${ADMIN?`<div class="relactions"><span class="minibtn rm" onclick="event.stopPropagation();adminRemove('${ref}','${rr}')">✕ çıkar</span></div>`:''}</div>`;
     });
-  } else relHtml=`<div class="empty">Bu âyet için ilişkili âyet verisi yok.</div>`;
+  } else relHtml=`<div class="empty">Bu âyet için benzeşen âyet bulunmuyor.</div>`;
   const tags=(v.ko||[]).slice(0,8).map(t=>`<span class="tag">${esc(t)}</span>`).join('');
   const addUI = ADMIN?`<div class="addrow"><input id="addref" placeholder="ör. 2.255" onkeydown="if(event.key==='Enter')adminAdd('${ref}')">
     <button class="btn" onclick="adminAdd('${ref}')">＋ âyet ekle</button>
@@ -573,7 +573,7 @@ function selectVerse(ref,fromHist){
       <div class="meal">${showMeal(v,seedRoots)}</div>
       <div class="meal-src">${esc(v.sa)} ${v.a}. âyet — ${gr(ref)}${sureEk(ref)} · Meâl: ${mealSrc()}</div>
       ${tags?`<div class="tags">${tags}</div>`:''}</div>
-    <div class="sectitle">İlişkili Âyetler <span class="n">${rel.length}</span>${v.t?'<span class="draft">otomatik taslak</span>':''}</div>
+    <div class="sectitle">Benzeşen Âyetler <span class="n">${rel.length}</span>${v.t?'<span class="draft">otomatik taslak</span>':''}</div>
     ${addUI}
     </div>
     <div class="scrollbody"><div id="rellist">${relHtml}</div></div>`;
@@ -591,7 +591,7 @@ function stepNext(){const r=nextRef(curRef);if(r)openRef(r);}
 function saveWorking(){ if(!ADMIN)return; try{ idbSet('workingcopy',JSON.stringify(DB)); idbSet('wc_time',new Date().toISOString()); }catch(e){} }
 function adminRemove(seed,ref){
   const w=V[ref]; const bilgi=w?(w.sa+' '+w.a+' ('+ref+')'):ref;
-  if(!confirm('Bu âyet ilişkili listeden ÇIKARILSIN mı?\n\n'+bilgi)) return;
+  if(!confirm('Bu âyet benzeşenler listesinden ÇIKARILSIN mı?\n\n'+bilgi)) return;
   const v=V[seed]; v.r=sortRefs((v.r||[]).filter(x=>x!==ref)); saveWorking(); selectVerse(seed,true);
 }
 function adminAdd(seed){ const inp=document.getElementById('addref'); if(!inp)return;
@@ -600,7 +600,7 @@ function adminAdd(seed){ const inp=document.getElementById('addref'); if(!inp)re
   if(!V[ref]){alert('Böyle bir âyet yok.');return;}
   const v=V[seed]; v.r=v.r||[]; if(v.r.includes(ref)){alert('Zaten ekli.');return;}
   const w=V[ref];
-  if(!confirm('Bu âyet ilişkili listeye EKLENSİN mi?\n\n'+w.sa+' '+w.a+' ('+gr(ref)+')\n'+(w.mb||'').slice(0,80))) return;
+  if(!confirm('Bu âyet benzeşenler listesine EKLENSİN mi?\n\n'+w.sa+' '+w.a+' ('+gr(ref)+')\n'+(w.mb||'').slice(0,80))) return;
   v.r.push(ref); sortRefs(v.r);
   if(inp) inp.value='';
   saveWorking(); selectVerse(seed,true);

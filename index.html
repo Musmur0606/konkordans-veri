@@ -120,7 +120,10 @@
   .sure-no{font-size:12px;color:var(--muted);min-width:26px}
   .sure-item.active .sure-no{color:rgba(255,255,255,.75)}
   .sure-name{flex:1;margin:0 8px;font-weight:500}
-  .sure-cnt{font-size:11px;color:var(--muted)}
+  .sure-cnt{font-size:11px;color:var(--muted);text-align:right;line-height:1.35}
+  .sc-ayet{display:block}
+  .sc-il{display:block;font-size:10px;color:var(--green);opacity:.85}
+  .sure-item.active .sc-il{color:rgba(255,255,255,.85)}
   .sure-item.active .sure-cnt{color:rgba(255,255,255,.75)}
   .crumb{color:var(--muted);font-size:13px;margin-bottom:4px}
   .sureread{margin-top:6px}
@@ -296,7 +299,7 @@
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '2.0.1';
+const SITE_SURUM = '2.1.0';
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
@@ -391,6 +394,15 @@ async function boot(){
 
 // ---- Sidebar ----
 let sbMode='sure';
+// Sure basina toplam iliski sayisi (bir kez hesaplanir, onbelleklenir)
+let _sureIliski=null;
+function sureIliski(no){
+  if(!_sureIliski){
+    _sureIliski={};
+    for(const k in V){ const sn=k.split(':')[0]; _sureIliski[sn]=(_sureIliski[sn]||0)+((V[k].r||[]).length); }
+  }
+  return _sureIliski[no]||0;
+}
 function renderSidebar(mode){
   mode=mode||'sure'; sbMode=mode;
   const sb=document.getElementById('sidebar'); sb.innerHTML='';
@@ -408,7 +420,7 @@ function renderSidebar(mode){
     head.appendChild(el('<a class="sure-item okusayfa" href="/sureler.html"><span>\u25A4 Sûre okuma sayfaları</span><span class="ok-ok">\u2192</span></a>'));
     Object.keys(S).map(Number).sort((a,b)=>a-b).forEach(no=>{
       const s=S[no];
-      const it=el(`<div class="sure-item" data-no="${no}"><span class="sure-no">${no}</span><span class="sure-name">${esc(s.ad)}</span><span class="sure-cnt">${s.ayet}</span></div>`);
+      const it=el(`<div class="sure-item" data-no="${no}"><span class="sure-no">${no}</span><span class="sure-name">${esc(s.ad)}</span><span class="sure-cnt"><span class="sc-ayet">${s.ayet} âyet</span><span class="sc-il">${sureIliski(no).toLocaleString('tr-TR')} ilişki</span></span></div>`);
       it.onclick=()=>selectSure(no); list.appendChild(it);
     });
   }

@@ -1,6 +1,6 @@
 /* ayatulkuran — servis calisani (cevrimdisi kullanim)
    Yeni surum yayinlarken asagidaki SURUM satirini degistirin; eski onbellek silinir. */
-const SURUM = 'v2.4.0';
+const SURUM = 'v2.4.1';
 const AD    = 'ayatulkuran-' + SURUM;
 
 const CEKIRDEK = [
@@ -63,8 +63,9 @@ self.addEventListener('fetch', e => {
   if (VERI.test(r.url)) {
     const a = anahtar(r.url);
     e.respondWith(
-      fetch(r).then(y => { const k = y.clone(); caches.open(AD).then(c => c.put(a, k)); return y; })
-              .catch(() => caches.match(a).then(isaretle))
+      fetch(r, { cache: 'no-store' })
+        .then(y => { const k = y.clone(); caches.open(AD).then(c => c.put(a, k)); return y; })
+        .catch(() => caches.match(a).then(isaretle))
     );
     return;
   }

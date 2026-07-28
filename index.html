@@ -307,7 +307,7 @@
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '2.4.0';
+const SITE_SURUM = '2.4.2';
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
@@ -491,7 +491,7 @@ function backToSure(){ listeyeDon(); renderSidebar('sure'); curEsma=null; curSur
 
 function rootsOf(v){return new Set((v.kr||[]).filter(Boolean));}
 function showMeal(v,roots){ return mealMode==='me' ? esc(v.me||'') : hlTr(v.mb||'',roots); }
-function mealSrc(){ return mealMode==='me' ? 'Saheeh International' : 'Ali Bulaç'; }
+function mealSrc(){ return mealMode==='me' ? 'İngilizce Meâli' : 'Türkçe Meâli'; }
 function sortRefs(arr){ return arr.sort((a,b)=>{const x=a.split(':').map(Number),y=b.split(':').map(Number);return x[0]-y[0]||x[1]-y[1];}); }
 function hlAr(v,roots){const ws=v.ar.split(' '),kr=v.kr||[];
   return ws.map((w,i)=>(kr[i]&&roots.has(kr[i]))?'<b class="hl">'+esc(w)+'</b>':esc(w)).join(' ');}
@@ -520,7 +520,7 @@ function selectSure(no){
       `<div class="tr">${showMeal(v,sr)}</div></div></div>`;}
   m.innerHTML=`<div class="backbtn" onclick="backToSure()">◀ Sûre listesi</div>
     <div class="crumb">${esc(s.ad)} sûresi · ${s.ayet} âyet · <b style="color:var(--green)">${sureIliski(no).toLocaleString('tr-TR')} benzeşen âyet</b>${sureKunye(no)}<br>bir âyete tıklayın (analiz)</div>
-    <div class="toolbar"><button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealSure('mb')">Türkçe (Ali Bulaç)</button>
+    <div class="toolbar"><button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealSure('mb')">Türkçe Meâli</button>
     <button class="btn ${mealMode==='me'?'on':''}" onclick="setMealSure('me')">İngilizce (Saheeh Int'l)</button>
     <button class="btn" onclick="window.print()" title="Bu sûreyi PDF kaydet">⤓ PDF</button></div>
     <div class="sureread">${rows}</div>`;
@@ -572,7 +572,7 @@ function selectVerse(ref,fromHist){
         <div class="navbtn wide ${!prevRef(ref)?'disabled':''}" title="Önceki âyet" onclick="stepPrev()">◄ Önceki</div>
         <div class="navbtn wide ${!nextRef(ref)?'disabled':''}" title="Sonraki âyet" onclick="stepNext()">Sonraki ►</div>
       </div>
-      <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMeal('mb')">Türkçe (Ali Bulaç)</button>
+      <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMeal('mb')">Türkçe Meâli</button>
       <button class="btn ${mealMode==='me'?'on':''}" onclick="setMeal('me')">İngilizce (Saheeh Int'l)</button>
       <button class="btn" onclick="window.print()" title="Bu sayfayı PDF kaydet">⤓ PDF</button>
     </div>
@@ -797,7 +797,7 @@ function showEsma(name){
           <div class="navbtn wide ${i<=0?'disabled':''}" title="Önceki esmâ" onclick="esmaAt(-1)">◄ Önceki</div>
           <div class="navbtn wide ${i>=N-1?'disabled':''}" title="Sonraki esmâ" onclick="esmaAt(1)">Sonraki ►</div>
         </div>
-        <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealEsma('mb')">Türkçe (Ali Bulaç)</button>
+        <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealEsma('mb')">Türkçe Meâli</button>
         <button class="btn ${mealMode==='me'?'on':''}" onclick="setMealEsma('me')">İngilizce (Saheeh Int'l)</button>
         <button class="btn" onclick="window.print()" title="PDF kaydet">⤓ PDF</button>
       </div>

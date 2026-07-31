@@ -307,7 +307,7 @@
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '2.4.2';
+const SITE_SURUM = '2.4.3';
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
@@ -495,8 +495,32 @@ function mealSrc(){ return mealMode==='me' ? 'İngilizce Meâli' : 'Türkçe Me�
 function sortRefs(arr){ return arr.sort((a,b)=>{const x=a.split(':').map(Number),y=b.split(':').map(Number);return x[0]-y[0]||x[1]-y[1];}); }
 function hlAr(v,roots){const ws=v.ar.split(' '),kr=v.kr||[];
   return ws.map((w,i)=>(kr[i]&&roots.has(kr[i]))?'<b class="hl">'+esc(w)+'</b>':esc(w)).join(' ');}
-function hlArEsma(v,root){ if(!root) return esc(v.ar); const ws=v.ar.split(' '),kr=v.kr||[];
-  return ws.map((w,i)=>(kr[i]&&kr[i]===root)?'<b class="esmahl">'+esc(w)+'</b>':esc(w)).join(' '); }
+// Arapca kelimeyi sadelestir: harekeleri, tatweel'i, bas elif-lam'i at, alef turevlerini birlestir
+function esmaIskelet(x){
+  if(!x) return '';
+  x = x.normalize('NFC')
+       .replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/g,'') // harekeler/tenvin/hancerli elif
+       .replace(/\u0640/g,'')                    // tatweel
+       .replace(/[\u0622\u0623\u0625\u0671]/g,'\u0627') // آأإٱ -> ا
+       .replace(/\u0629/g,'\u0647')               // ة -> ه
+       .replace(/\u0649/g,'\u064A');              // ى -> ي
+  // bas noktalama/parantez temizligi
+  x = x.replace(/[^\u0621-\u064A]/g,'');
+  // basindaki tanim harfi "ال" varsa dusun (esma vs ayet imlasi eslessin)
+  if(x.length>3 && x.slice(0,2)==='\u0627\u0644') x = x.slice(2);
+  return x;
+}
+// Esmanin kendisi mi? (o kokten turemis baska kelime DEGIL, tam esmanin kendisi)
+function hlArEsma(v, esmaAr){
+  if(!esmaAr) return esc(v.ar);
+  const hedef = esmaIskelet(esmaAr);
+  if(!hedef) return esc(v.ar);
+  const ws = v.ar.split(' ');
+  return ws.map(w=>{
+    const isk = esmaIskelet(w);
+    return (isk && isk===hedef) ? '<b class="esmahl">'+esc(w)+'</b>' : esc(w);
+  }).join(' ');
+}
 function hlTr(meal,roots){let kws=[];roots.forEach(r=>{if(TRK[r])kws=kws.concat(TRK[r]);});
   kws=[...new Set(kws)].filter(Boolean).sort((a,b)=>b.length-a.length);let out=esc(meal||'');
   if(!kws.length)return out;const pat=kws.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|');
@@ -786,7 +810,7 @@ function showEsma(name){
   markActiveEsma(name);
   let rows='';
   info.r.forEach(rr=>{const w=V[rr]; if(!w)return;
-    rows+=`<div class="esma-verse" data-ref="${rr}"><div class="ar">${hlArEsma(w,root)}</div>
+    rows+=`<div class="esma-verse" data-ref="${rr}"><div class="ar">${hlArEsma(w,info.ar)}</div>
       <div class="ev-ref">${esc(w.sa)} ${w.a} (${gr(rr)})</div>
       <div class="ev-meal">${showMeal(w,new Set())}</div></div>`;});
   const m=document.getElementById('main'); m.className='lockmode';

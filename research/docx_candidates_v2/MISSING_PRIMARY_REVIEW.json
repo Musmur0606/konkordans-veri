@@ -1,0 +1,1244 @@
+{
+  "schema": "ayatulkuran.docx-missing-primary-review.v2",
+  "source_audit": "ayatulkuran_edges_v2_audit.json",
+  "protected_suras": [
+    2,
+    3,
+    4
+  ],
+  "count": 176,
+  "items": [
+    {
+      "sura": 5,
+      "ayah": 61,
+      "source_docx": "Ma 1-10/5 MAİDE SURESİ 112X.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 6,
+      "ayah": 23,
+      "source_docx": "Ma 1-10/6 ENAM SURESİ 55.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 6,
+      "ayah": 112,
+      "source_docx": "Ma 1-10/6 ENAM SURESİ 55.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 7,
+      "ayah": 197,
+      "source_docx": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 7,
+      "ayah": 198,
+      "source_docx": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 10,
+      "ayah": 36,
+      "source_docx": "Ma 1-10/10 YUNUS SURESİ 51.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 11,
+      "ayah": 1,
+      "source_docx": "Ma 11-20/11 HUD SURESİ 52.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 11,
+      "ayah": 6,
+      "source_docx": "Ma 11-20/11 HUD SURESİ 52.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 11,
+      "ayah": 50,
+      "source_docx": "Ma 11-20/11 HUD SURESİ 52.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 12,
+      "ayah": 73,
+      "source_docx": "Ma 11-20/12 YUSUF SURESİ 53.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 12,
+      "ayah": 89,
+      "source_docx": "Ma 11-20/12 YUSUF SURESİ 53.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 15,
+      "ayah": 11,
+      "source_docx": "Ma 11-20/15 HİCR SURESİ 54.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 15,
+      "ayah": 28,
+      "source_docx": "Ma 11-20/15 HİCR SURESİ 54.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 16,
+      "ayah": 30,
+      "source_docx": "Ma 11-20/16 NAHL SURESİ 70.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 17,
+      "ayah": 57,
+      "source_docx": "Ma 11-20/17 İSRA SURESİ 50.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 19,
+      "ayah": 8,
+      "source_docx": "Ma 11-20/19 MERYEM SURESİ 44.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 19,
+      "ayah": 11,
+      "source_docx": "Ma 11-20/19 MERYEM SURESİ 44.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 19,
+      "ayah": 20,
+      "source_docx": "Ma 11-20/19 MERYEM SURESİ 44.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 19,
+      "ayah": 22,
+      "source_docx": "Ma 11-20/19 MERYEM SURESİ 44.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 19,
+      "ayah": 28,
+      "source_docx": "Ma 11-20/19 MERYEM SURESİ 44.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 19,
+      "ayah": 33,
+      "source_docx": "Ma 11-20/19 MERYEM SURESİ 44.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 19,
+      "ayah": 40,
+      "source_docx": "Ma 11-20/19 MERYEM SURESİ 44.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 19,
+      "ayah": 79,
+      "source_docx": "Ma 11-20/19 MERYEM SURESİ 44.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 23,
+      "ayah": 99,
+      "source_docx": "Ma 21-30/23 MUMİNUN SURESİ 74.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 25,
+      "ayah": 51,
+      "source_docx": "Ma 21-30/25 FURKAN SURESİ 42.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 29,
+      "ayah": 59,
+      "source_docx": "Ma 21-30/29 ANKEBUT SURESİ 85.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 32,
+      "ayah": 24,
+      "source_docx": "Ma 31-40/32 SECDE SURESİ 75.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 34,
+      "ayah": 16,
+      "source_docx": "Ma 31-40/34 SEBE SURESİ 58.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 37,
+      "ayah": 18,
+      "source_docx": "Ma 31-40/37 SAFFAT SURESİ 56.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 37,
+      "ayah": 75,
+      "source_docx": "Ma 31-40/37 SAFFAT SURESİ 56.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 38,
+      "ayah": 84,
+      "source_docx": "Ma 31-40/38 SAD SURESİ 38.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 40,
+      "ayah": 42,
+      "source_docx": "Ma 31-40/40 MUMİN SURESİ 60.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 40,
+      "ayah": 77,
+      "source_docx": "Ma 31-40/40 MUMİN SURESİ 60.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 40,
+      "ayah": 85,
+      "source_docx": "Ma 31-40/40 MUMİN SURESİ 60.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 41,
+      "ayah": 35,
+      "source_docx": "Ma 41-50/41 FUSSİLET SURESİ 61.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 41,
+      "ayah": 37,
+      "source_docx": "Ma 41-50/41 FUSSİLET SURESİ 61.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 41,
+      "ayah": 42,
+      "source_docx": "Ma 41-50/41 FUSSİLET SURESİ 61.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 43,
+      "ayah": 19,
+      "source_docx": "Ma 41-50/43 ZUHRUF SURESİ 63.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 48,
+      "ayah": 18,
+      "source_docx": "Ma 41-50/48 FETİH SURESİ 111X.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 50,
+      "ayah": 13,
+      "source_docx": "Ma 41-50/50 KAF SURESİ 34.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 52,
+      "ayah": 24,
+      "source_docx": "Ma 51-60/52 TUR SURESİ 76.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 53,
+      "ayah": 11,
+      "source_docx": "Ma 51-60/53 NECM SURESİ 23.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 53,
+      "ayah": 37,
+      "source_docx": "Ma 51-60/53 NECM SURESİ 23.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 56,
+      "ayah": 59,
+      "source_docx": "Ma 51-60/56 VAKIA SURESİ 46.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 66,
+      "ayah": 4,
+      "source_docx": "Ma 61-7o/66 TAHRİM SURESİ 107X.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 68,
+      "ayah": 15,
+      "source_docx": "Ma 61-7o/68 KALEM SURESİ 2.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 68,
+      "ayah": 35,
+      "source_docx": "Ma 61-7o/68 KALEM SURESİ 2.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 69,
+      "ayah": 20,
+      "source_docx": "Ma 61-7o/69 HAKKA SURESİ 78.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 69,
+      "ayah": 34,
+      "source_docx": "Ma 61-7o/69 HAKKA SURESİ 78.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 69,
+      "ayah": 36,
+      "source_docx": "Ma 61-7o/69 HAKKA SURESİ 78.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 69,
+      "ayah": 47,
+      "source_docx": "Ma 61-7o/69 HAKKA SURESİ 78.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 70,
+      "ayah": 7,
+      "source_docx": "Ma 61-7o/70 MEARİC 79.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 70,
+      "ayah": 12,
+      "source_docx": "Ma 61-7o/70 MEARİC 79.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 70,
+      "ayah": 20,
+      "source_docx": "Ma 61-7o/70 MEARİC 79.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 70,
+      "ayah": 21,
+      "source_docx": "Ma 61-7o/70 MEARİC 79.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 70,
+      "ayah": 25,
+      "source_docx": "Ma 61-7o/70 MEARİC 79.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 70,
+      "ayah": 28,
+      "source_docx": "Ma 61-7o/70 MEARİC 79.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 70,
+      "ayah": 37,
+      "source_docx": "Ma 61-7o/70 MEARİC 79.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 71,
+      "ayah": 7,
+      "source_docx": "Ma 71-80/71 NUH SURESİ 71.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 71,
+      "ayah": 10,
+      "source_docx": "Ma 71-80/71 NUH SURESİ 71.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 71,
+      "ayah": 11,
+      "source_docx": "Ma 71-80/71 NUH SURESİ 71.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 71,
+      "ayah": 16,
+      "source_docx": "Ma 71-80/71 NUH SURESİ 71.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 71,
+      "ayah": 17,
+      "source_docx": "Ma 71-80/71 NUH SURESİ 71.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 71,
+      "ayah": 19,
+      "source_docx": "Ma 71-80/71 NUH SURESİ 71.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 71,
+      "ayah": 23,
+      "source_docx": "Ma 71-80/71 NUH SURESİ 71.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 71,
+      "ayah": 26,
+      "source_docx": "Ma 71-80/71 NUH SURESİ 71.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 71,
+      "ayah": 27,
+      "source_docx": "Ma 71-80/71 NUH SURESİ 71.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 71,
+      "ayah": 28,
+      "source_docx": "Ma 71-80/71 NUH SURESİ 71.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 72,
+      "ayah": 17,
+      "source_docx": "Ma 71-80/72 CİN SURESİ 40.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 72,
+      "ayah": 22,
+      "source_docx": "Ma 71-80/72 CİN SURESİ 40.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 72,
+      "ayah": 24,
+      "source_docx": "Ma 71-80/72 CİN SURESİ 40.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 72,
+      "ayah": 28,
+      "source_docx": "Ma 71-80/72 CİN SURESİ 40.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 2,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 3,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 4,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 6,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 8,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 13,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 14,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 24,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 33,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 39,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 42,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 51,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 53,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 55,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 74,
+      "ayah": 56,
+      "source_docx": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 75,
+      "ayah": 37,
+      "source_docx": "Ma 71-80/75 KIYAMET SURESİ 31.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 76,
+      "ayah": 2,
+      "source_docx": "Ma 71-80/76 İNSAN SURESİ 98X.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 76,
+      "ayah": 4,
+      "source_docx": "Ma 71-80/76 İNSAN SURESİ 98X.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 76,
+      "ayah": 11,
+      "source_docx": "Ma 71-80/76 İNSAN SURESİ 98X.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 76,
+      "ayah": 13,
+      "source_docx": "Ma 71-80/76 İNSAN SURESİ 98X.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 76,
+      "ayah": 19,
+      "source_docx": "Ma 71-80/76 İNSAN SURESİ 98X.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 76,
+      "ayah": 20,
+      "source_docx": "Ma 71-80/76 İNSAN SURESİ 98X.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 76,
+      "ayah": 28,
+      "source_docx": "Ma 71-80/76 İNSAN SURESİ 98X.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 77,
+      "ayah": 31,
+      "source_docx": "Ma 71-80/77 MURSELAT SURESİ 33.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 77,
+      "ayah": 37,
+      "source_docx": "Ma 71-80/77 MURSELAT SURESİ 33.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 78,
+      "ayah": 8,
+      "source_docx": "Ma 71-80/78 NEBE SURESİ 80.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 78,
+      "ayah": 10,
+      "source_docx": "Ma 71-80/78 NEBE SURESİ 80.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 78,
+      "ayah": 15,
+      "source_docx": "Ma 71-80/78 NEBE SURESİ 80.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 78,
+      "ayah": 24,
+      "source_docx": "Ma 71-80/78 NEBE SURESİ 80.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 78,
+      "ayah": 27,
+      "source_docx": "Ma 71-80/78 NEBE SURESİ 80.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 78,
+      "ayah": 29,
+      "source_docx": "Ma 71-80/78 NEBE SURESİ 80.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 78,
+      "ayah": 37,
+      "source_docx": "Ma 71-80/78 NEBE SURESİ 80.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 79,
+      "ayah": 13,
+      "source_docx": "Ma 71-80/79 NAZİAT SURESİ 81.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 79,
+      "ayah": 14,
+      "source_docx": "Ma 71-80/79 NAZİAT SURESİ 81.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 79,
+      "ayah": 19,
+      "source_docx": "Ma 71-80/79 NAZİAT SURESİ 81.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 79,
+      "ayah": 22,
+      "source_docx": "Ma 71-80/79 NAZİAT SURESİ 81.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 79,
+      "ayah": 23,
+      "source_docx": "Ma 71-80/79 NAZİAT SURESİ 81.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 79,
+      "ayah": 24,
+      "source_docx": "Ma 71-80/79 NAZİAT SURESİ 81.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 79,
+      "ayah": 33,
+      "source_docx": "Ma 71-80/79 NAZİAT SURESİ 81.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 79,
+      "ayah": 38,
+      "source_docx": "Ma 71-80/79 NAZİAT SURESİ 81.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 79,
+      "ayah": 43,
+      "source_docx": "Ma 71-80/79 NAZİAT SURESİ 81.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 80,
+      "ayah": 3,
+      "source_docx": "Ma 71-80/80 ABESE SURESİ 24.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 80,
+      "ayah": 5,
+      "source_docx": "Ma 71-80/80 ABESE SURESİ 24.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 80,
+      "ayah": 14,
+      "source_docx": "Ma 71-80/80 ABESE SURESİ 24.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 80,
+      "ayah": 17,
+      "source_docx": "Ma 71-80/80 ABESE SURESİ 24.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 80,
+      "ayah": 34,
+      "source_docx": "Ma 71-80/80 ABESE SURESİ 24.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 80,
+      "ayah": 35,
+      "source_docx": "Ma 71-80/80 ABESE SURESİ 24.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 80,
+      "ayah": 36,
+      "source_docx": "Ma 71-80/80 ABESE SURESİ 24.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 80,
+      "ayah": 39,
+      "source_docx": "Ma 71-80/80 ABESE SURESİ 24.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 80,
+      "ayah": 41,
+      "source_docx": "Ma 71-80/80 ABESE SURESİ 24.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 81,
+      "ayah": 9,
+      "source_docx": "Ma 81-90/81 TEKVİR SURESİ 7.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 81,
+      "ayah": 26,
+      "source_docx": "Ma 81-90/81 TEKVİR SURESİ 7.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 82,
+      "ayah": 2,
+      "source_docx": "Ma 81-90/82 İNFİTAR SURESİ 82.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 82,
+      "ayah": 7,
+      "source_docx": "Ma 81-90/82 İNFİTAR SURESİ 82.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 82,
+      "ayah": 11,
+      "source_docx": "Ma 81-90/82 İNFİTAR SURESİ 82.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 82,
+      "ayah": 12,
+      "source_docx": "Ma 81-90/82 İNFİTAR SURESİ 82.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 82,
+      "ayah": 14,
+      "source_docx": "Ma 81-90/82 İNFİTAR SURESİ 82.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 82,
+      "ayah": 15,
+      "source_docx": "Ma 81-90/82 İNFİTAR SURESİ 82.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 83,
+      "ayah": 2,
+      "source_docx": "Ma 81-90/83 MUTAFFİFİN SURESİ 86.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 83,
+      "ayah": 3,
+      "source_docx": "Ma 81-90/83 MUTAFFİFİN SURESİ 86.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 83,
+      "ayah": 12,
+      "source_docx": "Ma 81-90/83 MUTAFFİFİN SURESİ 86.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 83,
+      "ayah": 15,
+      "source_docx": "Ma 81-90/83 MUTAFFİFİN SURESİ 86.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 83,
+      "ayah": 19,
+      "source_docx": "Ma 81-90/83 MUTAFFİFİN SURESİ 86.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 83,
+      "ayah": 24,
+      "source_docx": "Ma 81-90/83 MUTAFFİFİN SURESİ 86.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 83,
+      "ayah": 25,
+      "source_docx": "Ma 81-90/83 MUTAFFİFİN SURESİ 86.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 83,
+      "ayah": 27,
+      "source_docx": "Ma 81-90/83 MUTAFFİFİN SURESİ 86.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 83,
+      "ayah": 29,
+      "source_docx": "Ma 81-90/83 MUTAFFİFİN SURESİ 86.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 83,
+      "ayah": 34,
+      "source_docx": "Ma 81-90/83 MUTAFFİFİN SURESİ 86.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 84,
+      "ayah": 7,
+      "source_docx": "Ma 81-90/84 İNŞİKAK SURESİ 83.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 84,
+      "ayah": 15,
+      "source_docx": "Ma 81-90/84 İNŞİKAK SURESİ 83.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 84,
+      "ayah": 16,
+      "source_docx": "Ma 81-90/84 İNŞİKAK SURESİ 83.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 85,
+      "ayah": 5,
+      "source_docx": "Ma 81-90/85 BURUC SURESİ 27.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 85,
+      "ayah": 9,
+      "source_docx": "Ma 81-90/85 BURUC SURESİ 27.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 85,
+      "ayah": 15,
+      "source_docx": "Ma 81-90/85 BURUC SURESİ 27.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 85,
+      "ayah": 17,
+      "source_docx": "Ma 81-90/85 BURUC SURESİ 27.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 86,
+      "ayah": 11,
+      "source_docx": "Ma 81-90/86 TARIK SURESİ 36.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 87,
+      "ayah": 3,
+      "source_docx": "Ma 81-90/87 A'LA SURESİ 8.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 87,
+      "ayah": 12,
+      "source_docx": "Ma 81-90/87 A'LA SURESİ 8.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 87,
+      "ayah": 18,
+      "source_docx": "Ma 81-90/87 A'LA SURESİ 8.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 88,
+      "ayah": 21,
+      "source_docx": "Ma 81-90/88 ĞAŞİYE SURESİ 68.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 89,
+      "ayah": 16,
+      "source_docx": "Ma 81-90/89 FECİR SURESİ 10.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 89,
+      "ayah": 20,
+      "source_docx": "Ma 81-90/89 FECİR SURESİ 10.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 90,
+      "ayah": 12,
+      "source_docx": "Ma 81-90/90 BELED SURESİ 35.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 91,
+      "ayah": 9,
+      "source_docx": "Ma 91-100/91 ŞEMS SURESİ 26.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 91,
+      "ayah": 10,
+      "source_docx": "Ma 91-100/91 ŞEMS SURESİ 26.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 91,
+      "ayah": 15,
+      "source_docx": "Ma 91-100/91 ŞEMS SURESİ 26.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 92,
+      "ayah": 6,
+      "source_docx": "Ma 91-100/92 LEYL SURESİ 9.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 92,
+      "ayah": 11,
+      "source_docx": "Ma 91-100/92 LEYL SURESİ 9.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 92,
+      "ayah": 18,
+      "source_docx": "Ma 91-100/92 LEYL SURESİ 9.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 93,
+      "ayah": 4,
+      "source_docx": "Ma 91-100/93 DUHA SURESİ 11.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 94,
+      "ayah": 4,
+      "source_docx": "Ma 91-100/94 İNŞİRAH SURESİ 12.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 94,
+      "ayah": 6,
+      "source_docx": "Ma 91-100/94 İNŞİRAH SURESİ 12.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 96,
+      "ayah": 16,
+      "source_docx": "Ma 91-100/96 ALAK SURESİ 1.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 96,
+      "ayah": 17,
+      "source_docx": "Ma 91-100/96 ALAK SURESİ 1.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 97,
+      "ayah": 3,
+      "source_docx": "Ma 91-100/97 KADİR SURESİ 25.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 99,
+      "ayah": 3,
+      "source_docx": "Ma 91-100/99 ZİLZAL 93X.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 99,
+      "ayah": 6,
+      "source_docx": "Ma 91-100/99 ZİLZAL 93X.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 101,
+      "ayah": 5,
+      "source_docx": "Ma 101-110/101 KARİA SURESİ 30.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 102,
+      "ayah": 8,
+      "source_docx": "Ma 101-110/102 TEKASUR SURESİ 16.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 103,
+      "ayah": 3,
+      "source_docx": "Ma 101-110/103 ASR SURESİ 13.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 111,
+      "ayah": 3,
+      "source_docx": "Ma 111-114/111 TEBBET SURESİ 6.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 112,
+      "ayah": 2,
+      "source_docx": "Ma 111-114/112 İHLAS SURESİ 22.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 112,
+      "ayah": 4,
+      "source_docx": "Ma 111-114/112 İHLAS SURESİ 22.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    },
+    {
+      "sura": 113,
+      "ayah": 5,
+      "source_docx": "Ma 111-114/113 FELAK SURESİ 20.docx",
+      "status": "REVIEW_RED_PRIMARY_NOT_IDENTIFIED",
+      "interpretation": "Unknown whether source has a missing heading, an unrecognized style, or no concordance block"
+    }
+  ]
+}

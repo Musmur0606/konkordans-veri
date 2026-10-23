@@ -1,0 +1,45 @@
+{
+  "dataset": "AYATULKURAN_BENZESME_VERISETI_V1_1",
+  "schema_version": "1.1",
+  "reference_format": "SURE.AYET",
+  "source_archive": "Ma 1-10.zip",
+  "source_archive_sha256": "78c4f365bd60157519b72bc5302d6d5adb90508577af7394d4167035f2a7f0db",
+  "source_docx_count": 114,
+  "quran_ayah_count": 6236,
+  "relation_file": "data/ayet_benzesme_site.json",
+  "site_main_verse_keys": 5574,
+  "site_relation_count": 175375,
+  "protected_sure_numbers": [
+    2,
+    3,
+    4
+  ],
+  "source_sure_numbers": "1,5-114",
+  "hold_missing_red_main_refs": [
+    "7:139",
+    "7:198",
+    "11:1",
+    "14:25",
+    "15:28",
+    "53:29",
+    "56:59",
+    "90:12"
+  ],
+  "hold_rule": "Kaynak DOCX'te kirmizi ana basligi saptanamayan sekiz ayet icin site mevcut r listesini korur; yeni kaynak JSON'u bos liste tutar.",
+  "parser_correction": {
+    "old_red_same_sure_treated_as_relation": 6,
+    "relation_delta_vs_v1": 57,
+    "revised_refs": [
+      "26.150",
+      "26.179",
+      "26.180",
+      "37.179"
+    ],
+    "details": "Ayni surede kirmizi baslik, onceki ana ayet numarasindan buyuk degilse yeni ana ayet kabul edilmez."
+  },
+  "notes": [
+    "Metinler bu dosyada bulunmaz. Var olan app_data.json'daki Arapca/Turkce/Ingilizce alanlar korunur.",
+    "Iliskiler yonludur; ters bag otomatik eklenmez.",
+    "Kaynak iliski listeleri kaynak sirasi ile saklanmistir."
+  ]
+}

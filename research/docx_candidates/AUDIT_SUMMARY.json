@@ -1,0 +1,18 @@
+{
+  "schema": "ayatulkuran.docx-crossrefs.audit.v1",
+  "source_files": 114,
+  "candidate_relations_total": 172111,
+  "preserved_suras": [
+    2,
+    3,
+    4
+  ],
+  "excluded_protected_source_relations": 1,
+  "candidate_relations_after_exclusion": 172110,
+  "status": "REVIEW_NOT_FOR_LIVE_SITE",
+  "notes": [
+    "A valid ayah identity is not proof of correct source-heading assignment.",
+    "237 primary headings outside suras 2,3,4 were not identified automatically.",
+    "Do not assume reciprocal links or assign a semantic similarity score."
+  ]
+}

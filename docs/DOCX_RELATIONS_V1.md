@@ -1,20 +1,35 @@
-# DOCX benzeşme veri seti entegrasyonu (taslak)
+# Ayet benzeşmeleri: DOCX veri seti V1.1
 
-Kaynak: Kullanıcının `Ma 1-10.zip` içindeki 114 DOCX dosyasından türetilmiş `ayet_benzesme_site.json`. Kaynakta ana ayet kırmızı başlık, altındaki referanslar eşleşen ayetlerdir. Ayet metinleri JSON'a tekrar konmaz.
+Kaynak: `Ma 1-10.zip` içindeki 114 DOCX belge.
+Amaç: Ana ayet referansını, DOCX'te altında gösterilen eşleşen ayet referanslarına bağlamak.
 
-- 2 Bakara, 3 Âl-i İmrân ve 4 Nisâ'nın ilişkileri ve metinleri **değişmeyecek**.
-- 1 Fâtiha ve 5–114 sûrelerin ilişkileri yeni DOCX veri setinden gelecek.
-- Yeni veri kümesi: 5574 ana kayıt, 175318 benzersiz yönlü ilişki.
-- Eksik kırmızı başlıklar, tekrarlar ve kaynak anormallikleri `qa_report.json` içindedir; otomatik anlam temelli ilişki eklenmez.
+## GitHub'a yüklenen dosyalar
 
-## Uygulama
+- `data/ayet_benzesme_site_v1_1.json`: **5574 ana ayet, 175375 yönlü benzeşme**. Örn. `"5.120":["2.116",...]`.
+- `data/ayet_benzesme_edges_v1_1.csv`: aynı bağların `ana_sure,ana_ayet,eslesen_sure,eslesen_ayet,sira` sütunlarıyla satır bazlı denetimi.
+- `data/ayet_benzesme_manifest_v1_1.json`: kaynak SHA-256, kapsam, kalite kontrol ve istisnalar.
 
-Bu dal henüz canlı siteyi değiştirmez. Önce kullanıcıdan alınmış `ayet_benzesme_site.json` dosyası aynı klasörde hazır bulunmalı. Aşağıdaki komut bir **önizleme** üretir:
+GitHub'daki dosyaların blob SHA-1 değerleri yerel V1.1 dosyalarıyla birebir doğrulandı.
+
+## Değişmez kurallar
+
+- **2 Bakara, 3 Âl-i İmrân ve 4 Nisâ:** mevcut site verisi korunur.
+- **1 Fâtiha ve 5–114:** DOCX ilişki verisi yeni kaynak otoritesidir.
+- Arapça, Türkçe ve İngilizce ayet metinleri bu dosyalara kopyalanmaz; sitenin mevcut verisi kullanılır.
+- Aynı sûreye ait kırmızı fakat numarası daha küçük/eşit tekrarlar yeni ana ayet olarak yorumlanmaz (V1.1 düzeltmesi).
+- Word kaynağındaki ilişki sırası korunur; ters ilişki veya yapay ilişki üretilmez.
+- Kırmızı ana başlığı eksik olan `7.139, 7.198, 11.1, 14.25, 15.28, 53.29, 56.59, 90.12` için mevcut ilişki alanı korunur; yeni kaynağın boş listesiyle otomatik silme yapılmaz.
+
+## Mevcut siteye uygulama — **henüz yapılmadı**
+
+Bu dalda `index.html` ve `app_data.json` **değiştirilmedi**.
+
+Bağımsız bir önizleme üretmek için depo kökünde:
 
 ```bash
-node tools/import_docx_relations.mjs app_data.json ayet_benzesme_site.json app_data.docx-preview.json
+node tools/import_docx_relations.mjs app_data.json data/ayet_benzesme_site_v1_1.json app_data.docx-preview.json
 ```
 
-İşlem mevcut `app_data.json` üzerine yazmaz. Referansların tamamını `db.verses` içerisinde doğrular ve 2/3/4. sûrelere dokunulmadığını kontrol eder. Yalnız doğrulama tamamlanırsa ayrı bir çıktı oluşturur. Bu yeni çıktı yayımlanmadan önce kaynakla ve sitenin mevcut görünümüyle karşılaştırılmalıdır.
+Araç, tüm kaynak referanslarının `db.verses` içinde var olduğunu denetler, 2–4 sûreleri değişmeden bırakır, kaynakta ana başlığı eksik 8 ayetin mevcut ilişkilerini korur ve yalnız ayrı önizleme dosyası üretir.
 
-**Dikkat:** Kaynak DOCX'in 9 ayetinde kırmızı ana bölüm eksik olduğu için ilgili diziler boş olabilir; veri seti elle tamamlanmış gibi kabul edilmemelidir. İlişki yönü otomatik olarak tersine çevrilmez.
+Yayıma almadan önce eşleşmelerin ekranda doğruluğu, site davranışı, mevcut 2–4 sûreleri ve test çıktıları incelenmelidir. Bu PR bir **taslaktır**; ana dala otomatik birleştirme yapılmamalıdır.

@@ -4,7 +4,7 @@
  * 2, 3 ve 4. surelerin r alanlari korunur. Bu dosya tek basina siteyi degistirmez.
  *
  * Kullanim:
- * node tools/import_docx_relations.mjs app_data.json ayet_benzesme_site.json app_data.docx-preview.json
+ * node tools/import_docx_relations.mjs app_data.json data/ayet_benzesme_site_v1_1.json app_data.docx-preview.json
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -23,8 +23,12 @@ if (!db || !db.verses || typeof db.verses !== 'object' || Array.isArray(db.verse
   throw new Error('app_data.json: verses nesnesi bulunamadi.');
 const keys = Object.keys(mapping);
 if (keys.length !== 5574) throw new Error('Ana ayet sayisi beklenen 5574 degil: ' + keys.length);
+const MISSING_RED_MAIN = new Set([
+  "7.139", "7.198", "11.1", "14.25",
+  "15.28", "53.29", "56.59", "90.12"
+]);
 const pattern = /^([1-9]\d{0,2})\.([1-9]\d{0,2})$/;
-let edgeCount=0, changed=0;
+let edgeCount=0, changed=0, preservedMissing=0;
 const protectedBefore = {};
 for (const [ref, verse] of Object.entries(db.verses)) {
   const sura=Number(ref.split('.')[0]);
@@ -46,14 +50,21 @@ for (const [main, matches] of Object.entries(mapping)) {
     unique.add(ref);
   }
   edgeCount+=matches.length;
+  // Kirmizi ana basligi bulunamayan 8 ayetin mevcut r listesine dokunma.
+  if (MISSING_RED_MAIN.has(main)) {
+    if (matches.length !== 0) throw new Error('Eksik ana baslik icin beklenmedik iliski: '+main);
+    preservedMissing++;
+    continue;
+  }
   db.verses[main].r=[...matches]; // Kaynak DOCX sirasi korunur
   changed++;
 }
-if (edgeCount!==175318) throw new Error('Baglanti sayisi beklenen 175318 degil: '+edgeCount);
+if (preservedMissing!==8) throw new Error('Eksik ana ayet sayisi 8 degil: '+preservedMissing);
+if (edgeCount!==175375) throw new Error('Baglanti sayisi beklenen 175375 degil: '+edgeCount);
 for (const [ref, original] of Object.entries(protectedBefore)) {
   if (JSON.stringify(db.verses[ref])!==original) throw new Error('Korunan ayet degisti: '+ref);
 }
 const parent=path.dirname(path.resolve(output));
 if (!fs.existsSync(parent)) throw new Error('Cikti klasoru yok: '+parent);
 fs.writeFileSync(output, JSON.stringify(db), 'utf8');
-console.log(JSON.stringify({result:'PASS',changed_main:changed,edges:edgeCount,protected_suras:[2,3,4],output},null,2));
+console.log(JSON.stringify({result:'PASS',changed_main:changed,edges:edgeCount,preserved_missing_red:preservedMissing,protected_suras:[2,3,4],output},null,2));

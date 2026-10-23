@@ -1,0 +1,18 @@
+{
+  "schema": "ayatulkuran.docx-crossrefs.audit.v1",
+  "source_files": 114,
+  "candidate_relations_total": 173183,
+  "preserved_suras": [
+    2,
+    3,
+    4
+  ],
+  "excluded_protected_source_relations": 1,
+  "candidate_relations_after_exclusion": 173182,
+  "status": "REVIEW_NOT_FOR_LIVE_SITE",
+  "notes": [
+    "A valid ayah identity is not proof of correct source-heading assignment.",
+    "Some red primary headings are not identified automatically; see the separate full audit. Current V2 review count is 176.",
+    "Do not assume reciprocal links or assign a semantic similarity score."
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "status": "REVIEW_NOT_FOR_LIVE_SITE",
+  "source_rule": "Only red primary headings; ignore red words inside verses; source-only relationships for all suras except 2,3,4",
+  "protected_suras": [
+    2,
+    3,
+    4
+  ],
+  "protected_verse_records": 662,
+  "docx_relations": 173182,
+  "invalid_refs": 0,
+  "nonprotected_changed_verses": 3686,
+  "preview_sha256": "cb9d60c7508eaefd94b8ee8a9c4735c23da88477a77f459deadbbe2d264bed6f",
+  "source_app_data_sha256": "c63a37e900054e56fcb10fff688954a11289b1d98fd300e1b217c129d600169e",
+  "published": false
+}

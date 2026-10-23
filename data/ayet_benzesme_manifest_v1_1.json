@@ -1,0 +1,55 @@
+{
+  "dataset": "AYATULKURAN_BENZESME_VERISETI_V1_1",
+  "schema_version": "1.1",
+  "source_archive": "Ma 1-10.zip",
+  "source_archive_sha256": "78c4f365bd60157519b72bc5302d6d5adb90508577af7394d4167035f2a7f0db",
+  "source_docx_count": 114,
+  "reference_format": "SURE.AYET",
+  "quran_ayah_count": 6236,
+  "integration_policy": {
+    "preserve_existing_sureler": [
+      2,
+      3,
+      4
+    ],
+    "docx_authority_sureler": "1,5-114"
+  },
+  "counts": {
+    "site_main_keys": 5574,
+    "site_unique_edges": 175375,
+    "all_source_main_keys": 6236,
+    "all_source_unique_edges": 175387
+  },
+  "files": {
+    "main": "data/ayet_benzesme_site_v1_1.json",
+    "main_sha256": "122efcd60961a46adc2cf147f6a25f1f05cff7b9f1508a231fdd1e370cf90d99",
+    "csv": "data/ayet_benzesme_edges_v1_1.csv",
+    "csv_sha256": "ab804fbb043a373126943ab2af10ed78a8be7bd88de5b017a6abeb1144d36fd4"
+  },
+  "extraction_rule": "Ayni surede kirmizi ana basliklar monoton artan ayet numarasina gore ayrilir; numarasi daha kucuk/eşit tekrarlar benzesme referansi kabul edilir. Oz-eslesme/tekrar silinir, kaynak sirasi korunur.",
+  "QA": {
+    "invalid_references": 0,
+    "missing_red_main_review": [
+      "7.139",
+      "7.198",
+      "11.1",
+      "14.25",
+      "15.28",
+      "53.29",
+      "56.59",
+      "90.12"
+    ],
+    "raw_relation_headers": 177068,
+    "duplicate_relation_headers_removed": 1020,
+    "self_links_removed": 718,
+    "headers_before_first_main_ignored": 75,
+    "wrong_color_red_relation_headers_treated_as_relation": 5,
+    "same_sure_old_red_headers_treated_as_relation": 6
+  },
+  "notes": [
+    "Yeni veri dosyalari yalniz sure/ayet kimliklerini icerir; Arapca, Turkce veya Ingilizce meal icermez.",
+    "Mevcut app_data.json ve index.html dosyalari bu daldaki aktarimla degistirilmemistir.",
+    "Eksik kirmizi ana baslikli 8 ayetin canli r listeleri otomatik bosaltilmamalidir.",
+    "Yayin oncesinde site referanslari, saha testleri ve r listeleri ayrica dogrulanmalidir."
+  ]
+}

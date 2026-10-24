@@ -75,6 +75,41 @@ function baseFor(key) {
 
 function currentBase() {return baseFor(runtime.selected);}
 
+function pickerOption(value,label) {
+  const option=document.createElement('option');option.value=String(value);option.textContent=label;return option;
+}
+
+function populateSuras() {
+  const list=$('sura-picker');list.replaceChildren();
+  for(let s=1;s<=114;s++) {
+    const first=runtime.corpus?.verses?.[s+':1'];
+    if(first)list.append(pickerOption(s,s+' — '+first.sa+' Sûresi'));
+  }
+}
+
+function populateAyahs(sura) {
+  const list=$('ayah-picker');list.replaceChildren();
+  for(let ayah=1;runtime.corpus?.verses?.[sura+':'+ayah];ayah++) {
+    list.append(pickerOption(ayah,ayah+'. Âyet'));
+  }
+}
+
+function syncPickers(main) {
+  const [sura,ayah]=main.split('.').map(Number);
+  if($('sura-picker').value!==String(sura)){
+    $('sura-picker').value=String(sura);
+    populateAyahs(sura);
+  }
+  $('ayah-picker').value=String(ayah);
+}
+
+function showMain(main) {
+  runtime.selected=normalizeMain(main);
+  $('main-search').value=runtime.selected;
+  showMessage('main-message',runtime.selected+' ana âyet olarak açıldı. Arapça ve Türkçe meali sağda.','success');
+  renderAll();
+}
+
 function allVisibleMains(search) {
   if(!runtime.data||!runtime.corpus)return [];
   const word=runtime.data.records;
@@ -115,21 +150,21 @@ function openMain() {
   try {
     const main=normalizeMain($('direct-main').value);
     if(!runtime.corpus?.verses?.[main.replace('.',':')])throw Error('Kur’an metninde bulunmuyor.');
-    runtime.selected=main;
-    $('main-search').value=main;
-    showMessage('main-message',main+' ana âyet olarak açıldı. Benzeşenler aşağıda.','success');
-    renderAll();
+    showMain(main);
   }catch(error){showMessage('main-message',error.message,'error');}
 }
 
 function renderSelected() {
   const base=currentBase();if(!base)return;
+  syncPickers(base.main);
   const currentState=runtime.doc?.overrides?.[base.main];
   const [label,color]=status(base,currentState);
   $('main-key').textContent='ANA ÂYET · '+base.main;
   const verse=runtime.corpus?.verses?.[base.main.replace('.',':')];
   $('main-title').textContent=base.status==='site' && verse?.sa?verse.sa+' Sûresi · '+verse.a+'. Âyet':base.heading;
   $('main-source').textContent=base.status==='site'?'Kaynak: '+base.source.file+' · Mevcut site ilişkileri korunur.':'Kaynak: '+base.source.file+' · Sayfa '+base.source.page+' · Paragraf '+base.source.paragraph;
+  $('main-arabic').textContent=verse?.ar||'Bu âyetin Arapça metni bulunamadı.';
+  $('main-turkish').textContent=verse?.mb||'Bu âyetin Türkçe meali bulunamadı.';
   $('source-note').textContent=base.status==='site'?'Mevcut sitenin Kur’an verisindeki benzeşme kayıtları başlangıç alınır; yönetici ekleme/çıkarma değişiklikleri ayrıdır. Otomatik adaylar anlam bakımından onaylanmış sayılmaz.':'Word kaynaklı benzeşenler yapısal adaylardır; anlam bakımından tek tek teyit edilmiş sayılmazlar.';
   if(!canEditMain(base.main))$('source-note').textContent='KORUMALI: Bakara (2), Âl-i İmrân (3) ve Nisâ (4) ana âyetleri görüntülenebilir; ancak bu üç sûrede ekleme/çıkarma kapalıdır. Başka ana âyetlerin benzeşen listelerinde bu sûrelere atıf serbesttir.';
   $('main-status').textContent=label;$('main-status').className='pill '+color;
@@ -174,7 +209,17 @@ function renderAuth() {
   $('auth-badge').textContent=logged?'GİRİŞ: '+runtime.actor:'GİRİŞ YAPILMADI';
   $('auth-badge').className='status '+(logged?'connected':'neutral');
   $('token').hidden=logged;$('login').hidden=logged;$('logout').hidden=!logged;
-  $('editor').querySelectorAll('button,input,textarea').forEach(el=>{el.disabled=!logged||runtime.busy||locked;});
+  // Preview remains usable without credentials. GitHub writes are gated in
+  // submitEdit/saveNext, and locked main suras cannot be changed at all.
+  for (const id of ['refs','reason','add','remove','confirm','review']) {
+    $(id).disabled=runtime.busy||locked;
+  }
+  $('editor-state').textContent=locked
+    ? 'KORUMALI ANA ÂYET: Bakara (2), Âl-i İmrân (3) ve Nisâ (4) için ekleme/çıkarma yapılamaz. Diğer sûrelerden bir ana âyet seçin.'
+    : logged
+      ? 'Yönetici girişi açık. Ekleme ve çıkarma GitHub’a kaydedilmeden önce yeniden onayınız istenecek.'
+      : 'ÖNİZLEME AÇIK: Âyetleri yazıp kontrol edebilirsiniz. GitHub’a kaydetmek için yukarıdan yönetici girişi yapmalısınız.';
+  $('editor-state').className='editor-state'+(locked?' locked':logged?' ready':' preview');
   $('rollback-day').disabled=!logged||runtime.busy||!$('history-day').value;
   $('download-day').disabled=!$('history-day').value;
 }
@@ -205,6 +250,7 @@ async function refreshFiles(authToken=runtime.token) {
   if(!corpus.verses||Object.keys(corpus.verses).length!==6236)throw Error('Kur’an 6.236 âyet kaynağı beklenen biçimde değil.');
   const history=await loadGitHubFile(HISTORY_PATH,authToken);assertHistory(history.content);
   runtime.data=data;runtime.corpus=corpus;runtime.doc=history.content;runtime.sha=history.sha;
+  populateSuras();
   renderAll();
 }
 
@@ -247,6 +293,15 @@ async function saveNext(result,commitMessage) {
 async function submitEdit(operation) {
   if(runtime.busy)return;
   const base=currentBase();if(!base)return;
+  if(!canEditMain(base.main)){
+    showMessage('edit-message','Bu ana âyet korumalıdır. Başka bir sûreden ana âyet seçiniz.','error');
+    return;
+  }
+  if(!runtime.token){
+    showMessage('edit-message','Ekleme/çıkarma için önce yukarıdaki GitHub yönetici girişini tamamlayınız. Yazdığınız âyetler silinmedi.','error');
+    $('token').focus();
+    return;
+  }
   try {
     const result=applyEdit(runtime.doc,base,operation,$('refs').value,$('reason').value,runtime.actor);
     if(!result.event){showMessage('edit-message','Yeni bir değişiklik yok; mevcut kayıt korundu.');return;}
@@ -307,6 +362,16 @@ async function submitUndoDay() {
 }
 
 $('main-search').addEventListener('input',renderList);
+$('sura-picker').addEventListener('change',()=>{
+  const sura=Number($('sura-picker').value);
+  if(!sura)return;
+  populateAyahs(sura);
+  showMain(sura+'.1');
+});
+$('ayah-picker').addEventListener('change',()=>{
+  const sura=Number($('sura-picker').value),ayah=Number($('ayah-picker').value);
+  if(sura&&ayah)showMain(sura+'.'+ayah);
+});
 $('open-main').addEventListener('click',openMain);
 $('direct-main').addEventListener('keydown',(e)=>{if(e.key==='Enter')openMain();});
 $('refs').addEventListener('input',updateParsed);

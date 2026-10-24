@@ -9,7 +9,7 @@
 .history-head #history-summary{background:#eef5ef;padding:8px;border-radius:5px;color:#3c614a}
 .admin-main-verse{margin:16px 0 20px;padding:15px 19px;background:#f0f7f0;border:1px solid #cadfcd;border-radius:8px}
 .admin-main-verse h3{font-size:11px;font-weight:700;letter-spacing:.04em;color:#497c5e;margin:5px 0 7px}
-.admin-main-verse #main-arabic{font-family:"Amiri","Traditional Arabic","Noto Naskh Arabic",serif;font-size:27px;line-height:2.05;color:#205b43;text-align:right;overflow-wrap:break-word;margin:5px 0 18px}
+.admin-main-verse #main-arabic{font-family:"Traditional Arabic","Amiri","Scheherazade New","Sakkal Majalla",serif;font-size:27px;line-height:2.05;color:#205b43;text-align:right;overflow-wrap:break-word;margin:5px 0 18px}
 .admin-main-verse #main-turkish{font-size:14px;line-height:1.85;color:#263e31;margin:5px 0 4px;white-space:pre-wrap}
 .editor-state{margin:12px 0 4px;padding:10px 12px;border-radius:6px;font-size:12px;line-height:1.6;background:#fff8e1;color:#765a12;border:1px solid #eddfad}
 .editor-state.ready{background:#e9f7ee;color:#23633e;border-color:#b8dbc3}

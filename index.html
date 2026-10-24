@@ -787,7 +787,7 @@ function selectVerse(ref,fromHist){
       <div class="meal-src">${esc(v.sa)} ${v.a}. âyet — ${gr(ref)}${sureEk(ref)} · Meâl: ${mealSrc()}</div>
       ${tags?`<div class="tags">${tags}</div>`:''}</div>
     <div class="benzbox">
-      <div class="benzhead"><span class="benzbaslik">☾ Benzeşen Âyetler</span><span class="n">${rel.length}</span>${tersGoster?'<span class="draft">Korunan bağlantılar + ters ilişki görünümü · kaynak ana kayıtlar değiştirilmedi</span>':BENZESEN_HAZIR&&![2,3,4].includes(v.s)?'<span class="draft">Word matrisi + yönetici düzeltmeleri</span>':v.t?'<span class="draft">otomatik taslak</span>':''}</div>
+      <div class="benzhead"><span class="benzbaslik">☾ Benzeşen Âyetler</span><span class="n">${rel.length}</span></div>
       ${addUI}
     </div>
     </div>

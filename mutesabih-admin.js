@@ -1,9 +1,9 @@
-import { parseVerses, normalizeMain, canEditMain, otherVerseBase, cleanState, getMerged, applyEdit, undoOne, undoDay, dayInTurkey, eventLabel, assertHistory } from '/mutesabih-core.mjs?v=2';
+import { parseVerses, normalizeMain, canEditMain, otherVerseBase, wordMatrixBaseline, cleanState, getMerged, applyEdit, undoOne, undoDay, dayInTurkey, eventLabel, assertHistory } from '/mutesabih-core.mjs?v=3';
 
 const OWNER = 'Musmur0606';
 const REPO = 'konkordans-veri';
 const BRANCH = 'main';
-const BASE_PATH = 'data/mutesabih-r14.json';
+const BASE_PATH = 'data/benzesen-matris.json';
 const HISTORY_PATH = 'data/mutesabih-degisiklikler.json';
 const API_ROOT = `https://api.github.com/repos/${OWNER}/${REPO}/contents/`;
 const $ = (id) => document.getElementById(id);
@@ -54,8 +54,7 @@ function status(base,override) {
   const explicit=cleanState(override).status;
   if (explicit==='confirmed') return ['Doğrulandı','green'];
   if (explicit==='review') return ['Sarı inceleme','yellow'];
-  if(base.status==='red')return ['Kırmızı kaynak başlığı','red'];
-  if(base.status==='yellow')return ['Sarı inceleme','yellow'];
+  if(base.status==='word')return ['Word matrisi','neutral'];
   return ['Mevcut site kaydı','neutral'];
 }
 
@@ -176,14 +175,14 @@ function renderSelected() {
   $('main-key').textContent='ANA ÂYET · '+base.main;
   const verse=runtime.corpus?.verses?.[base.main.replace('.',':')];
   $('main-title').textContent=base.status==='site' && verse?.sa?verse.sa+' Sûresi · '+verse.a+'. Âyet':base.heading;
-  $('main-source').textContent=base.status==='site'?'Kaynak: '+base.source.file+' · Mevcut site ilişkileri korunur.':'Kaynak: '+base.source.file+' · Sayfa '+base.source.page+' · Paragraf '+base.source.paragraph;
+  $('main-source').textContent=base.status==='site'?'Kaynak: '+base.source.file+' · Mevcut site ilişkileri korunur.':'Kaynak: '+base.source.file+' · 114 Word belgesinden çıkarılan sûre/âyet matrisi';
   $('main-arabic').textContent=verse?.ar||'Bu âyetin Arapça metni bulunamadı.';
   $('main-turkish').textContent=verse?.mb||'Bu âyetin Türkçe meali bulunamadı.';
-  $('source-note').textContent=base.status==='site'?'Mevcut sitenin Kur’an verisindeki benzeşme kayıtları başlangıç alınır; yönetici ekleme/çıkarma değişiklikleri ayrıdır. Otomatik adaylar anlam bakımından onaylanmış sayılmaz.':'Word kaynaklı benzeşenler yapısal adaylardır; anlam bakımından tek tek teyit edilmiş sayılmazlar.';
+  $('source-note').textContent=base.status==='site'?'Korumalı sûrenin mevcut site kayıtları gösterilir; bu ana âyet değiştirilemez.':'Word kaynaklı 175.478 bağlantı ayrı bir kaynak olarak korunur. Bu ana âyet için ekleme/çıkarma GitHub MLOG dosyasına ve ana sitenin görünümüne yansır. İlişkilerin anlamı ayrıca incelenebilir.';
   if(!canEditMain(base.main))$('source-note').textContent='KORUMALI: Bakara (2), Âl-i İmrân (3) ve Nisâ (4) ana âyetleri görüntülenebilir; ancak bu üç sûrede ekleme/çıkarma kapalıdır. Başka ana âyetlerin benzeşen listelerinde bu sûrelere atıf serbesttir.';
   $('main-status').textContent=label;$('main-status').className='pill '+color;
   const links=getMerged(base,currentState);
-  $('link-count').textContent=links.length+' ilişki ('+base.links.length+(base.status==='site'?' mevcut site':' Word')+' adayı)';
+  $('link-count').textContent=links.length+' ilişki ('+base.links.length+(base.status==='site'?' mevcut site':' Word matrisi')+' kaydı)';
   const target=$('link-list');target.replaceChildren();
   for (const ref of links) {
     const pill=createText('span','link'+(ref.added?' added':''),'');
@@ -240,7 +239,7 @@ function renderAuth() {
 
 function renderAll() {
   renderAuth(); renderList(); renderSelected(); renderHistory();
-  if(runtime.data) $('stats').textContent='6.236 seçilebilir âyet · '+runtime.data.counts.main+' Word başlığı · '+runtime.data.counts.candidates+' Word adayı · '+(runtime.doc?.events?.length||0)+' MLOG işlemi';
+  if(runtime.data) $('stats').textContent='6.236 seçilebilir âyet · '+runtime.data.counts.main+' Word ana âyeti · '+runtime.data.counts.candidates.toLocaleString('tr-TR')+' benzeşen bağlantı · '+(runtime.doc?.events?.length||0)+' MLOG işlemi';
 }
 
 function updateParsed() {
@@ -257,11 +256,11 @@ async function refreshFiles(authToken=runtime.token) {
     fetch('/'+BASE_PATH+'?t='+Date.now(),{cache:'no-store'}),
     fetch('/app_data.json',{cache:'force-cache'}),
   ]);
-  if(!baseResponse.ok)throw Error('R14 kaynak dosyası henüz yayına ulaşmadı ('+baseResponse.status+').');
+  if(!baseResponse.ok)throw Error('Yeni Word matrisi henüz yayına ulaşmadı ('+baseResponse.status+').');
   if(!corpusResponse.ok)throw Error('Kur’an metni ve benzeşme kaynağı yüklenemedi ('+corpusResponse.status+').');
-  const [data,corpus]=await Promise.all([baseResponse.json(),corpusResponse.json()]);
-  if(data.schema!=='ayatulkuran.word-r14-baseline.v1'||data.counts.main!==176||data.counts.candidates!==3683)throw Error('R14 kaynak veri doğrulaması başarısız.');
+  const [matrix,corpus]=await Promise.all([baseResponse.json(),corpusResponse.json()]);
   if(!corpus.verses||Object.keys(corpus.verses).length!==6236)throw Error('Kur’an 6.236 âyet kaynağı beklenen biçimde değil.');
+  const data=wordMatrixBaseline(matrix,corpus);
   const history=await loadGitHubFile(HISTORY_PATH,authToken);assertHistory(history.content);
   runtime.data=data;runtime.corpus=corpus;runtime.doc=history.content;runtime.sha=history.sha;
   populateSuras();

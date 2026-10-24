@@ -42,6 +42,36 @@ export function canEditMain(input) {
   return !LOCKED_MAIN_SURAS.includes(Number(normalizeMain(input).split('.')[0]));
 }
 
+// Word arşivinden çıkarılmış ve SHA256 ile doğrulanmış dört sütunlu matrisin
+// site/panel için ortak görünümü. Arapça ve mealler yalnız app_data'dan gelir.
+// R14 tarihsel kaynak olarak korunur, yeni listeyle sessizce birleştirilmez.
+export function wordMatrixBaseline(matrix,corpus) {
+  if (!matrix||Array.isArray(matrix)||typeof matrix!=='object'||!corpus?.verses)
+    throw Error('Word matrisi veya Kur’an verisi geçersiz.');
+  const keys=Object.keys(matrix);
+  if(keys.length!==5574)throw Error('Word matrisinde 5.574 ana âyet bekleniyor; bulunan: '+keys.length);
+  const records=[];
+  let candidates=0;
+  for(const raw of keys) {
+    const main=normalizeMain(raw.replace(':','.'));
+    if(raw!==main.replace('.',':')||!canEditMain(main))
+      throw Error('Matris dışında veya korumalı ana âyet: '+raw);
+    const v=corpus.verses[raw];
+    if(!v||!Array.isArray(matrix[raw]))throw Error('Ana âyet veya liste eksik: '+raw);
+    const links=[],seen=new Set();
+    for(const targetRaw of matrix[raw]) {
+      const target=normalizeMain(String(targetRaw).replace(':','.'));
+      if(targetRaw!==target.replace('.',':')||!corpus.verses[targetRaw]||target===main||seen.has(target))
+        throw Error('Geçersiz, tekrar veya kendine bağlantı: '+raw+' → '+targetRaw);
+      seen.add(target);links.push([target,null]);candidates++;
+    }
+    records.push({main,heading:(v.sa||v.s+'. Sûre')+' Sûresi - Ayet '+v.a,
+      status:'word',links,source:{file:'benzesen-matris.json',page:'—',paragraph:'—'}});
+  }
+  if(candidates!==175478)throw Error('Word matrisinde 175.478 benzeşen bekleniyor; bulunan: '+candidates);
+  return {schema:'ayatulkuran.word-matrix.v1',counts:{main:records.length,candidates},records};
+}
+
 // R14 contains only the Word-derived main verses. Any of the 6,236 Quran
 // verses may also be selected as a main verse, using the existing site's
 // corresponding `r` links as its read-only starting point.
@@ -108,7 +138,7 @@ export function applyEdit(doc,base,operation,refs,note,actor,clock=new Date().to
   // Once the editor genuinely adds/removes a relation, a previously yellow
   // source heading is no longer pending review. Explicit manual REVIEW remains
   // available for genuinely unresolved cases.
-  if (changed.length && (base.status==='yellow' || base.status==='site' || newer.status==='review')) {
+  if (changed.length) {
     newer.status='confirmed';
   }
   if (operation==='confirm') newer.status='confirmed';

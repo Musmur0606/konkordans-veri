@@ -36,3 +36,13 @@
 - Word matrisi ve MLOG doğrulandıktan sonra yalnız 2/3/4 sûrelerine gelen ilişkiler ayrı `BENZESEN_TERS` görüntüleme indeksinde oluşturuluyor; 2/3/4 mevcut `V[ref].r` kayıtları değişmiyor. Görüntüde mevcut liste + ters ilişki listesi tekilleştirilerek gösteriliyor.
 - Kaynak 111 sûre / 5574 ana / 175478 bağlantı kabulü, 8:58 için 30 hedef ve 2/3/4 koruma kuralı değişmedi.
 - GitHub son dosya SHA `9e6f5d36ea58b197ee9840fc4cab69960c31f680`. JavaScript sözdizimi kontrolü PASS; canlı mobil tıklama testi açık.
+
+## 24.10.2026 — Esmâ tam ad vurgusu ve Arapça font birliği R3
+- Kullanıcı bağlayıcı şartı: Yalnız seçilen Esmâ adı kırmızı; üstün/esre/ötre ve tenvin i‘rab farkları, üstün tenvinli yazım elifinin eklenmesi ve başta ال/ٱل bulunması eşdeğer. Kökdeş başka sözcükler asla renklendirilmez. Asıl Arapça harf, hareke, Mushaf işareti ve boşluklar görüntüde byte düzeyinde olduğu gibi kalır.
+- `index.html` commit `d6b763877a6110d518c70731df4ff580821c078a`, sürüm 2.8.2. Seçili kelime yalnız kırmızı, arka plan ve kalın font dayatması yok. Örnek PASS: بَصِيرٌ / بَصِيرٍ / بَصِيرًا / ٱلْبَصِيرُ; NEGATİF: بَصَرٌ / مُبْصِرٌ. ALÎY için ٱلْعَلِيُّ eşleşir.
+- Tek CSS font yığını: `"Traditional Arabic","Amiri","Scheherazade New","Sakkal Majalla",serif`. Ana sayfa ve Esmâ; `mutesabih-public.css`; yönetim paneli `mutesabih-admin-r16.css` aynı yığın. Cihazda bu fontların yüklü oluşuna göre gerçek font düşümü değişebilir; ayrıca dosya gömülü webfontu kurulmadı.
+- 114 kanonik `1-fatiha.html` … `114-nas.html` tek commit `a1eac67d13105d197e224d111f251640fc1e5c85` ile güncellendi; 114/114 kaynakta yalnız CSS tanımı eklendi.
+- 114 eski `sure-1-fatiha.html` … `sure-114-nas.html` tek commit `094029aa5dae25507de119359e5bea879b6e854f` ile güncellendi; 114/114 kaynakta yalnız CSS tanımı eklendi.
+- Toplam 228 bağımsız sûre HTML dosyasının içeriği ve bağlantı verileri korunarak font tanımı düzeltildi. Son örnek GitHub SHA doğrulamaları PASS (Bakara, Nâs ve eski URL'ler). Her mobil cihazda canlı görsel QA henüz yapılmadı.
+- DO_NOT_REDO: 175.478 benzeşen bağlantısı, 5.574 ana, 8:58=30 hedef, Esmâ 99 ve 2.050 bağlantı değiştirilmedi; tüm sûreleri yeniden üretme veya Arapça metni normalize etme.
+- Sonraki adım: telefonda özellikle 2.255 ALÎY ve seçili BASÎR örnekleriyle tam ad vurgusunu görsel doğrula; 1/2/114 sûre sayfaları ve müteşabih sayfasında yazı biçimini karşılaştır.

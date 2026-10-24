@@ -2,6 +2,43 @@
   "schema": "ayatulkuran.github-edits.v1",
   "baseline": "data/mutesabih-r14.json",
   "description": "Ana Word/R14 kaynak dosyası değişmez. Ekleme, çıkarma, başlık durumu ve geri alma işlemleri burada sürümlenir. Bu dosyanın her güncellemesi ayrıca GitHub commit geçmişine yazılır.",
-  "overrides": {},
-  "events": []
+  "overrides": {
+    "8.18": {
+      "added": [
+        "5.12"
+      ],
+      "removed": [],
+      "status": "confirmed"
+    }
+  },
+  "events": [
+    {
+      "id": "0c5bc28b-78c7-4d23-9d2c-f0f7709dd094",
+      "at": "2026-10-24T18:48:38.080Z",
+      "day_tr": "2026-10-24",
+      "actor": "Musmur0606",
+      "action": "add",
+      "refs": [
+        "5.12"
+      ],
+      "note": "m. okuyan",
+      "changes": [
+        {
+          "main": "8.18",
+          "before": {
+            "added": [],
+            "removed": [],
+            "status": null
+          },
+          "after": {
+            "added": [
+              "5.12"
+            ],
+            "removed": [],
+            "status": "confirmed"
+          }
+        }
+      ]
+    }
+  ]
 }

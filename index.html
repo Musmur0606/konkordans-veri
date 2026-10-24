@@ -321,7 +321,7 @@
   <div>
     <h1 onclick="anaEkran()" style="cursor:pointer" title="Ana ekran">ayatulkuran <span id="abadge"></span></h1>
     <div class="sub">Âyet âyet benzeşen âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div>
-    <div class="surum-cep surum-yaz" id="surumcep">v2.8.2</div>
+    <div class="surum-cep surum-yaz" id="surumcep">v2.8.3</div>
   </div>
   <span id="status" class="load">yükleniyor…</span>
   <button class="hbtn" id="theme-toggle" type="button" onclick="temaDegistir()" aria-pressed="false" title="Açık ve koyu renk düzeni">☾ Gece</button>
@@ -329,7 +329,7 @@
   <button class="hbtn" id="fsbtn" onclick="tamEkran()" title="Tam ekran (F11 gibi)">⛶</button>
   <a class="sos" href="https://x.com/ayatulkuran" target="_blank" rel="noopener" title="X" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.5h3.6l-7.9 9 9.3 12.3h-7.3l-5.7-7.5-6.6 7.5H.7l8.5-9.7L.3 1.5h7.5l5.2 6.9zM17.6 20.7h2L6.5 3.4h-2.2z"/></svg></a>
   <a class="sos" href="https://instagram.com/ayat_ulkuran" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 3.2a6.6 6.6 0 1 0 0 13.2 6.6 6.6 0 0 0 0-13.2zm0 10.9a4.3 4.3 0 1 1 0-8.6 4.3 4.3 0 0 1 0 8.6zm6.9-11.2a1.5 1.5 0 1 1-3.1 0 1.5 1.5 0 0 1 3.1 0z"/></svg></a>
-  <span id="surumet" class="surum-yaz">v2.8.2</span>
+  <span id="surumet" class="surum-yaz">v2.8.3</span>
   <input id="search" list="sure-onerileri" autocomplete="off" aria-label="Âyet, sûre veya kavram ara" placeholder="Âyet (5.61), sûre (Bakara 255) veya kavram ara…  Ctrl+K">
   <datalist id="sure-onerileri"></datalist>
 </header>
@@ -346,7 +346,7 @@ const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/r
 const BENZESEN_URL = '/data/benzesen-matris.json?v=20261024';
 const MLOG_URL = 'https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/data/mutesabih-degisiklikler.json';
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '2.8.2';
+const SITE_SURUM = '2.8.3';
 try{if(localStorage.getItem('ayat-tema')==='dark')document.documentElement.dataset.theme='dark';}catch(e){}
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
@@ -499,6 +499,7 @@ async function boot(){
     const ps=(up.get('sure')||'').trim();
     if(/^\d{1,3}:\d{1,3}$/.test(pa) && V[pa]){openRef(pa);acilanBaglanti=true;}
     else if(/^\d{1,3}$/.test(ps) && S[ps]){selectSure(+ps);acilanBaglanti=true;}
+    else { const es=up.get('esma'); if(es&&Object.prototype.hasOwnProperty.call(ESMA.index,es)){showEsma(es);acilanBaglanti=true;} }
   }catch(e){}
   if(!acilanBaglanti) icerigeGec(); // Mobilde ilk giriste de karsilama gorunsun.
 }
@@ -593,9 +594,10 @@ function anaEkran(){
 function adresGuncelle(tur,deger){
   try{
     const u=new URL(location.href);
-    u.searchParams.delete('ayet');u.searchParams.delete('sure');
+    u.searchParams.delete('ayet');u.searchParams.delete('sure');u.searchParams.delete('esma');
     if(tur==='ayet')u.searchParams.set('ayet',gr(deger));
     if(tur==='sure')u.searchParams.set('sure',String(deger));
+    if(tur==='esma')u.searchParams.set('esma',String(deger));
     history.replaceState(history.state,'',u.pathname+u.search+u.hash);
   }catch(e){}
 }
@@ -1029,8 +1031,10 @@ function showEsmaList(){
   m.scrollTop=0;
 }
 function showEsma(name){
-  icerigeGec();adresGuncelle(null);sayfaBasligi(null);
+  icerigeGec();
   const info=ESMA.index[name]; if(!info)return;
+  adresGuncelle('esma',name);
+  document.title=String(name)+' · Esmâ-i Hüsnâ — ayatulkuran';
   curEsma=name; markActiveSure(-1); curSure=null;
   const root=info.k||''; const i=ESMA.esmalar.indexOf(name), N=ESMA.esmalar.length;
   if(sbMode!=='esma') renderSidebar('esma');

@@ -46,3 +46,9 @@
 - Toplam 228 bağımsız sûre HTML dosyasının içeriği ve bağlantı verileri korunarak font tanımı düzeltildi. Son örnek GitHub SHA doğrulamaları PASS (Bakara, Nâs ve eski URL'ler). Her mobil cihazda canlı görsel QA henüz yapılmadı.
 - DO_NOT_REDO: 175.478 benzeşen bağlantısı, 5.574 ana, 8:58=30 hedef, Esmâ 99 ve 2.050 bağlantı değiştirilmedi; tüm sûreleri yeniden üretme veya Arapça metni normalize etme.
 - Sonraki adım: telefonda özellikle 2.255 ALÎY ve seçili BASÎR örnekleriyle tam ad vurgusunu görsel doğrula; 1/2/114 sûre sayfaları ve müteşabih sayfasında yazı biçimini karşılaştır.
+
+## 24.10.2026 — Esmâ URL ve günlük bildirim durumu R4
+- `index.html` sürüm 2.8.3, commit `d6c3d62819330e3c734f073d03eed98806e5de6d`; dosya SHA `dcee13cbba7fcfd5df261345e62d77ea249a7130`.
+- `showEsma(name)` artık geçerli 99 isimden biri seçilince `?esma=<tam kaynak adı>` adresini yazar, başlığı Esmâ ile günceller. `boot()` aynı URL'yi okuyup doğrudan ilgili Esmâ'yı açar. `adresGuncelle` ayet/sure/esma parametrelerinin birini tutar, diğerlerini temizler. Görünen isim ve kaynak adları değiştirilmedi.
+- Günlük bildirim şu an YOK. `sw.js` yalnız önbellek/çevrimdışı çalışma içeriyor; `push`/bildirim aboneliği ve günlük sunucu zamanlayıcısı bulunmuyor. Ana sayfadaki Günün Âyeti günlük seçimdir ama telefona otomatik push göndermez. Kullanıcı açıkça istemeden bildirim izni istenmeyecek.
+- Test: JavaScript sözdizimi PASS; GitHub dosyası tekrar okunarak SHA PASS. Telefon tarayıcısında tıklama ve URL yeniden yükleme QA bekliyor.

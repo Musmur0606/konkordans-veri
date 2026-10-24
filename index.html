@@ -104,6 +104,10 @@
   .esma-side{gap:10px}
   .esma-side-ar{font-family:"Traditional Arabic","Amiri","Scheherazade New","Sakkal Majalla",serif;color:var(--gold);font-size:18px;direction:rtl;flex:0 0 auto}
   .esma-side-tr{flex:1;font-weight:600;color:var(--green2)}
+  .esma-side-meaning{display:block;font-size:12px;font-weight:400;color:var(--muted);line-height:1.35;margin-top:2px}
+  .esma-side.active .esma-side-meaning{color:rgba(255,255,255,.86)}
+  .esma-anlam{font-size:16px;color:var(--muted);font-weight:500}
+  .mobil-ayet-sec{display:none}
   .esma-side.active .esma-side-ar,.esma-side.active .esma-side-tr{color:#fff}
   .tekdestek{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
   .social-follow{margin-top:22px;text-align:center}
@@ -308,7 +312,7 @@
   :root[data-theme="dark"] .minibtn{background:var(--panel)}
   :root[data-theme="dark"] .abouttop{background:#253831!important}
   :root[data-theme="dark"] ::-webkit-scrollbar-thumb{background:#476358}
-  @media(max-width:760px){.welcome{margin-bottom:22px}.welcome-grid{grid-template-columns:1fr}.welcome-hero{padding:19px}.welcome-example .ar{font-size:23px}.welcome-actions{flex-direction:column}.welcome-actions .btn{width:100%}}
+  @media(max-width:760px){.mobil-ayet-sec{display:flex;align-items:center;gap:8px;margin-right:auto}.mobil-ayet-sec select{max-width:125px;border:1px solid var(--line);border-radius:6px;padding:8px;background:var(--paper);color:var(--green);font-size:16px}.welcome{margin-bottom:22px}.welcome-grid{grid-template-columns:1fr}.welcome-hero{padding:19px}.welcome-example .ar{font-size:23px}.welcome-actions{flex-direction:column}.welcome-actions .btn{width:100%}}
   @media print{.welcome-actions,#theme-toggle,#share-toast{display:none!important}}
 </style>
 </head>
@@ -342,7 +346,7 @@ const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/r
 const BENZESEN_URL = '/data/benzesen-matris.json?v=20261024';
 const MLOG_URL = 'https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/data/mutesabih-degisiklikler.json';
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '2.7.0';
+const SITE_SURUM = '2.8.0';
 try{if(localStorage.getItem('ayat-tema')==='dark')document.documentElement.dataset.theme='dark';}catch(e){}
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
@@ -505,7 +509,7 @@ function renderSidebar(mode){
     const bk=el('<div class="sure-item abouttop"><span>◀ Sûrelere dön</span></div>'); bk.onclick=()=>backToSure(); head.appendChild(bk);
     const hd=el('<div class="sure-item esmatop" style="cursor:default"><span>❈ Esmâ-i Hüsnâ · 99</span></div>'); head.appendChild(hd);
     ESMA.esmalar.forEach(e=>{const o=ESMA.index[e];
-      const it=el(`<div class="sure-item esma-side" data-esma="${esc(e)}"><span class="esma-side-ar">${esc(o.ar||'')}</span><span class="esma-side-tr">${esc(e)}</span><span class="sure-cnt">${o.n}</span></div>`);
+      const it=el(`<div class="sure-item esma-side" data-esma="${esc(e)}"><span class="esma-side-ar">${esc(o.ar||'')}</span><span class="esma-side-tr">${esc(e)}<span class="esma-side-meaning">${esc(o.anlam||'')}</span></span><span class="sure-cnt">${o.n}</span></div>`);
       it.onclick=()=>showEsma(e); list.appendChild(it);
     });
   } else {
@@ -698,7 +702,7 @@ function selectSure(no){
       `<div class="tr">${showMeal(v,sr)}</div></div></div>`;}
   m.innerHTML=`<div class="backbtn" onclick="backToSure()">◀ Sûre listesi</div>
     <div class="crumb">${esc(s.ad)} sûresi · ${s.ayet} âyet · <b style="color:var(--green)">${sureIliski(no).toLocaleString('tr-TR')} benzeşen âyet</b>${sureKunye(no)}<br>bir âyete tıklayın (analiz)</div>
-    <div class="toolbar"><button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealSure('mb')">Türkçe Meâli</button>
+    <div class="toolbar"><label class="mobil-ayet-sec">Âyete git <select aria-label="Gidilecek âyet" onchange="if(this.value){ayeteGit(${no},Number(this.value));this.value='';}"><option value="">Âyet seçin</option>${Array.from({length:s.ayet},(_,i)=>`<option value="${i+1}">${i+1}</option>`).join('')}</select></label><button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealSure('mb')">Türkçe Meâli</button>
     <button class="btn ${mealMode==='me'?'on':''}" onclick="setMealSure('me')">İngilizce (Saheeh Int'l)</button>
     <button class="btn" onclick="window.print()" title="Bu sûreyi PDF kaydet">⤓ PDF</button></div>
     <div class="sureread">${rows}</div>`;
@@ -1029,7 +1033,7 @@ function showEsma(name){
         <button class="btn ${mealMode==='me'?'on':''}" onclick="setMealEsma('me')">İngilizce (Saheeh Int'l)</button>
         <button class="btn" onclick="window.print()" title="PDF kaydet">⤓ PDF</button>
       </div>
-      <div class="esma-head"><span class="esma-ar-big">${esc(info.ar||'')}</span><span class="esma-baslik">${esc(name)}</span><span class="esma-say2">${info.n} âyet</span></div>
+      <div class="esma-head"><span class="esma-ar-big">${esc(info.ar||'')}</span><span class="esma-baslik">${esc(name)}</span><span class="esma-anlam">${esc(info.anlam||'')}</span><span class="esma-say2">${info.n} âyet</span></div>
     </div>
     <div class="scrollbody">${rows}</div>`;
   m.querySelectorAll('.esma-verse').forEach(r=>r.onclick=()=>goto(r.dataset.ref));

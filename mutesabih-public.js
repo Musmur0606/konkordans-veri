@@ -1,9 +1,9 @@
-import {getMerged,cleanState,canEditMain,otherVerseBase} from '/mutesabih-core.mjs?v=2';
+import {getMerged,cleanState,canEditMain,otherVerseBase,wordMatrixBaseline} from '/mutesabih-core.mjs?v=3';
 
 const $=id=>document.getElementById(id);
 const STATE={baseline:null,overrides:{},corpus:null,selected:'5.61'};
 function text(tag,content,className=''){const x=document.createElement(tag);x.textContent=String(content??'');if(className)x.className=className;return x;}
-function label(base){if(!canEditMain(base.main))return ['Korumalı sûre','neutral'];const s=cleanState(STATE.overrides[base.main]).status;if(s==='confirmed')return ['Doğrulandı','green'];if(s==='review')return ['Sarı inceleme','yellow'];if(base.status==='red')return ['Kırmızı kaynak','red'];if(base.status==='yellow')return ['Sarı inceleme','yellow'];return ['Mevcut site kaydı','neutral'];}
+function label(base){if(!canEditMain(base.main))return ['Korumalı sûre','neutral'];const s=cleanState(STATE.overrides[base.main]).status;if(s==='confirmed')return ['Doğrulandı','green'];if(s==='review')return ['Sarı inceleme','yellow'];if(base.status==='word')return ['Word matrisi','neutral'];return ['Mevcut site kaydı','neutral'];}
 function verseData(key){return STATE.corpus?.verses?.[key.replace('.',':')];}
 function verseName(key){const v=verseData(key);return v?.sa?`${v.sa} Sûresi · ${v.a}. Âyet`:key;}
 function baseFor(key){return STATE.baseline.records.find(r=>r.main===key)||otherVerseBase(key,STATE.corpus);}
@@ -15,7 +15,7 @@ function findMainVerses(search){
     const added=Object.keys(STATE.overrides).filter(key=>!known.has(key)).map(key=>{
       try{return baseFor(key);}catch{return null;}
     }).filter(Boolean);
-    return [...source,...added];
+    return [...source,...added].slice(0,120);
   }
   const keys=Object.keys(STATE.corpus.verses).filter(key=>{
     const v=STATE.corpus.verses[key];
@@ -67,17 +67,17 @@ async function load(){
   // remains the source of truth independently of any ChatGPT site database.
   const stamp=Date.now();
   const responses=await Promise.all([
-    fetch('/data/mutesabih-r14.json?cb='+stamp,{cache:'no-store'}),
+    fetch('/data/benzesen-matris.json?v=20261024',{cache:'force-cache'}),
     fetch('https://raw.githubusercontent.com/Musmur0606/konkordans-veri/main/data/mutesabih-degisiklikler.json?cb='+stamp,{cache:'no-store'}),
     fetch('/app_data.json',{cache:'force-cache'}),
   ]);
   for(let i=0;i<responses.length;i++)if(!responses[i].ok)throw Error(['Ana âyet verisi','GitHub güncelleme geçmişi','Kur’an metinleri'][i]+' yüklenemedi ('+responses[i].status+').');
-  const [baseline,changed,corpus]=await Promise.all(responses.map(r=>r.json()));
-  if(baseline.schema!=='ayatulkuran.word-r14-baseline.v1'||baseline.counts.main!==176)throw Error('Ana âyet sicili beklenen biçimde değil.');
+  const [matrix,changed,corpus]=await Promise.all(responses.map(r=>r.json()));
   if(changed.schema!=='ayatulkuran.github-edits.v1')throw Error('GitHub güncelleme verisi beklenen biçimde değil.');
   if(!corpus.verses||!corpus.verses['5:61']||!corpus.verses['56:59'])throw Error('Kur’an metinleri eksik.');
+  const baseline=wordMatrixBaseline(matrix,corpus);
   STATE.baseline=baseline;STATE.overrides=changed.overrides;STATE.corpus=corpus;
-  $('public-stats').textContent='6.236 seçilebilir âyet · '+baseline.counts.main+' Word başlığı · '+baseline.counts.candidates+' Word adayı · '+changed.events.length+' yönetici işlemi';
+  $('public-stats').textContent='6.236 seçilebilir âyet · '+baseline.counts.main+' Word ana âyeti · '+baseline.counts.candidates.toLocaleString('tr-TR')+' bağlantı · '+changed.events.length+' yönetici işlemi';
   renderList();renderDetail();
 }
 

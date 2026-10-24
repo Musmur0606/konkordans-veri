@@ -1,10 +1,11 @@
 /* ayatulkuran — servis calisani (cevrimdisi kullanim)
    Yeni surum yayinlarken asagidaki SURUM satirini degistirin; eski onbellek silinir. */
-const SURUM = 'v2.5.0';
+const SURUM = 'v2.7.0';
 const AD    = 'ayatulkuran-' + SURUM;
 
 const CEKIRDEK = [
   '/', '/index.html', '/manifest.json',
+  '/data/benzesen-matris.json?v=20261024',
   '/icon-192.png', '/icon-512.png', '/og.png'
 ];
 

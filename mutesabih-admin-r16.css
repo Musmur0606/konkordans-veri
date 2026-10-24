@@ -2,6 +2,16 @@
 .direct-select input{min-width:0;flex:1}
 .direct-select button{flex-shrink:0}
 .sidebar-head label{display:block;margin:13px 0 0}
+.sidebar-head select{width:100%;margin:7px 0 2px;padding:9px 10px;background:#fff;border:1px solid #cfddcf;border-radius:6px;color:#253c30;font:inherit;font-size:12px;cursor:pointer}
+.sidebar-head select:focus{outline:2px solid #7fba97;outline-offset:1px}
 .sidebar-head #main-message{min-height:18px}
 .sidebar-head .micro{margin:7px 0 0}
 .history-head #history-summary{background:#eef5ef;padding:8px;border-radius:5px;color:#3c614a}
+.admin-main-verse{margin:16px 0 20px;padding:15px 19px;background:#f0f7f0;border:1px solid #cadfcd;border-radius:8px}
+.admin-main-verse h3{font-size:11px;font-weight:700;letter-spacing:.04em;color:#497c5e;margin:5px 0 7px}
+.admin-main-verse #main-arabic{font-family:"Amiri","Traditional Arabic","Noto Naskh Arabic",serif;font-size:27px;line-height:2.05;color:#205b43;text-align:right;overflow-wrap:break-word;margin:5px 0 18px}
+.admin-main-verse #main-turkish{font-size:14px;line-height:1.85;color:#263e31;margin:5px 0 4px;white-space:pre-wrap}
+.editor-state{margin:12px 0 4px;padding:10px 12px;border-radius:6px;font-size:12px;line-height:1.6;background:#fff8e1;color:#765a12;border:1px solid #eddfad}
+.editor-state.ready{background:#e9f7ee;color:#23633e;border-color:#b8dbc3}
+.editor-state.locked{background:#f2f3f2;color:#59695e;border-color:#d9dfda}
+@media(max-width:700px){.admin-main-verse{padding:13px}.admin-main-verse #main-arabic{font-size:25px}}

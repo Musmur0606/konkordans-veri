@@ -1,16 +1,34 @@
-import {getMerged,cleanState} from '/mutesabih-core.mjs?v=1';
+import {getMerged,cleanState,canEditMain,otherVerseBase} from '/mutesabih-core.mjs?v=2';
 
 const $=id=>document.getElementById(id);
 const STATE={baseline:null,overrides:{},corpus:null,selected:'5.61'};
 function text(tag,content,className=''){const x=document.createElement(tag);x.textContent=String(content??'');if(className)x.className=className;return x;}
-function label(base){const s=cleanState(STATE.overrides[base.main]).status;if(s==='confirmed')return ['Doğrulandı','green'];if(s==='review')return ['Sarı inceleme','yellow'];return base.status==='red'?['Kırmızı kaynak','red']:['Sarı inceleme','yellow'];}
+function label(base){if(!canEditMain(base.main))return ['Korumalı sûre','neutral'];const s=cleanState(STATE.overrides[base.main]).status;if(s==='confirmed')return ['Doğrulandı','green'];if(s==='review')return ['Sarı inceleme','yellow'];if(base.status==='red')return ['Kırmızı kaynak','red'];if(base.status==='yellow')return ['Sarı inceleme','yellow'];return ['Mevcut site kaydı','neutral'];}
 function verseData(key){return STATE.corpus?.verses?.[key.replace('.',':')];}
 function verseName(key){const v=verseData(key);return v?.sa?`${v.sa} Sûresi · ${v.a}. Âyet`:key;}
+function baseFor(key){return STATE.baseline.records.find(r=>r.main===key)||otherVerseBase(key,STATE.corpus);}
+
+function findMainVerses(search){
+  const source=STATE.baseline.records;
+  if(!search){
+    const known=new Set(source.map(r=>r.main));
+    const added=Object.keys(STATE.overrides).filter(key=>!known.has(key)).map(key=>{
+      try{return baseFor(key);}catch{return null;}
+    }).filter(Boolean);
+    return [...source,...added];
+  }
+  const keys=Object.keys(STATE.corpus.verses).filter(key=>{
+    const v=STATE.corpus.verses[key];
+    return key.replace(':','.').includes(search)||String(v.sa||'').toLocaleLowerCase('tr').includes(search);
+  });
+  keys.sort((a,b)=>Number(b===search.replace('.',':'))-Number(a===search.replace('.',':')));
+  return keys.slice(0,100).map(key=>baseFor(key.replace(':','.')));
+}
 
 function renderList(){
   const target=$('public-list');target.replaceChildren();if(!STATE.baseline)return;
   const search=$('public-search').value.trim().toLocaleLowerCase('tr');
-  for(const r of STATE.baseline.records.filter(x=>x.main.includes(search)||x.heading.toLocaleLowerCase('tr').includes(search))){
+  for(const r of findMainVerses(search)){
     const button=text('button','', 'main-item'+(r.main===STATE.selected?' active':''));
     button.type='button';button.append(text('b',r.main),text('span',label(r)[0]),text('small',verseName(r.main)));
     button.addEventListener('click',()=>{STATE.selected=r.main;renderList();renderDetail();});target.append(button);
@@ -18,7 +36,8 @@ function renderList(){
 }
 
 function renderDetail(){
-  const base=STATE.baseline?.records.find(r=>r.main===STATE.selected);if(!base)return;
+  if(!STATE.baseline||!STATE.corpus)return;
+  const base=baseFor(STATE.selected);if(!base)return;
   const item=verseData(base.main);const [name,color]=label(base);
   $('public-key').textContent='ANA ÂYET · '+base.main;
   $('public-heading').textContent=verseName(base.main);
@@ -58,7 +77,7 @@ async function load(){
   if(changed.schema!=='ayatulkuran.github-edits.v1')throw Error('GitHub güncelleme verisi beklenen biçimde değil.');
   if(!corpus.verses||!corpus.verses['5:61']||!corpus.verses['56:59'])throw Error('Kur’an metinleri eksik.');
   STATE.baseline=baseline;STATE.overrides=changed.overrides;STATE.corpus=corpus;
-  $('public-stats').textContent=baseline.counts.main+' ana âyet · '+baseline.counts.candidates+' aday · '+changed.events.length+' yönetici işlemi';
+  $('public-stats').textContent='6.236 seçilebilir âyet · '+baseline.counts.main+' Word başlığı · '+baseline.counts.candidates+' Word adayı · '+changed.events.length+' yönetici işlemi';
   renderList();renderDetail();
 }
 

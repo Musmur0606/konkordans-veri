@@ -95,7 +95,7 @@
   .esma-clead{display:flex;flex-direction:column;gap:1px;min-width:0}
   .esma-ar{font-family:"Traditional Arabic","Amiri","Scheherazade New","Sakkal Majalla",serif;direction:rtl;color:var(--gold);font-size:20px;line-height:1.25}
   .esma-ar-big{font-family:"Traditional Arabic","Amiri","Scheherazade New","Sakkal Majalla",serif;direction:rtl;color:var(--gold);font-size:30px}
-  .ar b.esmahl{color:#8a1a0a;background:#f6e2c4;border-radius:3px;padding:0 3px;font-weight:700}
+  .ar b.esmahl{color:#c31928;background:transparent;border-radius:0;padding:0;font-weight:inherit}
   .esma-head{display:flex;align-items:baseline;gap:14px;margin-top:4px}
   .esma-baslik{font-size:27px;font-weight:700;color:var(--green)}
   .esma-say2{font-size:14px;color:var(--muted)}
@@ -321,7 +321,7 @@
   <div>
     <h1 onclick="anaEkran()" style="cursor:pointer" title="Ana ekran">ayatulkuran <span id="abadge"></span></h1>
     <div class="sub">Âyet âyet benzeşen âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div>
-    <div class="surum-cep surum-yaz" id="surumcep">v2.8.1</div>
+    <div class="surum-cep surum-yaz" id="surumcep">v2.8.2</div>
   </div>
   <span id="status" class="load">yükleniyor…</span>
   <button class="hbtn" id="theme-toggle" type="button" onclick="temaDegistir()" aria-pressed="false" title="Açık ve koyu renk düzeni">☾ Gece</button>
@@ -329,7 +329,7 @@
   <button class="hbtn" id="fsbtn" onclick="tamEkran()" title="Tam ekran (F11 gibi)">⛶</button>
   <a class="sos" href="https://x.com/ayatulkuran" target="_blank" rel="noopener" title="X" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.5h3.6l-7.9 9 9.3 12.3h-7.3l-5.7-7.5-6.6 7.5H.7l8.5-9.7L.3 1.5h7.5l5.2 6.9zM17.6 20.7h2L6.5 3.4h-2.2z"/></svg></a>
   <a class="sos" href="https://instagram.com/ayat_ulkuran" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 3.2a6.6 6.6 0 1 0 0 13.2 6.6 6.6 0 0 0 0-13.2zm0 10.9a4.3 4.3 0 1 1 0-8.6 4.3 4.3 0 0 1 0 8.6zm6.9-11.2a1.5 1.5 0 1 1-3.1 0 1.5 1.5 0 0 1 3.1 0z"/></svg></a>
-  <span id="surumet" class="surum-yaz">v2.8.1</span>
+  <span id="surumet" class="surum-yaz">v2.8.2</span>
   <input id="search" list="sure-onerileri" autocomplete="off" aria-label="Âyet, sûre veya kavram ara" placeholder="Âyet (5.61), sûre (Bakara 255) veya kavram ara…  Ctrl+K">
   <datalist id="sure-onerileri"></datalist>
 </header>
@@ -346,7 +346,7 @@ const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/r
 const BENZESEN_URL = '/data/benzesen-matris.json?v=20261024';
 const MLOG_URL = 'https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/data/mutesabih-degisiklikler.json';
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '2.8.1';
+const SITE_SURUM = '2.8.2';
 try{if(localStorage.getItem('ayat-tema')==='dark')document.documentElement.dataset.theme='dark';}catch(e){}
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
@@ -666,28 +666,33 @@ function sortRefs(arr){ return arr.sort((a,b)=>{const x=a.split(':').map(Number)
 function hlAr(v,roots){const ws=v.ar.split(' '),kr=v.kr||[];
   return ws.map((w,i)=>(kr[i]&&roots.has(kr[i]))?'<b class="hl">'+esc(w)+'</b>':esc(w)).join(' ');}
 // Arapca kelimeyi sadelestir: harekeleri, tatweel'i, bas elif-lam'i at, alef turevlerini birlestir
+// Esmâ eşleştirme: yalnız aynı isim, hareke/i‘rab farkı, isteğe bağlı elif-lâm.
+// Normalleştirme sadece karşılaştırma içindir; ekrandaki âyet asla değiştirilmez.
 function esmaIskelet(x){
   if(!x) return '';
-  x = x.normalize('NFC')
-       .replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/g,'') // harekeler/tenvin/hancerli elif
-       .replace(/\u0640/g,'')                    // tatweel
-       ; // Harf biçimleri eşdeğer sayılmaz; yalnız harekeler ayıklanır.
-  // bas noktalama/parantez temizligi
-  x = x.replace(/[^\u0621-\u064A]/g,'');
-  // basindaki tanim harfi "ال" varsa dusun (esma vs ayet imlasi eslessin)
-  if(x.length>3 && x.slice(0,2)==='\u0627\u0644') x = x.slice(2);
-  return x;
+  const asil=String(x).normalize('NFC');
+  const ustunTenvin=asil.includes('\u064B');
+  let saf=asil
+    .replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/g,'')
+    .replace(/\u0640/g,'')
+    .replace(/[^\u0621-\u064A\u0671]/g,'');
+  // Yalnız baştaki ال / ٱل tanımlık takısını kaldır.
+  saf=saf.replace(/^[\u0627\u0671]\u0644/,'');
+  // بَصِيرًا gibi üstün tenvinin yazım elifini kaldır; başka harf dönüştürme.
+  if(ustunTenvin&&saf.endsWith('\u0627'))saf=saf.slice(0,-1);
+  return saf;
 }
-// Esmanin kendisi mi? (o kokten turemis baska kelime DEGIL, tam esmanin kendisi)
-function hlArEsma(v, esmaAr){
-  if(!esmaAr) return esc(v.ar);
-  const hedef = esmaIskelet(esmaAr);
-  if(!hedef) return esc(v.ar);
-  const ws = v.ar.split(' ');
-  return ws.map(w=>{
-    const isk = esmaIskelet(w);
-    return (isk && isk===hedef) ? '<b class="esmahl">'+esc(w)+'</b>' : esc(w);
-  }).join(' ');
+function hlArEsma(v,esmaAr){
+  if(!esmaAr)return esc(v.ar);
+  const hedef=esmaIskelet(esmaAr);
+  if(!hedef)return esc(v.ar);
+  // Boşlukları ve bütün Arapça işaretleri orijinal metindeki gibi muhafaza et.
+  return String(v.ar||'').split(/(\s+)/).map(parca=>{
+    if(!parca.trim())return parca;
+    return esmaIskelet(parca)===hedef
+      ? '<b class="esmahl">'+esc(parca)+'</b>'
+      : esc(parca);
+  }).join('');
 }
 function hlTr(meal,roots){let kws=[];roots.forEach(r=>{if(TRK[r])kws=kws.concat(TRK[r]);});
   kws=[...new Set(kws)].filter(Boolean).sort((a,b)=>b.length-a.length);let out=esc(meal||'');

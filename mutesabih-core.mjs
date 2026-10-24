@@ -34,6 +34,37 @@ export function normalizeMain(input) {
   return s+'.'+v;
 }
 
+// Previously accepted AyetulKuran R13 scope: Bakara, Âl-i İmrân and Nisâ
+// remain protected when they themselves are selected as the MAIN verse.
+// They may still be referenced as MATCHING verses under another main verse.
+export const LOCKED_MAIN_SURAS = Object.freeze([2,3,4]);
+export function canEditMain(input) {
+  return !LOCKED_MAIN_SURAS.includes(Number(normalizeMain(input).split('.')[0]));
+}
+
+// R14 contains only the Word-derived main verses. Any of the 6,236 Quran
+// verses may also be selected as a main verse, using the existing site's
+// corresponding `r` links as its read-only starting point.
+export function otherVerseBase(input, corpus) {
+  const main = normalizeMain(input);
+  const item = corpus?.verses?.[main.replace('.',':')];
+  if (!item) throw Error(main + ' için Kur’an metni bulunamadı.');
+  const seen = new Set(), links = [];
+  for (const raw of (Array.isArray(item.r) ? item.r : [])) {
+    try {
+      const target = normalizeMain(String(raw).replace(':','.'));
+      if (target!==main && !seen.has(target)) { seen.add(target); links.push([target,null]); }
+    } catch { /* Preserve source, ignore malformed old-site references. */ }
+  }
+  return {
+    main,
+    heading: (item.sa||item.s+'. Sûre') + ' Sûresi - Ayet ' + item.a,
+    status: 'site',
+    links,
+    source: {file:'Mevcut site verisi (app_data.json)',page:'—',paragraph:'—'},
+  };
+}
+
 export function cleanState(state) {
   const normalized = state && typeof state === 'object' ? state : {};
   const added = [...new Set(Array.isArray(normalized.added) ? normalized.added : [])].sort(verseSort);
@@ -57,7 +88,8 @@ export function getMerged(base,stateInput) {
 
 export function applyEdit(doc,base,operation,refs,note,actor,clock=new Date().toISOString()) {
   if (!['add','remove','confirm','review'].includes(operation)) throw Error('Geçersiz işlem.');
-  if (!base) throw Error('Ana âyet R14 kaynak listesinde yok.');
+  if (!base) throw Error('Seçilen ana âyet bulunamadı.');
+  if (!canEditMain(base.main)) throw Error('Bakara (2), Âl-i İmrân (3) ve Nisâ (4) ana âyetleri korumalıdır; bu sûrelere yeni düzenleme yapılamaz. Başka sûrelerin benzeşenleri arasında yine kullanılabilirler.');
   const next = clone(doc), main = base.main, before = state(next,main);
   const newer = cleanState(before);
   const inBase = new Set(base.links.map(x=>x[0]));
@@ -73,11 +105,17 @@ export function applyEdit(doc,base,operation,refs,note,actor,clock=new Date().to
     if (operation==='remove'&&inBase.has(key)) newer.removed.push(key);
     changed.push(key);
   }
+  // Once the editor genuinely adds/removes a relation, a previously yellow
+  // source heading is no longer pending review. Explicit manual REVIEW remains
+  // available for genuinely unresolved cases.
+  if (changed.length && (base.status==='yellow' || base.status==='site' || newer.status==='review')) {
+    newer.status='confirmed';
+  }
   if (operation==='confirm') newer.status='confirmed';
   if (operation==='review') newer.status='review';
   if (same(before,newer))return {doc,event:null,changed:[]};
   store(next,main,newer);
-  const event={id:crypto.randomUUID(),at:clock,actor,action:operation,refs:changed,note:String(note||'').trim().slice(0,500),changes:[{main,before,after:state(next,main)}]};
+  const event={id:crypto.randomUUID(),at:clock,day_tr:dayInTurkey(clock),actor,action:operation,refs:changed,note:String(note||'').trim().slice(0,500),changes:[{main,before,after:state(next,main)}]};
   next.events.push(event);
   return {doc:next,event,changed};
 }
@@ -100,7 +138,7 @@ function undoEvents(doc,events,action,note,actor,clock) {
   }
   const changes=[...old].map(([main,before])=>({main,before,after:state(next,main)})).filter(x=>!same(x.before,x.after));
   if(!changes.length)throw Error('Geri alınacak bir değişiklik kalmadı.');
-  const event={id:crypto.randomUUID(),at:clock,actor,action,refs:[],note,undo_of:events.map(e=>e.id),changes};
+  const event={id:crypto.randomUUID(),at:clock,day_tr:dayInTurkey(clock),actor,action,refs:[],note,undo_of:events.map(e=>e.id),changes};
   next.events.push(event);
   return {doc:next,event,changed:changes.map(c=>c.main)};
 }

@@ -28,3 +28,11 @@
 2. Esmâ'da besîr örneği gibi i‘rab varyantlarını ve kökdeş ama başka kelimeleri ayırma testleri yap.
 3. Kullanıcı onayıyla altı Esmâ kaynak tutarsızlığını ve açık kayıtları ayrı incele.
 4. Admin güvenlik mimarisi ve sunucu tarafı yetkilendirme işine dön.
+
+## 24.10.2026 — Müteşabih hedef tıklama R2
+- Kullanıcı isteği: Ana âyetin altındaki bir müteşabih hedefe tıklandığında seçilen âyetin kendi müteşabihleri listelensin.
+- Kodda hedefe tıklama zaten `goto(ref) → openRef(ref) → selectVerse(ref)` çalışıyordu; görülen boşluk 2/3/4 sûrelerinin ana matris içinde bulunmamasıydı.
+- `index.html` sürüm 2.8.1 commit `9d138aebc0a0ed49120ca3ecb7a3e67c9fc387ae`.
+- Word matrisi ve MLOG doğrulandıktan sonra yalnız 2/3/4 sûrelerine gelen ilişkiler ayrı `BENZESEN_TERS` görüntüleme indeksinde oluşturuluyor; 2/3/4 mevcut `V[ref].r` kayıtları değişmiyor. Görüntüde mevcut liste + ters ilişki listesi tekilleştirilerek gösteriliyor.
+- Kaynak 111 sûre / 5574 ana / 175478 bağlantı kabulü, 8:58 için 30 hedef ve 2/3/4 koruma kuralı değişmedi.
+- GitHub son dosya SHA `9e6f5d36ea58b197ee9840fc4cab69960c31f680`. JavaScript sözdizimi kontrolü PASS; canlı mobil tıklama testi açık.

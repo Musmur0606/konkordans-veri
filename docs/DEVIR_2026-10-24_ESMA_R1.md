@@ -52,3 +52,13 @@
 - `showEsma(name)` artık geçerli 99 isimden biri seçilince `?esma=<tam kaynak adı>` adresini yazar, başlığı Esmâ ile günceller. `boot()` aynı URL'yi okuyup doğrudan ilgili Esmâ'yı açar. `adresGuncelle` ayet/sure/esma parametrelerinin birini tutar, diğerlerini temizler. Görünen isim ve kaynak adları değiştirilmedi.
 - Günlük bildirim şu an YOK. `sw.js` yalnız önbellek/çevrimdışı çalışma içeriyor; `push`/bildirim aboneliği ve günlük sunucu zamanlayıcısı bulunmuyor. Ana sayfadaki Günün Âyeti günlük seçimdir ama telefona otomatik push göndermez. Kullanıcı açıkça istemeden bildirim izni istenmeyecek.
 - Test: JavaScript sözdizimi PASS; GitHub dosyası tekrar okunarak SHA PASS. Telefon tarayıcısında tıklama ve URL yeniden yükleme QA bekliyor.
+
+## 24.10.2026 — Yönetici arayüzü giriş öncesi gizleme R5
+- Kullanıcı isteği: Yönetim panelini herkes görmesin. Depo GitHub Pages olduğundan kaynak HTML/JS dosyaları kamuya açıktır; gerçek sunucu tarafı URL erişim kontrolü yok. Bu değişiklik **arayüz görünürlüğü kapısıdır**, tam sunucu gizliliği değildir. Bu sınırlama kullanıcıya açıkça bildirilmeli.
+- GitHub commit `3d39606334923a97ad00cf6bd09061aba294ea03` ile 4 dosya: `mutesabih-admin.html`, `mutesabih-admin.js`, `mutesabih-admin.css`, `mutesabih.html`.
+- Başlangıçta yalnız GitHub erişim anahtarı giriş alanı gösterilir; önizleme, sûre/âyet, düzenleyici ve günlük MLOG ekranları gizlidir; veriler giriş öncesi yüklenmez.
+- `api.github.com/user` sonucu `Musmur0606` doğrulanıp veri yüklenince `admin-authorized` sınıfı ile yönetim alanı görünür. Çıkışta token ve runtime verisi temizlenir, arayüz gizlenir. Dosya yazmaları ayrıca GitHub API erişim izniyle korunur.
+- Herkese açık `mutesabih.html` üst bağlantısından yönetim paneli bağlantısı kaldırıldı; doğrudan /mutesabih-admin.html adresi çalışır. Kullanıcı admin panelinin URL'sini yer iminde tutabilir.
+- Kaynak site ve benzeşen matris değişmedi. Güncel MLOG 3 olay: kabul edilmiş `8.18 → 5.12` ve kullanıcı tarafından ayrıca yapılmış iki `5.18` eklemesi. Son iki ekleme bu turda değiştirilmedi ve anlamsal kabul ataması yapılmadı.
+- JavaScript sözdizimi PASS, GitHub commit 4/4 ve MLOG 3 olay bağımsız okuma PASS. Gizli pencerede login öncesi/sonrası görsel test kullanıcı tarafında AÇIK.
+- Açık iş: tam sunucu tarafı gizlilik için GitHub Pages dışı yetkili barındırma/proxy gerekir; kullanıcı mevcut GitHub yetkilendirmesini tercih ettiğinden yeni ücretli servis kurulmadı.

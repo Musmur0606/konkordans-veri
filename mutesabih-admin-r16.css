@@ -1,0 +1,7 @@
+.direct-select{display:flex;align-items:stretch;gap:6px;margin:8px 0 4px}
+.direct-select input{min-width:0;flex:1}
+.direct-select button{flex-shrink:0}
+.sidebar-head label{display:block;margin:13px 0 0}
+.sidebar-head #main-message{min-height:18px}
+.sidebar-head .micro{margin:7px 0 0}
+.history-head #history-summary{background:#eef5ef;padding:8px;border-radius:5px;color:#3c614a}

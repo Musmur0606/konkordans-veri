@@ -1,4 +1,4 @@
-import { parseVerses, cleanState, getMerged, applyEdit, undoOne, undoDay, dayInTurkey, eventLabel, assertHistory } from '/mutesabih-core.mjs?v=1';
+import { parseVerses, normalizeMain, canEditMain, otherVerseBase, cleanState, getMerged, applyEdit, undoOne, undoDay, dayInTurkey, eventLabel, assertHistory } from '/mutesabih-core.mjs?v=2';
 
 const OWNER = 'Musmur0606';
 const REPO = 'konkordans-veri';
@@ -7,7 +7,7 @@ const BASE_PATH = 'data/mutesabih-r14.json';
 const HISTORY_PATH = 'data/mutesabih-degisiklikler.json';
 const API_ROOT = `https://api.github.com/repos/${OWNER}/${REPO}/contents/`;
 const $ = (id) => document.getElementById(id);
-const runtime = { token: '', actor: '', data: null, doc: null, sha: '', selected: '5.61', busy: false };
+const runtime = { token: '', actor: '', data: null, corpus: null, doc: null, sha: '', selected: '5.61', busy: false };
 
 function githubHeaders(authToken = runtime.token) {
   const headers = { Accept: 'application/vnd.github+json' };
@@ -50,10 +50,13 @@ function showMessage(id,message,type='') {
 }
 
 function status(base,override) {
+  if(!canEditMain(base.main))return ['Korumalı sûre','neutral'];
   const explicit=cleanState(override).status;
   if (explicit==='confirmed') return ['Doğrulandı','green'];
   if (explicit==='review') return ['Sarı inceleme','yellow'];
-  return base.status==='red'?['Kırmızı kaynak başlığı','red']:['Sarı inceleme','yellow'];
+  if(base.status==='red')return ['Kırmızı kaynak başlığı','red'];
+  if(base.status==='yellow')return ['Sarı inceleme','yellow'];
+  return ['Mevcut site kaydı','neutral'];
 }
 
 function createText(tag,className,content) {
@@ -63,20 +66,60 @@ function createText(tag,className,content) {
   return node;
 }
 
-function currentBase() {return runtime.data?.records.find(r=>r.main===runtime.selected);}
+function baseFor(key) {
+  const word=runtime.data?.records.find(r=>r.main===key);
+  if(word)return word;
+  if(!runtime.corpus)return null;
+  return otherVerseBase(key,runtime.corpus);
+}
+
+function currentBase() {return baseFor(runtime.selected);}
+
+function allVisibleMains(search) {
+  if(!runtime.data||!runtime.corpus)return [];
+  const word=runtime.data.records;
+  const known=new Set(word.map(r=>r.main));
+  if(!search){
+    const extra=Object.keys(runtime.doc?.overrides||{}).filter(key=>!known.has(key)).map(key=>{
+      try{return baseFor(key);}catch{return null;}
+    }).filter(Boolean);
+    return [...word,...extra].slice(0,500);
+  }
+  const matches=Object.keys(runtime.corpus.verses).filter(key=>{
+    const verse=runtime.corpus.verses[key];
+    return key.replace(':','.').includes(search) || String(verse.sa||'').toLocaleLowerCase('tr').includes(search);
+  });
+  matches.sort((a,b)=>{
+    const target=search.replace('.',':');
+    return Number(b===target)-Number(a===target);
+  });
+  return matches.slice(0,100).map(x=>baseFor(x.replace(':','.')));
+}
 
 function renderList() {
-  if(!runtime.data)return;
+  if(!runtime.data||!runtime.corpus)return;
   const search=$('main-search').value.trim().toLocaleLowerCase('tr');
   const list=$('main-list');list.replaceChildren();
-  const found=runtime.data.records.filter(item=>item.main.includes(search)||item.heading.toLocaleLowerCase('tr').includes(search));
+  const found=allVisibleMains(search);
   for(const base of found) {
     const row=createText('button','main-item'+(base.main===runtime.selected?' active':''),'');
     row.type='button';row.setAttribute('role','option');row.setAttribute('aria-selected',String(base.main===runtime.selected));
-    row.append(createText('b','',base.main),createText('span','',status(base,runtime.doc?.overrides?.[base.main])[0]),createText('small','',base.heading.slice(0,83)));
+    const verse=runtime.corpus.verses[base.main.replace('.',':')];
+    row.append(createText('b','',base.main),createText('span','',status(base,runtime.doc?.overrides?.[base.main])[0]),createText('small','',verse?.sa ? verse.sa+' Sûresi · '+verse.a+'. Âyet' : base.heading.slice(0,83)));
     row.addEventListener('click',()=>{runtime.selected=base.main;renderAll();});list.append(row);
   }
-  if(!found.length)list.append(createText('p','micro','Aradığınız ana âyet bulunamadı.'));
+  if(!found.length)list.append(createText('p','micro','Aradığınız âyet bulunamadı.'));
+}
+
+function openMain() {
+  try {
+    const main=normalizeMain($('direct-main').value);
+    if(!runtime.corpus?.verses?.[main.replace('.',':')])throw Error('Kur’an metninde bulunmuyor.');
+    runtime.selected=main;
+    $('main-search').value=main;
+    showMessage('main-message',main+' ana âyet olarak açıldı. Benzeşenler aşağıda.','success');
+    renderAll();
+  }catch(error){showMessage('main-message',error.message,'error');}
 }
 
 function renderSelected() {
@@ -84,11 +127,14 @@ function renderSelected() {
   const currentState=runtime.doc?.overrides?.[base.main];
   const [label,color]=status(base,currentState);
   $('main-key').textContent='ANA ÂYET · '+base.main;
-  $('main-title').textContent=base.heading;
-  $('main-source').textContent='Kaynak: '+base.source.file+' · Sayfa '+base.source.page+' · Paragraf '+base.source.paragraph;
+  const verse=runtime.corpus?.verses?.[base.main.replace('.',':')];
+  $('main-title').textContent=base.status==='site' && verse?.sa?verse.sa+' Sûresi · '+verse.a+'. Âyet':base.heading;
+  $('main-source').textContent=base.status==='site'?'Kaynak: '+base.source.file+' · Mevcut site ilişkileri korunur.':'Kaynak: '+base.source.file+' · Sayfa '+base.source.page+' · Paragraf '+base.source.paragraph;
+  $('source-note').textContent=base.status==='site'?'Mevcut sitenin Kur’an verisindeki benzeşme kayıtları başlangıç alınır; yönetici ekleme/çıkarma değişiklikleri ayrıdır. Otomatik adaylar anlam bakımından onaylanmış sayılmaz.':'Word kaynaklı benzeşenler yapısal adaylardır; anlam bakımından tek tek teyit edilmiş sayılmazlar.';
+  if(!canEditMain(base.main))$('source-note').textContent='KORUMALI: Bakara (2), Âl-i İmrân (3) ve Nisâ (4) ana âyetleri görüntülenebilir; ancak bu üç sûrede ekleme/çıkarma kapalıdır. Başka ana âyetlerin benzeşen listelerinde bu sûrelere atıf serbesttir.';
   $('main-status').textContent=label;$('main-status').className='pill '+color;
   const links=getMerged(base,currentState);
-  $('link-count').textContent=links.length+' ilişki ('+base.links.length+' Word adayı)';
+  $('link-count').textContent=links.length+' ilişki ('+base.links.length+(base.status==='site'?' mevcut site':' Word')+' adayı)';
   const target=$('link-list');target.replaceChildren();
   for (const ref of links) {
     const pill=createText('span','link'+(ref.added?' added':''),'');
@@ -105,6 +151,7 @@ function renderHistory() {
   const all=[...(runtime.doc?.events||[])].reverse();
   const selectedDay=$('history-day').value;
   const filtered=selectedDay?all.filter(e=>dayInTurkey(e.at)===selectedDay):all;
+  $('history-summary').textContent=selectedDay ? selectedDay+' gününe ait '+filtered.length+' MLOG işlemi; tüm kayıtlar GitHub’da korunuyor.' : 'Toplam '+all.length+' işlem; tarih seçerek günlük kayıtları ve geri alma seçeneğini açın.';
   if(!filtered.length) {target.append(createText('p','micro',selectedDay?'Seçilen tarihte bir işlem yok.':'Henüz yönetici işlemi yok.'));return;}
   for(const event of filtered.slice(0,300)) {
     const card=createText('article','history-entry','');
@@ -123,16 +170,18 @@ function renderHistory() {
 
 function renderAuth() {
   const logged=!!runtime.token;
+  const locked=!canEditMain(runtime.selected);
   $('auth-badge').textContent=logged?'GİRİŞ: '+runtime.actor:'GİRİŞ YAPILMADI';
   $('auth-badge').className='status '+(logged?'connected':'neutral');
   $('token').hidden=logged;$('login').hidden=logged;$('logout').hidden=!logged;
-  $('editor').querySelectorAll('button,input,textarea').forEach(el=>{el.disabled=!logged||runtime.busy;});
+  $('editor').querySelectorAll('button,input,textarea').forEach(el=>{el.disabled=!logged||runtime.busy||locked;});
   $('rollback-day').disabled=!logged||runtime.busy||!$('history-day').value;
+  $('download-day').disabled=!$('history-day').value;
 }
 
 function renderAll() {
   renderAuth(); renderList(); renderSelected(); renderHistory();
-  if(runtime.data) $('stats').textContent=runtime.data.counts.main+' ana âyet · '+runtime.data.counts.candidates+' benzeşme adayı · '+(runtime.doc?.events?.length||0)+' yönetici işlemi';
+  if(runtime.data) $('stats').textContent='6.236 seçilebilir âyet · '+runtime.data.counts.main+' Word başlığı · '+runtime.data.counts.candidates+' Word adayı · '+(runtime.doc?.events?.length||0)+' MLOG işlemi';
 }
 
 function updateParsed() {
@@ -145,12 +194,17 @@ function updateParsed() {
 async function refreshFiles(authToken=runtime.token) {
   // Public source is served by GitHub Pages; mutable state is ALWAYS read
   // from GitHub's contents API with SHA, never from service-worker caches.
-  const baseResponse=await fetch('/'+BASE_PATH+'?t='+Date.now(),{cache:'no-store'});
+  const [baseResponse,corpusResponse]=await Promise.all([
+    fetch('/'+BASE_PATH+'?t='+Date.now(),{cache:'no-store'}),
+    fetch('/app_data.json',{cache:'force-cache'}),
+  ]);
   if(!baseResponse.ok)throw Error('R14 kaynak dosyası henüz yayına ulaşmadı ('+baseResponse.status+').');
-  const data=await baseResponse.json();
+  if(!corpusResponse.ok)throw Error('Kur’an metni ve benzeşme kaynağı yüklenemedi ('+corpusResponse.status+').');
+  const [data,corpus]=await Promise.all([baseResponse.json(),corpusResponse.json()]);
   if(data.schema!=='ayatulkuran.word-r14-baseline.v1'||data.counts.main!==176||data.counts.candidates!==3683)throw Error('R14 kaynak veri doğrulaması başarısız.');
+  if(!corpus.verses||Object.keys(corpus.verses).length!==6236)throw Error('Kur’an 6.236 âyet kaynağı beklenen biçimde değil.');
   const history=await loadGitHubFile(HISTORY_PATH,authToken);assertHistory(history.content);
-  runtime.data=data;runtime.doc=history.content;runtime.sha=history.sha;
+  runtime.data=data;runtime.corpus=corpus;runtime.doc=history.content;runtime.sha=history.sha;
   renderAll();
 }
 
@@ -193,16 +247,36 @@ async function saveNext(result,commitMessage) {
 async function submitEdit(operation) {
   if(runtime.busy)return;
   const base=currentBase();if(!base)return;
-  setBusy(true);
   try {
     const result=applyEdit(runtime.doc,base,operation,$('refs').value,$('reason').value,runtime.actor);
     if(!result.event){showMessage('edit-message','Yeni bir değişiklik yok; mevcut kayıt korundu.');return;}
+    if(operation==='add'||operation==='remove'){
+      const word=operation==='add'?'EKLENECEK':'ÇIKARILACAK';
+      const summary=result.changed.slice(0,45).join(', ')+(result.changed.length>45?' ...':'');
+      const question='ANA ÂYET: '+base.main+'\nİŞLEM: '+word+'\n\n'+result.changed.length+' benzeşen âyet:\n'+summary+'\n\nİşlemi GitHub’a kaydetmek istediğinize EMİN MİSİNİZ?';
+      if(!window.confirm(question)){
+        showMessage('edit-message','İkinci onay verilmedi; hiçbir değişiklik kaydedilmedi.');
+        return;
+      }
+    }
+    setBusy(true);
     const refs=result.changed.length?' ('+result.changed.length+' âyet)':'';
     const saved=await saveNext(result,'AyetulKuran: '+base.main+' '+operation+refs);
     showMessage('edit-message','GitHub’a yazıldı. İşlem geçmişinde görülebilir. Commit: '+saved.commit.slice(0,9),'success');
     $('refs').value='';$('reason').value='';renderAll();
   }catch(error){showMessage('edit-message',error.message,'error');}
   finally{setBusy(false);}
+}
+
+function downloadDailyLog() {
+  const day=$('history-day').value;
+  if(!day||!runtime.doc){showMessage('edit-message','Günlük MLOG için önce bir tarih seçiniz.','error');return;}
+  const events=runtime.doc.events.filter(event=>dayInTurkey(event.at)===day);
+  const log={schema:'ayatulkuran.daily-mlog.v1',day_tr:day,source:'Musmur0606/konkordans-veri/data/mutesabih-degisiklikler.json',exported_at:new Date().toISOString(),count:events.length,events};
+  const blob=new Blob([JSON.stringify(log,null,2)+'\n'],{type:'application/json'});
+  const url=URL.createObjectURL(blob),link=document.createElement('a');
+  link.href=url;link.download='AYATULKURAN_MLOG_'+day+'.json';document.body.append(link);link.click();link.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
 async function submitUndoOne(id) {
@@ -233,6 +307,8 @@ async function submitUndoDay() {
 }
 
 $('main-search').addEventListener('input',renderList);
+$('open-main').addEventListener('click',openMain);
+$('direct-main').addEventListener('keydown',(e)=>{if(e.key==='Enter')openMain();});
 $('refs').addEventListener('input',updateParsed);
 $('login').addEventListener('click',authorize);
 $('token').addEventListener('keydown',(e)=>{if(e.key==='Enter')authorize();});
@@ -240,6 +316,7 @@ $('logout').addEventListener('click',()=>{runtime.token='';runtime.actor='';show
 for(const op of ['add','remove','confirm','review'])$(op).addEventListener('click',()=>submitEdit(op));
 $('history-day').addEventListener('change',()=>{renderHistory();renderAuth();});
 $('clear-day').addEventListener('click',()=>{$('history-day').value='';renderHistory();renderAuth();});
+$('download-day').addEventListener('click',downloadDailyLog);
 $('rollback-day').addEventListener('click',submitUndoDay);
 
 refreshFiles('').catch(error=>{

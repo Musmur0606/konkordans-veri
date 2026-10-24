@@ -7,7 +7,7 @@ const BASE_PATH = 'data/mutesabih-r14.json';
 const HISTORY_PATH = 'data/mutesabih-degisiklikler.json';
 const API_ROOT = `https://api.github.com/repos/${OWNER}/${REPO}/contents/`;
 const $ = (id) => document.getElementById(id);
-const runtime = { token: '', actor: '', data: null, corpus: null, doc: null, sha: '', selected: '5.61', busy: false };
+const runtime = { token: '', actor: '', data: null, corpus: null, doc: null, sha: '', selected: '5.61', busy: false, drafts: new Map() };
 
 function githubHeaders(authToken = runtime.token) {
   const headers = { Accept: 'application/vnd.github+json' };
@@ -104,9 +104,22 @@ function syncPickers(main) {
 }
 
 function showMain(main) {
-  runtime.selected=normalizeMain(main);
-  $('main-search').value=runtime.selected;
-  showMessage('main-message',runtime.selected+' ana âyet olarak açıldı. Arapça ve Türkçe meali sağda.','success');
+  chooseMain(main,true);
+}
+
+function chooseMain(main,filterToMain=false) {
+  const next=normalizeMain(main);
+  if(next!==runtime.selected) {
+    const oldDraft={refs:$('refs').value,reason:$('reason').value};
+    if(oldDraft.refs||oldDraft.reason)runtime.drafts.set(runtime.selected,oldDraft);
+    else runtime.drafts.delete(runtime.selected);
+    const draft=runtime.drafts.get(next)||{refs:'',reason:''};
+    $('refs').value=draft.refs;
+    $('reason').value=draft.reason;
+  }
+  runtime.selected=next;
+  if(filterToMain)$('main-search').value=next;
+  showMessage('main-message',next+' ana âyet olarak açıldı. Arapça ve Türkçe meali sağda.','success');
   renderAll();
 }
 
@@ -141,7 +154,7 @@ function renderList() {
     row.type='button';row.setAttribute('role','option');row.setAttribute('aria-selected',String(base.main===runtime.selected));
     const verse=runtime.corpus.verses[base.main.replace('.',':')];
     row.append(createText('b','',base.main),createText('span','',status(base,runtime.doc?.overrides?.[base.main])[0]),createText('small','',verse?.sa ? verse.sa+' Sûresi · '+verse.a+'. Âyet' : base.heading.slice(0,83)));
-    row.addEventListener('click',()=>{runtime.selected=base.main;renderAll();});list.append(row);
+    row.addEventListener('click',()=>chooseMain(base.main));list.append(row);
   }
   if(!found.length)list.append(createText('p','micro','Aradığınız âyet bulunamadı.'));
 }
@@ -157,6 +170,7 @@ function openMain() {
 function renderSelected() {
   const base=currentBase();if(!base)return;
   syncPickers(base.main);
+  $('direct-main').value=base.main;
   const currentState=runtime.doc?.overrides?.[base.main];
   const [label,color]=status(base,currentState);
   $('main-key').textContent='ANA ÂYET · '+base.main;
@@ -318,6 +332,7 @@ async function submitEdit(operation) {
     const refs=result.changed.length?' ('+result.changed.length+' âyet)':'';
     const saved=await saveNext(result,'AyetulKuran: '+base.main+' '+operation+refs);
     showMessage('edit-message','GitHub’a yazıldı. İşlem geçmişinde görülebilir. Commit: '+saved.commit.slice(0,9),'success');
+    runtime.drafts.delete(base.main);
     $('refs').value='';$('reason').value='';renderAll();
   }catch(error){showMessage('edit-message',error.message,'error');}
   finally{setBusy(false);}

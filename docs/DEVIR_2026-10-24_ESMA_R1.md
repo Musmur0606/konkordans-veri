@@ -62,3 +62,15 @@
 - Kaynak site ve benzeşen matris değişmedi. Güncel MLOG 3 olay: kabul edilmiş `8.18 → 5.12` ve kullanıcı tarafından ayrıca yapılmış iki `5.18` eklemesi. Son iki ekleme bu turda değiştirilmedi ve anlamsal kabul ataması yapılmadı.
 - JavaScript sözdizimi PASS, GitHub commit 4/4 ve MLOG 3 olay bağımsız okuma PASS. Gizli pencerede login öncesi/sonrası görsel test kullanıcı tarafında AÇIK.
 - Açık iş: tam sunucu tarafı gizlilik için GitHub Pages dışı yetkili barındırma/proxy gerekir; kullanıcı mevcut GitHub yetkilendirmesini tercih ettiğinden yeni ücretli servis kurulmadı.
+
+## R6 — Amiri ortak Arapça font (24.10.2026)
+
+- Kullanıcı Amiri örneğini önce Bakara 2.255 üzerinde beğendi, sonra bütün siteye uygulamayı onayladı.
+- `amiri-site.css` tek ortak stil otoritesi: `.ar`, `.arabic`, `.esma-ar`, `.esma-ar-big`, `.esma-side-ar`; masaüstü ve telefon için okuma boyutları. Kaynak Arapça yazı, hareke ve Esmâ kırmızı eşleşme algoritması değiştirilmedi.
+- `index.html`, `mutesabih.html`, `mutesabih-admin.html`, `draft_esma.html` ortak stili kullanıyor; iki CSP'ye Google Fonts CSS/font kaynakları eklendi.
+- 114 adet `<sûre>-<ad>.html` ve 114 adet `sure-<sûre>-<ad>.html` olmak üzere toplam **228 bağımsız sûre sayfası** tek GitHub toplu commitinde `5515132062f8e7ba7b0b0c3eff9556b1aafafa93` ortak stile bağlandı; link eklenmesi dışında **228/228 dosya baytı aynı** doğrulandı.
+- `sw.js` ve `index.html` sürümü `v2.8.6`; kaynak geçişi 2026-10-24; GitHub okuma kontrolünde indeks, admin, halka açık müteşabih, örnek sûreler ve SW PASS.
+- Matris ve yönetici MLOG dosyaları dokunulmadı. 175.478 ilişki, 8.58'de 30 benzeşen, 2/3/4 koruması geçerlidir.
+- Canlı `www.ayatulkuran.com` dağıtımının cihaz ve CDN önbelleklerinde gecikme gösterebildiği önceki v2.8.4 geçişinde gözlendi; **v2.8.6 canlı mobil görsel doğrulama henüz yapılmadı**.
+- Google Fonts ağ bağımlılığı var. Çevrimdışı kullanımda daha önce önbelleğe alınmamış fontun fallback görünebilme ihtimali AÇIK İYİLEŞTİRME; gerekirse lisansına uygun self-hosting planlanır.
+- DO_NOT_REDO: Word matrisini, Kur’an yazı ve meal kaynaklarını, Esmâ eşleşme kararlarını ve kabul edilen R5 güvenlik düzenini yeniden üretmeyin.

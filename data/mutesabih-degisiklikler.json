@@ -1,0 +1,7 @@
+{
+  "schema": "ayatulkuran.github-edits.v1",
+  "baseline": "data/mutesabih-r14.json",
+  "description": "Ana Word/R14 kaynak dosyası değişmez. Ekleme, çıkarma, başlık durumu ve geri alma işlemleri burada sürümlenir. Bu dosyanın her güncellemesi ayrıca GitHub commit geçmişine yazılır.",
+  "overrides": {},
+  "events": []
+}

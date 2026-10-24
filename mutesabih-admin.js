@@ -218,12 +218,13 @@ function renderHistory() {
 
 function renderAuth() {
   const logged=!!runtime.token;
+  document.body.classList.toggle('admin-authorized',logged);
   const locked=!canEditMain(runtime.selected);
   $('auth-badge').textContent=logged?'GİRİŞ: '+runtime.actor:'GİRİŞ YAPILMADI';
   $('auth-badge').className='status '+(logged?'connected':'neutral');
   $('token').hidden=logged;$('login').hidden=logged;$('logout').hidden=!logged;
-  // Preview remains usable without credentials. GitHub writes are gated in
-  // submitEdit/saveNext, and locked main suras cannot be changed at all.
+  // Yönetim alanı yalnız doğrulanmış GitHub hesabında görünür.
+  // GitHub API yazmaları ayrıca yetki anahtarıyla korunur.
   for (const id of ['refs','reason','add','remove','confirm','review']) {
     $(id).disabled=runtime.busy||locked;
   }
@@ -231,7 +232,7 @@ function renderAuth() {
     ? 'KORUMALI ANA ÂYET: Bakara (2), Âl-i İmrân (3) ve Nisâ (4) için ekleme/çıkarma yapılamaz. Diğer sûrelerden bir ana âyet seçin.'
     : logged
       ? 'Yönetici girişi açık. Ekleme ve çıkarma GitHub’a kaydedilmeden önce yeniden onayınız istenecek.'
-      : 'ÖNİZLEME AÇIK: Âyetleri yazıp kontrol edebilirsiniz. GitHub’a kaydetmek için yukarıdan yönetici girişi yapmalısınız.';
+      : 'Giriş yapılmadı. Yönetim ekranı gizlidir.';
   $('editor-state').className='editor-state'+(locked?' locked':logged?' ready':' preview');
   $('rollback-day').disabled=!logged||runtime.busy||!$('history-day').value;
   $('download-day').disabled=!$('history-day').value;
@@ -391,15 +392,11 @@ $('direct-main').addEventListener('keydown',(e)=>{if(e.key==='Enter')openMain();
 $('refs').addEventListener('input',updateParsed);
 $('login').addEventListener('click',authorize);
 $('token').addEventListener('keydown',(e)=>{if(e.key==='Enter')authorize();});
-$('logout').addEventListener('click',()=>{runtime.token='';runtime.actor='';showMessage('login-message','Güvenli çıkış yapıldı. Erişim anahtarı bellekten silindi.');renderAll();});
+$('logout').addEventListener('click',()=>{runtime.token='';runtime.actor='';runtime.data=null;runtime.corpus=null;runtime.doc=null;runtime.sha='';runtime.drafts.clear();$('main-list').replaceChildren();$('link-list').replaceChildren();showMessage('login-message','Güvenli çıkış yapıldı. Yönetim ekranı kapatıldı.','success');renderAll();});
 for(const op of ['add','remove','confirm','review'])$(op).addEventListener('click',()=>submitEdit(op));
 $('history-day').addEventListener('change',()=>{renderHistory();renderAuth();});
 $('clear-day').addEventListener('click',()=>{$('history-day').value='';renderHistory();renderAuth();});
 $('download-day').addEventListener('click',downloadDailyLog);
 $('rollback-day').addEventListener('click',submitUndoDay);
 
-refreshFiles('').catch(error=>{
-  showMessage('login-message','Kaynak yüklenemedi: '+error.message,'error');
-  $('stats').textContent='GitHub bağlantısı kontrol ediliyor.';
-  $('main-list').replaceChildren(createText('p','micro',error.message));
-});
+renderAuth(); // Kaynaklar yetkili GitHub girişinden sonra yüklenir.

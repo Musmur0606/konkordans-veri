@@ -74,3 +74,11 @@
 - Canlı `www.ayatulkuran.com` dağıtımının cihaz ve CDN önbelleklerinde gecikme gösterebildiği önceki v2.8.4 geçişinde gözlendi; **v2.8.6 canlı mobil görsel doğrulama henüz yapılmadı**.
 - Google Fonts ağ bağımlılığı var. Çevrimdışı kullanımda daha önce önbelleğe alınmamış fontun fallback görünebilme ihtimali AÇIK İYİLEŞTİRME; gerekirse lisansına uygun self-hosting planlanır.
 - DO_NOT_REDO: Word matrisini, Kur’an yazı ve meal kaynaklarını, Esmâ eşleşme kararlarını ve kabul edilen R5 güvenlik düzenini yeniden üretmeyin.
+
+## R7 — Benzeşen sayı sıralaması ve v2.8.7 önbellek düzeltmesi (25.10.2026)
+
+- Kullanıcı son eklenen benzeşen âyetlerin sûre/âyet sırasına girmediğini bildirdi. `index.html` görüntüleme dizisi `ayetRefSirala(a,b)` ile **önce sûre no, sonra âyet no** sayısal sıralanır. `getMerged` yönetim panelinde zaten sayısal sıralıydı. MLOG/Word/ayet kaynakları değiştirilmedi.
+- `index.html` ve `sw.js` sürümü **v2.8.7**; `navigator.serviceWorker.register('/sw.js?v=2.8.7', {updateViaCache:'none'})` eşitlendi (eski dosyada 2.8.6 sürümüne yanlış referans bulunmuştu).
+- `guncel-287.html` yalnız sürüm önbelleğini ayırmak için oluşturulmuş, noindex alternatif giriş sayfasıdır. GitHub kaynak ve canlı GET kontrolünde **v2.8.7** bulundu. Ana `index.html` ve alternatif dosya aynı sayı sıralamasını içerir.
+- Kullanıcı telefon/Chrome görünümünde önceki **v2.8.3** sürümünün kaldığını bildirdi; **kullanıcı cihazında v2.8.7 görsel doğrulaması hâlen AÇIK**. Sunucu/GitHub erişim kontrolüyle telefon kabulünü karıştırmayın.
+- DO_NOT_REDO: 175.478 Word bağlantısı, R5/R6 kayıtları, 228 bağımsız sûre dosyası ve Esmâ metin/renk kuralları korunur. Sonraki adım: kullanıcının `https://www.ayatulkuran.com/guncel-287.html` ekran görüntüsüyle sürüm ve sıralamayı doğrulaması.

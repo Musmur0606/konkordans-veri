@@ -16,3 +16,7 @@
   .esma-verse .ar{font-size:23px;line-height:2.15}
   .ayet .ar{font-size:25px;line-height:2.15}
 }
+
+/* Sure okuma sayfalarinda Latin harfli okunus satirlari gosterilmez.
+   Arapca ayet metni ve Turkce meal aynen korunur. */
+.ayet > .ok{display:none!important}

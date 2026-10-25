@@ -82,3 +82,12 @@
 - `guncel-287.html` yalnız sürüm önbelleğini ayırmak için oluşturulmuş, noindex alternatif giriş sayfasıdır. GitHub kaynak ve canlı GET kontrolünde **v2.8.7** bulundu. Ana `index.html` ve alternatif dosya aynı sayı sıralamasını içerir.
 - Kullanıcı telefon/Chrome görünümünde önceki **v2.8.3** sürümünün kaldığını bildirdi; **kullanıcı cihazında v2.8.7 görsel doğrulaması hâlen AÇIK**. Sunucu/GitHub erişim kontrolüyle telefon kabulünü karıştırmayın.
 - DO_NOT_REDO: 175.478 Word bağlantısı, R5/R6 kayıtları, 228 bağımsız sûre dosyası ve Esmâ metin/renk kuralları korunur. Sonraki adım: kullanıcının `https://www.ayatulkuran.com/guncel-287.html` ekran görüntüsüyle sürüm ve sıralamayı doğrulaması.
+
+## R8 — Görünen sürümün kök nedeni ve okunuş görünümü (25.10.2026)
+
+- R7 devrindeki **v2.8.7 HTML doğrulaması eksikti**: `index.html` ve `guncel-287.html` üzerinde başlangıç etiketleri `v2.8.7` görünürken `const SITE_SURUM = '2.8.3';` unutulmuştu. `DOMContentLoaded` ve `load` olayları bu sabitten DOM etiketini **v2.8.3'e geri yazıyordu**. Bu kod kaynaklı sürüm yazısı hatası tespit edildi; yalnız cache açıklaması doğru değildi.
+- 25.10.2026'da iki HTML'de `SITE_SURUM='2.8.7'` olarak düzeltildi. Commitler: `45181eeb0293d35bc27d1971e6386bd8c6e4eebf` (index), `15cb305f3b857ecbda507c3e82e70d6f21b7d56f` (guncel). GitHub fetch ile her ikisi doğrulandı. `sw.js` zaten `v2.8.7` ve servis kaydı `?v=2.8.7` olarak korunur.
+- Aynı gün kullanıcının isteğiyle bağımsız sûre okuma kartlarındaki Latin harfli okunuş `.ayet > .ok` ortak `amiri-site.css` üzerinden `display:none!important` yapıldı; Arapça ve Türkçe mealler bozulmadı. Kaynak HTML'deki okunuşlar **silinmedi, sadece ekrandan gizlendi**. Commit `7f44d17b466d82be2488d67db859c9585a382864`. `sureler.html` açıklamaları commit `69d39217e300da337b9a699d72e23ab7083eb174` ile güncellendi.
+- **AÇIK CANLI DOĞRULAMA:** GitHub'da yeni değerler PASS iken 25.10.2026 canlı CDN GET eski `SITE_SURUM='2.8.3'` döndürdü. Yayın/CDN yenileme gecikmesi veya cache ayrıca kontrol edilmeli. Kullanıcı bilgisayar/telefon ekranında 2.8.7 görmeden LIVE PASS iddia edilmez.
+- DO_NOT_REDO: Word matrisi 175.478 bağlantı, Quran Arapça/Türkçe/İngilizce içerik, Esmâ kuralları, admin MLOG, sıralama kabulü; bu turn'de hepsi korunmuştur.
+- SONRAKİ ADIM: GitHub Pages dağıtımını ve CDN'nin yeni `SITE_SURUM` değerini gerçekten servis ettiğini yeniden kontrol et; kullanıcının sürüm görünümünü teyit et. Gerekirse eski servis çalışanı kayıtları için kullanıcıyla güvenli adımlar belirle.

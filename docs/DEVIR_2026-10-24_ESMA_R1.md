@@ -91,3 +91,12 @@
 - **AÇIK CANLI DOĞRULAMA:** GitHub'da yeni değerler PASS iken 25.10.2026 canlı CDN GET eski `SITE_SURUM='2.8.3'` döndürdü. Yayın/CDN yenileme gecikmesi veya cache ayrıca kontrol edilmeli. Kullanıcı bilgisayar/telefon ekranında 2.8.7 görmeden LIVE PASS iddia edilmez.
 - DO_NOT_REDO: Word matrisi 175.478 bağlantı, Quran Arapça/Türkçe/İngilizce içerik, Esmâ kuralları, admin MLOG, sıralama kabulü; bu turn'de hepsi korunmuştur.
 - SONRAKİ ADIM: GitHub Pages dağıtımını ve CDN'nin yeni `SITE_SURUM` değerini gerçekten servis ettiğini yeniden kontrol et; kullanıcının sürüm görünümünü teyit et. Gerekirse eski servis çalışanı kayıtları için kullanıcıyla güvenli adımlar belirle.
+
+## R9 — Ana âyet kartı sadeleştirme, v2.8.8 (25.10.2026)
+
+- Kullanıcının Bakara 2.5 mobil ekran görüntüsünde ana âyetin altında istenmeyen `Believers`, `Success` İngilizce konu/kavram etiketleri ve Latin harfli okunuş vardı. Bunlar veri değil, `index.html` ana âyet kartı şablonunun görsel alanlarıydı.
+- `selectVerse` kartındaki `v.ko` üzerinden üretilen `tags` etiket satırı ve `v.ok` üzerinden üretilen okunuş alanı kaldırıldı. Kaynak `app_data.json`, arama indeksi, Arapça metin, Türkçe/İngilizce mealler, MLOG, Word matrisi değiştirilmedi.
+- Ana `index.html` `SITE_SURUM='2.8.8'`, statik görünen sürüm ve `sw.js?v=2.8.8` eşitlendi. SW `SURUM='v2.8.8'`. GitHub commitler `b8eb7c15c1ad116a7b53dad2e298201ef9b12592` ve `6f9beeab60b537bcefa6fd966731c6326b6d7b47`.
+- **CANLI PASS:** `https://www.ayatulkuran.com/?ayet=2.5` tarayıcıda `v2.8.8`; Arapça metin + Türkçe meal + 48 benzeşen gösterildi, İngilizce kavram etiketleri ve Latin okunuş alanı artık yok. Kullanıcının kendi cihazında ek doğrulama isteğe bağlı.
+- `guncel-287.html` tarihsel R8 alternatif kontrol sayfası olarak korunmuştur; varsayılan yayın `index.html` v2.8.8 kullanır.
+- DO_NOT_REDO: Arapça/hareke ve meal kaynakları, 175.478 Word ilişkisi, 8.58=31 kuralı, kabul edilen Esmâ renklendirmesi, admin düzenlemeleri ve sıralama kayıtları korunur.

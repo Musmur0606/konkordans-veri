@@ -497,7 +497,7 @@ async function boot(){
     addEventListener('offline',()=>{ if(DB) setStatus('offline','🟡 çevrimdışı','bağlantı kesildi · kayıtlı veriyle çalışıyorsunuz'); });
   addEventListener('online', ()=>{ if(DB) setStatus('online','🟢','bağlantı geri geldi'); });
   if('serviceWorker' in navigator && location.protocol==='https:'){
-    navigator.serviceWorker.register('/sw.js?v=2.8.6', {updateViaCache:'none'}).catch(()=>{});
+    navigator.serviceWorker.register('/sw.js?v=2.8.7', {updateViaCache:'none'}).catch(()=>{});
   }
   kurBarKur();
   // sure sayfalarindan gelen baglantilar:  ?ayet=2.255  ya da  ?sure=2

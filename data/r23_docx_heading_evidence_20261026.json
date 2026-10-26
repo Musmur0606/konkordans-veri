@@ -1,0 +1,160 @@
+{
+  "schema": "ayatulkuran.docx-heading-evidence.v1",
+  "date": "2026-10-26",
+  "source_archive": "Ma 1-10.zip",
+  "source_archive_sha256": "78c4f365bd60157519b72bc5302d6d5adb90508577af7394d4167035f2a7f0db",
+  "method": "DOCX OOXML w:p and first nonempty w:r formatting; word heading reference and 1-based paragraph locations",
+  "source_rule": "Ana ayet karari yalnız renkten veya sabit tire sayisindan verilmez; bölüm hiyerarsisi ve sure/ayet sirasi esas alinir.",
+  "qa_scope": "8 former empty V1.1 main verses; accepted R23 compared without changes; NOT equivalent to the separately reported 14 methodology disagreements",
+  "totals": {
+    "main_checked": 8,
+    "r23_links_covered": 207,
+    "heading_confirmed": 7,
+    "source_review": 1
+  },
+  "review": [
+    "15:28"
+  ],
+  "protected_main_suras": [
+    2,
+    3,
+    4
+  ],
+  "notes": "Counts are from accepted R23. Source evidence is paragraph header formatting only, not semantic correctness. Accepted R23 and dated editor history unchanged.",
+  "records": [
+    {
+      "main": "7:139",
+      "source": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "r23_relation_count": 25,
+      "source_headings": [
+        {
+          "paragraph": 5649,
+          "first_run_color": "FF0000",
+          "leading_separator": "--"
+        }
+      ],
+      "finding": "SOURCE_HEADING_CONFIRMED"
+    },
+    {
+      "main": "7:198",
+      "source": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "r23_relation_count": 58,
+      "source_headings": [
+        {
+          "paragraph": 7503,
+          "first_run_color": "800000",
+          "leading_separator": "-----"
+        },
+        {
+          "paragraph": 8521,
+          "first_run_color": "800000",
+          "leading_separator": "-----"
+        },
+        {
+          "paragraph": 8694,
+          "first_run_color": "FF0000",
+          "leading_separator": ""
+        }
+      ],
+      "finding": "SOURCE_HEADING_CONFIRMED"
+    },
+    {
+      "main": "11:1",
+      "source": "Ma 11-20/11 HUD SURESİ 52.docx",
+      "r23_relation_count": 46,
+      "source_headings": [
+        {
+          "paragraph": 6,
+          "first_run_color": "FF0000",
+          "leading_separator": "-----"
+        },
+        {
+          "paragraph": 697,
+          "first_run_color": "800000",
+          "leading_separator": "-------"
+        }
+      ],
+      "finding": "SOURCE_HEADING_CONFIRMED"
+    },
+    {
+      "main": "14:25",
+      "source": "Ma 11-20/14 İBRAHİM SURESİ 72.docx",
+      "r23_relation_count": 11,
+      "source_headings": [
+        {
+          "paragraph": 1057,
+          "first_run_color": "800000",
+          "leading_separator": "-----"
+        },
+        {
+          "paragraph": 1067,
+          "first_run_color": "FF0000",
+          "leading_separator": "--"
+        }
+      ],
+      "finding": "SOURCE_HEADING_CONFIRMED"
+    },
+    {
+      "main": "15:28",
+      "source": "Ma 11-20/15 HİCR SURESİ 54.docx",
+      "r23_relation_count": 20,
+      "source_headings": [
+        {
+          "paragraph": 624,
+          "first_run_color": "800000",
+          "leading_separator": "-----"
+        }
+      ],
+      "finding": "REVIEW_SOURCE_STRUCTURE"
+    },
+    {
+      "main": "53:29",
+      "source": "Ma 51-60/53 NECM SURESİ 23.docx",
+      "r23_relation_count": 24,
+      "source_headings": [
+        {
+          "paragraph": 626,
+          "first_run_color": "800000",
+          "leading_separator": "-----"
+        },
+        {
+          "paragraph": 644,
+          "first_run_color": "FF0000",
+          "leading_separator": "--"
+        },
+        {
+          "paragraph": 824,
+          "first_run_color": "800000",
+          "leading_separator": "-----"
+        }
+      ],
+      "finding": "SOURCE_HEADING_CONFIRMED"
+    },
+    {
+      "main": "56:59",
+      "source": "Ma 51-60/56 VAKIA SURESİ 46.docx",
+      "r23_relation_count": 4,
+      "source_headings": [
+        {
+          "paragraph": 991,
+          "first_run_color": "FF0000",
+          "leading_separator": ""
+        }
+      ],
+      "finding": "SOURCE_HEADING_CONFIRMED"
+    },
+    {
+      "main": "90:12",
+      "source": "Ma 81-90/90 BELED SURESİ 35.docx",
+      "r23_relation_count": 19,
+      "source_headings": [
+        {
+          "paragraph": 171,
+          "first_run_color": "FF0000",
+          "leading_separator": ""
+        }
+      ],
+      "finding": "SOURCE_HEADING_CONFIRMED"
+    }
+  ]
+}

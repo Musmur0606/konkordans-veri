@@ -1,0 +1,51 @@
+{
+  "schema": "ayatulkuran.docx-rebuild-75-vs-r23.v3",
+  "source": "Original 114 DOCX ZIP OOXML parse",
+  "summary": {
+    "main": 75,
+    "accepted_main_identical": 71,
+    "source_only_main": 4,
+    "source_total_links": 3423,
+    "accepted_total_links_for_75": 3419,
+    "only_source_links": 4,
+    "missing_source_links": 0
+  },
+  "diffs": [
+    {
+      "main": "26:150",
+      "source_count": 18,
+      "accepted_count": 17,
+      "only_in_original_docx": [
+        "26:108"
+      ],
+      "only_in_R23": []
+    },
+    {
+      "main": "26:179",
+      "source_count": 20,
+      "accepted_count": 19,
+      "only_in_original_docx": [
+        "26:163"
+      ],
+      "only_in_R23": []
+    },
+    {
+      "main": "26:180",
+      "source_count": 5,
+      "accepted_count": 4,
+      "only_in_original_docx": [
+        "26:164"
+      ],
+      "only_in_R23": []
+    },
+    {
+      "main": "37:179",
+      "source_count": 34,
+      "accepted_count": 33,
+      "only_in_original_docx": [
+        "37:175"
+      ],
+      "only_in_R23": []
+    }
+  ]
+}

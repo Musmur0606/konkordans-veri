@@ -1,0 +1,50 @@
+name: DOCX V1.1 – R23 source comparison (read-only)
+
+on:
+  push:
+    branches:
+      - feat/docx-benzesme-veri-v1
+  pull_request:
+    branches: [main]
+    paths:
+      - "data/ayet_benzesme_site_v1_1.json"
+      - "tools/compare_legacy_v1_1_to_r23.mjs"
+      - "docs/DOCX_RELATIONS_V1.md"
+      - ".github/workflows/audit-docx-v1-1.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: Validate accepted R23; compare historical data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+      - name: Show runtime
+        run: node --version
+      - name: Syntax-check read-only comparator
+        run: node --check tools/compare_legacy_v1_1_to_r23.mjs
+      - name: Verify accepted R23 regression tests
+        run: node --test test-r23-word-matrix.mjs
+      - name: Compare historical V1.1 against accepted R23 without altering baselines
+        shell: bash
+        run: |
+          set -euo pipefail
+          node tools/compare_legacy_v1_1_to_r23.mjs \
+            data/ayet_benzesme_site_v1_1.json \
+            data/benzesen-matris.json \
+            app_data.json \
+            reports/v1_1_vs_r23.json | tee reports-summary.txt
+          {
+            echo "## DOCX archive / accepted R23 difference audit"
+            echo ""
+            cat reports-summary.txt
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Export read-only comparison report
+        uses: actions/upload-artifact@v4
+        with:
+          name: historical-v1-1-vs-r23-audit
+          path: reports/v1_1_vs_r23.json
+          if-no-files-found: error

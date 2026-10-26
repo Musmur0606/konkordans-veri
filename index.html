@@ -95,7 +95,7 @@
   .esma-clead{display:flex;flex-direction:column;gap:1px;min-width:0}
   .esma-ar{font-family:"Traditional Arabic","Amiri","Scheherazade New","Sakkal Majalla",serif;direction:rtl;color:var(--gold);font-size:20px;line-height:1.25}
   .esma-ar-big{font-family:"Traditional Arabic","Amiri","Scheherazade New","Sakkal Majalla",serif;direction:rtl;color:var(--gold);font-size:30px}
-  .ar b.esmahl{color:#8a1a0a;background:#f6e2c4;border-radius:3px;padding:0 3px;font-weight:700}
+  .ar b.esmahl{color:#c31928;background:transparent;border-radius:0;padding:0;font-weight:inherit}
   .esma-head{display:flex;align-items:baseline;gap:14px;margin-top:4px}
   .esma-baslik{font-size:27px;font-weight:700;color:var(--green)}
   .esma-say2{font-size:14px;color:var(--muted)}
@@ -104,6 +104,10 @@
   .esma-side{gap:10px}
   .esma-side-ar{font-family:"Traditional Arabic","Amiri","Scheherazade New","Sakkal Majalla",serif;color:var(--gold);font-size:18px;direction:rtl;flex:0 0 auto}
   .esma-side-tr{flex:1;font-weight:600;color:var(--green2)}
+  .esma-side-meaning{display:block;font-size:12px;font-weight:400;color:var(--muted);line-height:1.35;margin-top:2px}
+  .esma-side.active .esma-side-meaning{color:rgba(255,255,255,.86)}
+  .esma-anlam{font-size:16px;color:var(--muted);font-weight:500}
+  .mobil-ayet-sec{display:none}
   .esma-side.active .esma-side-ar,.esma-side.active .esma-side-tr{color:#fff}
   .tekdestek{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
   .social-follow{margin-top:22px;text-align:center}
@@ -280,23 +284,143 @@
     .maincard,.rel,.arow{break-inside:avoid;box-shadow:none}b.hl{color:#a3341f!important}.ar b.hl{color:#8a1a0a!important}
     *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
     #main::before{content:"ayatulkuran  \2014  Ali R\131za ZARARSIZ taraf\131ndan derlenmektedir.";display:block;font-size:12px;color:#888;border-bottom:1px solid #ccc;padding-bottom:6px;margin-bottom:12px}}
+  /* R18: metin odakli karsilama, paylasim ve erisilebilir tema */
+  .welcome{max-width:1060px;margin:0 auto 36px;line-height:1.6}
+  .welcome-hero{border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3.5vw,38px);background:var(--panel);box-shadow:0 10px 28px rgba(30,38,26,.06)}
+  .welcome-eyebrow{color:var(--gold);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 8px}
+  .welcome h2{font-size:clamp(25px,3.3vw,40px);line-height:1.25;color:var(--green2);margin:0 0 16px;letter-spacing:-.02em}
+  .welcome-lead{font-size:clamp(15px,1.6vw,18px);max-width:730px;color:var(--ink);margin:0 0 20px}
+  .welcome-actions{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}
+  .welcome .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:10px 16px;min-height:42px;font-size:14px;font-weight:600}
+  .welcome .btn.primary{background:#0c5c48;color:#fff;border-color:#0c5c48}
+  .welcome .btn.primary:hover{background:#0a4a3a}
+  .welcome-facts{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--muted);margin-top:16px}
+  .welcome-facts span{background:var(--chip);padding:5px 11px;border-radius:20px}
+  .welcome-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+  .welcome-step,.welcome-example{border:1px solid var(--line);border-radius:12px;padding:17px;background:var(--panel)}
+  .welcome-step b{display:block;color:var(--green2);margin-bottom:6px}
+  .welcome-step p{margin:0;font-size:13px;color:var(--muted)}
+  .welcome-example{margin-top:16px;border-left:4px solid var(--gold)}
+  .welcome-example h3{color:var(--green2);font-size:16px;margin:0 0 12px}
+  .welcome-example .ar{font-size:25px;margin:5px 0 12px;text-align:right}
+  .welcome-example p{margin:6px 0 12px}
+  .welcome-example .btn{margin-top:4px}
+  #share-toast{position:fixed;right:16px;bottom:18px;z-index:100;max-width:330px;background:#0c5c48;color:white;padding:11px 16px;border-radius:9px;box-shadow:0 4px 18px #0003;font-size:13px}
+  #theme-toggle{min-width:74px}
+  :root[data-theme="dark"]{--bg:#111b19;--panel:#1c2a26;--ink:#edf5ef;--muted:#b8c6bf;--line:#3a5149;--green:#48a88b;--green2:#b8edda;--gold:#dbb471;--red:#f9a695;--chip:#293d35;color-scheme:dark}
+  :root[data-theme="dark"] header,:root[data-theme="dark"] #kurbar{background:#0b4839}
+  :root[data-theme="dark"] .minibtn{background:var(--panel)}
+  :root[data-theme="dark"] .abouttop{background:#253831!important}
+  :root[data-theme="dark"] ::-webkit-scrollbar-thumb{background:#476358}
+  @media(max-width:760px){.mobil-ayet-sec{display:flex;align-items:center;gap:8px;margin-right:auto}.mobil-ayet-sec select{max-width:125px;border:1px solid var(--line);border-radius:6px;padding:8px;background:var(--paper);color:var(--green);font-size:16px}.welcome{margin-bottom:22px}.welcome-grid{grid-template-columns:1fr}.welcome-hero{padding:19px}.welcome-example .ar{font-size:23px}.welcome-actions{flex-direction:column}.welcome-actions .btn{width:100%}}
+  @media print{.welcome-actions,#theme-toggle,#share-toast{display:none!important}}
+  /* Tek ayetlik Amiri font denemesi: Bakara 2.255; diger ayetler degismez. */
+  .maincard .ar.amiri-deneme{font-family:'Amiri',serif;font-size:32px;line-height:2.15;font-weight:400;font-synthesis:none;direction:rtl;unicode-bidi:plaintext}
+  @media(max-width:760px){.maincard .ar.amiri-deneme{font-size:27px;line-height:2.2}}
+
+/* Arapca arama sanal klavyesi */
+.ar-search-switch{background:#fff;color:#0c5c48;border:0;border-radius:12px;padding:8px 11px;font-weight:700;cursor:pointer}
+.ar-keyboard{position:fixed;z-index:1000;left:50%;transform:translateX(-50%);bottom:12px;width:min(700px,calc(100vw - 20px));background:#fffdf8;color:#222;border:1px solid #cfc5ac;box-shadow:0 10px 35px #0005;border-radius:14px;padding:12px}
+.ar-keyboard[hidden]{display:none!important}.ar-k-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.ar-k-keys{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}.ar-k-keys button{font-family:Amiri,serif;font-size:23px;min-height:39px;border:1px solid #ddd4bf;border-radius:7px;background:#f6f3ea;cursor:pointer}.ar-k-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.ar-k-actions button{padding:8px;border:1px solid #ddd4bf;background:#f6f3ea;border-radius:7px;cursor:pointer}@media(max-width:760px){.ar-k-keys{grid-template-columns:repeat(8,minmax(0,1fr))}.ar-k-keys button{font-size:21px;min-height:40px}}
+.arama-kirmizi{color:#bd1826!important;font-weight:700} @media print{.arama-kirmizi{color:#bd1826!important}}
+
+/* Secilen Arapca veya meal metni icin kopyala/ara */
+.ar,.meal,.tr,.rm,.ev-meal,.esma-verse,.arow,.rel,.maincard{user-select:text;-webkit-user-select:text}
+#selection-actions{position:fixed;z-index:1100;bottom:20px;left:50%;transform:translateX(-50%);display:flex;gap:8px;background:#fffdf8;border:1px solid #d6cbb6;border-radius:12px;padding:10px;box-shadow:0 8px 28px #0004}
+#selection-actions[hidden]{display:none!important}#selection-actions button{background:#0c5c48;color:white;border:0;border-radius:8px;padding:9px 15px;cursor:pointer}
+
+/* Arabic boxed on-screen keypad — desktop and phone */
+.ar-keyboard{max-height:min(78vh,690px);overflow-y:auto;border:2px solid #c2b48b;background:#fffdf8;box-shadow:0 14px 38px #0005}
+.ar-k-keys{gap:6px;margin-top:9px}
+.ar-k-keys button{border:1.6px solid #789987;border-radius:8px;background:#fff;color:#124a3b;font-family:Amiri,serif;font-size:27px;min-height:46px;box-shadow:0 2px 0 #d2ddd2;touch-action:manipulation}
+.ar-k-keys button:active{background:#d4eadf;transform:translateY(1px)}
+.ar-k-actions button{border:1px solid #6a9483;min-height:38px;font-weight:600;background:#eef5ef;color:#154d3a}
+.ar-k-head{color:#114c3b}
+@media(max-width:760px){.ar-keyboard{bottom:5px;width:calc(100vw - 10px);padding:9px;max-height:60vh}.ar-k-keys{grid-template-columns:repeat(8,minmax(0,1fr));gap:4px}.ar-k-keys button{min-height:40px;font-size:23px;padding:3px 0}}
+
+
+.ar-keyboard{max-height:calc(100dvh - 25px);overflow-y:auto}
+.ar-options{border:1px solid #d8d1c4;border-radius:9px;padding:8px;margin:7px 0 10px;display:grid;gap:6px;font-size:13px}
+.ar-options legend{font-weight:bold}.ar-options label{display:flex;align-items:center;gap:7px;cursor:pointer}
+.ar-options input{accent-color:#0c5c48}.ar-options strong{margin-top:5px}
+.ar-modes{display:flex;gap:10px;flex-wrap:wrap}.ar-range{display:flex;gap:12px;flex-wrap:wrap}
+.ar-range select{padding:5px;max-width:150px}.ar-options input[type=radio],.ar-options input[type=checkbox]{width:17px;height:17px;flex-shrink:0}
+@media(max-width:760px){.ar-keyboard{bottom:4px}.ar-modes{display:grid;gap:5px}}
+
+/* Accessible visible search dialog, uses the existing #search input and engine. */
+.quick-search-overlay{position:fixed;inset:0;background:rgba(12,30,26,.55);display:flex;align-items:flex-start;justify-content:center;padding:clamp(30px,11vh,115px) 12px 12px;z-index:1200}
+.quick-search-overlay[hidden]{display:none!important}
+.quick-search-modal{width:min(650px,100%);background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 14px 55px #0006}
+.quick-search-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.quick-search-top h2{margin:0;font-size:20px;color:var(--green2)}
+.quick-search-modal .search-input-slot #search{display:block;box-sizing:border-box;width:100%;max-width:none;min-width:0;margin:0;background:var(--bg);color:var(--ink);border:2px solid var(--green);border-radius:9px;font-size:18px;padding:13px 15px;outline-offset:2px;direction:auto}
+.quick-search-modal .search-input-slot #search::placeholder{color:var(--muted);opacity:1}
+.quick-search-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.quick-search-actions button,.quick-search-top button{cursor:pointer;padding:10px 15px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--green2);font-weight:600}
+.quick-search-actions .search-primary{background:var(--green);color:white;border-color:var(--green)}
+.quick-search-helper{font-size:12px;line-height:1.5;color:var(--muted);margin:12px 0 0}
+.ar-keyboard:not([hidden]){z-index:1300}
+@media(max-width:760px){.quick-search-overlay{padding-top:15vh}.quick-search-modal{padding:15px}.quick-search-top h2{font-size:18px}}
+
+/* v2.8.20: Unified search dialogue. The options remain visible alongside the keyboard. */
+.quick-search-overlay{overflow-y:auto;padding:clamp(16px,5vh,45px) 12px 16px}
+.quick-search-modal{max-height:calc(100dvh - 32px);overflow-y:auto}
+.quick-search-language{display:flex;gap:8px;margin:10px 0}
+.quick-search-language button{border:1px solid var(--line);background:var(--panel);color:var(--green2);padding:9px 13px;border-radius:8px;cursor:pointer;font-weight:600}
+.quick-search-language button[aria-pressed="true"]{background:var(--green);color:white;border-color:var(--green)}
+.quick-arabic-options[hidden]{display:none!important}
+.quick-arabic-options .ar-options{margin:8px 0;border:1px solid var(--line)}
+.quick-search-modal .ar-keyboard{position:static;left:auto;bottom:auto;transform:none;z-index:auto;width:100%;max-width:100%;max-height:35vh;overflow:auto;margin:10px 0 0;box-shadow:none;background:var(--panel);border:1px solid var(--line);padding:10px}
+.quick-search-modal .ar-keyboard .ar-k-keys{grid-template-columns:repeat(10,minmax(0,1fr))}
+.quick-search-modal .ar-keyboard .ar-k-keys button{min-height:37px}
+.search-pages{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;padding:12px}
+.search-pages button:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:760px){
+ .quick-search-overlay{padding:8px}
+ .quick-search-modal{max-height:calc(100dvh - 16px);padding:12px}
+ .quick-search-modal .ar-keyboard{max-height:27vh}
+ .quick-search-modal .ar-keyboard .ar-k-keys{grid-template-columns:repeat(8,minmax(0,1fr))}
+ .quick-search-language button{flex:1}
+}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/amiri-site.css?v=1">
 </head>
 <body>
 <header>
   <div>
     <h1 onclick="anaEkran()" style="cursor:pointer" title="Ana ekran">ayatulkuran <span id="abadge"></span></h1>
     <div class="sub">Âyet âyet benzeşen âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div>
-    <div class="surum-cep surum-yaz" id="surumcep">v1.8.2</div>
+    <div class="surum-cep surum-yaz" id="surumcep">v2.8.20</div>
   </div>
   <span id="status" class="load">yükleniyor…</span>
+  <button class="hbtn" id="theme-toggle" type="button" onclick="temaDegistir()" aria-pressed="false" title="Açık ve koyu renk düzeni">☾ Gece</button>
   <button class="hbtn" onclick="showAbout()">ⓘ Hakkında</button>
   <button class="hbtn" id="fsbtn" onclick="tamEkran()" title="Tam ekran (F11 gibi)">⛶</button>
   <a class="sos" href="https://x.com/ayatulkuran" target="_blank" rel="noopener" title="X" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.5h3.6l-7.9 9 9.3 12.3h-7.3l-5.7-7.5-6.6 7.5H.7l8.5-9.7L.3 1.5h7.5l5.2 6.9zM17.6 20.7h2L6.5 3.4h-2.2z"/></svg></a>
   <a class="sos" href="https://instagram.com/ayat_ulkuran" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 3.2a6.6 6.6 0 1 0 0 13.2 6.6 6.6 0 0 0 0-13.2zm0 10.9a4.3 4.3 0 1 1 0-8.6 4.3 4.3 0 0 1 0 8.6zm6.9-11.2a1.5 1.5 0 1 1-3.1 0 1.5 1.5 0 0 1 3.1 0z"/></svg></a>
-  <span id="surumet" class="surum-yaz">v1.8.2</span>
-  <input id="search" placeholder="Ara: kelime / meal / konu…  (en az 3 harf)">
+  <span id="surumet" class="surum-yaz">v2.8.20</span>
+  <button class="hbtn" type="button" id="quick-search-open-button" onclick="aramaOdakla()" title="Âyet veya kavram aramayı aç">⌕ Ara</button>
+  <button id="arabic-search-toggle" class="ar-search-switch" type="button" aria-pressed="false" title="Arapça arama klavyesini aç">عربي</button>
+  <input id="search" list="sure-onerileri" autocomplete="off" aria-label="Âyet, sûre veya kavram ara" placeholder="Âyet (5.61), sûre (Bakara 255) veya kavram ara…  Ctrl+K">
+  <datalist id="sure-onerileri"></datalist>
 </header>
+<div id="quick-search-overlay" class="quick-search-overlay" role="dialog" aria-modal="true" aria-labelledby="quick-search-title" hidden>
+ <section class="quick-search-modal">
+  <div class="quick-search-top"><h2 id="quick-search-title">Âyet veya kavram ara</h2><button type="button" id="quick-search-close" onclick="quickSearchClose()">✕ Kapat</button></div>
+  <label for="search" style="display:block;font-weight:600;margin-bottom:8px">Sûre, âyet, kelime veya kavram</label>
+  <div id="quick-search-input-slot" class="search-input-slot"></div>
+<div class="quick-search-language"><button type="button" id="quick-normal-mode" aria-pressed="true">Âyet / Kavram</button><button type="button" id="quick-arabic-mode" aria-pressed="false">عربي Arapça</button></div>
+<div id="quick-arabic-options" class="quick-arabic-options" hidden><fieldset class="ar-options"><legend>Gelişmiş Arapça arama</legend><label><input id="ar-whole" type="checkbox"> Sadece tam kelimeleri bul</label><label><input id="ar-noharaka" type="checkbox" checked> Harekeleri göz ardı et</label><label title="Başta harf-i cer / bağlaç ve sonda zamir ekleri için sınırlı biçimsel eşleştirme yapılır."><input id="ar-affixes" type="checkbox"> Harf-i cer ve zamirleri göz ardı et</label><strong>Birden çok kelime</strong><div class="ar-modes"><label><input type="radio" name="ar-mode" value="phrase"> Aynen yazıldığı gibi (sıralı)</label><label><input type="radio" name="ar-mode" value="all" checked> Tüm kelimeler aynı âyette</label><label><input type="radio" name="ar-mode" value="any"> Kelimelerden herhangi biri</label></div><strong>Arama alanı</strong><div class="ar-modes"><label><input type="radio" name="ar-scope" value="all" checked> Tüm Kur’an'da</label><label><input type="radio" name="ar-scope" value="range"> Seçili sûrelerde</label></div><div class="ar-range"><label>Başlangıç <select id="ar-from"></select></label><label>Bitiş <select id="ar-to"></select></label></div></fieldset></div>
+  <div class="quick-search-actions"><button type="button" class="search-primary" id="quick-search-submit" onclick="quickSearchRun()">⌕ Ara</button><button type="button" onclick="document.getElementById('arabic-search-toggle').click()">عربي Arapça klavye</button><button type="button" onclick="quickSearchClear()">Temizle</button></div>
+  <p class="quick-search-helper">Örnek: 2.255 · Bakara 255 · Rahmet · رَحْمَة. Enter tuşuyla da arayabilirsiniz.</p>
+<div id="arabic-keyboard" class="ar-keyboard" hidden role="group" aria-label="Arapça sanal klavye"><div class="ar-k-head"><strong>Arapça arama · Sanal klavye</strong><button type="button" id="arabic-k-close">✕ Kapat</button></div><div id="arabic-keys" class="ar-k-keys"></div><div class="ar-k-actions"><button type="button" data-ar-action="space">Boşluk</button><button type="button" data-ar-action="back">⌫ Sil</button><button type="button" data-ar-action="clear">Temizle</button><button type="button" data-ar-action="search">Ara</button><button type="button" data-ar-action="vowels">Harekeler açık/kapat</button></div></div>
+ </section>
+</div>
+<div id="selection-actions" hidden role="toolbar" aria-label="Seçili metin işlemleri"><button type="button" id="selection-copy">Kopyala</button><button type="button" id="selection-search">Seçileni ara</button><button type="button" id="selection-demo">Dizine aktar</button><button type="button" id="selection-close">Kapat</button></div>
+
 <div class="wrap">
 <div id="mobilgeri">‹ Sûreler</div>
   <div id="sidebar"></div>
@@ -306,8 +430,12 @@
 <script>
 // ===== YAPILANDIRMA =====
 const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
+// Word'den üretilen 175.478 ilişki, orijinal Kur’an metinlerinden ayrı tutulur.
+const BENZESEN_URL = '/data/benzesen-matris.json?v=20261024';
+const MLOG_URL = 'https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/data/mutesabih-degisiklikler.json';
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '2.4.3';
+const SITE_SURUM = '2.8.20';
+try{if(localStorage.getItem('ayat-tema')==='dark')document.documentElement.dataset.theme='dark';}catch(e){}
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
 const ADMIN = false;      // true = admin (düzenleme açık), false = kullanıcı (salt-okunur)
@@ -317,9 +445,13 @@ let ESMA = {esmalar:[],index:{}};
 // ========================
 
 let DB=null, V=null, S=null, curSure=null, curRef=null, mealMode='mb';
+let BENZESEN_HAZIR=false;
+let BENZESEN_TERS=new Map(); // 2/3/4 sûreleri için yalnız görüntüleme amaçlı geri bağlantılar
 let HIST=[], HPTR=-1;
 const el=(h)=>{const d=document.createElement('div');d.innerHTML=h;return d.firstElementChild;};
-const gr=(r)=>String(r).replace(':','.');   // GORUNUM: 2:42 -> 2.42  (veri anahtarlari ':' kalir)
+const gr=(r)=>String(r).replace(':','.');
+function ayetRefSirala(a,b){const x=String(a).split(':').map(Number),y=String(b).split(':').map(Number);return x[0]-y[0]||x[1]-y[1];}
+   // GORUNUM: 2:42 -> 2.42  (veri anahtarlari ':' kalir)
 function esc(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
 
 // ---- IndexedDB (6 MB önbellek) ----
@@ -332,6 +464,62 @@ function idbSet(k,v){return idb('readwrite',(st,res,rej)=>{const q=st.put(v,k);q
 
 function setStatus(cls,txt,ip){const s=document.getElementById('status');s.className=cls;s.textContent=txt;s.title=(ip===undefined?txt:ip);}
 function fmtDate(iso){try{return new Date(iso).toLocaleString('tr-TR');}catch(e){return iso;}}
+
+// Eski 'r' listelerini koruyan GitHub kaynağı, 111 sûrede Word matrisiyle
+// görüntüleme sırasında değiştirilir. 2/3/4 ana sûreleri korumalıdır.
+// Yönetici düzeltmeleri GitHub'daki ayrı MLOG dosyasından son olarak uygulanır.
+async function benzesenMatrisiniUygula(){
+  const [matResp,logResp]=await Promise.all([
+    fetch(BENZESEN_URL,{cache:'force-cache'}),
+    fetch(MLOG_URL+'?t='+Date.now(),{cache:'no-store'})
+  ]);
+  if(!matResp.ok||!logResp.ok)throw Error('Word matrisi veya GitHub MLOG dosyası okunamadı.');
+  const [matris,log]=await Promise.all([matResp.json(),logResp.json()]);
+  if(!matris||Array.isArray(matris)||Object.keys(matris).length!==5574)
+    throw Error('Word matrisi ana âyet sayısı 5.574 değil.');
+  if(log.schema!=='ayatulkuran.github-edits.v1'||!log.overrides||!Array.isArray(log.events))
+    throw Error('GitHub değişiklik geçmişi beklenen yapıda değil.');
+  const secili=new Map();let bag=0;
+  for(const [ana,benzesenler] of Object.entries(matris)){
+    const sure=Number(ana.split(':')[0]);
+    if(!/^\d{1,3}:\d{1,3}$/.test(ana)||sure===2||sure===3||sure===4||!V[ana]||!Array.isArray(benzesenler))
+      throw Error('Matriste geçersiz ana âyet: '+ana);
+    const kayit=new Set();
+    for(const hedef of benzesenler){
+      if(!/^\d{1,3}:\d{1,3}$/.test(hedef)||!V[hedef]||hedef===ana||kayit.has(hedef))
+        throw Error('Matriste hatalı benzeşen: '+ana+' → '+hedef);
+      kayit.add(hedef);bag++;
+    }
+    secili.set(ana,kayit);
+  }
+  if(bag!==175478||secili.get('8:58')?.size!==30)
+    throw Error('Word matrisi bağlantı sayısı doğrulanamadı.');
+  for(const [nokta,duzeltme] of Object.entries(log.overrides)){
+    const ana=nokta.replace('.',':');
+    if(!secili.has(ana))continue; // Korunan 2/3/4 sûreler işlenmez.
+    const kayit=secili.get(ana);
+    for(const ref of (duzeltme.removed||[]))kayit.delete(ref.replace('.',':'));
+    for(const ref of (duzeltme.added||[])){
+      const hedef=ref.replace('.',':');
+      if(hedef!==ana&&V[hedef])kayit.add(hedef);
+    }
+  }
+  // 2/3/4 sûrelerinin ana kayıtları değiştirilmiyor. Bunlara işaret eden
+  // doğrulanmış ilişkiler ayrı bir ters görünüm dizininde tutulur.
+  const ters=new Map();
+  for(const [ana,kayit] of secili){
+    for(const hedef of kayit){
+      const s=Number(hedef.split(':')[0]);
+      if(s!==2&&s!==3&&s!==4)continue;
+      if(!ters.has(hedef))ters.set(hedef,new Set());
+      ters.get(hedef).add(ana);
+    }
+  }
+  // Tüm kontroller geçmeden canlı görünümde hiçbir âyet değiştirilmedi.
+  for(const [ana,kayit] of secili)V[ana].r=[...kayit];
+  BENZESEN_TERS=new Map([...ters].map(([k,v])=>[k,[...v].sort((a,b)=>{const x=a.split(':').map(Number),y=b.split(':').map(Number);return x[0]-y[0]||x[1]-y[1]})]));
+  BENZESEN_HAZIR=true;_sureIliski=null;
+}
 
 // ---- Açılış: GitHub'dan çek, olmazsa önbellekten ----
 async function boot(){
@@ -373,31 +561,38 @@ async function boot(){
     return;
   }
   V=DB.verses; S=DB.sureler;
+  try{await benzesenMatrisiniUygula();}
+  catch(e){BENZESEN_HAZIR=false;setStatus('offline','⚠ Word matrisi okunamadı',e.message+' · Geçici olarak eski site bağlantıları gösteriliyor.');}
   // Esmâ dizinini çek (çevrimdışı için önbellek)
   try{ const er=await fetch(ESMA_URL+'?t='+Date.now(),{cache:'no-store'});
     if(er.ok){ ESMA=JSON.parse(await er.text()); try{await idbSet('esma',JSON.stringify(ESMA));}catch(e){} } }
   catch(e){ try{ const c=await idbGet('esma'); if(c) ESMA=JSON.parse(c); }catch(e2){} }
-  document.getElementById('boothint').className='';
-  document.getElementById('main').className='scrollmode';
-  document.getElementById('boothint').textContent='Soldan bir sûre seçin.';
   renderSidebar();
+  renderWelcome();
+  arScopeInitialize();
+  const sonEk=document.getElementById('sure-onerileri');
+  if(sonEk) sonEk.innerHTML=Object.keys(S).map(Number).sort((a,b)=>a-b).map(no=>'<option value="'+esc(S[no].ad)+'" label="'+no+'. sûre"></option>').join('');
+  temaYenile();
   document.getElementById('mobilgeri').onclick=listeyeDon;
   const sv=document.getElementById('surumet'); if(sv) sv.textContent='v'+SITE_SURUM;
   // cevrimdisi kullanim: yalniz canli sitede (yerel kopyada gerek yok)
     addEventListener('offline',()=>{ if(DB) setStatus('offline','🟡 çevrimdışı','bağlantı kesildi · kayıtlı veriyle çalışıyorsunuz'); });
   addEventListener('online', ()=>{ if(DB) setStatus('online','🟢','bağlantı geri geldi'); });
   if('serviceWorker' in navigator && location.protocol==='https:'){
-    navigator.serviceWorker.register('/sw.js').catch(()=>{});
+    navigator.serviceWorker.register('/sw.js?v=2.8.20', {updateViaCache:'none'}).catch(()=>{});
   }
   kurBarKur();
   // sure sayfalarindan gelen baglantilar:  ?ayet=2.255  ya da  ?sure=2
+  let acilanBaglanti=false;
   try{
     const up=new URLSearchParams(location.search);
     const pa=(up.get('ayet')||'').trim().replace(/\s/g,'').replace('.',':');
     const ps=(up.get('sure')||'').trim();
-    if(/^\d{1,3}:\d{1,3}$/.test(pa) && V[pa]) openRef(pa);
-    else if(/^\d{1,3}$/.test(ps) && S[ps]) selectSure(+ps);
+    if(/^\d{1,3}:\d{1,3}$/.test(pa) && V[pa]){openRef(pa);acilanBaglanti=true;}
+    else if(/^\d{1,3}$/.test(ps) && S[ps]){selectSure(+ps);acilanBaglanti=true;}
+    else { const es=up.get('esma'); if(es&&Object.prototype.hasOwnProperty.call(ESMA.index,es)){showEsma(es);acilanBaglanti=true;} }
   }catch(e){}
+  if(!acilanBaglanti) icerigeGec(); // Mobilde ilk giriste de karsilama gorunsun.
 }
 
 // ---- Sidebar ----
@@ -419,7 +614,7 @@ function renderSidebar(mode){
     const bk=el('<div class="sure-item abouttop"><span>◀ Sûrelere dön</span></div>'); bk.onclick=()=>backToSure(); head.appendChild(bk);
     const hd=el('<div class="sure-item esmatop" style="cursor:default"><span>❈ Esmâ-i Hüsnâ · 99</span></div>'); head.appendChild(hd);
     ESMA.esmalar.forEach(e=>{const o=ESMA.index[e];
-      const it=el(`<div class="sure-item esma-side" data-esma="${esc(e)}"><span class="esma-side-ar">${esc(o.ar||'')}</span><span class="esma-side-tr">${esc(e)}</span><span class="sure-cnt">${o.n}</span></div>`);
+      const it=el(`<div class="sure-item esma-side" data-esma="${esc(e)}"><span class="esma-side-ar">${esc(o.ar||'')}</span><span class="esma-side-tr">${esc(e)}<span class="esma-side-meaning">${esc(o.anlam||'')}</span></span><span class="sure-cnt">${o.n}</span></div>`);
       it.onclick=()=>showEsma(e); list.appendChild(it);
     });
   } else {
@@ -483,11 +678,103 @@ function ayeteGit(no,a){
 function markActiveSure(no){document.querySelectorAll('.sure-item').forEach(x=>x.classList.toggle('active',+x.dataset.no===no));}
 function markActiveEsma(name){document.querySelectorAll('.esma-side').forEach(x=>x.classList.toggle('active',x.dataset.esma===name));}
 function anaEkran(){
-  listeyeDon();
   const inp=document.getElementById('search'); if(inp) inp.value='';
   backToSure();
+  icerigeGec(); // Mobilde ana sayfaya don, sure listesini "Sûreler" ile ac.
 }
-function backToSure(){ listeyeDon(); renderSidebar('sure'); curEsma=null; curSure=null; const m=document.getElementById('main'); m.className=''; m.innerHTML='<div class="hint"><div class="big">☾</div><span>Soldan bir sûre seçin.</span></div>'; }
+function adresGuncelle(tur,deger){
+  try{
+    const u=new URL(location.href);
+    u.searchParams.delete('ayet');u.searchParams.delete('sure');u.searchParams.delete('esma');
+    if(tur==='ayet')u.searchParams.set('ayet',gr(deger));
+    if(tur==='sure')u.searchParams.set('sure',String(deger));
+    if(tur==='esma')u.searchParams.set('esma',String(deger));
+    history.replaceState(history.state,'',u.pathname+u.search+u.hash);
+  }catch(e){}
+}
+function sayfaBasligi(ref){
+  if(ref && V && V[ref]){
+    const v=V[ref];document.title=esc(v.sa)+' '+v.a+'. âyet · Benzeşen âyetler — ayatulkuran';
+  }else{document.title='ayatulkuran — Kur’an konkordansı: birbirine benzeşen âyetler';}
+}
+function gununAyetSec(){
+  // Sadece mevcut Kur'an veri kaydını kullanır; benzeşme sayısı tahmin edilmez.
+  const adaylar=Object.keys(V||{}).filter(k=>V[k]?.ar&&V[k]?.mb);
+  if(!adaylar.length)return '5:61';
+  const tarih=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Istanbul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  let karmasik=2166136261;
+  for(const harf of tarih)karmasik=Math.imul(karmasik^harf.charCodeAt(0),16777619)>>>0;
+  return adaylar[karmasik%adaylar.length];
+}
+function rastgeleAyetAc(){
+  const adaylar=Object.keys(V||{}).filter(k=>V[k]?.ar&&V[k]?.mb);
+  if(adaylar.length)openRef(adaylar[Math.floor(Math.random()*adaylar.length)]);
+}
+function gosterimMeali(metin){
+  // Yalnız ekranda 114:6 kaydındaki çeviri üstverisini gizler; ham veri değişmez.
+  const esik=/\s+#\s*-{10,}\s*#\s*#\s*Quran Translation\b/i.exec(metin||'');
+  return esik?metin.slice(0,esik.index).trimEnd():metin||'';
+}
+function renderWelcome(){
+  const m=document.getElementById('main');m.className='';
+  const gununRef=gununAyetSec(),v=V&&V[gununRef];
+  const ornek=v?'<div class="welcome-example"><h3>Günün âyeti · '+esc(v.sa)+' '+v.a+'</h3><div class="ar" dir="rtl" lang="ar">'+esc(v.ar||'')+'</div><p>'+esc(gosterimMeali(v.mb))+'</p><div class="welcome-actions"><button class="btn primary" onclick="openRef(\''+gununRef+'\')">Bu âyetin benzeşenlerini incele →</button><button class="btn" onclick="paylasAyet(\''+gununRef+'\')">↗ Günün âyetini paylaş</button></div></div>':'';
+  m.innerHTML='<section class="welcome" aria-labelledby="welcome-title">'+
+    '<div class="welcome-hero"><p class="welcome-eyebrow">Kur’an-ı Kerim konkordansı</p>'+
+    '<h2 id="welcome-title">Bir âyeti açın, Kur’an’daki bağlantılarını keşfedin.</h2>'+
+    '<p class="welcome-lead">Âyetleri Arapça metin ve Türkçe mealleriyle yan yana okuyun; seçtiğiniz âyetin diğer âyetlerle ilişkilerini aynı ekranda inceleyin.</p>'+
+    '<div class="welcome-actions"><button class="btn primary" onclick="openRef(\'5:61\')">Örnek âyeti incele</button>'+
+    '<button class="btn" onclick="rastgeleAyetAc()">Rastgele bir âyet keşfet</button>'+
+    '<button class="btn" onclick="aramaOdakla()">Âyet veya kavram ara · Ctrl+K</button>'+
+    '<button class="btn" onclick="listeyeDon()">114 sûreye göz at</button>'+
+    '<a class="btn" href="/mutesabih.html">Müteşâbih âyet derlemesi →</a></div>'+
+    '<div class="welcome-facts"><span>6.236 âyet</span><span>114 sûre</span><span>Arapça ve Türkçe</span></div></div>'+
+    '<div class="welcome-grid"><div class="welcome-step"><b>1 · Seçin</b><p>Sûre ve âyet seçin veya üstteki arama alanını kullanın.</p></div>'+
+    '<div class="welcome-step"><b>2 · Karşılaştırın</b><p>Benzeşen âyetleri ve metinlerini aynı ekranda okuyun.</p></div>'+
+    '<div class="welcome-step"><b>3 · Paylaşın</b><p>Âyet bağlantısını paylaşarak aynı incelemeyi bir başkasına açın.</p></div></div>'+ornek+'</section>';
+  m.scrollTop=0;
+  sayfaBasligi(null);
+}
+function backToSure(){
+  listeyeDon();renderSidebar('sure');curEsma=null;curSure=null;curRef=null;
+  renderWelcome();adresGuncelle(null);
+}
+function aramaOdakla(){
+ const input=document.getElementById('search'),dialog=document.getElementById('quick-search-overlay');
+ if(!input||!dialog){input?.focus();return;}
+ dialog.hidden=false;
+ document.getElementById('quick-search-input-slot').appendChild(input);
+ input.focus();input.select();
+}
+function quickSearchClose(){
+ const input=document.getElementById('search'),dialog=document.getElementById('quick-search-overlay'),anchor=document.getElementById('sure-onerileri');
+ if(!input||!dialog||dialog.hidden)return;
+ anchor?.parentElement?.insertBefore(input,anchor);
+ dialog.hidden=true;
+ const keyboard=document.getElementById('arabic-keyboard');if(keyboard)keyboard.hidden=true;
+ const advanced=document.getElementById('quick-arabic-options');if(advanced)advanced.hidden=true;
+ const toggler=document.getElementById('arabic-search-toggle');if(toggler)toggler.setAttribute('aria-pressed','false');
+ const normal=document.getElementById('quick-normal-mode');if(normal)normal.setAttribute('aria-pressed','true');
+ const arabic=document.getElementById('quick-arabic-mode');if(arabic)arabic.setAttribute('aria-pressed','false');
+}
+function quickSearchRun(){
+ const v=(document.getElementById('search')?.value||'').trim();
+ if(!v){document.getElementById('search')?.focus();return;}
+ quickSearchClose();clearTimeout(stimer);runSearch(v);
+}
+function quickSearchClear(){const e=document.getElementById('search');if(e){e.value='';e.focus();}}
+
+function temaYenile(){
+  const b=document.getElementById('theme-toggle');if(!b)return;
+  const koyu=document.documentElement.dataset.theme==='dark';
+  b.textContent=koyu?'☀ Gündüz':'☾ Gece';b.setAttribute('aria-pressed',String(koyu));
+}
+function temaDegistir(){
+  const koyu=document.documentElement.dataset.theme!=='dark';
+  document.documentElement.dataset.theme=koyu?'dark':'light';
+  try{localStorage.setItem('ayat-tema',koyu?'dark':'light');}catch(e){}
+  temaYenile();
+}
 
 function rootsOf(v){return new Set((v.kr||[]).filter(Boolean));}
 function showMeal(v,roots){ return mealMode==='me' ? esc(v.me||'') : hlTr(v.mb||'',roots); }
@@ -496,30 +783,33 @@ function sortRefs(arr){ return arr.sort((a,b)=>{const x=a.split(':').map(Number)
 function hlAr(v,roots){const ws=v.ar.split(' '),kr=v.kr||[];
   return ws.map((w,i)=>(kr[i]&&roots.has(kr[i]))?'<b class="hl">'+esc(w)+'</b>':esc(w)).join(' ');}
 // Arapca kelimeyi sadelestir: harekeleri, tatweel'i, bas elif-lam'i at, alef turevlerini birlestir
+// Esmâ eşleştirme: yalnız aynı isim, hareke/i‘rab farkı, isteğe bağlı elif-lâm.
+// Normalleştirme sadece karşılaştırma içindir; ekrandaki âyet asla değiştirilmez.
 function esmaIskelet(x){
   if(!x) return '';
-  x = x.normalize('NFC')
-       .replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/g,'') // harekeler/tenvin/hancerli elif
-       .replace(/\u0640/g,'')                    // tatweel
-       .replace(/[\u0622\u0623\u0625\u0671]/g,'\u0627') // آأإٱ -> ا
-       .replace(/\u0629/g,'\u0647')               // ة -> ه
-       .replace(/\u0649/g,'\u064A');              // ى -> ي
-  // bas noktalama/parantez temizligi
-  x = x.replace(/[^\u0621-\u064A]/g,'');
-  // basindaki tanim harfi "ال" varsa dusun (esma vs ayet imlasi eslessin)
-  if(x.length>3 && x.slice(0,2)==='\u0627\u0644') x = x.slice(2);
-  return x;
+  const asil=String(x).normalize('NFC');
+  const ustunTenvin=asil.includes('\u064B');
+  let saf=asil
+    .replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED]/g,'')
+    .replace(/\u0640/g,'')
+    .replace(/[^\u0621-\u064A\u0671]/g,'');
+  // Yalnız baştaki ال / ٱل tanımlık takısını kaldır.
+  saf=saf.replace(/^[\u0627\u0671]\u0644/,'');
+  // بَصِيرًا gibi üstün tenvinin yazım elifini kaldır; başka harf dönüştürme.
+  if(ustunTenvin&&saf.endsWith('\u0627'))saf=saf.slice(0,-1);
+  return saf;
 }
-// Esmanin kendisi mi? (o kokten turemis baska kelime DEGIL, tam esmanin kendisi)
-function hlArEsma(v, esmaAr){
-  if(!esmaAr) return esc(v.ar);
-  const hedef = esmaIskelet(esmaAr);
-  if(!hedef) return esc(v.ar);
-  const ws = v.ar.split(' ');
-  return ws.map(w=>{
-    const isk = esmaIskelet(w);
-    return (isk && isk===hedef) ? '<b class="esmahl">'+esc(w)+'</b>' : esc(w);
-  }).join(' ');
+function hlArEsma(v,esmaAr){
+  if(!esmaAr)return esc(v.ar);
+  const hedef=esmaIskelet(esmaAr);
+  if(!hedef)return esc(v.ar);
+  // Boşlukları ve bütün Arapça işaretleri orijinal metindeki gibi muhafaza et.
+  return String(v.ar||'').split(/(\s+)/).map(parca=>{
+    if(!parca.trim())return parca;
+    return esmaIskelet(parca)===hedef
+      ? '<b class="esmahl">'+esc(parca)+'</b>'
+      : esc(parca);
+  }).join('');
 }
 function hlTr(meal,roots){let kws=[];roots.forEach(r=>{if(TRK[r])kws=kws.concat(TRK[r]);});
   kws=[...new Set(kws)].filter(Boolean).sort((a,b)=>b.length-a.length);let out=esc(meal||'');
@@ -532,7 +822,8 @@ function icerigeGec(){ if(MOBIL()) document.body.classList.add('icerik'); }
 function listeyeDon(){ document.body.classList.remove('icerik'); }
 
 function selectSure(no){
-  curSure=no; curEsma=null; icerigeGec();
+  curSure=no; curRef=null; curEsma=null; icerigeGec();
+  adresGuncelle('sure',no);sayfaBasligi(null);
   if(sbMode!=='sure') renderSidebar('sure');
   markActiveSure(no);
   ayetKutusu(no);
@@ -544,7 +835,7 @@ function selectSure(no){
       `<div class="tr">${showMeal(v,sr)}</div></div></div>`;}
   m.innerHTML=`<div class="backbtn" onclick="backToSure()">◀ Sûre listesi</div>
     <div class="crumb">${esc(s.ad)} sûresi · ${s.ayet} âyet · <b style="color:var(--green)">${sureIliski(no).toLocaleString('tr-TR')} benzeşen âyet</b>${sureKunye(no)}<br>bir âyete tıklayın (analiz)</div>
-    <div class="toolbar"><button class="btn ${mealMode==='mb'?'on':''}" onclick="setMealSure('mb')">Türkçe Meâli</button>
+    <div class="toolbar"><label class="mobil-ayet-sec">Âyete git <select aria-label="Gidilecek âyet" onchange="if(this.value){ayeteGit(${no},Number(this.value));this.value='';}"><option value="">Âyet seçin</option>${Array.from({length:s.ayet},(_,i)=>`<option value="${i+1}">${i+1}</option>`).join('')}</select></label>
     <button class="btn ${mealMode==='me'?'on':''}" onclick="setMealSure('me')">İngilizce (Saheeh Int'l)</button>
     <button class="btn" onclick="window.print()" title="Bu sûreyi PDF kaydet">⤓ PDF</button></div>
     <div class="sureread">${rows}</div>`;
@@ -568,9 +859,13 @@ function selectVerse(ref,fromHist){
   icerigeGec();
   if(window.gtag) gtag('event','ayet',{ref:gr(ref)});
   curRef=ref; const v=V[ref]; if(!v)return;
+  adresGuncelle('ayet',ref);sayfaBasligi(ref);
   if(!fromHist) pushHist(ref);
   const seedRoots=rootsOf(v);
-  const rel=v.r||[];
+  const kendiRel=v.r||[];
+  const gelenRel=[2,3,4].includes(v.s)?(BENZESEN_TERS.get(ref)||[]):[];
+  const tersGoster=gelenRel.some(x=>!kendiRel.includes(x));
+  const rel=(gelenRel.length?[...new Set([...kendiRel,...gelenRel])]:[...kendiRel]).sort(ayetRefSirala);
   let relHtml='';
   if(rel.length){
     rel.forEach(rr=>{const w=V[rr]; if(!w)return;
@@ -581,7 +876,6 @@ function selectVerse(ref,fromHist){
         ${ADMIN?`<div class="relactions"><span class="minibtn rm" onclick="event.stopPropagation();adminRemove('${ref}','${rr}')">✕ çıkar</span></div>`:''}</div>`;
     });
   } else relHtml=`<div class="empty">Bu âyet için benzeşen âyet bulunmuyor.</div>`;
-  const tags=(v.ko||[]).slice(0,8).map(t=>`<span class="tag">${esc(t)}</span>`).join('');
   const addUI = ADMIN?`<div class="addrow"><input id="addref" placeholder="ör. 2.255" onkeydown="if(event.key==='Enter')adminAdd('${ref}')">
     <button class="btn" onclick="adminAdd('${ref}')">＋ âyet ekle</button>
     <button class="btn" onclick="exportData()" title="Güncel veriyi app_data.json olarak indir (GitHub'a yükle)">⭳ app_data.json indir</button>
@@ -598,15 +892,15 @@ function selectVerse(ref,fromHist){
       </div>
       <button class="btn ${mealMode==='mb'?'on':''}" onclick="setMeal('mb')">Türkçe Meâli</button>
       <button class="btn ${mealMode==='me'?'on':''}" onclick="setMeal('me')">İngilizce (Saheeh Int'l)</button>
+      <button class="btn" onclick="paylasAyet()" title="Bu âyete doğrudan bağlantı paylaş">↗ Âyeti paylaş</button>
       <button class="btn" onclick="window.print()" title="Bu sayfayı PDF kaydet">⤓ PDF</button>
     </div>
     <div class="maincard"><div class="ar">${hlAr(v,seedRoots)}</div>
-      ${v.ok?`<div class="ok">${esc(v.ok)}</div>`:''}
       <div class="meal">${showMeal(v,seedRoots)}</div>
       <div class="meal-src">${esc(v.sa)} ${v.a}. âyet — ${gr(ref)}${sureEk(ref)} · Meâl: ${mealSrc()}</div>
-      ${tags?`<div class="tags">${tags}</div>`:''}</div>
+      </div>
     <div class="benzbox">
-      <div class="benzhead"><span class="benzbaslik">☾ Benzeşen Âyetler</span><span class="n">${rel.length}</span>${v.t?'<span class="draft">otomatik taslak</span>':''}</div>
+      <div class="benzhead"><span class="benzbaslik">☾ Benzeşen Âyetler</span><span class="n">${rel.length}</span></div>
       ${addUI}
     </div>
     </div>
@@ -614,6 +908,29 @@ function selectVerse(ref,fromHist){
   document.querySelectorAll('.rel').forEach(r=>r.onclick=()=>goto(r.dataset.ref));
 }
 function setMeal(m){mealMode=m; if(curRef)selectVerse(curRef,true);}
+let paylasToastZamanlayici=null;
+function paylasBildirim(msg){
+  let e=document.getElementById('share-toast');
+  if(!e){e=document.createElement('div');e.id='share-toast';e.setAttribute('role','status');document.body.appendChild(e);}
+  e.textContent=msg;clearTimeout(paylasToastZamanlayici);
+  paylasToastZamanlayici=setTimeout(()=>e.remove(),3200);
+}
+async function paylasAyet(ayetRef=curRef){
+  if(!ayetRef||!V||!V[ayetRef])return;
+  const v=V[ayetRef],u=new URL('/',location.origin);u.searchParams.set('ayet',gr(ayetRef));
+  const url=u.toString();
+  const bilgi={title:v.sa+' '+v.a+'. âyet — ayatulkuran',text:gosterimMeali(v.mb).slice(0,180),url};
+  if(navigator.share){
+    try{await navigator.share(bilgi);if(window.gtag)gtag('event','ayet_paylas',{ref:gr(ayetRef)});return;}
+    catch(e){if(e&&e.name==='AbortError')return;}
+  }
+  try{
+    if(!navigator.clipboard||!navigator.clipboard.writeText)throw Error('Kopyalama desteklenmiyor');
+    await navigator.clipboard.writeText(url);
+    paylasBildirim('Âyet bağlantısı kopyalandı: '+gr(ayetRef));
+    if(window.gtag)gtag('event','ayet_baglanti_kopyala',{ref:gr(ayetRef)});
+  }catch(e){window.prompt('Âyet bağlantısını kopyalayın:',url);}
+}
 function openRef(ref,fromHist){if(!ref)return;const s=+ref.split(':')[0];if(s!==curSure)selectSure(s);selectVerse(ref,fromHist);document.getElementById('main').scrollTop=0;}
 function goto(ref){openRef(ref,false);}
 function histBack(){if(HPTR>0){HPTR--;openRef(HIST[HPTR],true);}}
@@ -645,18 +962,40 @@ async function refetch(){ if(!confirm('GitHub\'dan güncel veri çekilecek. Kayd
   try{ const resp=await fetch(DATA_URL+'?t='+Date.now(),{cache:'no-store'}); const txt=await resp.text(); DB=JSON.parse(txt);
     await idbSet('cache',txt); await idbSet('cache_time',new Date().toISOString());
     try{ await idb('readwrite',(st,res)=>{st.delete('workingcopy');res();}); }catch(e){}
-    V=DB.verses; S=DB.sureler; setStatus('online','🟢','güncel · '+fmtDate(new Date().toISOString()));
+    V=DB.verses; S=DB.sureler; BENZESEN_HAZIR=false;
+    try{await benzesenMatrisiniUygula();setStatus('online','🟢','Word matrisi güncel · '+fmtDate(new Date().toISOString()));}
+    catch(e){setStatus('offline','⚠ Word matrisi okunamadı',e.message);}
     if(curRef)selectVerse(curRef,true); alert('Güncel veri çekildi.'); }catch(e){alert('Çekilemedi (internet?).');}
 }
 
 // ---- Arama ----
 let stimer=null;
-document.getElementById('search').addEventListener('input',e=>{clearTimeout(stimer);const q=e.target.value.trim();stimer=setTimeout(()=>runSearch(q),200);});
+document.getElementById('search').addEventListener('input',e=>{clearTimeout(stimer);const q=e.target.value.trim();if(document.getElementById('quick-search-overlay')?.hidden)stimer=setTimeout(()=>runSearch(q),300);});
 document.getElementById('search').addEventListener('keydown',e=>{
   if(e.key!=='Enter')return;
-  const rq=e.target.value.trim().replace(/\s/g,'').replace('.',':');
-  if(/^\d{1,3}:\d{1,3}$/.test(rq) && V && V[rq]){ openRef(rq); e.target.blur(); }
+  e.preventDefault();
+  const q=e.target.value.trim();
+  clearTimeout(stimer);if(!document.getElementById('quick-search-overlay')?.hidden)quickSearchRun();else runSearch(q);
+  e.target.blur();
 });
+function sureAdiniBul(q){
+  if(!S)return null;
+  const temiz=trYalin(q.replace(/\s+s[uû]resi$/i,'').trim());
+  return Object.keys(S).find(no=>trYalin(S[no].ad)===temiz) || null;
+}
+function kolayArama(q){
+  if(!V||!S)return false;
+  const ref=q.replace(/\s/g,'').replace('.',':');
+  if(/^\d{1,3}:\d{1,3}$/.test(ref)&&V[ref]){openRef(ref);return true;}
+  const parca=q.trim().match(/^(.+?)[\s.:]+(\d{1,3})$/u);
+  if(parca){
+    const no=sureAdiniBul(parca[1]);
+    if(no&&V[no+':'+Number(parca[2])]){openRef(no+':'+Number(parca[2]));return true;}
+  }
+  const sure=sureAdiniBul(q);
+  if(sure){selectSure(Number(sure));return true;}
+  return false;
+}
 // --- arama normalizasyonu: Turkce/Ingilizce/Arapca + 2.3 gibi referans ---
 let SIDX=null; const SKEL={};
 const trKucuk=(x)=>(x||'').replace(/\u0130/g,'i').replace(/I/g,'\u0131').toLowerCase();
@@ -674,14 +1013,41 @@ function aramaDizini(){
   }
   return SIDX;
 }
+
+// Sure araligi secimi mevcut ana sure sicilinden doldurulur.
+function arScopeInitialize(){const a=document.getElementById('ar-from'),b=document.getElementById('ar-to');if(!a||!b||a.options.length||!S)return;
+ for(let n=1;n<=114;n++){if(!S[n])continue;for(const x of [a,b]){const opt=document.createElement('option');opt.value=String(n);opt.textContent=n+' — '+S[n].ad;x.appendChild(opt);}}a.value='1';b.value='114';}
+function arOpts(){const c=id=>Boolean(document.getElementById(id)?.checked);return {whole:c('ar-whole'),noharaka:c('ar-noharaka'),affixes:c('ar-affixes'),mode:document.querySelector('input[name="ar-mode"]:checked')?.value||'all',scope:document.querySelector('input[name="ar-scope"]:checked')?.value||'all',from:Number(document.getElementById('ar-from')?.value||1),to:Number(document.getElementById('ar-to')?.value||114)};}
+function arNorm(w,o){let t=String(w||'').normalize('NFC');if(o.noharaka)t=t.replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/g,'');return t.replace(/[\u0622\u0623\u0625\u0671]/g,'\u0627').replace(/\u0649/g,'\u064A').replace(/\u0629/g,'\u0647');}
+function arToken(w){return Array.from(String(w||'').matchAll(/[\u0621-\u064A\u0671][\u0600-\u06ED]*/gu)).map(m=>({raw:m[0],start:m.index,end:m.index+m[0].length}));}
+function arEq(w,q,o){const w0=arNorm(w,o),q0=arNorm(q,o);if(!q0)return false;if(o.whole ? w0===q0 : w0.includes(q0))return true;
+ if(!o.affixes)return false;
+ // Sınırlı önek ve zamir ekleri. Kökte anlamsal çözümleme iddia edilmez.
+ const endings=['هما','هم','هن','ها','نا','كم','كن','ه','ك','ي'];let candidates=[w0];
+ for(let k=0;k<2;k++){for(const t of [...candidates]){if(t.length>3 && /^[وفبكل]/.test(t))candidates.push(t.slice(1));if(t.startsWith('ال')&&t.length>4)candidates.push(t.slice(2));}}
+ for(const t of [...candidates])for(const e of endings){if(t.endsWith(e)&&t.length-e.length>=3)candidates.push(t.slice(0,-e.length));}
+ return candidates.some(t=>o.whole?t===q0:t.includes(q0));
+}
+function arMatch(metin,q,o=arOpts()){
+ const words=arToken(metin), queries=arToken(q).map(x=>x.raw);if(!queries.length)return [];
+ const matches=queries.map(term=>words.map((w,i)=>arEq(w.raw,term,o)?i:-1).filter(i=>i>=0));
+ if(o.mode==='all' && matches.some(a=>!a.length))return [];
+ if(o.mode==='phrase'){
+   const hit=new Set();for(let i=0;i<=words.length-queries.length;i++){if(queries.every((term,j)=>arEq(words[i+j].raw,term,o)))for(let j=0;j<queries.length;j++)hit.add(i+j);}return [...hit].sort((a,b)=>a-b).map(i=>words[i]);
+ }
+ const ids=new Set(matches.flat());return [...ids].sort((a,b)=>a-b).map(i=>words[i]);
+}
 function runSearch(q){
-  if(!V)return;
+  q=String(q||'').trim();
+  if(!V){const m=document.getElementById('main');if(m)m.innerHTML='<p class="empty">Âyet verileri henüz yüklenmedi. Bağlantınızı kontrol edip sayfayı yenileyin.</p>';return;}
+  if(kolayArama(q))return;
   const rq=q.trim().replace(/\s/g,'').replace('.',':');
   if(/^\d{1,3}:\d{1,3}$/.test(rq)){                 // 2.3 / 2:3 -> dogrudan o ayet
     if(V[rq]) return aramaSonuc(q,[rq]);
     return aramaSonuc(q,[]);
   }
-  if(q.length<3){if(curSure)selectSure(curSure);return;}
+  if(q.length<2){icerigeGec();const m=document.getElementById('main');m.className='';m.innerHTML='<p class="empty">Arama için en az iki harf yazın veya 2.255 gibi âyet numarası girin.</p>';return;}
+  adresGuncelle(null);
   const idx=aramaDizini();
   const arapca=/[\u0600-\u06FF]/.test(q);
   const ara=arapca?arYalin(q):trYalin(q);
@@ -694,33 +1060,54 @@ function runSearch(q){
     if(ara.includes('\u0631\u0628\u0627')) adaylar.push(ara.replace(/\u0631\u0628\u0627/g,'\u0631\u0628\u0648\u0627'));
   }
   const bulunan=new Set();
-  for(const ref in idx){
-    if(adaylar.some(x=>idx[ref].includes(x))){ bulunan.add(ref); if(bulunan.size>=200)break; }
-  }
-  if(arapca && bulunan.size<200){                // elifsiz iskelet: kitab/kitab, insan/insan imla farki
-    const isk=ara.replace(/\u0627/g,'');
-    if(isk.length>=2) for(const ref in SKEL){ if(SKEL[ref].includes(isk)){ bulunan.add(ref); if(bulunan.size>=200)break; } }
-  }
+  if(arapca){const o=arOpts();arScopeInitialize();for(const ref in V){const n=Number(ref.split(':')[0]);if(o.scope==='range'&&(n<o.from||n>o.to))continue;if(arMatch(V[ref].ar||'',q,o).length)bulunan.add(ref);}}
+  else {for(const ref in idx){if(adaylar.some(x=>idx[ref].includes(x)))bulunan.add(ref);}}
   const res=[...bulunan].sort((x,y)=>{const a1=x.split(':'),b1=y.split(':');return a1[0]-b1[0]||a1[1]-b1[1];});
   aramaSonuc(q,res);
 }
 let _gaT=null;
-function aramaSonuc(q,res){
+function aramaArapcaVurgula(metin,aranan){const txt=String(metin||''), hits=arMatch(txt,aranan);if(!hits.length)return esc(txt);let out='',at=0;for(const w of hits){if(w.start<at)continue;out+=esc(txt.slice(at,w.start))+'<span class="arama-kirmizi">'+esc(txt.slice(w.start,w.end))+'</span>';at=w.end;}return out+esc(txt.slice(at));}
+let ARAMA_SONUC_DURUMU=null;
+const ARAMA_SAYFA_BOYUTU=60;
+function aramaSayfaDegistir(degisim){
+  if(!ARAMA_SONUC_DURUMU)return;
+  aramaSonuc(ARAMA_SONUC_DURUMU.q,ARAMA_SONUC_DURUMU.refs,ARAMA_SONUC_DURUMU.page+degisim);
+}
+function aramaSonuc(q,res,page=0){
   icerigeGec();
-  if(window.gtag){ clearTimeout(_gaT);           // her tusa degil, yazma bitince gonder
-    _gaT=setTimeout(()=>gtag('event','arama',{terim:q.slice(0,60), sonuc:res.length}),2000); }                                     // cepte liste kapansin, sonuc gorunsun
-  const m=document.getElementById('main'); m.className='';
-  m.innerHTML=`<div class="searchhead">"${esc(q)}" için ${res.length}${res.length>=200?'+':''} sonuç</div>`;
-  const list=el('<div></div>');
-  res.forEach(ref=>{const v=V[ref];
-    const r=el(`<div class="rel" data-ref="${ref}"><div class="ar">${esc(v.ar)}</div><div><span class="ref">${esc(v.sa)} ${v.a} (${gr(ref)})</span><div class="rm">${hi(esc(mealMode==='me'?v.me:v.mb),q)}</div></div></div>`);
-    r.onclick=()=>goto(ref);list.appendChild(r);});
-  m.appendChild(list);m.scrollTop=0;
+  const total=res.length;
+  const pageCount=Math.max(1,Math.ceil(total/ARAMA_SAYFA_BOYUTU));
+  page=Math.max(0,Math.min(page,pageCount-1));
+  ARAMA_SONUC_DURUMU={q,refs:res,page};
+  if(window.gtag){clearTimeout(_gaT);_gaT=setTimeout(()=>gtag('event','arama',{terim:q.slice(0,60),sonuc:total}),2000);}
+  const m=document.getElementById('main');m.className='';
+  const first=page*ARAMA_SAYFA_BOYUTU,shown=res.slice(first,first+ARAMA_SAYFA_BOYUTU);
+  m.innerHTML='<div class="searchhead">"'+esc(q)+'" için '+total.toLocaleString('tr-TR')+' sonuç'+
+   (total?' · '+(first+1)+'–'+(first+shown.length)+' gösteriliyor':'')+'</div>';
+  if(!total){m.appendChild(el('<p class="empty">Bu aramayla eşleşen âyet bulunamadı. Arapça arama seçeneklerini değiştirebilirsiniz.</p>'));return;}
+  const list=el('<div class="search-results"></div>');
+  shown.forEach(ref=>{const v=V[ref];if(!v)return;
+    const r=el('<div class="rel" data-ref="'+ref+'"><div class="ar">'+aramaArapcaVurgula(v.ar,q)+
+      '</div><div><span class="ref">'+esc(v.sa)+' '+v.a+' ('+gr(ref)+')</span><div class="rm">'+
+      hi(esc(mealMode==='me'?v.me:v.mb),q)+'</div></div></div>');
+    r.onclick=()=>goto(ref);list.appendChild(r);
+  });
+  m.appendChild(list);
+  if(pageCount>1){
+    const controls=el('<div class="search-pages" aria-label="Arama sonuç sayfaları"><button type="button" class="btn" id="search-page-prev">← Önceki</button><span>Sayfa '+(page+1)+' / '+pageCount+'</span><button type="button" class="btn" id="search-page-next">Sonraki →</button></div>');
+    controls.querySelector('#search-page-prev').disabled=page===0;
+    controls.querySelector('#search-page-next').disabled=page===pageCount-1;
+    controls.querySelector('#search-page-prev').onclick=()=>aramaSayfaDegistir(-1);
+    controls.querySelector('#search-page-next').onclick=()=>aramaSayfaDegistir(1);
+    m.appendChild(controls);
+  }
+  m.scrollTop=0;
 }
 function hi(t,q){try{return t.replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');}catch(e){return t;}}
 
 document.addEventListener('keydown',e=>{
-  if(document.activeElement.id==='search'||document.activeElement.id==='addref')return;
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();aramaOdakla();return;}
+  if(document.activeElement&&(document.activeElement.matches('input, textarea, select')||document.activeElement.isContentEditable))return;
   if(e.altKey&&e.key==='ArrowLeft')histBack();
   else if(e.altKey&&e.key==='ArrowRight')histFwd();
   else if(e.key==='ArrowLeft')stepPrev();
@@ -777,7 +1164,7 @@ function kurBarKur(){
 addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); _kurOlay=e; kurBarGoster(); });
 
 async function showAbout(){
-  icerigeGec();
+  icerigeGec();adresGuncelle(null);sayfaBasligi(null);
   markActiveSure(-1); curEsma=null;
   const m=document.getElementById('main'); m.className='';
   m.innerHTML='<div class="aboutwrap"><p style="color:var(--muted)">Hakkında yükleniyor…</p></div>';
@@ -794,7 +1181,7 @@ async function showAbout(){
 
 let curEsma=null;
 function showEsmaList(){
-  curEsma=null; curSure=null;
+  curEsma=null; curSure=null;curRef=null;adresGuncelle(null);sayfaBasligi(null);
   renderSidebar('esma');
   const m=document.getElementById('main'); m.className='';
   m.innerHTML=`<div class="hint"><div class="big">❈</div><span>Esmâ-i Hüsnâ — ${ESMA.esmalar.length} isim</span><br><span style="font-size:14px;color:var(--muted)">Soldan bir esmâ seçin.</span>
@@ -804,6 +1191,8 @@ function showEsmaList(){
 function showEsma(name){
   icerigeGec();
   const info=ESMA.index[name]; if(!info)return;
+  adresGuncelle('esma',name);
+  document.title=String(name)+' · Esmâ-i Hüsnâ — ayatulkuran';
   curEsma=name; markActiveSure(-1); curSure=null;
   const root=info.k||''; const i=ESMA.esmalar.indexOf(name), N=ESMA.esmalar.length;
   if(sbMode!=='esma') renderSidebar('esma');
@@ -825,7 +1214,7 @@ function showEsma(name){
         <button class="btn ${mealMode==='me'?'on':''}" onclick="setMealEsma('me')">İngilizce (Saheeh Int'l)</button>
         <button class="btn" onclick="window.print()" title="PDF kaydet">⤓ PDF</button>
       </div>
-      <div class="esma-head"><span class="esma-ar-big">${esc(info.ar||'')}</span><span class="esma-baslik">${esc(name)}</span><span class="esma-say2">${info.n} âyet</span></div>
+      <div class="esma-head"><span class="esma-ar-big">${esc(info.ar||'')}</span><span class="esma-baslik">${esc(name)}</span><span class="esma-anlam">${esc(info.anlam||'')}</span><span class="esma-say2">${info.n} âyet</span></div>
     </div>
     <div class="scrollbody">${rows}</div>`;
   m.querySelectorAll('.esma-verse').forEach(r=>r.onclick=()=>goto(r.dataset.ref));
@@ -833,6 +1222,65 @@ function showEsma(name){
 }
 function esmaAt(d){ const i=ESMA.esmalar.indexOf(curEsma), j=i+d; if(j>=0&&j<ESMA.esmalar.length) showEsma(ESMA.esmalar[j]); }
 function setMealEsma(mm){ mealMode=mm; if(curEsma)showEsma(curEsma); }
+
+/* Arapca klavye: yalnız arama girdisini degistirir; ayet verisi degismez. */
+(function(){
+ const input=document.getElementById('search'),panel=document.getElementById('arabic-keyboard'),toggle=document.getElementById('arabic-search-toggle'),keys=document.getElementById('arabic-keys');
+ const letters='ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن ه و ي ء أ إ آ ؤ ئ ة ى ٱ'.split(' ');
+ const vowels='َ ِ ُ ْ ّ ً ٍ ٌ ٰ ٓ'.split(' ');let showVowels=true;
+ function draw(){keys.replaceChildren();[...letters,...(showVowels?vowels:[])].forEach(ch=>{const b=document.createElement('button');b.type='button';b.textContent=ch;b.setAttribute('aria-label','Arapça '+ch);b.addEventListener('click',()=>insert(ch));keys.appendChild(b);});}
+ function insert(ch){const a=input.selectionStart??input.value.length,b=input.selectionEnd??a;input.value=input.value.slice(0,a)+ch+input.value.slice(b);input.focus();input.setSelectionRange(a+ch.length,a+ch.length);input.dispatchEvent(new Event('input',{bubbles:true}));}
+ const advanced=document.getElementById('quick-arabic-options'),normalButton=document.getElementById('quick-normal-mode'),arabicButton=document.getElementById('quick-arabic-mode');
+ function setOpen(on){
+   if(on)aramaOdakla();
+   panel.hidden=!on;
+   advanced.hidden=!on;
+   toggle.setAttribute('aria-pressed',String(on));
+   normalButton.setAttribute('aria-pressed',String(!on));
+   arabicButton.setAttribute('aria-pressed',String(on));
+   input.lang=on?'ar':'tr';input.dir=on?'rtl':'auto';
+   input.placeholder=on?'Arapça kelime veya ifade ara…':'Âyet (5.61), sûre (Bakara 255) veya kavram ara… Ctrl+K';
+   if(on)arScopeInitialize();
+   input.focus();
+ }
+ toggle.addEventListener('click',()=>setOpen(toggle.getAttribute('aria-pressed')!=='true'));
+ arabicButton.addEventListener('click',()=>setOpen(true));
+ normalButton.addEventListener('click',()=>{
+   setOpen(false);
+   if(/[\u0600-\u06FF]/.test(input.value))input.value='';
+   input.focus();
+ });
+ // Typing Arabic also activates its dedicated search options.
+ input.addEventListener('input',()=>{
+   if(/[\u0600-\u06FF]/.test(input.value)&&toggle.getAttribute('aria-pressed')!=='true')setOpen(true);
+ });
+ input.addEventListener('focus',()=>{
+   if(document.getElementById('quick-search-overlay')?.hidden)aramaOdakla();
+ });
+ document.getElementById('arabic-k-close').addEventListener('click',()=>{panel.hidden=true;input.focus();});
+ panel.querySelectorAll('[data-ar-action]').forEach(b=>b.addEventListener('click',()=>{switch(b.dataset.arAction){case 'space':insert(' ');break;case 'back':{let p=input.selectionStart??input.value.length,q=input.selectionEnd??p;if(p===q&&p>0)p--;input.value=input.value.slice(0,p)+input.value.slice(q);input.focus();input.setSelectionRange(p,p);input.dispatchEvent(new Event('input',{bubbles:true}));break;}case 'clear':input.value='';input.dispatchEvent(new Event('input',{bubbles:true}));input.focus();break;case 'search':quickSearchRun();break;case 'vowels':showVowels=!showVowels;draw();break;}}));
+ draw();
+})();
+
+/* Metin secimi: kaynak ayet degismez; secili kisim kopyalanir veya aranir. */
+(function(){
+ const bar=document.getElementById('selection-actions');let selected='';
+ const get=()=>{const sel=window.getSelection();if(!sel||sel.isCollapsed)return '';const node=sel.anchorNode?.parentElement;const other=sel.focusNode?.parentElement;if(!node||!other||!node.closest('#main')||!other.closest('#main'))return '';return sel.toString().trim().slice(0,300);};
+ function refresh(){const t=get();if(t){selected=t;bar.hidden=false;}else if(!document.activeElement?.closest?.('#selection-actions'))bar.hidden=true;}
+ document.addEventListener('selectionchange',()=>{if(get())refresh();});
+ document.addEventListener('mouseup',()=>setTimeout(refresh,0));document.addEventListener('touchend',()=>setTimeout(refresh,200));
+ document.getElementById('selection-copy').addEventListener('click',async()=>{if(!selected)return;try{await navigator.clipboard.writeText(selected);paylasBildirim('Seçili metin kopyalandı');}catch(e){window.prompt('Seçili metni kopyalayın:',selected);}bar.hidden=true;});
+ document.getElementById('selection-search').addEventListener('click',()=>{if(!selected)return;const t=selected;bar.hidden=true;const input=document.getElementById('search');input.value=t;clearTimeout(stimer);runSearch(t);});
+ document.getElementById('selection-demo').addEventListener('click',()=>{if(!selected)return;const q=selected.trim();if(!q)return;bar.hidden=true;const url='/kelime-kavram-deneme.html?q='+encodeURIComponent(q);window.open(url,'_blank','noopener');});
+ document.getElementById('selection-close').addEventListener('click',()=>{bar.hidden=true;});
+})();
+
+/* Search dialog: Enter submits, Escape closes, backdrop dismisses. */
+(function(){const overlay=document.getElementById('quick-search-overlay'),input=document.getElementById('search');
+ input.addEventListener('keydown',e=>{if(overlay.hidden)return;if(e.key==='Enter'){e.preventDefault();e.stopImmediatePropagation();quickSearchRun();}else if(e.key==='Escape'){e.preventDefault();e.stopImmediatePropagation();quickSearchClose();}},true);
+ overlay.addEventListener('click',e=>{if(e.target===overlay)quickSearchClose();});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hidden)quickSearchClose();});
+})();
 boot();
 </script>
 <script>
@@ -844,7 +1292,7 @@ boot();
    OTO_TAM_EKRAN = false -> sadece basliktaki tam ekran dugmesiyle.
    Cikis: Esc tusu veya ayni dugme.
    ==================================================================== */
-const OTO_TAM_EKRAN = true;
+const OTO_TAM_EKRAN = false;
 
 const tamMi = () => document.fullscreenElement || document.webkitFullscreenElement;
 
@@ -885,7 +1333,7 @@ if (OTO_TAM_EKRAN && !matchMedia('(max-width:760px)').matches){   // cepte tam e
 </script>
 <div id="kurbar">
   <span class="kb-im">☾</span>
-  <span class="kb-yz"><b>Ana ekrana ekle</b><span id="kb-alt">Uygulama gibi açılır, adres çubuğu görünmez.</span></span>
+  <span class="kb-yz"><b>Telefonuna ekle · Ayatülkuran</b><span id="kb-alt">Daha önce açtığınız âyetleri çevrimdışı da okuyabilirsiniz.</span></span>
   <button class="kb-ek" id="kb-ek">Ekle</button>
   <button class="kb-kp" id="kb-kp" aria-label="Kapat">✕</button>
 </div>

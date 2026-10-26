@@ -1,0 +1,22 @@
+/* ayatulkuran Amiri ortak Arapca yazi stili, 2026-10-24.
+   Arapca metin/hareke verisini, esma renklendirmesini veya mealleri degistirmez. */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+
+.ar,.arabic,.esma-ar,.esma-ar-big,.esma-side-ar{
+  font-family:'Amiri',serif!important;
+  font-synthesis:none;
+}
+.maincard .ar{font-size:32px;line-height:2.15}
+.rel .ar{font-size:23px;line-height:2.1}
+.esma-verse .ar{font-size:25px;line-height:2.1}
+.ayet .ar{font-size:27px;line-height:2.1}
+@media(max-width:760px){
+  .maincard .ar{font-size:27px;line-height:2.2}
+  .rel .ar{font-size:21px;line-height:2.15}
+  .esma-verse .ar{font-size:23px;line-height:2.15}
+  .ayet .ar{font-size:25px;line-height:2.15}
+}
+
+/* Sure okuma sayfalarinda Latin harfli okunus satirlari gosterilmez.
+   Arapca ayet metni ve Turkce meal aynen korunur. */
+.ayet > .ok{display:none!important}

@@ -1,0 +1,28 @@
+{
+  "schema": "ayatulkuran.word-matrix-provenance.v1",
+  "kaynak": "Benzesen_Veri_Seti_Paketi.zip / 114 Word sure belgesi (Ma 1-10(2).zip)",
+  "tarih": "2026-10-24",
+  "ana_sure_sayisi": 111,
+  "ana_ayet_sayisi": 5574,
+  "benzesen_baglanti_sayisi": 175478,
+  "bos_liste_sayisi": 11,
+  "ana_sure_haric": [2, 3, 4],
+  "ana_sure_haric_aciklama": "Bakara, Ali Imran ve Nisa ana ayet olarak bu matrise alinmadi; baska surelerin benzeseni olabilir.",
+  "csv_sha256": "f0c48d2247015a630d4c7c50bc7fa233a38f0508c391b32bc0e58e59f4836c9a",
+  "json_sha256": "ebda17bae6e873f15b096b160d48ca57536541d1216760fbfbd29ad5ce325da9",
+  "ornek_kontroller": {
+    "8:1": 96,
+    "8:2": 67,
+    "8:57": 15,
+    "8:58": 30,
+    "8:59": 24
+  },
+  "notlar": [
+    "Kaynak belgedeki benzesen iliskileri sayisal olarak aktarildi; anlamsal dogrulama yapilmadi.",
+    "Kaynak betik ana-baslik ayriminda Word bicimi ve 1..N ayet zincirini kullandi. Renk site arayuzu ve editor icin zorunlu degildir.",
+    "Kaynak cikti 959 tekrari ve 722 kendine baglantiyi listelerden cikardi.",
+    "Kaynak metodoloji 14 ayette baska bir yontemle ayrismayi raporlar; bu ayetler manuel incelemeye aciktir.",
+    "Eski app_data.json r iliskileri ve R14 dosyasi silinmedi; bu matris ayrik bir veri kaynagidir.",
+    "Yonetici duzeltmeleri data/mutesabih-degisiklikler.json kaydindaki added/removed uzerinden onceliklidir."
+  ]
+}

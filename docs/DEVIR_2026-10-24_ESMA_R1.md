@@ -111,3 +111,13 @@
 - GitHub commitler: CSS `f2d377cafe3d0cbbc14be70e94566c9096fbb548`; JS `92e760d8fc65a5e4326200db5f672f609c2e5872`; HTML `cfcf1df0864db53b4ee2b924d849969d792285dc`.
 - **DOĞRULANDI:** GitHub üç dosyada yeni içerik; canlı `mutesabih-admin.html` HTML'de ses düğmesi ve `js?v=6` görüldü. JS syntax parse başarı; örnek ses metni dönüşüm denemeleri başarı. **AÇIK:** Gerçek Windows/Android mikrofon izni, konuşma tanıma ve yönetici oturumunda görsel/işlemsel uçtan uca test kullanıcı tarafından yapılacak. Otomatik GitHub kaydı için ses tek başına yeterli değildir.
 - DO_NOT_REDO: Word/ayet/esma verileri, eski onay kuralları, admin erişim yetkisi, tüm önceki R1–R9 kabul durumu korundu.
+
+## R11 — Arapça gelişmiş seçenekler ve Âyet/Kavram araması v2.8.20 (26.10.2026)
+
+- Kullanıcı canlı ekranında v2.8.16 üzerinde gelişmiş arama kutularını göremediğini ve "Âyet veya kavram ara" işlevinin çalışmadığını bildirdi. Ana sorun: Gelişmiş seçenekler yalnız kapatılabilen/sabit sanal klavyenin içinde kalıyordu; sık geçen kavramlarda bütün sonuçlar birden DOM'a basılıyordu.
+- `index.html` v2.8.20: Üst menüye görünür `⌕ Ara` düğmesi; mevcut hızlı arama penceresine `Âyet / Kavram` ve `عربي Arapça` dil seçimi eklendi. Gelişmiş Arapça fieldset'i ve Arapça sanal klavye aynı kaydırılabilir modal içinde. Harekeleri göz ardı et, tam kelime, sınırlı ekleri göz ardı et, kelime grubu modu, tüm Kur'an/seçili sûre alanları korunur.
+- Arama sonuçları toplam sayıyı korur ama ilk anda yalnız **60** âyet çizilir; önceki/sonraki sayfa kontrolleri yeni sonuçları gösterir. Kısa/boş veya yüklenmemiş veri nedeniyle sessiz boş sayfa oluşmasına karşı geri bildirim artırıldı. Normal/Türkçe ve Arapça arama aynı `runSearch` hattından yürür.
+- Vaka testleri (sentetik 3 âyet korpusuyla): `2.255`, `Rahmet`, `Mercy`, `اللَّهِ`, `رَبِّ الْعَٰلَمِينَ` beklenen sûre/âyet referanslarını verdi. Scriptlerin 3/3 geçerli JS sözdizimi; HTML'deki ileri seçenek/klavye bağlamı ve sürüm sabitleri denetlendi.
+- GitHub `index.html` commit `40f91cb2b9402fa0bcbfeafe1b2d1d0566ecdf0a`, `sw.js` commit `84f3afb37ca1b19b4459f29227bf0b2153c1323c`; her ikisi v2.8.20 olarak eşit. GitHub Pages Actions run `40341928920` completed/success, HEAD `84f3afb37ca1`. Gerçek cihaz görsel testi kullanıcının onayına açık; yalnız deploy başarısı LIVE UI PASS demek değildir.
+- DO_NOT_REDO: `app_data.json`, 175.478 benzeşen Word ilişkisi, MLOG, 99 Esmâ, mevcut Arapça metin, mealler ve ayrı deneme kelime/kavram paketine dokunulmadı.
+- Sonraki: Kullanıcı v2.8.20'de üstten `⌕ Ara` → `عربي Arapça` adımıyla seçenekleri ve `2.255`/Türkçe `rahmet` aramasını kontrol eder. Telefon ekranı, sürüm ve varsa kullanıcı gözlemine göre düzeltme yapılır.

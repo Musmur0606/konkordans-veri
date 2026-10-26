@@ -58,6 +58,8 @@ async function init(){try{const [base,corp]=await Promise.all([
  corpusTokens=Object.entries(verses).map(([k,v])=>[k.replace(':','.'),wordParts(v.ar||'')]);
  let saved;try{saved=JSON.parse(localStorage.getItem(STORAGE)||'null')}catch(e){}
  model=(saved&&saved.schema===SCHEMA)?saved:base;
+ // Initial demo definitions arrive without verse refs; produce refs from the existing Quran source.
+ if(!(saved&&saved.schema===SCHEMA)) model.kayitlar=model.kayitlar.map(e=>e.oto_hesap_bekliyor?{...e,sure_ayet:calculate(e.arapca_aramalar||[]),oto_hesap_bekliyor:false}:e);
  el('source-info').textContent='Kaynak: 6.236 âyet · Değişiklikler tarayıcıda saklanır; JSON indirilerek arşivlenir';render();
 }catch(e){el('source-info').textContent='Veri kaynağı yüklenemedi: '+e.message;el('feedback').textContent='Lütfen internet bağlantınızı ve site adresini kontrol edin.';el('feedback').className='status error';}}
 function persist(){localStorage.setItem(STORAGE,JSON.stringify(model));render();}

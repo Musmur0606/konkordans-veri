@@ -1,0 +1,103 @@
+{
+  "schema": "ayatulkuran.lexicon-demo.v1",
+  "mod": "DENEME_YAYINDA_KULLANILMAZ",
+  "kaynak": "app_data.json / verses / ar",
+  "aciklama": "Burada yalnız arama tanımları tutulur. Sayfa açılınca 6236 ayetten sure_ayet referansları otomatik hesaplanır. Nihai sonuç sayfadaki JSON indir ile elde edilir.",
+  "kayitlar": [
+    {
+      "id": "DENEME-001",
+      "tur": "kelime",
+      "terim": "رَبِّ",
+      "arapca_aramalar": [
+        "رَبِّ"
+      ],
+      "sure_ayet": [],
+      "eslesme": "ARAPCA_TAM_KELIME_DIZISI",
+      "anlam_durumu": "LAFZI_ESLESME",
+      "notlar": "Otomatik ilk deneme",
+      "oto_hesap_bekliyor": true
+    },
+    {
+      "id": "DENEME-002",
+      "tur": "kelime",
+      "terim": "ٱلْعَٰلَمِينَ",
+      "arapca_aramalar": [
+        "ٱلْعَٰلَمِينَ"
+      ],
+      "sure_ayet": [],
+      "eslesme": "ARAPCA_TAM_KELIME_DIZISI",
+      "anlam_durumu": "LAFZI_ESLESME",
+      "notlar": "Otomatik ilk deneme",
+      "oto_hesap_bekliyor": true
+    },
+    {
+      "id": "DENEME-003",
+      "tur": "kelime_grubu",
+      "terim": "رَبِّ ٱلْعَٰلَمِينَ",
+      "arapca_aramalar": [
+        "رَبِّ ٱلْعَٰلَمِينَ"
+      ],
+      "sure_ayet": [],
+      "eslesme": "ARAPCA_TAM_KELIME_DIZISI",
+      "anlam_durumu": "LAFZI_ESLESME",
+      "notlar": "Otomatik ilk deneme",
+      "oto_hesap_bekliyor": true
+    },
+    {
+      "id": "DENEME-004",
+      "tur": "kelime_grubu",
+      "terim": "يَوۡمِ ٱلدِّينِ",
+      "arapca_aramalar": [
+        "يَوۡمِ ٱلدِّينِ"
+      ],
+      "sure_ayet": [],
+      "eslesme": "ARAPCA_TAM_KELIME_DIZISI",
+      "anlam_durumu": "LAFZI_ESLESME",
+      "notlar": "Otomatik ilk deneme",
+      "oto_hesap_bekliyor": true
+    },
+    {
+      "id": "DENEME-005",
+      "tur": "kelime_grubu",
+      "terim": "قُلۡ هُوَ ٱللَّهُ أَحَدٌ",
+      "arapca_aramalar": [
+        "قُلۡ هُوَ ٱللَّهُ أَحَدٌ"
+      ],
+      "sure_ayet": [],
+      "eslesme": "ARAPCA_TAM_KELIME_DIZISI",
+      "anlam_durumu": "LAFZI_ESLESME",
+      "notlar": "Otomatik ilk deneme",
+      "oto_hesap_bekliyor": true
+    },
+    {
+      "id": "DENEME-006",
+      "tur": "kavram",
+      "terim": "Rahmet (lafzî aday)",
+      "arapca_aramalar": [
+        "رَحْمَةٞ",
+        "ٱلرَّحْمَٰنِ",
+        "ٱلرَّحِيمِ"
+      ],
+      "sure_ayet": [],
+      "eslesme": "ARAPCA_TAM_KELIME_DIZISI",
+      "anlam_durumu": "KAVRAM_INCELEME",
+      "notlar": "Otomatik ilk deneme",
+      "oto_hesap_bekliyor": true
+    },
+    {
+      "id": "DENEME-007",
+      "tur": "kavram",
+      "terim": "İlim (lafzî aday)",
+      "arapca_aramalar": [
+        "عِلْمٌ",
+        "ٱلْعَلِيمُ"
+      ],
+      "sure_ayet": [],
+      "eslesme": "ARAPCA_TAM_KELIME_DIZISI",
+      "anlam_durumu": "KAVRAM_INCELEME",
+      "notlar": "Otomatik ilk deneme",
+      "oto_hesap_bekliyor": true
+    }
+  ],
+  "islem_gecmisi": []
+}

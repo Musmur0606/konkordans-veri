@@ -338,6 +338,14 @@
 .ar-k-head{color:#114c3b}
 @media(max-width:760px){.ar-keyboard{bottom:5px;width:calc(100vw - 10px);padding:9px;max-height:60vh}.ar-k-keys{grid-template-columns:repeat(8,minmax(0,1fr));gap:4px}.ar-k-keys button{min-height:40px;font-size:23px;padding:3px 0}}
 
+
+.ar-keyboard{max-height:calc(100dvh - 25px);overflow-y:auto}
+.ar-options{border:1px solid #d8d1c4;border-radius:9px;padding:8px;margin:7px 0 10px;display:grid;gap:6px;font-size:13px}
+.ar-options legend{font-weight:bold}.ar-options label{display:flex;align-items:center;gap:7px;cursor:pointer}
+.ar-options input{accent-color:#0c5c48}.ar-options strong{margin-top:5px}
+.ar-modes{display:flex;gap:10px;flex-wrap:wrap}.ar-range{display:flex;gap:12px;flex-wrap:wrap}
+.ar-range select{padding:5px;max-width:150px}.ar-options input[type=radio],.ar-options input[type=checkbox]{width:17px;height:17px;flex-shrink:0}
+@media(max-width:760px){.ar-keyboard{bottom:4px}.ar-modes{display:grid;gap:5px}}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -349,7 +357,7 @@
   <div>
     <h1 onclick="anaEkran()" style="cursor:pointer" title="Ana ekran">ayatulkuran <span id="abadge"></span></h1>
     <div class="sub">Âyet âyet benzeşen âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div>
-    <div class="surum-cep surum-yaz" id="surumcep">v2.8.15</div>
+    <div class="surum-cep surum-yaz" id="surumcep">v2.8.16</div>
   </div>
   <span id="status" class="load">yükleniyor…</span>
   <button class="hbtn" id="theme-toggle" type="button" onclick="temaDegistir()" aria-pressed="false" title="Açık ve koyu renk düzeni">☾ Gece</button>
@@ -363,7 +371,7 @@
   <datalist id="sure-onerileri"></datalist>
 </header>
 <div id="selection-actions" hidden role="toolbar" aria-label="Seçili metin işlemleri"><button type="button" id="selection-copy">Kopyala</button><button type="button" id="selection-search">Seçileni ara</button><button type="button" id="selection-close">Kapat</button></div>
-<div id="arabic-keyboard" class="ar-keyboard" hidden role="group" aria-label="Arapça sanal klavye"><div class="ar-k-head"><strong>Arapça arama · Sanal klavye</strong><button type="button" id="arabic-k-close">✕ Kapat</button></div><div id="arabic-keys" class="ar-k-keys"></div><div class="ar-k-actions"><button type="button" data-ar-action="space">Boşluk</button><button type="button" data-ar-action="back">⌫ Sil</button><button type="button" data-ar-action="clear">Temizle</button><button type="button" data-ar-action="search">Ara</button><button type="button" data-ar-action="vowels">Harekeler açık/kapat</button></div></div>
+<div id="arabic-keyboard" class="ar-keyboard" hidden role="group" aria-label="Arapça sanal klavye"><div class="ar-k-head"><strong>Arapça arama · Sanal klavye</strong><button type="button" id="arabic-k-close">✕ Kapat</button></div><fieldset class="ar-options"><legend>Gelişmiş Arapça arama</legend><label><input id="ar-whole" type="checkbox"> Sadece tam kelimeleri bul</label><label><input id="ar-noharaka" type="checkbox" checked> Harekeleri göz ardı et</label><label title="Başta harf-i cer / bağlaç ve sonda zamir ekleri için sınırlı biçimsel eşleştirme yapılır."><input id="ar-affixes" type="checkbox"> Harf-i cer ve zamirleri göz ardı et</label><strong>Birden çok kelime</strong><div class="ar-modes"><label><input type="radio" name="ar-mode" value="phrase"> Aynen yazıldığı gibi (sıralı)</label><label><input type="radio" name="ar-mode" value="all" checked> Tüm kelimeler aynı âyette</label><label><input type="radio" name="ar-mode" value="any"> Kelimelerden herhangi biri</label></div><strong>Arama alanı</strong><div class="ar-modes"><label><input type="radio" name="ar-scope" value="all" checked> Tüm Kur’an'da</label><label><input type="radio" name="ar-scope" value="range"> Seçili sûrelerde</label></div><div class="ar-range"><label>Başlangıç <select id="ar-from"></select></label><label>Bitiş <select id="ar-to"></select></label></div></fieldset><div id="arabic-keys" class="ar-k-keys"></div><div class="ar-k-actions"><button type="button" data-ar-action="space">Boşluk</button><button type="button" data-ar-action="back">⌫ Sil</button><button type="button" data-ar-action="clear">Temizle</button><button type="button" data-ar-action="search">Ara</button><button type="button" data-ar-action="vowels">Harekeler açık/kapat</button></div></div>
 <div class="wrap">
 <div id="mobilgeri">‹ Sûreler</div>
   <div id="sidebar"></div>
@@ -512,6 +520,7 @@ async function boot(){
   catch(e){ try{ const c=await idbGet('esma'); if(c) ESMA=JSON.parse(c); }catch(e2){} }
   renderSidebar();
   renderWelcome();
+  arScopeInitialize();
   const sonEk=document.getElementById('sure-onerileri');
   if(sonEk) sonEk.innerHTML=Object.keys(S).map(Number).sort((a,b)=>a-b).map(no=>'<option value="'+esc(S[no].ad)+'" label="'+no+'. sûre"></option>').join('');
   temaYenile();
@@ -931,6 +940,30 @@ function aramaDizini(){
   }
   return SIDX;
 }
+
+// Sure araligi secimi mevcut ana sure sicilinden doldurulur.
+function arScopeInitialize(){const a=document.getElementById('ar-from'),b=document.getElementById('ar-to');if(!a||!b||a.options.length||!S)return;
+ for(let n=1;n<=114;n++){if(!S[n])continue;for(const x of [a,b]){const opt=document.createElement('option');opt.value=String(n);opt.textContent=n+' — '+S[n].ad;x.appendChild(opt);}}a.value='1';b.value='114';}
+function arOpts(){const c=id=>Boolean(document.getElementById(id)?.checked);return {whole:c('ar-whole'),noharaka:c('ar-noharaka'),affixes:c('ar-affixes'),mode:document.querySelector('input[name="ar-mode"]:checked')?.value||'all',scope:document.querySelector('input[name="ar-scope"]:checked')?.value||'all',from:Number(document.getElementById('ar-from')?.value||1),to:Number(document.getElementById('ar-to')?.value||114)};}
+function arNorm(w,o){let t=String(w||'').normalize('NFC');if(o.noharaka)t=t.replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/g,'');return t.replace(/[\u0622\u0623\u0625\u0671]/g,'\u0627').replace(/\u0649/g,'\u064A').replace(/\u0629/g,'\u0647');}
+function arToken(w){return Array.from(String(w||'').matchAll(/[\u0621-\u064A\u0671][\u0600-\u06ED]*/gu)).map(m=>({raw:m[0],start:m.index,end:m.index+m[0].length}));}
+function arEq(w,q,o){const w0=arNorm(w,o),q0=arNorm(q,o);if(!q0)return false;if(o.whole ? w0===q0 : w0.includes(q0))return true;
+ if(!o.affixes)return false;
+ // Sınırlı önek ve zamir ekleri. Kökte anlamsal çözümleme iddia edilmez.
+ const endings=['هما','هم','هن','ها','نا','كم','كن','ه','ك','ي'];let candidates=[w0];
+ for(let k=0;k<2;k++){for(const t of [...candidates]){if(t.length>3 && /^[وفبكل]/.test(t))candidates.push(t.slice(1));if(t.startsWith('ال')&&t.length>4)candidates.push(t.slice(2));}}
+ for(const t of [...candidates])for(const e of endings){if(t.endsWith(e)&&t.length-e.length>=3)candidates.push(t.slice(0,-e.length));}
+ return candidates.some(t=>o.whole?t===q0:t.includes(q0));
+}
+function arMatch(metin,q,o=arOpts()){
+ const words=arToken(metin), queries=arToken(q).map(x=>x.raw);if(!queries.length)return [];
+ const matches=queries.map(term=>words.map((w,i)=>arEq(w.raw,term,o)?i:-1).filter(i=>i>=0));
+ if(o.mode==='all' && matches.some(a=>!a.length))return [];
+ if(o.mode==='phrase'){
+   const hit=new Set();for(let i=0;i<=words.length-queries.length;i++){if(queries.every((term,j)=>arEq(words[i+j].raw,term,o)))for(let j=0;j<queries.length;j++)hit.add(i+j);}return [...hit].sort((a,b)=>a-b).map(i=>words[i]);
+ }
+ const ids=new Set(matches.flat());return [...ids].sort((a,b)=>a-b).map(i=>words[i]);
+}
 function runSearch(q){
   if(!V)return;
   if(kolayArama(q))return;
@@ -953,34 +986,13 @@ function runSearch(q){
     if(ara.includes('\u0631\u0628\u0627')) adaylar.push(ara.replace(/\u0631\u0628\u0627/g,'\u0631\u0628\u0648\u0627'));
   }
   const bulunan=new Set();
-  if(arapca){
-    // Arapca sorguda yalnız Arapca metinde görünür eşleşme kabul edilir.
-    for(const ref in V){
-      if(aramaArapcaVurgula(V[ref].ar||'',q).includes('class="arama-kirmizi"'))bulunan.add(ref);
-    }
-  }else{
-    for(const ref in idx){if(adaylar.some(x=>idx[ref].includes(x)))bulunan.add(ref);}
-  }
+  if(arapca){const o=arOpts();arScopeInitialize();for(const ref in V){const n=Number(ref.split(':')[0]);if(o.scope==='range'&&(n<o.from||n>o.to))continue;if(arMatch(V[ref].ar||'',q,o).length)bulunan.add(ref);}}
+  else {for(const ref in idx){if(adaylar.some(x=>idx[ref].includes(x)))bulunan.add(ref);}}
   const res=[...bulunan].sort((x,y)=>{const a1=x.split(':'),b1=y.split(':');return a1[0]-b1[0]||a1[1]-b1[1];});
   aramaSonuc(q,res);
 }
 let _gaT=null;
-function aramaArapcaVurgula(metin,aranan){
-  const kaynak=String(metin||''), hedef=arYalin(String(aranan||'')).replace(/\s+/g,'');
-  if(!hedef || !/[\u0600-\u06FF]/.test(aranan))return esc(kaynak);
-  // Normalize only for matching. Preserve every original letter and haraka in output.
-  const parcalar=Array.from(kaynak);let yalin='',konum=[];
-  parcalar.forEach((ch,i)=>{const norm=arYalin(ch).replace(/\s+/g,'');for(const c of Array.from(norm)){yalin+=c;konum.push(i);}});
-  const ranges=[];let start=0;
-  while((start=yalin.indexOf(hedef,start))!==-1){
-    const a=konum[start],b=konum[start+hedef.length-1]+1;
-    if(a!==undefined&&b!==undefined){let end=b;while(end<parcalar.length && /^[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]$/.test(parcalar[end]))end++;ranges.push([a,end]);}
-    start+=hedef.length;
-  }
-  if(!ranges.length)return esc(kaynak);
-  let html='',last=0;for(const [a,b] of ranges){if(a<last)continue;html+=esc(parcalar.slice(last,a).join(''))+'<span class="arama-kirmizi">'+esc(parcalar.slice(a,b).join(''))+'</span>';last=b;}
-  return html+esc(parcalar.slice(last).join(''));
-}
+function aramaArapcaVurgula(metin,aranan){const txt=String(metin||''), hits=arMatch(txt,aranan);if(!hits.length)return esc(txt);let out='',at=0;for(const w of hits){if(w.start<at)continue;out+=esc(txt.slice(at,w.start))+'<span class="arama-kirmizi">'+esc(txt.slice(w.start,w.end))+'</span>';at=w.end;}return out+esc(txt.slice(at));}
 function aramaSonuc(q,res){
   icerigeGec();
   if(window.gtag){ clearTimeout(_gaT);           // her tusa degil, yazma bitince gonder

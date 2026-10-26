@@ -322,6 +322,7 @@
 .ar-search-switch{background:#fff;color:#0c5c48;border:0;border-radius:12px;padding:8px 11px;font-weight:700;cursor:pointer}
 .ar-keyboard{position:fixed;z-index:1000;left:50%;transform:translateX(-50%);bottom:12px;width:min(700px,calc(100vw - 20px));background:#fffdf8;color:#222;border:1px solid #cfc5ac;box-shadow:0 10px 35px #0005;border-radius:14px;padding:12px}
 .ar-keyboard[hidden]{display:none!important}.ar-k-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.ar-k-keys{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}.ar-k-keys button{font-family:Amiri,serif;font-size:23px;min-height:39px;border:1px solid #ddd4bf;border-radius:7px;background:#f6f3ea;cursor:pointer}.ar-k-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.ar-k-actions button{padding:8px;border:1px solid #ddd4bf;background:#f6f3ea;border-radius:7px;cursor:pointer}@media(max-width:760px){.ar-k-keys{grid-template-columns:repeat(8,minmax(0,1fr))}.ar-k-keys button{font-size:21px;min-height:40px}}
+.arama-kirmizi{color:#bd1826!important;font-weight:700} @media print{.arama-kirmizi{color:#bd1826!important}}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -333,7 +334,7 @@
   <div>
     <h1 onclick="anaEkran()" style="cursor:pointer" title="Ana ekran">ayatulkuran <span id="abadge"></span></h1>
     <div class="sub">Âyet âyet benzeşen âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div>
-    <div class="surum-cep surum-yaz" id="surumcep">v2.8.9</div>
+    <div class="surum-cep surum-yaz" id="surumcep">v2.8.10</div>
   </div>
   <span id="status" class="load">yükleniyor…</span>
   <button class="hbtn" id="theme-toggle" type="button" onclick="temaDegistir()" aria-pressed="false" title="Açık ve koyu renk düzeni">☾ Gece</button>
@@ -341,7 +342,7 @@
   <button class="hbtn" id="fsbtn" onclick="tamEkran()" title="Tam ekran (F11 gibi)">⛶</button>
   <a class="sos" href="https://x.com/ayatulkuran" target="_blank" rel="noopener" title="X" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.5h3.6l-7.9 9 9.3 12.3h-7.3l-5.7-7.5-6.6 7.5H.7l8.5-9.7L.3 1.5h7.5l5.2 6.9zM17.6 20.7h2L6.5 3.4h-2.2z"/></svg></a>
   <a class="sos" href="https://instagram.com/ayat_ulkuran" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 3.2a6.6 6.6 0 1 0 0 13.2 6.6 6.6 0 0 0 0-13.2zm0 10.9a4.3 4.3 0 1 1 0-8.6 4.3 4.3 0 0 1 0 8.6zm6.9-11.2a1.5 1.5 0 1 1-3.1 0 1.5 1.5 0 0 1 3.1 0z"/></svg></a>
-  <span id="surumet" class="surum-yaz">v2.8.9</span>
+  <span id="surumet" class="surum-yaz">v2.8.10</span>
   <button id="arabic-search-toggle" class="ar-search-switch" type="button" aria-pressed="false" title="Arapça arama klavyesini aç">عربي</button>
   <input id="search" list="sure-onerileri" autocomplete="off" aria-label="Âyet, sûre veya kavram ara" placeholder="Âyet (5.61), sûre (Bakara 255) veya kavram ara…  Ctrl+K">
   <datalist id="sure-onerileri"></datalist>
@@ -360,7 +361,7 @@ const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/r
 const BENZESEN_URL = '/data/benzesen-matris.json?v=20261024';
 const MLOG_URL = 'https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/data/mutesabih-degisiklikler.json';
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '2.8.9';
+const SITE_SURUM = '2.8.10';
 try{if(localStorage.getItem('ayat-tema')==='dark')document.documentElement.dataset.theme='dark';}catch(e){}
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
@@ -504,7 +505,7 @@ async function boot(){
     addEventListener('offline',()=>{ if(DB) setStatus('offline','🟡 çevrimdışı','bağlantı kesildi · kayıtlı veriyle çalışıyorsunuz'); });
   addEventListener('online', ()=>{ if(DB) setStatus('online','🟢','bağlantı geri geldi'); });
   if('serviceWorker' in navigator && location.protocol==='https:'){
-    navigator.serviceWorker.register('/sw.js?v=2.8.9', {updateViaCache:'none'}).catch(()=>{});
+    navigator.serviceWorker.register('/sw.js?v=2.8.10', {updateViaCache:'none'}).catch(()=>{});
   }
   kurBarKur();
   // sure sayfalarindan gelen baglantilar:  ?ayet=2.255  ya da  ?sure=2
@@ -947,6 +948,22 @@ function runSearch(q){
   aramaSonuc(q,res);
 }
 let _gaT=null;
+function aramaArapcaVurgula(metin,aranan){
+  const kaynak=String(metin||''), hedef=arYalin(String(aranan||'').replace(/\\s+/g,''));
+  if(!hedef || !/[\\u0600-\\u06FF]/.test(aranan))return esc(kaynak);
+  // Normalize only for matching. Preserve every original letter and haraka in output.
+  const parcalar=Array.from(kaynak);let yalin='',konum=[];
+  parcalar.forEach((ch,i)=>{const norm=arYalin(ch);for(const c of Array.from(norm)){yalin+=c;konum.push(i);}});
+  const ranges=[];let start=0;
+  while((start=yalin.indexOf(hedef,start))!==-1){
+    const a=konum[start],b=konum[start+hedef.length-1]+1;
+    if(a!==undefined&&b!==undefined){let end=b;while(end<parcalar.length && /^[\\u0610-\\u061A\\u064B-\\u065F\\u0670\\u06D6-\\u06ED\\u0640]$/.test(parcalar[end]))end++;ranges.push([a,end]);}
+    start+=hedef.length;
+  }
+  if(!ranges.length)return esc(kaynak);
+  let html='',last=0;for(const [a,b] of ranges){if(a<last)continue;html+=esc(parcalar.slice(last,a).join(''))+'<span class="arama-kirmizi">'+esc(parcalar.slice(a,b).join(''))+'</span>';last=b;}
+  return html+esc(parcalar.slice(last).join(''));
+}
 function aramaSonuc(q,res){
   icerigeGec();
   if(window.gtag){ clearTimeout(_gaT);           // her tusa degil, yazma bitince gonder
@@ -955,7 +972,7 @@ function aramaSonuc(q,res){
   m.innerHTML=`<div class="searchhead">"${esc(q)}" için ${res.length}${res.length>=200?'+':''} sonuç</div>`;
   const list=el('<div></div>');
   res.forEach(ref=>{const v=V[ref];
-    const r=el(`<div class="rel" data-ref="${ref}"><div class="ar">${esc(v.ar)}</div><div><span class="ref">${esc(v.sa)} ${v.a} (${gr(ref)})</span><div class="rm">${hi(esc(mealMode==='me'?v.me:v.mb),q)}</div></div></div>`);
+    const r=el(`<div class="rel" data-ref="${ref}"><div class="ar">${aramaArapcaVurgula(v.ar,q)}</div><div><span class="ref">${esc(v.sa)} ${v.a} (${gr(ref)})</span><div class="rm">${hi(esc(mealMode==='me'?v.me:v.mb),q)}</div></div></div>`);
     r.onclick=()=>goto(ref);list.appendChild(r);});
   m.appendChild(list);m.scrollTop=0;
 }

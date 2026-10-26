@@ -275,17 +275,27 @@ function speechRefsToTemplate(transcript) {
   let phrase=String(transcript||'').toLocaleLowerCase('tr-TR').trim();
   if(!phrase)throw Error('Ses algılanmadı.');
   phrase=phrase.replace(/([0-9])\s*([.:])\s*([0-9])/g,'$1 nokta $3')
-    .replace(/([0-9])\s*[-–]\s*([0-9])/g,'$1 arası $2')
+    .replace(/([0-9])\s*[-–]\s*([0-9])/g,'$1 tire $2')
     .replace(/\b(noktası|noktasına)\b/gu,'nokta')
-    .replace(/\b(virgülü)\b/gu,'virgül')
-    .replace(/\b(ile|arası|kadar)\b/gu,' aralık ');
+    .replace(/\bvirgülü\b/gu,'virgül');
   const words=phrase.match(/[0-9]+|[a-zçğıöşü]+|[.,:;-]/gu)||[];
   const tokens=[];
   for(const w of words){
-    const match=/^([a-zçğıöşü]+?)(den|dan|ten|tan)$/u.exec(w);
-    if(match && (Object.hasOwn(SPEECH_NUMBERS,match[1])||match[1]==='yüz'))tokens.push(match[1],'aralık');
-    else if(['e','a','ye','ya','ayet','ayetler','ayetleri'].includes(w))continue;
-    else tokens.push(w);
+    if(['kadar','ayet','ayetler','ayetleri','e','a','ye','ya'].includes(w))continue;
+    if(['ile','arası','arasi','aralık','tire','çizgi','çizgisi'].includes(w)){tokens.push('aralık');continue;}
+    const suffix=/^([a-zçğıöşü]+?)(den|dan|ten|tan|ye|ya|e|a)$/u.exec(w);
+    if(suffix && (Object.hasOwn(SPEECH_NUMBERS,suffix[1])||suffix[1]==='yüz')){
+      tokens.push(suffix[1]);
+      if(['den','dan','ten','tan'].includes(suffix[2]))tokens.push('aralık');
+      continue;
+    }
+    const digitSuffix=/^([0-9]+)(den|dan|ten|tan|ye|ya|e|a)$/u.exec(w);
+    if(digitSuffix){
+      tokens.push(digitSuffix[1]);
+      if(['den','dan','ten','tan'].includes(digitSuffix[2]))tokens.push('aralık');
+      continue;
+    }
+    tokens.push(w);
   }
   const parts=[];let numbers=[];
   const flush=()=>{if(numbers.length){parts.push({type:'number',value:spokenInteger(numbers)});numbers=[];}};

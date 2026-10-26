@@ -282,7 +282,7 @@ function speechRefsToTemplate(transcript) {
   const tokens=[];
   for(const w of words){
     if(['kadar','ayet','ayetler','ayetleri','e','a','ye','ya'].includes(w))continue;
-    if(['ile','arası','arasi','aralık','tire','çizgi','çizgisi'].includes(w)){tokens.push('aralık');continue;}
+    if(['ile','arası','arasi','aralık','tire','çizgi','çizgisi','den','dan','ten','tan'].includes(w)){tokens.push('aralık');continue;}
     const suffix=/^([a-zçğıöşü]+?)(den|dan|ten|tan|ye|ya|e|a)$/u.exec(w);
     if(suffix && (Object.hasOwn(SPEECH_NUMBERS,suffix[1])||suffix[1]==='yüz')){
       tokens.push(suffix[1]);

@@ -335,37 +335,67 @@ function voiceMessage(message,isError=false){
   area.style.color=isError?'#a3341f':'';
 }
 
+let voiceActive=false;
+let voiceRestartCount=0;
+let voiceRestartTimer=null;
+function stopVoiceRefs(){
+  voiceActive=false;
+  if(voiceRestartTimer){clearTimeout(voiceRestartTimer);voiceRestartTimer=null;}
+  if(speechReader){try{speechReader.stop();}catch{}}
+  $('voice-refs').textContent='🎙️ Sesle âyet gir';
+  voiceMessage('Dinleme durduruldu. Girilen âyetleri kontrol edin.');
+}
 function startVoiceRefs(){
+  if(voiceActive){stopVoiceRefs();return;}
   const SpeechAPI=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SpeechAPI){voiceMessage('Bu tarayıcı ses tanımayı desteklemiyor. Windows + H veya telefon klavyesindeki mikrofonu kullanın.',true);return;}
-  if(!runtime.token||runtime.busy||!canEditMain(runtime.selected)){voiceMessage('Sesli giriş için düzenlenebilir bir ana âyet ve yönetici girişi gerekli.',true);return;}
-  if(speechReader){speechReader.stop();return;}
-  const reader=new SpeechAPI();
-  speechReader=reader;
-  reader.lang='tr-TR';reader.interimResults=false;reader.maxAlternatives=1;
-  $('voice-refs').textContent='■ Dinlemeyi durdur';
-  voiceMessage('Dinliyorum… Örnek: “iki nokta beş”.');
-  reader.onresult=(event)=>{
-    const heard=event.results?.[0]?.[0]?.transcript||'';
-    try{
-      const converted=speechRefsToTemplate(heard);
-      const current=$('refs').value.trim();
-      const merged=(current?current+' ':'')+converted;
-      parseVerses(merged);
-      $('refs').value=merged;
-      $('refs').dispatchEvent(new Event('input',{bubbles:true}));
-      voiceMessage('Duyulan: “'+heard+'” → '+converted+' · Kaydetmeden önce numaraları kontrol edin.');
-    }catch(error){voiceMessage('Duyulan: “'+heard+'”. '+error.message+' Kutudaki önceki giriş korundu.',true);}
-  };
-  reader.onerror=(event)=>{
-    const reasons={'not-allowed':'Mikrofon izni verilmedi.','no-speech':'Ses algılanmadı.','audio-capture':'Mikrofona ulaşılamadı.','network':'Ses tanıma hizmetine bağlanılamadı.'};
-    voiceMessage(reasons[event.error]||'Ses tanıma tamamlanamadı. Lütfen yeniden deneyin.',true);
-  };
-  reader.onend=()=>{
-    speechReader=null;
-    $('voice-refs').textContent='🎙️ Sesle âyet gir';
-  };
-  try{reader.start();}catch(error){speechReader=null;$('voice-refs').textContent='🎙️ Sesle âyet gir';voiceMessage('Mikrofon başlatılamadı: '+error.message,true);}
+  if(!SpeechAPI){voiceMessage('Tarayıcı desteklemiyor. Windows + H veya klavye mikrofonunu kullanın.',true);return;}
+  if(!runtime.token||runtime.busy||!canEditMain(runtime.selected)){voiceMessage('Önce yönetici girişi ve düzenlenebilir ana âyet seçimi gerekli.',true);return;}
+  voiceActive=true;voiceRestartCount=0;
+  $('voice-refs').textContent='■ Sesli girişi bitir';
+  function listen(){
+    if(!voiceActive)return;
+    const reader=new SpeechAPI();
+    speechReader=reader;
+    reader.lang='tr-TR';reader.continuous=true;reader.interimResults=false;reader.maxAlternatives=1;
+    reader.onresult=(event)=>{
+      for(let i=event.resultIndex;i<event.results.length;i++){
+        if(!event.results[i].isFinal)continue;
+        const heard=event.results[i][0]?.transcript||'';
+        try{
+          const converted=speechRefsToTemplate(heard);
+          const previous=$('refs').value.trim();
+          const merged=(previous?previous+' ':'')+converted;
+          parseVerses(merged);
+          $('refs').value=merged;
+          $('refs').dispatchEvent(new Event('input',{bubbles:true}));
+          voiceMessage('Eklendi: '+converted+' · Dinleme sürüyor. Kaydetmeden önce kontrol edin.');
+        }catch(error){voiceMessage('“'+heard+'” anlaşılmadı: '+error.message+' Dinleme sürüyor.',true);}
+      }
+      voiceRestartCount=0;
+    };
+    reader.onerror=(event)=>{
+      if(['not-allowed','service-not-allowed','audio-capture'].includes(event.error)){
+        voiceActive=false;voiceMessage('Mikrofon izni veya erişimi engellendi.',true);
+      }else if(event.error==='network'){
+        voiceActive=false;voiceMessage('Ses hizmeti bağlantısı kesildi. Yeniden başlatın.',true);
+      }else if(event.error!=='no-speech'&&event.error!=='aborted'){
+        voiceMessage('Ses algılama uyarısı: '+event.error,true);
+      }
+    };
+    reader.onend=()=>{
+      if(speechReader===reader)speechReader=null;
+      if(!voiceActive){$('voice-refs').textContent='🎙️ Sesle âyet gir';return;}
+      if(voiceRestartCount>=8){
+        voiceActive=false;$('voice-refs').textContent='🎙️ Sesle âyet gir';
+        voiceMessage('Tarayıcı art arda dinlemeyi sonlandırdı. Yeniden başlatın.',true);return;
+      }
+      voiceRestartCount++;
+      voiceRestartTimer=setTimeout(()=>{voiceRestartTimer=null;listen();},350);
+    };
+    try{reader.start();voiceMessage('Dinliyorum… Art arda âyet söyleyin. Bitirmek için düğmeye basın.');}
+    catch(error){voiceActive=false;speechReader=null;$('voice-refs').textContent='🎙️ Sesle âyet gir';voiceMessage('Mikrofon başlatılamadı: '+error.message,true);}
+  }
+  listen();
 }
 
 async function refreshFiles(authToken=runtime.token) {
@@ -511,7 +541,7 @@ $('refs').addEventListener('input',updateParsed);
 $('voice-refs').addEventListener('click',startVoiceRefs);
 $('login').addEventListener('click',authorize);
 $('token').addEventListener('keydown',(e)=>{if(e.key==='Enter')authorize();});
-$('logout').addEventListener('click',()=>{runtime.token='';runtime.actor='';runtime.data=null;runtime.corpus=null;runtime.doc=null;runtime.sha='';runtime.drafts.clear();$('main-list').replaceChildren();$('link-list').replaceChildren();showMessage('login-message','Güvenli çıkış yapıldı. Yönetim ekranı kapatıldı.','success');renderAll();});
+$('logout').addEventListener('click',()=>{stopVoiceRefs();runtime.token='';runtime.actor='';runtime.data=null;runtime.corpus=null;runtime.doc=null;runtime.sha='';runtime.drafts.clear();$('main-list').replaceChildren();$('link-list').replaceChildren();showMessage('login-message','Güvenli çıkış yapıldı. Yönetim ekranı kapatıldı.','success');renderAll();});
 for(const op of ['add','remove','confirm','review'])$(op).addEventListener('click',()=>submitEdit(op));
 $('history-day').addEventListener('change',()=>{renderHistory();renderAuth();});
 $('clear-day').addEventListener('click',()=>{$('history-day').value='';renderHistory();renderAuth();});

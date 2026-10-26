@@ -1,94 +1,51 @@
 {
-  "schema": "ayatulkuran.docx-rebuild-75-vs-r23.v2",
+  "schema": "ayatulkuran.docx-rebuild-75-vs-r23.v3",
   "source": "Original 114 DOCX ZIP OOXML parse",
   "summary": {
-    "reconstructed": 75,
-    "identical": 68,
-    "different": 7,
-    "same_count_but_edge_difference": 0,
-    "extra_source_edges": 4,
-    "missing_source_edges": 3,
-    "source_order_only": 0,
-    "edited_mains_among_differences": 0,
-    "protectedHit": 0
+    "main": 75,
+    "accepted_main_identical": 71,
+    "source_only_main": 4,
+    "source_total_links": 3423,
+    "accepted_total_links_for_75": 3419,
+    "only_source_links": 4,
+    "missing_source_links": 0
   },
   "diffs": [
     {
-      "main": "7:92",
-      "source_count": 107,
-      "R23_count": 108,
-      "only_source": [],
-      "only_R23": [
-        "26:191"
-      ],
-      "order_only": false,
-      "editor_overrides_present": false
-    },
-    {
       "main": "26:150",
       "source_count": 18,
-      "R23_count": 17,
-      "only_source": [
+      "accepted_count": 17,
+      "only_in_original_docx": [
         "26:108"
       ],
-      "only_R23": [],
-      "order_only": false,
-      "editor_overrides_present": false
+      "only_in_R23": []
     },
     {
       "main": "26:179",
       "source_count": 20,
-      "R23_count": 19,
-      "only_source": [
+      "accepted_count": 19,
+      "only_in_original_docx": [
         "26:163"
       ],
-      "only_R23": [],
-      "order_only": false,
-      "editor_overrides_present": false
+      "only_in_R23": []
     },
     {
       "main": "26:180",
       "source_count": 5,
-      "R23_count": 4,
-      "only_source": [
+      "accepted_count": 4,
+      "only_in_original_docx": [
         "26:164"
       ],
-      "only_R23": [],
-      "order_only": false,
-      "editor_overrides_present": false
+      "only_in_R23": []
     },
     {
       "main": "37:179",
       "source_count": 34,
-      "R23_count": 33,
-      "only_source": [
+      "accepted_count": 33,
+      "only_in_original_docx": [
         "37:175"
       ],
-      "only_R23": [],
-      "order_only": false,
-      "editor_overrides_present": false
-    },
-    {
-      "main": "40:84",
-      "source_count": 31,
-      "R23_count": 32,
-      "only_source": [],
-      "only_R23": [
-        "6:147"
-      ],
-      "order_only": false,
-      "editor_overrides_present": false
-    },
-    {
-      "main": "40:85",
-      "source_count": 49,
-      "R23_count": 50,
-      "only_source": [],
-      "only_R23": [
-        "6:147"
-      ],
-      "order_only": false,
-      "editor_overrides_present": false
+      "only_in_R23": []
     }
   ]
 }

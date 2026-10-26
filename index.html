@@ -372,7 +372,7 @@
   <div>
     <h1 onclick="anaEkran()" style="cursor:pointer" title="Ana ekran">ayatulkuran <span id="abadge"></span></h1>
     <div class="sub">Âyet âyet benzeşen âyetler · Ali Rıza ZARARSIZ tarafından derlenmektedir.</div>
-    <div class="surum-cep surum-yaz" id="surumcep">v2.8.18</div>
+    <div class="surum-cep surum-yaz" id="surumcep">v2.8.19</div>
   </div>
   <span id="status" class="load">yükleniyor…</span>
   <button class="hbtn" id="theme-toggle" type="button" onclick="temaDegistir()" aria-pressed="false" title="Açık ve koyu renk düzeni">☾ Gece</button>
@@ -380,7 +380,7 @@
   <button class="hbtn" id="fsbtn" onclick="tamEkran()" title="Tam ekran (F11 gibi)">⛶</button>
   <a class="sos" href="https://x.com/ayatulkuran" target="_blank" rel="noopener" title="X" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.5h3.6l-7.9 9 9.3 12.3h-7.3l-5.7-7.5-6.6 7.5H.7l8.5-9.7L.3 1.5h7.5l5.2 6.9zM17.6 20.7h2L6.5 3.4h-2.2z"/></svg></a>
   <a class="sos" href="https://instagram.com/ayat_ulkuran" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 3.2a6.6 6.6 0 1 0 0 13.2 6.6 6.6 0 0 0 0-13.2zm0 10.9a4.3 4.3 0 1 1 0-8.6 4.3 4.3 0 0 1 0 8.6zm6.9-11.2a1.5 1.5 0 1 1-3.1 0 1.5 1.5 0 0 1 3.1 0z"/></svg></a>
-  <span id="surumet" class="surum-yaz">v2.8.18</span>
+  <span id="surumet" class="surum-yaz">v2.8.19</span>
   <button id="arabic-search-toggle" class="ar-search-switch" type="button" aria-pressed="false" title="Arapça arama klavyesini aç">عربي</button>
   <input id="search" list="sure-onerileri" autocomplete="off" aria-label="Âyet, sûre veya kavram ara" placeholder="Âyet (5.61), sûre (Bakara 255) veya kavram ara…  Ctrl+K">
   <datalist id="sure-onerileri"></datalist>
@@ -394,7 +394,7 @@
   <p class="quick-search-helper">Örnek: 2.255 · Bakara 255 · Rahmet · رَحْمَة. Enter tuşuyla da arayabilirsiniz.</p>
  </section>
 </div>
-<div id="selection-actions" hidden role="toolbar" aria-label="Seçili metin işlemleri"><button type="button" id="selection-copy">Kopyala</button><button type="button" id="selection-search">Seçileni ara</button><button type="button" id="selection-close">Kapat</button></div>
+<div id="selection-actions" hidden role="toolbar" aria-label="Seçili metin işlemleri"><button type="button" id="selection-copy">Kopyala</button><button type="button" id="selection-search">Seçileni ara</button><button type="button" id="selection-demo">Dizine aktar</button><button type="button" id="selection-close">Kapat</button></div>
 <div id="arabic-keyboard" class="ar-keyboard" hidden role="group" aria-label="Arapça sanal klavye"><div class="ar-k-head"><strong>Arapça arama · Sanal klavye</strong><button type="button" id="arabic-k-close">✕ Kapat</button></div><fieldset class="ar-options"><legend>Gelişmiş Arapça arama</legend><label><input id="ar-whole" type="checkbox"> Sadece tam kelimeleri bul</label><label><input id="ar-noharaka" type="checkbox" checked> Harekeleri göz ardı et</label><label title="Başta harf-i cer / bağlaç ve sonda zamir ekleri için sınırlı biçimsel eşleştirme yapılır."><input id="ar-affixes" type="checkbox"> Harf-i cer ve zamirleri göz ardı et</label><strong>Birden çok kelime</strong><div class="ar-modes"><label><input type="radio" name="ar-mode" value="phrase"> Aynen yazıldığı gibi (sıralı)</label><label><input type="radio" name="ar-mode" value="all" checked> Tüm kelimeler aynı âyette</label><label><input type="radio" name="ar-mode" value="any"> Kelimelerden herhangi biri</label></div><strong>Arama alanı</strong><div class="ar-modes"><label><input type="radio" name="ar-scope" value="all" checked> Tüm Kur’an'da</label><label><input type="radio" name="ar-scope" value="range"> Seçili sûrelerde</label></div><div class="ar-range"><label>Başlangıç <select id="ar-from"></select></label><label>Bitiş <select id="ar-to"></select></label></div></fieldset><div id="arabic-keys" class="ar-k-keys"></div><div class="ar-k-actions"><button type="button" data-ar-action="space">Boşluk</button><button type="button" data-ar-action="back">⌫ Sil</button><button type="button" data-ar-action="clear">Temizle</button><button type="button" data-ar-action="search">Ara</button><button type="button" data-ar-action="vowels">Harekeler açık/kapat</button></div></div>
 <div class="wrap">
 <div id="mobilgeri">‹ Sûreler</div>
@@ -409,7 +409,7 @@ const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/r
 const BENZESEN_URL = '/data/benzesen-matris.json?v=20261024';
 const MLOG_URL = 'https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/data/mutesabih-degisiklikler.json';
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '2.8.18';
+const SITE_SURUM = '2.8.19';
 try{if(localStorage.getItem('ayat-tema')==='dark')document.documentElement.dataset.theme='dark';}catch(e){}
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
@@ -554,7 +554,7 @@ async function boot(){
     addEventListener('offline',()=>{ if(DB) setStatus('offline','🟡 çevrimdışı','bağlantı kesildi · kayıtlı veriyle çalışıyorsunuz'); });
   addEventListener('online', ()=>{ if(DB) setStatus('online','🟢','bağlantı geri geldi'); });
   if('serviceWorker' in navigator && location.protocol==='https:'){
-    navigator.serviceWorker.register('/sw.js?v=2.8.18', {updateViaCache:'none'}).catch(()=>{});
+    navigator.serviceWorker.register('/sw.js?v=2.8.19', {updateViaCache:'none'}).catch(()=>{});
   }
   kurBarKur();
   // sure sayfalarindan gelen baglantilar:  ?ayet=2.255  ya da  ?sure=2
@@ -1195,6 +1195,7 @@ function setMealEsma(mm){ mealMode=mm; if(curEsma)showEsma(curEsma); }
  document.addEventListener('mouseup',()=>setTimeout(refresh,0));document.addEventListener('touchend',()=>setTimeout(refresh,200));
  document.getElementById('selection-copy').addEventListener('click',async()=>{if(!selected)return;try{await navigator.clipboard.writeText(selected);paylasBildirim('Seçili metin kopyalandı');}catch(e){window.prompt('Seçili metni kopyalayın:',selected);}bar.hidden=true;});
  document.getElementById('selection-search').addEventListener('click',()=>{if(!selected)return;const t=selected;bar.hidden=true;const input=document.getElementById('search');input.value=t;clearTimeout(stimer);runSearch(t);});
+ document.getElementById('selection-demo').addEventListener('click',()=>{if(!selected)return;const q=selected.trim();if(!q)return;bar.hidden=true;const url='/kelime-kavram-deneme.html?q='+encodeURIComponent(q);window.open(url,'_blank','noopener');});
  document.getElementById('selection-close').addEventListener('click',()=>{bar.hidden=true;});
 })();
 

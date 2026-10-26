@@ -1,9 +1,6 @@
 name: DOCX V1.1 – R23 source comparison (read-only)
 
 on:
-  push:
-    branches:
-      - feat/docx-benzesme-veri-v1
   pull_request:
     branches: [main]
     paths:

@@ -1,0 +1,2495 @@
+{
+  "schema": "ayatulkuran.problematic-75.docx-rebuilt.v2",
+  "date": "2026-10-26",
+  "source_archive": "Ma 1-10.zip",
+  "source_archive_sha256": "78c4f365bd60157519b72bc5302d6d5adb90508577af7394d4167035f2a7f0db",
+  "scope": "75 main verses differing between historical V1.1 and accepted R23; 2-4 main suras excluded",
+  "rule": "OOXML paragraph run-level FF0000 main heading including variable/missing sura number; until next red section, parse matching verse headings; preserve order, remove self and duplicate; count check is not edge-by-edge proof",
+  "main_count": 75,
+  "r23_expected_edges": 3419,
+  "reconstructed_edges": 3423,
+  "count_matched": 71,
+  "rebuild_issues": [
+    {
+      "main": "26:150",
+      "problem": "COUNT_MISMATCH_R23",
+      "count": 18,
+      "r23_count": 17,
+      "source_red_head_count": 1,
+      "invalid": []
+    },
+    {
+      "main": "26:179",
+      "problem": "COUNT_MISMATCH_R23",
+      "count": 20,
+      "r23_count": 19,
+      "source_red_head_count": 1,
+      "invalid": []
+    },
+    {
+      "main": "26:180",
+      "problem": "COUNT_MISMATCH_R23",
+      "count": 5,
+      "r23_count": 4,
+      "source_red_head_count": 1,
+      "invalid": []
+    },
+    {
+      "main": "37:179",
+      "problem": "COUNT_MISMATCH_R23",
+      "count": 34,
+      "r23_count": 33,
+      "source_red_head_count": 1,
+      "invalid": []
+    }
+  ],
+  "name_resolver_ambiguities": [],
+  "files": {
+    "6": {
+      "source_zip_entry": "Ma 1-10/6 ENAM SURESİ 55.docx",
+      "sha256": "049561492c0f0f829db172b720b8e534d1e39c1c915df364d1e94d96144ddc2b",
+      "red_main_count": 165,
+      "paragraphs": 8164
+    },
+    "7": {
+      "source_zip_entry": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "red_main_count": 206,
+      "paragraphs": 9080
+    },
+    "8": {
+      "source_zip_entry": "Ma 1-10/8 ENFAL SURESİ 88X.docx",
+      "sha256": "fcbfa901da52228a1f3659cc63229c112b405745061a3f9e08383b45ab0417e4",
+      "red_main_count": 75,
+      "paragraphs": 2494
+    },
+    "9": {
+      "source_zip_entry": "Ma 1-10/9 TEVBE 113X.docx",
+      "sha256": "455248c6ae8720bacda3c0bb7b30335a1eb8b797dbb7da75644b0e744f1c18d4",
+      "red_main_count": 129,
+      "paragraphs": 4582
+    },
+    "11": {
+      "source_zip_entry": "Ma 11-20/11 HUD SURESİ 52.docx",
+      "sha256": "4bd75ddd0578dd4229abe3c867ba9e25f31ee8dc647dd303160d27a353de4a6b",
+      "red_main_count": 123,
+      "paragraphs": 3724
+    },
+    "14": {
+      "source_zip_entry": "Ma 11-20/14 İBRAHİM SURESİ 72.docx",
+      "sha256": "d95a6b634652c64a95c157c6c208f524f85c92ce072862447ff5cfcb6f67cc01",
+      "red_main_count": 52,
+      "paragraphs": 1856
+    },
+    "15": {
+      "source_zip_entry": "Ma 11-20/15 HİCR SURESİ 54.docx",
+      "sha256": "a41cd0cb42639f150427296050f715f18fc7ba4bd2f7f8c6a9a78f46a3eacc92",
+      "red_main_count": 99,
+      "paragraphs": 1667
+    },
+    "17": {
+      "source_zip_entry": "Ma 11-20/17 İSRA SURESİ 50.docx",
+      "sha256": "c14ba745067484f6530def461dfeddb2017bb7dfed6209fc6a47b8e1362c8a26",
+      "red_main_count": 111,
+      "paragraphs": 3377
+    },
+    "21": {
+      "source_zip_entry": "Ma 21-30/21 ENBİYA SURESİ 73.docx",
+      "sha256": "02d7289eee52a4ff6191e9f2379d2ebb9d7cc7570d730696ab2ce77ab9ba38eb",
+      "red_main_count": 112,
+      "paragraphs": 2516
+    },
+    "22": {
+      "source_zip_entry": "Ma 21-30/22 HAC SURESİ 103X.docx",
+      "sha256": "0f9e96c5be4b4c2651ffb42eef930e51dd1cd438568102f302185c71a9bedc5d",
+      "red_main_count": 78,
+      "paragraphs": 2659
+    },
+    "25": {
+      "source_zip_entry": "Ma 21-30/25 FURKAN SURESİ 42.docx",
+      "sha256": "f8a5ae19551bf783c1746f06a797f855d6aeaee69690bdf1ae5323a79175185e",
+      "red_main_count": 77,
+      "paragraphs": 2563
+    },
+    "26": {
+      "source_zip_entry": "Ma 21-30/26.ŞUARA SURESİ 47.docx",
+      "sha256": "f47e000622bc61839b106a20c5cea376ba09b3bb947dff996e5b080ae6212644",
+      "red_main_count": 230,
+      "paragraphs": 2940
+    },
+    "27": {
+      "source_zip_entry": "Ma 21-30/27 NEML SURESİ 48.docx",
+      "sha256": "8399d374ac7e8165798aae6d6b69de38f3ee78b00d406198bebc22389c41a3aa",
+      "red_main_count": 93,
+      "paragraphs": 1798
+    },
+    "33": {
+      "source_zip_entry": "Ma 31-40/33 AHZAB SURESİ 90X.docx",
+      "sha256": "a427cc48ace3b6566a89e4b1fbcd7cbd50b5e8573b9d1ef7cde71f224d8756b6",
+      "red_main_count": 73,
+      "paragraphs": 1568
+    },
+    "36": {
+      "source_zip_entry": "Ma 31-40/36 YASİN SURESİ 41.docx",
+      "sha256": "ed3e1b53b25421a9ac5bd8b6e1e21696947271bd64fa4664faa5b9c621c94f24",
+      "red_main_count": 83,
+      "paragraphs": 2464
+    },
+    "37": {
+      "source_zip_entry": "Ma 31-40/37 SAFFAT SURESİ 56.docx",
+      "sha256": "287b3382640d0bfe518ea748928e11201b459481cf682f17cd1275aa14e062d2",
+      "red_main_count": 183,
+      "paragraphs": 2077
+    },
+    "38": {
+      "source_zip_entry": "Ma 31-40/38 SAD SURESİ 38.docx",
+      "sha256": "49759150bd138aea129200c96604926433b4b56a30eb84b2ef5d003ac810ad59",
+      "red_main_count": 88,
+      "paragraphs": 2266
+    },
+    "40": {
+      "source_zip_entry": "Ma 31-40/40 MUMİN SURESİ 60.docx",
+      "sha256": "3a5511f1cf46d9823784d8737f8a9586b07c213034d8658d190939ed60bb5098",
+      "red_main_count": 87,
+      "paragraphs": 2549
+    },
+    "41": {
+      "source_zip_entry": "Ma 41-50/41 FUSSİLET SURESİ 61.docx",
+      "sha256": "4d738b7eccb665c8457cde3cc20d5980f2d7e3bc46b9ec9194954f7b88ddd60a",
+      "red_main_count": 54,
+      "paragraphs": 1540
+    },
+    "43": {
+      "source_zip_entry": "Ma 41-50/43 ZUHRUF SURESİ 63.docx",
+      "sha256": "7bab919d465d5a48a5a6c37c425380b246821fec2d147cb97bfc5823b0b5ed40",
+      "red_main_count": 89,
+      "paragraphs": 1885
+    },
+    "48": {
+      "source_zip_entry": "Ma 41-50/48 FETİH SURESİ 111X.docx",
+      "sha256": "6c11264153cdf7d828d0316a85cdee9c4d13a49c09832da67b8555fa668d0e4d",
+      "red_main_count": 29,
+      "paragraphs": 718
+    },
+    "50": {
+      "source_zip_entry": "Ma 41-50/50 KAF SURESİ 34.docx",
+      "sha256": "90c2810d8e4cdc950a4a04ba64652b5cc150b4866536ccd1420f0d841702d088",
+      "red_main_count": 45,
+      "paragraphs": 1697
+    },
+    "53": {
+      "source_zip_entry": "Ma 51-60/53 NECM SURESİ 23.docx",
+      "sha256": "8fc55f2502bc11976e759393445c0693aaa988040d16596fb3b425a3f34c1aaa",
+      "red_main_count": 62,
+      "paragraphs": 1411
+    },
+    "56": {
+      "source_zip_entry": "Ma 51-60/56 VAKIA SURESİ 46.docx",
+      "sha256": "6924924b89337781452cdc0c878b2a814da36c505a5896cea271ada452eba4fb",
+      "red_main_count": 96,
+      "paragraphs": 1650
+    },
+    "57": {
+      "source_zip_entry": "Ma 51-60/57 HADİD SURESİ 94X.docx",
+      "sha256": "84c914865d117d70cd7809ac5c2c76647f49fe8b28a00100fea7414c18dd7594",
+      "red_main_count": 29,
+      "paragraphs": 996
+    },
+    "58": {
+      "source_zip_entry": "Ma 51-60/58 MUCADELE 105X.docx",
+      "sha256": "6a05aa6a37236de0f05299919fc2c692d5d510eb2a107bc8771261facb7bd532",
+      "red_main_count": 22,
+      "paragraphs": 523
+    },
+    "74": {
+      "source_zip_entry": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "sha256": "194199912b5ace5456cb1f8a856470029541af11c38e533da3baf19d0a797e9f",
+      "red_main_count": 56,
+      "paragraphs": 824
+    },
+    "76": {
+      "source_zip_entry": "Ma 71-80/76 İNSAN SURESİ 98X.docx",
+      "sha256": "80de5c121e7d4959ff9442e2f271e54155da1ff1a0e060a8a79d5e8b2ccdf62d",
+      "red_main_count": 31,
+      "paragraphs": 577
+    },
+    "86": {
+      "source_zip_entry": "Ma 81-90/86 TARIK SURESİ 36.docx",
+      "sha256": "11af4a498701618182b90a16923a17d08d3f4e29e2d934d0903c1abfcf7d75ca",
+      "red_main_count": 17,
+      "paragraphs": 514
+    },
+    "90": {
+      "source_zip_entry": "Ma 81-90/90 BELED SURESİ 35.docx",
+      "sha256": "de7932ca4b3b80e236578eb23c614b359ff530e268d45b97bfc1b342f2e7e9a3",
+      "red_main_count": 20,
+      "paragraphs": 392
+    }
+  },
+  "records": {
+    "6:128": {
+      "main": "6:128",
+      "docx_sura": 6,
+      "source_file": "Ma 1-10/6 ENAM SURESİ 55.docx",
+      "source_sha256": "049561492c0f0f829db172b720b8e534d1e39c1c915df364d1e94d96144ddc2b",
+      "source_heading": {
+        "paragraph": 6283,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   6 - Enam Suresi - Ayet 128"
+      },
+      "next_heading": {
+        "paragraph": 6383,
+        "ayet": 129
+      },
+      "raw_reference_headers": 113,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "16:29",
+          "paragraph": 6339
+        }
+      ],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 112,
+      "r23_expected_count": 112,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "6:141": {
+      "main": "6:141",
+      "docx_sura": 6,
+      "source_file": "Ma 1-10/6 ENAM SURESİ 55.docx",
+      "source_sha256": "049561492c0f0f829db172b720b8e534d1e39c1c915df364d1e94d96144ddc2b",
+      "source_heading": {
+        "paragraph": 6834,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   6 - Enam Suresi - Ayet 141"
+      },
+      "next_heading": {
+        "paragraph": 6893,
+        "ayet": 142
+      },
+      "raw_reference_headers": 106,
+      "self_removed": [
+        {
+          "ref": "6:141",
+          "paragraph": 6846
+        }
+      ],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "6:99",
+          "paragraph": 6846,
+          "source_name": "Enam"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 105,
+      "r23_expected_count": 105,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:27": {
+      "main": "7:27",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 950,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 27"
+      },
+      "next_heading": {
+        "paragraph": 1028,
+        "ayet": 28
+      },
+      "raw_reference_headers": 101,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "41:25",
+          "paragraph": 1013,
+          "source_name": "Fussilet"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 101,
+      "r23_expected_count": 101,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:34": {
+      "main": "7:34",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 1567,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 34"
+      },
+      "next_heading": {
+        "paragraph": 1779,
+        "ayet": 35
+      },
+      "raw_reference_headers": 203,
+      "self_removed": [
+        {
+          "ref": "7:34",
+          "paragraph": 1572
+        },
+        {
+          "ref": "7:34",
+          "paragraph": 1617
+        }
+      ],
+      "duplicate_removed": [
+        {
+          "ref": "6:31",
+          "paragraph": 1570
+        },
+        {
+          "ref": "6:40",
+          "paragraph": 1570
+        },
+        {
+          "ref": "35:11",
+          "paragraph": 1593
+        },
+        {
+          "ref": "29:53",
+          "paragraph": 1602
+        },
+        {
+          "ref": "10:49",
+          "paragraph": 1632
+        },
+        {
+          "ref": "14:10",
+          "paragraph": 1639
+        },
+        {
+          "ref": "15:5",
+          "paragraph": 1644
+        },
+        {
+          "ref": "16:61",
+          "paragraph": 1645
+        },
+        {
+          "ref": "23:43",
+          "paragraph": 1646
+        },
+        {
+          "ref": "42:14",
+          "paragraph": 1648
+        },
+        {
+          "ref": "71:4",
+          "paragraph": 1652
+        },
+        {
+          "ref": "10:11",
+          "paragraph": 1666
+        },
+        {
+          "ref": "29:5",
+          "paragraph": 1669
+        },
+        {
+          "ref": "35:11",
+          "paragraph": 1670
+        },
+        {
+          "ref": "35:45",
+          "paragraph": 1673
+        },
+        {
+          "ref": "39:42",
+          "paragraph": 1674
+        },
+        {
+          "ref": "63:11",
+          "paragraph": 1678
+        },
+        {
+          "ref": "10:98",
+          "paragraph": 1685
+        },
+        {
+          "ref": "11:3",
+          "paragraph": 1688
+        },
+        {
+          "ref": "14:10",
+          "paragraph": 1690
+        },
+        {
+          "ref": "37:139",
+          "paragraph": 1697
+        },
+        {
+          "ref": "37:140",
+          "paragraph": 1699
+        },
+        {
+          "ref": "37:141",
+          "paragraph": 1700
+        },
+        {
+          "ref": "37:142",
+          "paragraph": 1701
+        },
+        {
+          "ref": "37:143",
+          "paragraph": 1703
+        },
+        {
+          "ref": "37:144",
+          "paragraph": 1705
+        },
+        {
+          "ref": "37:145",
+          "paragraph": 1707
+        },
+        {
+          "ref": "37:146",
+          "paragraph": 1708
+        },
+        {
+          "ref": "37:147",
+          "paragraph": 1709
+        },
+        {
+          "ref": "37:148",
+          "paragraph": 1713
+        },
+        {
+          "ref": "71:1",
+          "paragraph": 1716
+        },
+        {
+          "ref": "71:2",
+          "paragraph": 1718
+        },
+        {
+          "ref": "71:3",
+          "paragraph": 1719
+        },
+        {
+          "ref": "71:4",
+          "paragraph": 1721
+        },
+        {
+          "ref": "57:22",
+          "paragraph": 1767
+        },
+        {
+          "ref": "57:23",
+          "paragraph": 1768
+        }
+      ],
+      "inferred_sura": [
+        {
+          "ref": "13:39",
+          "paragraph": 1592,
+          "source_name": "Rad"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 165,
+      "r23_expected_count": 165,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:43": {
+      "main": "7:43",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 2290,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 43"
+      },
+      "next_heading": {
+        "paragraph": 2381,
+        "ayet": 44
+      },
+      "raw_reference_headers": 115,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "10:9",
+          "paragraph": 2379,
+          "source_name": "Yunus"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 115,
+      "r23_expected_count": 115,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:65": {
+      "main": "7:65",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 3394,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 65"
+      },
+      "next_heading": {
+        "paragraph": 3440,
+        "ayet": 66
+      },
+      "raw_reference_headers": 66,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 66,
+      "r23_expected_count": 66,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:78": {
+      "main": "7:78",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 3886,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 78"
+      },
+      "next_heading": {
+        "paragraph": 3929,
+        "ayet": 79
+      },
+      "raw_reference_headers": 33,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "11:67",
+          "paragraph": 3896
+        },
+        {
+          "ref": "11:68",
+          "paragraph": 3898
+        }
+      ],
+      "inferred_sura": [
+        {
+          "ref": "26:158",
+          "paragraph": 3907,
+          "source_name": "Şuara"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 31,
+      "r23_expected_count": 31,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:92": {
+      "main": "7:92",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 4378,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 92"
+      },
+      "next_heading": {
+        "paragraph": 4411,
+        "ayet": 93
+      },
+      "raw_reference_headers": 108,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 108,
+      "r23_expected_count": 108,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:101": {
+      "main": "7:101",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 4702,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 101"
+      },
+      "next_heading": {
+        "paragraph": 4765,
+        "ayet": 102
+      },
+      "raw_reference_headers": 99,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "11:101",
+          "paragraph": 4739,
+          "source_name": "Hud"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 99,
+      "r23_expected_count": 99,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:102": {
+      "main": "7:102",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 4765,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 102"
+      },
+      "next_heading": {
+        "paragraph": 4793,
+        "ayet": 103
+      },
+      "raw_reference_headers": 70,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "70:32",
+          "paragraph": 4792,
+          "source_name": "Mearic"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 70,
+      "r23_expected_count": 70,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:133": {
+      "main": "7:133",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 5384,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 133"
+      },
+      "next_heading": {
+        "paragraph": 5416,
+        "ayet": 134
+      },
+      "raw_reference_headers": 58,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "44:37",
+          "paragraph": 5411,
+          "source_name": "Duhan"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 58,
+      "r23_expected_count": 58,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:135": {
+      "main": "7:135",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 5443,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 135"
+      },
+      "next_heading": {
+        "paragraph": 5468,
+        "ayet": 136
+      },
+      "raw_reference_headers": 62,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "74:5",
+          "paragraph": 5466,
+          "source_name": "Muddessir"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 62,
+      "r23_expected_count": 62,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:136": {
+      "main": "7:136",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 5468,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 136"
+      },
+      "next_heading": {
+        "paragraph": 5525,
+        "ayet": 137
+      },
+      "raw_reference_headers": 109,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "27:93",
+          "paragraph": 5513
+        }
+      ],
+      "inferred_sura": [
+        {
+          "ref": "51:40",
+          "paragraph": 5524,
+          "source_name": "Zariyat"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 108,
+      "r23_expected_count": 108,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:138": {
+      "main": "7:138",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 5599,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 138"
+      },
+      "next_heading": {
+        "paragraph": 5649,
+        "ayet": 139
+      },
+      "raw_reference_headers": 45,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 45,
+      "r23_expected_count": 45,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:139": {
+      "main": "7:139",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 5649,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "--   7 - Araf Suresi - Ayet 139"
+      },
+      "next_heading": {
+        "paragraph": 5661,
+        "ayet": 140
+      },
+      "raw_reference_headers": 26,
+      "self_removed": [
+        {
+          "ref": "7:139",
+          "paragraph": 5652
+        }
+      ],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 25,
+      "r23_expected_count": 25,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:159": {
+      "main": "7:159",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 6608,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 159"
+      },
+      "next_heading": {
+        "paragraph": 6652,
+        "ayet": 160
+      },
+      "raw_reference_headers": 58,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "3:114",
+          "paragraph": 6623,
+          "source_name": "Ali_İmran"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 58,
+      "r23_expected_count": 58,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:172": {
+      "main": "7:172",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 7136,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 172"
+      },
+      "next_heading": {
+        "paragraph": 7200,
+        "ayet": 173
+      },
+      "raw_reference_headers": 91,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 91,
+      "r23_expected_count": 91,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:187": {
+      "main": "7:187",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 8177,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 187"
+      },
+      "next_heading": {
+        "paragraph": 8295,
+        "ayet": 188
+      },
+      "raw_reference_headers": 111,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "20:15",
+          "paragraph": 8208
+        }
+      ],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 110,
+      "r23_expected_count": 110,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:197": {
+      "main": "7:197",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 8663,
+        "character_offset": 488,
+        "color": "FF0000",
+        "text": "-----   7 - Araf Suresi - Ayet 197"
+      },
+      "next_heading": {
+        "paragraph": 8694,
+        "ayet": 198
+      },
+      "raw_reference_headers": 27,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 27,
+      "r23_expected_count": 27,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "7:198": {
+      "main": "7:198",
+      "docx_sura": 7,
+      "source_file": "Ma 1-10/7 ARAF SURESİ 39.docx",
+      "source_sha256": "ff87e56a5acf939477aa3256943b2cf285c5ff7655735938a1dfb6baceb78b59",
+      "source_heading": {
+        "paragraph": 8694,
+        "character_offset": 2,
+        "color": "FF0000",
+        "text": "- Araf Suresi - Ayet 198"
+      },
+      "next_heading": {
+        "paragraph": 8717,
+        "ayet": 199
+      },
+      "raw_reference_headers": 59,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "48:28",
+          "paragraph": 8714
+        }
+      ],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 58,
+      "r23_expected_count": 58,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "8:32": {
+      "main": "8:32",
+      "docx_sura": 8,
+      "source_file": "Ma 1-10/8 ENFAL SURESİ 88X.docx",
+      "source_sha256": "fcbfa901da52228a1f3659cc63229c112b405745061a3f9e08383b45ab0417e4",
+      "source_heading": {
+        "paragraph": 1043,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   8 - Enfal Suresi - Ayet 32"
+      },
+      "next_heading": {
+        "paragraph": 1101,
+        "ayet": 33
+      },
+      "raw_reference_headers": 103,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "11:48",
+          "paragraph": 1065,
+          "source_name": "Hud"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 103,
+      "r23_expected_count": 103,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "9:5": {
+      "main": "9:5",
+      "docx_sura": 9,
+      "source_file": "Ma 1-10/9 TEVBE 113X.docx",
+      "source_sha256": "455248c6ae8720bacda3c0bb7b30335a1eb8b797dbb7da75644b0e744f1c18d4",
+      "source_heading": {
+        "paragraph": 105,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   9 - Tevbe Suresi - Ayet 5"
+      },
+      "next_heading": {
+        "paragraph": 177,
+        "ayet": 6
+      },
+      "raw_reference_headers": 73,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 73,
+      "r23_expected_count": 73,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "9:64": {
+      "main": "9:64",
+      "docx_sura": 9,
+      "source_file": "Ma 1-10/9 TEVBE 113X.docx",
+      "source_sha256": "455248c6ae8720bacda3c0bb7b30335a1eb8b797dbb7da75644b0e744f1c18d4",
+      "source_heading": {
+        "paragraph": 2080,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   9 - Tevbe Suresi - Ayet 64"
+      },
+      "next_heading": {
+        "paragraph": 2133,
+        "ayet": 65
+      },
+      "raw_reference_headers": 75,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 75,
+      "r23_expected_count": 75,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "9:129": {
+      "main": "9:129",
+      "docx_sura": 9,
+      "source_file": "Ma 1-10/9 TEVBE 113X.docx",
+      "source_sha256": "455248c6ae8720bacda3c0bb7b30335a1eb8b797dbb7da75644b0e744f1c18d4",
+      "source_heading": {
+        "paragraph": 4523,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   9 - Tevbe Suresi - Ayet 129"
+      },
+      "next_heading": null,
+      "raw_reference_headers": 90,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "39:38",
+          "paragraph": 4566
+        }
+      ],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 89,
+      "r23_expected_count": 89,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "11:1": {
+      "main": "11:1",
+      "docx_sura": 11,
+      "source_file": "Ma 11-20/11 HUD SURESİ 52.docx",
+      "source_sha256": "4bd75ddd0578dd4229abe3c867ba9e25f31ee8dc647dd303160d27a353de4a6b",
+      "source_heading": {
+        "paragraph": 6,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   11 – Hud Suresi - Ayet 1"
+      },
+      "next_heading": {
+        "paragraph": 52,
+        "ayet": 2
+      },
+      "raw_reference_headers": 46,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 46,
+      "r23_expected_count": 46,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "11:83": {
+      "main": "11:83",
+      "docx_sura": 11,
+      "source_file": "Ma 11-20/11 HUD SURESİ 52.docx",
+      "source_sha256": "4bd75ddd0578dd4229abe3c867ba9e25f31ee8dc647dd303160d27a353de4a6b",
+      "source_heading": {
+        "paragraph": 2634,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   11 - Hud Suresi - Ayet 83"
+      },
+      "next_heading": {
+        "paragraph": 2652,
+        "ayet": 84
+      },
+      "raw_reference_headers": 104,
+      "self_removed": [
+        {
+          "ref": "11:83",
+          "paragraph": 2637
+        }
+      ],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 103,
+      "r23_expected_count": 103,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "14:4": {
+      "main": "14:4",
+      "docx_sura": 14,
+      "source_file": "Ma 11-20/14 İBRAHİM SURESİ 72.docx",
+      "source_sha256": "d95a6b634652c64a95c157c6c208f524f85c92ce072862447ff5cfcb6f67cc01",
+      "source_heading": {
+        "paragraph": 126,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   14 - İbrahim Suresi - Ayet 4"
+      },
+      "next_heading": {
+        "paragraph": 208,
+        "ayet": 5
+      },
+      "raw_reference_headers": 99,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "16:44",
+          "paragraph": 161
+        }
+      ],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 98,
+      "r23_expected_count": 98,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "14:24": {
+      "main": "14:24",
+      "docx_sura": 14,
+      "source_file": "Ma 11-20/14 İBRAHİM SURESİ 72.docx",
+      "source_sha256": "d95a6b634652c64a95c157c6c208f524f85c92ce072862447ff5cfcb6f67cc01",
+      "source_heading": {
+        "paragraph": 1054,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   14 - İbrahim Suresi - Ayet 24"
+      },
+      "next_heading": {
+        "paragraph": 1067,
+        "ayet": 25
+      },
+      "raw_reference_headers": 13,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 13,
+      "r23_expected_count": 13,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "14:25": {
+      "main": "14:25",
+      "docx_sura": 14,
+      "source_file": "Ma 11-20/14 İBRAHİM SURESİ 72.docx",
+      "source_sha256": "d95a6b634652c64a95c157c6c208f524f85c92ce072862447ff5cfcb6f67cc01",
+      "source_heading": {
+        "paragraph": 1067,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "--   14 - İbrahim Suresi - Ayet 25"
+      },
+      "next_heading": {
+        "paragraph": 1075,
+        "ayet": 26
+      },
+      "raw_reference_headers": 11,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 11,
+      "r23_expected_count": 11,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "15:27": {
+      "main": "15:27",
+      "docx_sura": 15,
+      "source_file": "Ma 11-20/15 HİCR SURESİ 54.docx",
+      "source_sha256": "a41cd0cb42639f150427296050f715f18fc7ba4bd2f7f8c6a9a78f46a3eacc92",
+      "source_heading": {
+        "paragraph": 663,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   15 - Hicr Suresi - Ayet 27"
+      },
+      "next_heading": {
+        "paragraph": 672,
+        "ayet": 28
+      },
+      "raw_reference_headers": 10,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 10,
+      "r23_expected_count": 10,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "15:28": {
+      "main": "15:28",
+      "docx_sura": 15,
+      "source_file": "Ma 11-20/15 HİCR SURESİ 54.docx",
+      "source_sha256": "a41cd0cb42639f150427296050f715f18fc7ba4bd2f7f8c6a9a78f46a3eacc92",
+      "source_heading": {
+        "paragraph": 672,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "- Hicr Suresi - Ayet 28"
+      },
+      "next_heading": {
+        "paragraph": 686,
+        "ayet": 29
+      },
+      "raw_reference_headers": 22,
+      "self_removed": [
+        {
+          "ref": "15:28",
+          "paragraph": 677
+        }
+      ],
+      "duplicate_removed": [
+        {
+          "ref": "38:71",
+          "paragraph": 681
+        }
+      ],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 20,
+      "r23_expected_count": 20,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "17:57": {
+      "main": "17:57",
+      "docx_sura": 17,
+      "source_file": "Ma 11-20/17 İSRA SURESİ 50.docx",
+      "source_sha256": "c14ba745067484f6530def461dfeddb2017bb7dfed6209fc6a47b8e1362c8a26",
+      "source_heading": {
+        "paragraph": 1711,
+        "character_offset": 368,
+        "color": "FF0000",
+        "text": "-----   17 - İsra Suresi - Ayet 57"
+      },
+      "next_heading": {
+        "paragraph": 1736,
+        "ayet": 58
+      },
+      "raw_reference_headers": 31,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 31,
+      "r23_expected_count": 31,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "21:3": {
+      "main": "21:3",
+      "docx_sura": 21,
+      "source_file": "Ma 21-30/21 ENBİYA SURESİ 73.docx",
+      "source_sha256": "02d7289eee52a4ff6191e9f2379d2ebb9d7cc7570d730696ab2ce77ab9ba38eb",
+      "source_heading": {
+        "paragraph": 54,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   21 - Enbiya Suresi - Ayet 3"
+      },
+      "next_heading": {
+        "paragraph": 114,
+        "ayet": 4
+      },
+      "raw_reference_headers": 79,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "17:47",
+          "paragraph": 69
+        }
+      ],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 78,
+      "r23_expected_count": 78,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "21:8": {
+      "main": "21:8",
+      "docx_sura": 21,
+      "source_file": "Ma 21-30/21 ENBİYA SURESİ 73.docx",
+      "source_sha256": "02d7289eee52a4ff6191e9f2379d2ebb9d7cc7570d730696ab2ce77ab9ba38eb",
+      "source_heading": {
+        "paragraph": 224,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   21 - Enbiya Suresi - Ayet 8"
+      },
+      "next_heading": {
+        "paragraph": 258,
+        "ayet": 9
+      },
+      "raw_reference_headers": 27,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "25:7",
+          "paragraph": 248
+        },
+        {
+          "ref": "25:8",
+          "paragraph": 249
+        },
+        {
+          "ref": "25:20",
+          "paragraph": 251
+        }
+      ],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 24,
+      "r23_expected_count": 24,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "21:18": {
+      "main": "21:18",
+      "docx_sura": 21,
+      "source_file": "Ma 21-30/21 ENBİYA SURESİ 73.docx",
+      "source_sha256": "02d7289eee52a4ff6191e9f2379d2ebb9d7cc7570d730696ab2ce77ab9ba38eb",
+      "source_heading": {
+        "paragraph": 419,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   21 - Enbiya Suresi - Ayet 18"
+      },
+      "next_heading": {
+        "paragraph": 437,
+        "ayet": 19
+      },
+      "raw_reference_headers": 42,
+      "self_removed": [
+        {
+          "ref": "21:18",
+          "paragraph": 427
+        }
+      ],
+      "duplicate_removed": [
+        {
+          "ref": "11:72",
+          "paragraph": 424
+        }
+      ],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 40,
+      "r23_expected_count": 40,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "21:85": {
+      "main": "21:85",
+      "docx_sura": 21,
+      "source_file": "Ma 21-30/21 ENBİYA SURESİ 73.docx",
+      "source_sha256": "02d7289eee52a4ff6191e9f2379d2ebb9d7cc7570d730696ab2ce77ab9ba38eb",
+      "source_heading": {
+        "paragraph": 1901,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   21 - Enbiya Suresi - Ayet 85"
+      },
+      "next_heading": {
+        "paragraph": 1913,
+        "ayet": 86
+      },
+      "raw_reference_headers": 37,
+      "self_removed": [
+        {
+          "ref": "21:85",
+          "paragraph": 1907
+        }
+      ],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "14:39",
+          "paragraph": 1904,
+          "source_name": "İbrahim"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 36,
+      "r23_expected_count": 36,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "22:17": {
+      "main": "22:17",
+      "docx_sura": 22,
+      "source_file": "Ma 21-30/22 HAC SURESİ 103X.docx",
+      "source_sha256": "0f9e96c5be4b4c2651ffb42eef930e51dd1cd438568102f302185c71a9bedc5d",
+      "source_heading": {
+        "paragraph": 695,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   22 - Hac Suresi - Ayet 17"
+      },
+      "next_heading": {
+        "paragraph": 752,
+        "ayet": 18
+      },
+      "raw_reference_headers": 55,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "2:62",
+          "paragraph": 697,
+          "source_name": "Bakara"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 55,
+      "r23_expected_count": 55,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "25:64": {
+      "main": "25:64",
+      "docx_sura": 25,
+      "source_file": "Ma 21-30/25 FURKAN SURESİ 42.docx",
+      "source_sha256": "f8a5ae19551bf783c1746f06a797f855d6aeaee69690bdf1ae5323a79175185e",
+      "source_heading": {
+        "paragraph": 2096,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   25 - Furkan Suresi - Ayet 64"
+      },
+      "next_heading": {
+        "paragraph": 2125,
+        "ayet": 65
+      },
+      "raw_reference_headers": 25,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "51:18",
+          "paragraph": 2114,
+          "source_name": "Zariyat"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 25,
+      "r23_expected_count": 25,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "25:77": {
+      "main": "25:77",
+      "docx_sura": 25,
+      "source_file": "Ma 21-30/25 FURKAN SURESİ 42.docx",
+      "source_sha256": "f8a5ae19551bf783c1746f06a797f855d6aeaee69690bdf1ae5323a79175185e",
+      "source_heading": {
+        "paragraph": 2532,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   25 - Furkan Suresi - Ayet 77"
+      },
+      "next_heading": null,
+      "raw_reference_headers": 53,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "7:29",
+          "paragraph": 2542
+        },
+        {
+          "ref": "40:60",
+          "paragraph": 2560
+        }
+      ],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 51,
+      "r23_expected_count": 51,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "26:34": {
+      "main": "26:34",
+      "docx_sura": 26,
+      "source_file": "Ma 21-30/26.ŞUARA SURESİ 47.docx",
+      "source_sha256": "f47e000622bc61839b106a20c5cea376ba09b3bb947dff996e5b080ae6212644",
+      "source_heading": {
+        "paragraph": 418,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   26 - Şuara Suresi - Ayet 34"
+      },
+      "next_heading": {
+        "paragraph": 429,
+        "ayet": 35
+      },
+      "raw_reference_headers": 9,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 9,
+      "r23_expected_count": 9,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "26:150": {
+      "main": "26:150",
+      "docx_sura": 26,
+      "source_file": "Ma 21-30/26.ŞUARA SURESİ 47.docx",
+      "source_sha256": "f47e000622bc61839b106a20c5cea376ba09b3bb947dff996e5b080ae6212644",
+      "source_heading": {
+        "paragraph": 1884,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   26 - Şuara Suresi - Ayet 150"
+      },
+      "next_heading": {
+        "paragraph": 1907,
+        "ayet": 151
+      },
+      "raw_reference_headers": 18,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 18,
+      "r23_expected_count": 17,
+      "status": "REVIEW_COUNT_MISMATCH_R23"
+    },
+    "26:179": {
+      "main": "26:179",
+      "docx_sura": 26,
+      "source_file": "Ma 21-30/26.ŞUARA SURESİ 47.docx",
+      "source_sha256": "f47e000622bc61839b106a20c5cea376ba09b3bb947dff996e5b080ae6212644",
+      "source_heading": {
+        "paragraph": 2161,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   26 - Şuara Suresi - Ayet 179"
+      },
+      "next_heading": {
+        "paragraph": 2168,
+        "ayet": 180
+      },
+      "raw_reference_headers": 20,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 20,
+      "r23_expected_count": 19,
+      "status": "REVIEW_COUNT_MISMATCH_R23"
+    },
+    "26:180": {
+      "main": "26:180",
+      "docx_sura": 26,
+      "source_file": "Ma 21-30/26.ŞUARA SURESİ 47.docx",
+      "source_sha256": "f47e000622bc61839b106a20c5cea376ba09b3bb947dff996e5b080ae6212644",
+      "source_heading": {
+        "paragraph": 2168,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   26 - Şuara Suresi - Ayet 180"
+      },
+      "next_heading": {
+        "paragraph": 2170,
+        "ayet": 181
+      },
+      "raw_reference_headers": 5,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 5,
+      "r23_expected_count": 4,
+      "status": "REVIEW_COUNT_MISMATCH_R23"
+    },
+    "27:12": {
+      "main": "27:12",
+      "docx_sura": 27,
+      "source_file": "Ma 21-30/27 NEML SURESİ 48.docx",
+      "source_sha256": "8399d374ac7e8165798aae6d6b69de38f3ee78b00d406198bebc22389c41a3aa",
+      "source_heading": {
+        "paragraph": 246,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   27 - Neml Suresi - Ayet 12"
+      },
+      "next_heading": {
+        "paragraph": 273,
+        "ayet": 13
+      },
+      "raw_reference_headers": 24,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 24,
+      "r23_expected_count": 24,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "33:50": {
+      "main": "33:50",
+      "docx_sura": 33,
+      "source_file": "Ma 31-40/33 AHZAB SURESİ 90X.docx",
+      "source_sha256": "a427cc48ace3b6566a89e4b1fbcd7cbd50b5e8573b9d1ef7cde71f224d8756b6",
+      "source_heading": {
+        "paragraph": 1059,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   33 - Ahzab Suresi - Ayet 50"
+      },
+      "next_heading": {
+        "paragraph": 1075,
+        "ayet": 51
+      },
+      "raw_reference_headers": 29,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 29,
+      "r23_expected_count": 29,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "36:13": {
+      "main": "36:13",
+      "docx_sura": 36,
+      "source_file": "Ma 31-40/36 YASİN SURESİ 41.docx",
+      "source_sha256": "ed3e1b53b25421a9ac5bd8b6e1e21696947271bd64fa4664faa5b9c621c94f24",
+      "source_heading": {
+        "paragraph": 449,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "----   36 - Yasin Suresi - Ayet 13"
+      },
+      "next_heading": {
+        "paragraph": 460,
+        "ayet": 14
+      },
+      "raw_reference_headers": 14,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "2:26",
+          "paragraph": 451,
+          "source_name": "Bakara"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 14,
+      "r23_expected_count": 14,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "36:21": {
+      "main": "36:21",
+      "docx_sura": 36,
+      "source_file": "Ma 31-40/36 YASİN SURESİ 41.docx",
+      "source_sha256": "ed3e1b53b25421a9ac5bd8b6e1e21696947271bd64fa4664faa5b9c621c94f24",
+      "source_heading": {
+        "paragraph": 675,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   36 - Yasin Suresi - Ayet 21"
+      },
+      "next_heading": {
+        "paragraph": 704,
+        "ayet": 22
+      },
+      "raw_reference_headers": 14,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "68:46",
+          "paragraph": 701,
+          "source_name": "Kalem"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 14,
+      "r23_expected_count": 14,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "36:66": {
+      "main": "36:66",
+      "docx_sura": 36,
+      "source_file": "Ma 31-40/36 YASİN SURESİ 41.docx",
+      "source_sha256": "ed3e1b53b25421a9ac5bd8b6e1e21696947271bd64fa4664faa5b9c621c94f24",
+      "source_heading": {
+        "paragraph": 1957,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   36 - Yasin Suresi - Ayet 66"
+      },
+      "next_heading": {
+        "paragraph": 1973,
+        "ayet": 67
+      },
+      "raw_reference_headers": 14,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 14,
+      "r23_expected_count": 14,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "37:179": {
+      "main": "37:179",
+      "docx_sura": 37,
+      "source_file": "Ma 31-40/37 SAFFAT SURESİ 56.docx",
+      "source_sha256": "287b3382640d0bfe518ea748928e11201b459481cf682f17cd1275aa14e062d2",
+      "source_heading": {
+        "paragraph": 2007,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   37 - Saffat Suresi - Ayet 179"
+      },
+      "next_heading": {
+        "paragraph": 2025,
+        "ayet": 180
+      },
+      "raw_reference_headers": 37,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "11:121",
+          "paragraph": 2020
+        },
+        {
+          "ref": "11:122",
+          "paragraph": 2021
+        },
+        {
+          "ref": "15:3",
+          "paragraph": 2022
+        }
+      ],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 34,
+      "r23_expected_count": 33,
+      "status": "REVIEW_COUNT_MISMATCH_R23"
+    },
+    "38:11": {
+      "main": "38:11",
+      "docx_sura": 38,
+      "source_file": "Ma 31-40/38 SAD SURESİ 38.docx",
+      "source_sha256": "49759150bd138aea129200c96604926433b4b56a30eb84b2ef5d003ac810ad59",
+      "source_heading": {
+        "paragraph": 314,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   38 - Sad Suresi - Ayet 11"
+      },
+      "next_heading": {
+        "paragraph": 340,
+        "ayet": 12
+      },
+      "raw_reference_headers": 18,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "36:75",
+          "paragraph": 326,
+          "source_name": "Yasin"
+        },
+        {
+          "ref": "54:44",
+          "paragraph": 330,
+          "source_name": "Kamer"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 18,
+      "r23_expected_count": 18,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "38:13": {
+      "main": "38:13",
+      "docx_sura": 38,
+      "source_file": "Ma 31-40/38 SAD SURESİ 38.docx",
+      "source_sha256": "49759150bd138aea129200c96604926433b4b56a30eb84b2ef5d003ac810ad59",
+      "source_heading": {
+        "paragraph": 367,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   38 - Sad Suresi - Ayet 13"
+      },
+      "next_heading": {
+        "paragraph": 394,
+        "ayet": 14
+      },
+      "raw_reference_headers": 22,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 22,
+      "r23_expected_count": 22,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "38:20": {
+      "main": "38:20",
+      "docx_sura": 38,
+      "source_file": "Ma 31-40/38 SAD SURESİ 38.docx",
+      "source_sha256": "49759150bd138aea129200c96604926433b4b56a30eb84b2ef5d003ac810ad59",
+      "source_heading": {
+        "paragraph": 598,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   38 - Sad Suresi - Ayet 20"
+      },
+      "next_heading": {
+        "paragraph": 609,
+        "ayet": 21
+      },
+      "raw_reference_headers": 13,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 13,
+      "r23_expected_count": 13,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "38:24": {
+      "main": "38:24",
+      "docx_sura": 38,
+      "source_file": "Ma 31-40/38 SAD SURESİ 38.docx",
+      "source_sha256": "49759150bd138aea129200c96604926433b4b56a30eb84b2ef5d003ac810ad59",
+      "source_heading": {
+        "paragraph": 645,
+        "character_offset": 1,
+        "color": "FF0000",
+        "text": "-----   38 - Sad Suresi - Ayet 24"
+      },
+      "next_heading": {
+        "paragraph": 665,
+        "ayet": 25
+      },
+      "raw_reference_headers": 29,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "40:55",
+          "paragraph": 661
+        }
+      ],
+      "inferred_sura": [
+        {
+          "ref": "103:2",
+          "paragraph": 662,
+          "source_name": "Asr"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 28,
+      "r23_expected_count": 28,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "38:52": {
+      "main": "38:52",
+      "docx_sura": 38,
+      "source_file": "Ma 31-40/38 SAD SURESİ 38.docx",
+      "source_sha256": "49759150bd138aea129200c96604926433b4b56a30eb84b2ef5d003ac810ad59",
+      "source_heading": {
+        "paragraph": 1468,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   38 - Sad Suresi - Ayet 52"
+      },
+      "next_heading": {
+        "paragraph": 1495,
+        "ayet": 53
+      },
+      "raw_reference_headers": 14,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 14,
+      "r23_expected_count": 14,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "40:84": {
+      "main": "40:84",
+      "docx_sura": 40,
+      "source_file": "Ma 31-40/40 MUMİN SURESİ 60.docx",
+      "source_sha256": "3a5511f1cf46d9823784d8737f8a9586b07c213034d8658d190939ed60bb5098",
+      "source_heading": {
+        "paragraph": 2492,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   40 - Mumin Suresi - Ayet 84"
+      },
+      "next_heading": {
+        "paragraph": 2513,
+        "ayet": 85
+      },
+      "raw_reference_headers": 32,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "6:147",
+          "paragraph": 2496,
+          "source_name": "Enam"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 32,
+      "r23_expected_count": 32,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "40:85": {
+      "main": "40:85",
+      "docx_sura": 40,
+      "source_file": "Ma 31-40/40 MUMİN SURESİ 60.docx",
+      "source_sha256": "3a5511f1cf46d9823784d8737f8a9586b07c213034d8658d190939ed60bb5098",
+      "source_heading": {
+        "paragraph": 2513,
+        "character_offset": 2256,
+        "color": "FF0000",
+        "text": "-----   40 - Mumin Suresi - Ayet 85"
+      },
+      "next_heading": null,
+      "raw_reference_headers": 50,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "6:147",
+          "paragraph": 2518,
+          "source_name": "Enam"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 50,
+      "r23_expected_count": 50,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "41:13": {
+      "main": "41:13",
+      "docx_sura": 41,
+      "source_file": "Ma 41-50/41 FUSSİLET SURESİ 61.docx",
+      "source_sha256": "4d738b7eccb665c8457cde3cc20d5980f2d7e3bc46b9ec9194954f7b88ddd60a",
+      "source_heading": {
+        "paragraph": 390,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   41 - Fussilet Suresi - Ayet 13"
+      },
+      "next_heading": {
+        "paragraph": 406,
+        "ayet": 14
+      },
+      "raw_reference_headers": 13,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 13,
+      "r23_expected_count": 13,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "43:27": {
+      "main": "43:27",
+      "docx_sura": 43,
+      "source_file": "Ma 41-50/43 ZUHRUF SURESİ 63.docx",
+      "source_sha256": "7bab919d465d5a48a5a6c37c425380b246821fec2d147cb97bfc5823b0b5ed40",
+      "source_heading": {
+        "paragraph": 553,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   43 - Zuhruf Suresi - Ayet 27"
+      },
+      "next_heading": {
+        "paragraph": 589,
+        "ayet": 28
+      },
+      "raw_reference_headers": 32,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 32,
+      "r23_expected_count": 32,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "48:9": {
+      "main": "48:9",
+      "docx_sura": 48,
+      "source_file": "Ma 41-50/48 FETİH SURESİ 111X.docx",
+      "source_sha256": "6c11264153cdf7d828d0316a85cdee9c4d13a49c09832da67b8555fa668d0e4d",
+      "source_heading": {
+        "paragraph": 227,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   48 - Fetih Suresi - Ayet 9"
+      },
+      "next_heading": {
+        "paragraph": 250,
+        "ayet": 10
+      },
+      "raw_reference_headers": 22,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "47:7",
+          "paragraph": 248
+        }
+      ],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 21,
+      "r23_expected_count": 21,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "50:2": {
+      "main": "50:2",
+      "docx_sura": 50,
+      "source_file": "Ma 41-50/50 KAF SURESİ 34.docx",
+      "source_sha256": "90c2810d8e4cdc950a4a04ba64652b5cc150b4866536ccd1420f0d841702d088",
+      "source_heading": {
+        "paragraph": 17,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   50 - Kaf Suresi - Ayet 2"
+      },
+      "next_heading": {
+        "paragraph": 62,
+        "ayet": 3
+      },
+      "raw_reference_headers": 30,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 30,
+      "r23_expected_count": 30,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "50:4": {
+      "main": "50:4",
+      "docx_sura": 50,
+      "source_file": "Ma 41-50/50 KAF SURESİ 34.docx",
+      "source_sha256": "90c2810d8e4cdc950a4a04ba64652b5cc150b4866536ccd1420f0d841702d088",
+      "source_heading": {
+        "paragraph": 107,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   50 - Kaf Suresi - Ayet 4"
+      },
+      "next_heading": {
+        "paragraph": 156,
+        "ayet": 5
+      },
+      "raw_reference_headers": 34,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 34,
+      "r23_expected_count": 34,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "53:28": {
+      "main": "53:28",
+      "docx_sura": 53,
+      "source_file": "Ma 51-60/53 NECM SURESİ 23.docx",
+      "source_sha256": "8fc55f2502bc11976e759393445c0693aaa988040d16596fb3b425a3f34c1aaa",
+      "source_heading": {
+        "paragraph": 629,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   53 - Necm Suresi - Ayet 28"
+      },
+      "next_heading": {
+        "paragraph": 644,
+        "ayet": 29
+      },
+      "raw_reference_headers": 10,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 10,
+      "r23_expected_count": 10,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "53:29": {
+      "main": "53:29",
+      "docx_sura": 53,
+      "source_file": "Ma 51-60/53 NECM SURESİ 23.docx",
+      "source_sha256": "8fc55f2502bc11976e759393445c0693aaa988040d16596fb3b425a3f34c1aaa",
+      "source_heading": {
+        "paragraph": 644,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "--   53 - Necm Suresi - Ayet 29"
+      },
+      "next_heading": {
+        "paragraph": 672,
+        "ayet": 30
+      },
+      "raw_reference_headers": 25,
+      "self_removed": [
+        {
+          "ref": "53:29",
+          "paragraph": 670
+        }
+      ],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 24,
+      "r23_expected_count": 24,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "53:37": {
+      "main": "53:37",
+      "docx_sura": 53,
+      "source_file": "Ma 51-60/53 NECM SURESİ 23.docx",
+      "source_sha256": "8fc55f2502bc11976e759393445c0693aaa988040d16596fb3b425a3f34c1aaa",
+      "source_heading": {
+        "paragraph": 887,
+        "character_offset": 1819,
+        "color": "FF0000",
+        "text": "-----   53 - Necm Suresi - Ayet 37"
+      },
+      "next_heading": {
+        "paragraph": 902,
+        "ayet": 38
+      },
+      "raw_reference_headers": 8,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "2:124",
+          "paragraph": 890,
+          "source_name": "Bakara"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 8,
+      "r23_expected_count": 8,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "56:58": {
+      "main": "56:58",
+      "docx_sura": 56,
+      "source_file": "Ma 51-60/56 VAKIA SURESİ 46.docx",
+      "source_sha256": "6924924b89337781452cdc0c878b2a814da36c505a5896cea271ada452eba4fb",
+      "source_heading": {
+        "paragraph": 967,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   56 - Vakıa Suresi - Ayet 58"
+      },
+      "next_heading": {
+        "paragraph": 991,
+        "ayet": 59
+      },
+      "raw_reference_headers": 16,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 16,
+      "r23_expected_count": 16,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "56:59": {
+      "main": "56:59",
+      "docx_sura": 56,
+      "source_file": "Ma 51-60/56 VAKIA SURESİ 46.docx",
+      "source_sha256": "6924924b89337781452cdc0c878b2a814da36c505a5896cea271ada452eba4fb",
+      "source_heading": {
+        "paragraph": 991,
+        "character_offset": 6,
+        "color": "FF0000",
+        "text": "- Vakıa Suresi - Ayet 59"
+      },
+      "next_heading": {
+        "paragraph": 996,
+        "ayet": 60
+      },
+      "raw_reference_headers": 4,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 4,
+      "r23_expected_count": 4,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "57:20": {
+      "main": "57:20",
+      "docx_sura": 57,
+      "source_file": "Ma 51-60/57 HADİD SURESİ 94X.docx",
+      "source_sha256": "84c914865d117d70cd7809ac5c2c76647f49fe8b28a00100fea7414c18dd7594",
+      "source_heading": {
+        "paragraph": 622,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   57 - Hadid Suresi - Ayet 20"
+      },
+      "next_heading": {
+        "paragraph": 693,
+        "ayet": 21
+      },
+      "raw_reference_headers": 72,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "98:8",
+          "paragraph": 691,
+          "source_name": "Beyyine"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 72,
+      "r23_expected_count": 72,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "58:22": {
+      "main": "58:22",
+      "docx_sura": 58,
+      "source_file": "Ma 51-60/58 MUCADELE 105X.docx",
+      "source_sha256": "6a05aa6a37236de0f05299919fc2c692d5d510eb2a107bc8771261facb7bd532",
+      "source_heading": {
+        "paragraph": 453,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   58 - Mucadele Suresi - Ayet 22"
+      },
+      "next_heading": null,
+      "raw_reference_headers": 78,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "3:28",
+          "paragraph": 462
+        }
+      ],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 77,
+      "r23_expected_count": 77,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "74:37": {
+      "main": "74:37",
+      "docx_sura": 74,
+      "source_file": "Ma 71-80/74 MUDDESSİR SURESİ 4.docx",
+      "source_sha256": "194199912b5ace5456cb1f8a856470029541af11c38e533da3baf19d0a797e9f",
+      "source_heading": {
+        "paragraph": 506,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   74 - Muddessir Suresi - Ayet 37"
+      },
+      "next_heading": {
+        "paragraph": 532,
+        "ayet": 38
+      },
+      "raw_reference_headers": 24,
+      "self_removed": [],
+      "duplicate_removed": [
+        {
+          "ref": "56:10",
+          "paragraph": 518
+        }
+      ],
+      "inferred_sura": [
+        {
+          "ref": "56:11",
+          "paragraph": 519,
+          "source_name": "Vakıa"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 23,
+      "r23_expected_count": 23,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "76:21": {
+      "main": "76:21",
+      "docx_sura": 76,
+      "source_file": "Ma 71-80/76 İNSAN SURESİ 98X.docx",
+      "source_sha256": "80de5c121e7d4959ff9442e2f271e54155da1ff1a0e060a8a79d5e8b2ccdf62d",
+      "source_heading": {
+        "paragraph": 326,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   76 - İnsan Suresi - Ayet 21"
+      },
+      "next_heading": {
+        "paragraph": 351,
+        "ayet": 22
+      },
+      "raw_reference_headers": 18,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "43:71",
+          "paragraph": 337,
+          "source_name": "Zuhruf"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 18,
+      "r23_expected_count": 18,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "86:4": {
+      "main": "86:4",
+      "docx_sura": 86,
+      "source_file": "Ma 81-90/86 TARIK SURESİ 36.docx",
+      "source_sha256": "11af4a498701618182b90a16923a17d08d3f4e29e2d934d0903c1abfcf7d75ca",
+      "source_heading": {
+        "paragraph": 51,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   86 - Tarık Suresi - Ayet 4"
+      },
+      "next_heading": {
+        "paragraph": 71,
+        "ayet": 5
+      },
+      "raw_reference_headers": 20,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "82:12",
+          "paragraph": 69,
+          "source_name": "İnfitar"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 20,
+      "r23_expected_count": 20,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "86:6": {
+      "main": "86:6",
+      "docx_sura": 86,
+      "source_file": "Ma 81-90/86 TARIK SURESİ 36.docx",
+      "source_sha256": "11af4a498701618182b90a16923a17d08d3f4e29e2d934d0903c1abfcf7d75ca",
+      "source_heading": {
+        "paragraph": 193,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   86 - Tarık Suresi - Ayet 6"
+      },
+      "next_heading": {
+        "paragraph": 216,
+        "ayet": 7
+      },
+      "raw_reference_headers": 17,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "16:4",
+          "paragraph": 196,
+          "source_name": "Nahl"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 17,
+      "r23_expected_count": 17,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "90:1": {
+      "main": "90:1",
+      "docx_sura": 90,
+      "source_file": "Ma 81-90/90 BELED SURESİ 35.docx",
+      "source_sha256": "de7932ca4b3b80e236578eb23c614b359ff530e268d45b97bfc1b342f2e7e9a3",
+      "source_heading": {
+        "paragraph": 3,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   90 - Beled Suresi - Ayet 1"
+      },
+      "next_heading": {
+        "paragraph": 24,
+        "ayet": 2
+      },
+      "raw_reference_headers": 20,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [
+        {
+          "ref": "2:125",
+          "paragraph": 5,
+          "source_name": "Bakara"
+        }
+      ],
+      "invalid_headers": [],
+      "reconstructed_count": 20,
+      "r23_expected_count": 20,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "90:11": {
+      "main": "90:11",
+      "docx_sura": 90,
+      "source_file": "Ma 81-90/90 BELED SURESİ 35.docx",
+      "source_sha256": "de7932ca4b3b80e236578eb23c614b359ff530e268d45b97bfc1b342f2e7e9a3",
+      "source_heading": {
+        "paragraph": 156,
+        "character_offset": 0,
+        "color": "FF0000",
+        "text": "-----   90 - Beled Suresi - Ayet 11"
+      },
+      "next_heading": {
+        "paragraph": 171,
+        "ayet": 12
+      },
+      "raw_reference_headers": 12,
+      "self_removed": [],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 12,
+      "r23_expected_count": 12,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    },
+    "90:12": {
+      "main": "90:12",
+      "docx_sura": 90,
+      "source_file": "Ma 81-90/90 BELED SURESİ 35.docx",
+      "source_sha256": "de7932ca4b3b80e236578eb23c614b359ff530e268d45b97bfc1b342f2e7e9a3",
+      "source_heading": {
+        "paragraph": 171,
+        "character_offset": 3,
+        "color": "FF0000",
+        "text": "- Beled Suresi - Ayet 12"
+      },
+      "next_heading": {
+        "paragraph": 191,
+        "ayet": 13
+      },
+      "raw_reference_headers": 20,
+      "self_removed": [
+        {
+          "ref": "90:12",
+          "paragraph": 187
+        }
+      ],
+      "duplicate_removed": [],
+      "inferred_sura": [],
+      "invalid_headers": [],
+      "reconstructed_count": 19,
+      "r23_expected_count": 19,
+      "status": "RECONSTRUCTED_MATCHING_R23_COUNT"
+    }
+  }
+}

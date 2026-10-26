@@ -16,6 +16,22 @@ Bu dala önceden yüklenmiş **daha eski** kaynak:
 
 **Uyarı:** Sırf bağlantı sayısı daha büyük veya daha küçük diye ilişki doğruluğu kabul edilmez. İki kaynak aynı tarihli/aynı yöntemli sürüm değildir. R23 kabulü korunur; eski veri R23 üzerine otomatik kopyalanmaz.
 
+## 26.10.2026 gerçek karşılaştırma sonucu
+
+`data/v1_1_ile_r23_fark_raporu_20261026.json` iki GitHub JSON'unun **birebir liste karşılaştırmasıyla** üretilmiştir.
+
+| Ölçüt | Tarihsel V1.1 | Kabul edilmiş R23 |
+|---|---:|---:|
+| Ana âyet | 5.574 | 5.574 |
+| Bağlantı | 175.375 | 175.478 |
+| Boş eşleşme listesi | 19 | 11 |
+
+- **75 ana âyetin** eşleşmesi farklı; sıra-only farkı yok.
+- R23'e özgü **264** ilişki; V1.1'e özgü **161** ilişki; **net fark +103**.
+- Önemli bölünme kaynakları: `7:198` (eski boş, R23 58), `11:1` (eski boş, R23 46); `7:197` (81 → 27), `7:139` (0 → 25), `53:29` (0 → 24). Bunlar otomatik değişiklik talebi değil, sürümler arası bulgulardır.
+- **8:58** için R23 kaynak matrisinde 30 benzeşen ve 1 ana ayet vardır; gösterimde toplam 31 âyet söz konusudur. Bu sayım, tarihsel V1.1'in otomatik yayımlanma gerekçesi olamaz.
+- R23 kaynak manifestindeki 14 yöntemsel ayrışma ayrı İNCELEME konusudur. Yönetici ekleme/çıkarma kayıtları bu raporda V1.1 ya da R23 kaynağına geri yazılmadı.
+
 ## Korumalar
 1. Ana ayet olarak 2 Bakara, 3 Âl-i İmrân, 4 Nisâ eski kodlamaya bağlıdır; yeni matrise ana ayet olarak girmez. Başka sûrelerin listelerinde eşleşen ayet olabilirler.
 2. Arapça, Türkçe, İngilizce metinler `app_data.json` otoritesindedir; benzeşme haritasına yeniden yazılmaz.

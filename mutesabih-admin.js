@@ -272,38 +272,61 @@ function spokenInteger(tokens) {
 }
 
 function speechRefsToTemplate(transcript) {
-  let value=String(transcript||'').toLocaleLowerCase('tr-TR').trim();
-  if(!value)throw Error('Mikrofondan âyet numarası duyulmadı.');
-  // “beşten on beşe kadar” -> “beş tire on beş”.
-  value=value.replace(/\b([a-zçğıöşü]+)(ten|tan|den|dan)\b/gu,(all,word)=>Object.hasOwn(SPEECH_NUMBERS,word)?word+' tire':all);
-  value=value.replace(/\b([a-zçğıöşü]+)(e|a)\s+kadar\b/gu,(all,word)=>Object.hasOwn(SPEECH_NUMBERS,word)?word:all);
-  const tokens=value.replace(/([.,:;\-])/g,' $1 ').match(/\d+|[a-zçğıöşü]+|[.,:;\-]/gu)||[];
-  const parts=[];
-  let group=[];
-  function flush(){
-    if(!group.length)return;
-    const number=spokenInteger(group);
-    if(number<1||number>999)throw Error('Söylenen sayı geçersiz: '+group.join(' '));
-    const prev=parts.at(-1);
-    if(prev&&/\d$/.test(prev))parts.push(' ');
-    parts.push(String(number));group=[];
+  let phrase=String(transcript||'').toLocaleLowerCase('tr-TR').trim();
+  if(!phrase)throw Error('Ses algılanmadı.');
+  phrase=phrase.replace(/([0-9])\s*([.:])\s*([0-9])/g,'$1 nokta $3')
+    .replace(/([0-9])\s*[-–]\s*([0-9])/g,'$1 arası $2')
+    .replace(/\b(noktası|noktasına)\b/gu,'nokta')
+    .replace(/\b(virgülü)\b/gu,'virgül')
+    .replace(/\b(ile|arası|kadar)\b/gu,' aralık ');
+  const words=phrase.match(/[0-9]+|[a-zçğıöşü]+|[.,:;-]/gu)||[];
+  const tokens=[];
+  for(const w of words){
+    const match=/^([a-zçğıöşü]+?)(den|dan|ten|tan)$/u.exec(w);
+    if(match && (Object.hasOwn(SPEECH_NUMBERS,match[1])||match[1]==='yüz'))tokens.push(match[1],'aralık');
+    else if(['e','a','ye','ya','ayet','ayetler','ayetleri'].includes(w))continue;
+    else tokens.push(w);
   }
-  for(const token of tokens){
-    if(/^\d+$/.test(token)||token==='yüz'||Object.hasOwn(SPEECH_NUMBERS,token)){
-      if(/^\d+$/.test(token)&&group.length)flush();
-      group.push(token);continue;
+  const parts=[];let numbers=[];
+  const flush=()=>{if(numbers.length){parts.push({type:'number',value:spokenInteger(numbers)});numbers=[];}};
+  for(const w of tokens){
+    if(/^[0-9]+$/.test(w)||w==='yüz'||Object.hasOwn(SPEECH_NUMBERS,w)){
+      if(/^[0-9]+$/.test(w)&&numbers.length)flush();
+      numbers.push(w);continue;
     }
     flush();
-    if(['nokta','.',':'].includes(token))parts.push('.');
-    else if(['virgül',',',';'].includes(token))parts.push(',');
-    else if(['tire','çizgi','-'].includes(token))parts.push('-');
-    else if(['ve','sonra'].includes(token))parts.push(' ');
-    else throw Error('Anlaşılamayan kelime: '+token+'. Lütfen “iki nokta beş” gibi söyleyin.');
+    if(['nokta','.',':'].includes(w))parts.push({type:'dot'});
+    else if(['virgül',',',';'].includes(w))parts.push({type:'comma'});
+    else if(['aralık','tire','çizgi','-'].includes(w))parts.push({type:'range'});
+    else if(['ve','sonra'].includes(w))parts.push({type:'join'});
+    else throw Error('Anlaşılamayan kelime: '+w);
   }
   flush();
-  const normalized=parts.join('').replace(/\s+/g,' ').trim();
-  parseVerses(normalized); // Âyet sınırları, aralıklar ve tekrarlar ortak parser ile kontrol edilir.
-  return normalized;
+  let output='',last='start';
+  for(let i=0;i<parts.length;i++){
+    const p=parts[i],next=parts[i+1];
+    if(p.type==='number'){
+      if(p.value<1||p.value>999)throw Error('Geçersiz sayı: '+p.value);
+      if(last==='number')output+=next?.type==='dot'?' ':',';
+      output+=String(p.value);last='number';
+    }else if(p.type==='dot'){
+      if(last!=='number'||next?.type!=='number')throw Error('Nokta ifadesi eksik.');
+      output+='.';last='dot';
+    }else if(p.type==='comma'){
+      if(last!=='number'||next?.type!=='number')throw Error('Virgül ifadesi eksik.');
+      output+=',';last='comma';
+    }else if(p.type==='range'){
+      if(last!=='number'||next?.type!=='number')throw Error('Aralık ifadesi eksik.');
+      output+='-';last='range';
+    }else if(p.type==='join'){
+      if(last!=='number'||next?.type!=='number')throw Error('Bağlantı ifadesi eksik.');
+      output+=parts[i+2]?.type==='dot'?' ':',';
+      last='join';
+    }
+  }
+  if(last!=='number')throw Error('Eksik âyet numarası.');
+  parseVerses(output);
+  return output;
 }
 
 function voiceMessage(message,isError=false){

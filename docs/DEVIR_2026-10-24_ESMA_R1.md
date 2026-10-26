@@ -100,3 +100,14 @@
 - **CANLI PASS:** `https://www.ayatulkuran.com/?ayet=2.5` tarayıcıda `v2.8.8`; Arapça metin + Türkçe meal + 48 benzeşen gösterildi, İngilizce kavram etiketleri ve Latin okunuş alanı artık yok. Kullanıcının kendi cihazında ek doğrulama isteğe bağlı.
 - `guncel-287.html` tarihsel R8 alternatif kontrol sayfası olarak korunmuştur; varsayılan yayın `index.html` v2.8.8 kullanır.
 - DO_NOT_REDO: Arapça/hareke ve meal kaynakları, 175.478 Word ilişkisi, 8.58=31 kuralı, kabul edilen Esmâ renklendirmesi, admin düzenlemeleri ve sıralama kayıtları korunur.
+
+## R10 — Yönetim paneli sesli benzeşen girişi (26.10.2026)
+
+- Kullanıcının isteği yalnız **sesli giriş** olarak daraltıldı; önerilen hızlı seçim, toplu metinden dönüştürme ve işaretleyerek kaldırma bu aşamada yapılmadı.
+- `mutesabih-admin.html` içine, mevcut `refs` alanının hemen altına `🎙️ Sesle âyet gir` düğmesi ve `voice-status` eklendi. JS `?v=6`, CSS `?v=3`.
+- `mutesabih-admin.js` içindeki yerleşik `SpeechRecognition/webkitSpeechRecognition` yalnız kullanıcı düğmeye basınca `tr-TR` başlar. Desteklenmezse Windows+H/telefon klavyesi mikrofonu önerilir. Mikrofon verisi tarayıcının tanıma hizmetine tabi olabilir; kendiliğinden kayıt yok.
+- Duyulan Türkçe sayılar `iki nokta beş`→`2.5`, `iki nokta bir virgül üç virgül beş`→`2.1,3,5`, `iki nokta beşten on beşe kadar`→`2.5-15` biçimine dönüştürülür. Sonuç değişmeden `parseVerses` üzerinden kontrol edilir. Yanlış veya belirsiz sonuçta `refs` alanı değiştirilmez.
+- Yalnız doğrulanmış GitHub yöneticisi ve düzenlenebilir ana âyet için kullanılabilir. `applyEdit`, tarih/gerekçe, mükerrer engel, ikinci onay, günlük MLOG ve korumalı 2/3/4 ana sûreleri değiştirilmedi.
+- GitHub commitler: CSS `f2d377cafe3d0cbbc14be70e94566c9096fbb548`; JS `92e760d8fc65a5e4326200db5f672f609c2e5872`; HTML `cfcf1df0864db53b4ee2b924d849969d792285dc`.
+- **DOĞRULANDI:** GitHub üç dosyada yeni içerik; canlı `mutesabih-admin.html` HTML'de ses düğmesi ve `js?v=6` görüldü. JS syntax parse başarı; örnek ses metni dönüşüm denemeleri başarı. **AÇIK:** Gerçek Windows/Android mikrofon izni, konuşma tanıma ve yönetici oturumunda görsel/işlemsel uçtan uca test kullanıcı tarafından yapılacak. Otomatik GitHub kaydı için ses tek başına yeterli değildir.
+- DO_NOT_REDO: Word/ayet/esma verileri, eski onay kuralları, admin erişim yetkisi, tüm önceki R1–R9 kabul durumu korundu.

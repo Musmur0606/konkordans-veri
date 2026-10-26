@@ -225,7 +225,7 @@ function renderAuth() {
   $('token').hidden=logged;$('login').hidden=logged;$('logout').hidden=!logged;
   // Yönetim alanı yalnız doğrulanmış GitHub hesabında görünür.
   // GitHub API yazmaları ayrıca yetki anahtarıyla korunur.
-  for (const id of ['refs','reason','add','remove','confirm','review']) {
+  for (const id of ['refs','reason','add','remove','confirm','review','voice-refs']) {
     $(id).disabled=runtime.busy||locked;
   }
   $('editor-state').textContent=locked
@@ -248,6 +248,101 @@ function updateParsed() {
   if(!value){$('parsed').textContent='';return;}
   try{const parsed=parseVerses(value);$('parsed').textContent='Seçilen âyetler ('+parsed.length+'): '+parsed.slice(0,22).join(' · ')+(parsed.length>22?' …':'');}
   catch(error){$('parsed').textContent='İfade hatası: '+error.message;}
+}
+
+
+const SPEECH_NUMBERS = Object.freeze({
+  'sıfır':0,'bir':1,'iki':2,'üç':3,'dört':4,'beş':5,'altı':6,'yedi':7,'sekiz':8,'dokuz':9,
+  'on':10,'yirmi':20,'otuz':30,'kırk':40,'elli':50,'altmış':60,'yetmiş':70,'seksen':80,'doksan':90
+});
+let speechReader = null;
+
+function spokenInteger(tokens) {
+  if(tokens.length===1 && /^\d{1,3}$/.test(tokens[0]))return Number(tokens[0]);
+  if(tokens.some(t=>!Object.hasOwn(SPEECH_NUMBERS,t)&&t!=='yüz'))throw Error('Sesli sayı anlaşılmadı: '+tokens.join(' '));
+  let total=0, beforeHundred=0, afterHundred=0, hasHundred=false;
+  for(const t of tokens){
+    if(t==='yüz'){
+      if(hasHundred)throw Error('Yüz ifadesi tekrarlanamaz.');
+      total+=(beforeHundred||1)*100;beforeHundred=0;hasHundred=true;
+    }else if(hasHundred)afterHundred+=SPEECH_NUMBERS[t];
+    else beforeHundred+=SPEECH_NUMBERS[t];
+  }
+  return total+beforeHundred+afterHundred;
+}
+
+function speechRefsToTemplate(transcript) {
+  let value=String(transcript||'').toLocaleLowerCase('tr-TR').trim();
+  if(!value)throw Error('Mikrofondan âyet numarası duyulmadı.');
+  // “beşten on beşe kadar” -> “beş tire on beş”.
+  value=value.replace(/\b([a-zçğıöşü]+)(ten|tan|den|dan)\b/gu,(all,word)=>Object.hasOwn(SPEECH_NUMBERS,word)?word+' tire':all);
+  value=value.replace(/\b([a-zçğıöşü]+)(e|a)\s+kadar\b/gu,(all,word)=>Object.hasOwn(SPEECH_NUMBERS,word)?word:all);
+  const tokens=value.replace(/([.,:;\-])/g,' $1 ').match(/\d+|[a-zçğıöşü]+|[.,:;\-]/gu)||[];
+  const parts=[];
+  let group=[];
+  function flush(){
+    if(!group.length)return;
+    const number=spokenInteger(group);
+    if(number<1||number>999)throw Error('Söylenen sayı geçersiz: '+group.join(' '));
+    const prev=parts.at(-1);
+    if(prev&&/\d$/.test(prev))parts.push(' ');
+    parts.push(String(number));group=[];
+  }
+  for(const token of tokens){
+    if(/^\d+$/.test(token)||token==='yüz'||Object.hasOwn(SPEECH_NUMBERS,token)){
+      if(/^\d+$/.test(token)&&group.length)flush();
+      group.push(token);continue;
+    }
+    flush();
+    if(['nokta','.',':'].includes(token))parts.push('.');
+    else if(['virgül',',',';'].includes(token))parts.push(',');
+    else if(['tire','çizgi','-'].includes(token))parts.push('-');
+    else if(['ve','sonra'].includes(token))parts.push(' ');
+    else throw Error('Anlaşılamayan kelime: '+token+'. Lütfen “iki nokta beş” gibi söyleyin.');
+  }
+  flush();
+  const normalized=parts.join('').replace(/\s+/g,' ').trim();
+  parseVerses(normalized); // Âyet sınırları, aralıklar ve tekrarlar ortak parser ile kontrol edilir.
+  return normalized;
+}
+
+function voiceMessage(message,isError=false){
+  const area=$('voice-status');
+  area.textContent=message;
+  area.style.color=isError?'#a3341f':'';
+}
+
+function startVoiceRefs(){
+  const SpeechAPI=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SpeechAPI){voiceMessage('Bu tarayıcı ses tanımayı desteklemiyor. Windows + H veya telefon klavyesindeki mikrofonu kullanın.',true);return;}
+  if(!runtime.token||runtime.busy||!canEditMain(runtime.selected)){voiceMessage('Sesli giriş için düzenlenebilir bir ana âyet ve yönetici girişi gerekli.',true);return;}
+  if(speechReader){speechReader.stop();return;}
+  const reader=new SpeechAPI();
+  speechReader=reader;
+  reader.lang='tr-TR';reader.interimResults=false;reader.maxAlternatives=1;
+  $('voice-refs').textContent='■ Dinlemeyi durdur';
+  voiceMessage('Dinliyorum… Örnek: “iki nokta beş”.');
+  reader.onresult=(event)=>{
+    const heard=event.results?.[0]?.[0]?.transcript||'';
+    try{
+      const converted=speechRefsToTemplate(heard);
+      const current=$('refs').value.trim();
+      const merged=(current?current+' ':'')+converted;
+      parseVerses(merged);
+      $('refs').value=merged;
+      $('refs').dispatchEvent(new Event('input',{bubbles:true}));
+      voiceMessage('Duyulan: “'+heard+'” → '+converted+' · Kaydetmeden önce numaraları kontrol edin.');
+    }catch(error){voiceMessage('Duyulan: “'+heard+'”. '+error.message+' Kutudaki önceki giriş korundu.',true);}
+  };
+  reader.onerror=(event)=>{
+    const reasons={'not-allowed':'Mikrofon izni verilmedi.','no-speech':'Ses algılanmadı.','audio-capture':'Mikrofona ulaşılamadı.','network':'Ses tanıma hizmetine bağlanılamadı.'};
+    voiceMessage(reasons[event.error]||'Ses tanıma tamamlanamadı. Lütfen yeniden deneyin.',true);
+  };
+  reader.onend=()=>{
+    speechReader=null;
+    $('voice-refs').textContent='🎙️ Sesle âyet gir';
+  };
+  try{reader.start();}catch(error){speechReader=null;$('voice-refs').textContent='🎙️ Sesle âyet gir';voiceMessage('Mikrofon başlatılamadı: '+error.message,true);}
 }
 
 async function refreshFiles(authToken=runtime.token) {
@@ -390,6 +485,7 @@ $('ayah-picker').addEventListener('change',()=>{
 $('open-main').addEventListener('click',openMain);
 $('direct-main').addEventListener('keydown',(e)=>{if(e.key==='Enter')openMain();});
 $('refs').addEventListener('input',updateParsed);
+$('voice-refs').addEventListener('click',startVoiceRefs);
 $('login').addEventListener('click',authorize);
 $('token').addEventListener('keydown',(e)=>{if(e.key==='Enter')authorize();});
 $('logout').addEventListener('click',()=>{runtime.token='';runtime.actor='';runtime.data=null;runtime.corpus=null;runtime.doc=null;runtime.sha='';runtime.drafts.clear();$('main-list').replaceChildren();$('link-list').replaceChildren();showMessage('login-message','Güvenli çıkış yapıldı. Yönetim ekranı kapatıldı.','success');renderAll();});

@@ -6,3 +6,8 @@ body:not(.admin-authorized) .page > .workspace,
 body:not(.admin-authorized) .page > footer{display:none!important}
 body:not(.admin-authorized) .page{max-width:880px;margin:36px auto}
 body:not(.admin-authorized) .login-panel{margin-top:0}
+
+/* Sesle ayet girisi: yalniz dikte, kayit mevcut onay surecinde kalir. */
+.voice-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:8px 0 12px}
+.voice-row #voice-refs{min-height:38px}
+.voice-row #voice-status{flex:1 1 220px;line-height:1.5}

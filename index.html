@@ -361,6 +361,27 @@
 .quick-search-helper{font-size:12px;line-height:1.5;color:var(--muted);margin:12px 0 0}
 .ar-keyboard:not([hidden]){z-index:1300}
 @media(max-width:760px){.quick-search-overlay{padding-top:15vh}.quick-search-modal{padding:15px}.quick-search-top h2{font-size:18px}}
+
+/* v2.8.19: Unified search dialogue. The options remain visible alongside the keyboard. */
+.quick-search-overlay{overflow-y:auto;padding:clamp(16px,5vh,45px) 12px 16px}
+.quick-search-modal{max-height:calc(100dvh - 32px);overflow-y:auto}
+.quick-search-language{display:flex;gap:8px;margin:10px 0}
+.quick-search-language button{border:1px solid var(--line);background:var(--panel);color:var(--green2);padding:9px 13px;border-radius:8px;cursor:pointer;font-weight:600}
+.quick-search-language button[aria-pressed="true"]{background:var(--green);color:white;border-color:var(--green)}
+.quick-arabic-options[hidden]{display:none!important}
+.quick-arabic-options .ar-options{margin:8px 0;border:1px solid var(--line)}
+.quick-search-modal .ar-keyboard{position:static;left:auto;bottom:auto;transform:none;z-index:auto;width:100%;max-width:100%;max-height:35vh;overflow:auto;margin:10px 0 0;box-shadow:none;background:var(--panel);border:1px solid var(--line);padding:10px}
+.quick-search-modal .ar-keyboard .ar-k-keys{grid-template-columns:repeat(10,minmax(0,1fr))}
+.quick-search-modal .ar-keyboard .ar-k-keys button{min-height:37px}
+.search-pages{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;padding:12px}
+.search-pages button:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:760px){
+ .quick-search-overlay{padding:8px}
+ .quick-search-modal{max-height:calc(100dvh - 16px);padding:12px}
+ .quick-search-modal .ar-keyboard{max-height:27vh}
+ .quick-search-modal .ar-keyboard .ar-k-keys{grid-template-columns:repeat(8,minmax(0,1fr))}
+ .quick-search-language button{flex:1}
+}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -381,6 +402,7 @@
   <a class="sos" href="https://x.com/ayatulkuran" target="_blank" rel="noopener" title="X" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.5h3.6l-7.9 9 9.3 12.3h-7.3l-5.7-7.5-6.6 7.5H.7l8.5-9.7L.3 1.5h7.5l5.2 6.9zM17.6 20.7h2L6.5 3.4h-2.2z"/></svg></a>
   <a class="sos" href="https://instagram.com/ayat_ulkuran" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 3.2a6.6 6.6 0 1 0 0 13.2 6.6 6.6 0 0 0 0-13.2zm0 10.9a4.3 4.3 0 1 1 0-8.6 4.3 4.3 0 0 1 0 8.6zm6.9-11.2a1.5 1.5 0 1 1-3.1 0 1.5 1.5 0 0 1 3.1 0z"/></svg></a>
   <span id="surumet" class="surum-yaz">v2.8.19</span>
+  <button class="hbtn" type="button" id="quick-search-open-button" onclick="aramaOdakla()" title="Âyet veya kavram aramayı aç">⌕ Ara</button>
   <button id="arabic-search-toggle" class="ar-search-switch" type="button" aria-pressed="false" title="Arapça arama klavyesini aç">عربي</button>
   <input id="search" list="sure-onerileri" autocomplete="off" aria-label="Âyet, sûre veya kavram ara" placeholder="Âyet (5.61), sûre (Bakara 255) veya kavram ara…  Ctrl+K">
   <datalist id="sure-onerileri"></datalist>
@@ -390,12 +412,15 @@
   <div class="quick-search-top"><h2 id="quick-search-title">Âyet veya kavram ara</h2><button type="button" id="quick-search-close" onclick="quickSearchClose()">✕ Kapat</button></div>
   <label for="search" style="display:block;font-weight:600;margin-bottom:8px">Sûre, âyet, kelime veya kavram</label>
   <div id="quick-search-input-slot" class="search-input-slot"></div>
+<div class="quick-search-language"><button type="button" id="quick-normal-mode" aria-pressed="true">Âyet / Kavram</button><button type="button" id="quick-arabic-mode" aria-pressed="false">عربي Arapça</button></div>
+<div id="quick-arabic-options" class="quick-arabic-options" hidden><fieldset class="ar-options"><legend>Gelişmiş Arapça arama</legend><label><input id="ar-whole" type="checkbox"> Sadece tam kelimeleri bul</label><label><input id="ar-noharaka" type="checkbox" checked> Harekeleri göz ardı et</label><label title="Başta harf-i cer / bağlaç ve sonda zamir ekleri için sınırlı biçimsel eşleştirme yapılır."><input id="ar-affixes" type="checkbox"> Harf-i cer ve zamirleri göz ardı et</label><strong>Birden çok kelime</strong><div class="ar-modes"><label><input type="radio" name="ar-mode" value="phrase"> Aynen yazıldığı gibi (sıralı)</label><label><input type="radio" name="ar-mode" value="all" checked> Tüm kelimeler aynı âyette</label><label><input type="radio" name="ar-mode" value="any"> Kelimelerden herhangi biri</label></div><strong>Arama alanı</strong><div class="ar-modes"><label><input type="radio" name="ar-scope" value="all" checked> Tüm Kur’an'da</label><label><input type="radio" name="ar-scope" value="range"> Seçili sûrelerde</label></div><div class="ar-range"><label>Başlangıç <select id="ar-from"></select></label><label>Bitiş <select id="ar-to"></select></label></div></fieldset></div>
   <div class="quick-search-actions"><button type="button" class="search-primary" id="quick-search-submit" onclick="quickSearchRun()">⌕ Ara</button><button type="button" onclick="document.getElementById('arabic-search-toggle').click()">عربي Arapça klavye</button><button type="button" onclick="quickSearchClear()">Temizle</button></div>
   <p class="quick-search-helper">Örnek: 2.255 · Bakara 255 · Rahmet · رَحْمَة. Enter tuşuyla da arayabilirsiniz.</p>
+<div id="arabic-keyboard" class="ar-keyboard" hidden role="group" aria-label="Arapça sanal klavye"><div class="ar-k-head"><strong>Arapça arama · Sanal klavye</strong><button type="button" id="arabic-k-close">✕ Kapat</button></div><div id="arabic-keys" class="ar-k-keys"></div><div class="ar-k-actions"><button type="button" data-ar-action="space">Boşluk</button><button type="button" data-ar-action="back">⌫ Sil</button><button type="button" data-ar-action="clear">Temizle</button><button type="button" data-ar-action="search">Ara</button><button type="button" data-ar-action="vowels">Harekeler açık/kapat</button></div></div>
  </section>
 </div>
 <div id="selection-actions" hidden role="toolbar" aria-label="Seçili metin işlemleri"><button type="button" id="selection-copy">Kopyala</button><button type="button" id="selection-search">Seçileni ara</button><button type="button" id="selection-demo">Dizine aktar</button><button type="button" id="selection-close">Kapat</button></div>
-<div id="arabic-keyboard" class="ar-keyboard" hidden role="group" aria-label="Arapça sanal klavye"><div class="ar-k-head"><strong>Arapça arama · Sanal klavye</strong><button type="button" id="arabic-k-close">✕ Kapat</button></div><fieldset class="ar-options"><legend>Gelişmiş Arapça arama</legend><label><input id="ar-whole" type="checkbox"> Sadece tam kelimeleri bul</label><label><input id="ar-noharaka" type="checkbox" checked> Harekeleri göz ardı et</label><label title="Başta harf-i cer / bağlaç ve sonda zamir ekleri için sınırlı biçimsel eşleştirme yapılır."><input id="ar-affixes" type="checkbox"> Harf-i cer ve zamirleri göz ardı et</label><strong>Birden çok kelime</strong><div class="ar-modes"><label><input type="radio" name="ar-mode" value="phrase"> Aynen yazıldığı gibi (sıralı)</label><label><input type="radio" name="ar-mode" value="all" checked> Tüm kelimeler aynı âyette</label><label><input type="radio" name="ar-mode" value="any"> Kelimelerden herhangi biri</label></div><strong>Arama alanı</strong><div class="ar-modes"><label><input type="radio" name="ar-scope" value="all" checked> Tüm Kur’an'da</label><label><input type="radio" name="ar-scope" value="range"> Seçili sûrelerde</label></div><div class="ar-range"><label>Başlangıç <select id="ar-from"></select></label><label>Bitiş <select id="ar-to"></select></label></div></fieldset><div id="arabic-keys" class="ar-k-keys"></div><div class="ar-k-actions"><button type="button" data-ar-action="space">Boşluk</button><button type="button" data-ar-action="back">⌫ Sil</button><button type="button" data-ar-action="clear">Temizle</button><button type="button" data-ar-action="search">Ara</button><button type="button" data-ar-action="vowels">Harekeler açık/kapat</button></div></div>
+
 <div class="wrap">
 <div id="mobilgeri">‹ Sûreler</div>
   <div id="sidebar"></div>
@@ -727,7 +752,10 @@ function quickSearchClose(){
  anchor?.parentElement?.insertBefore(input,anchor);
  dialog.hidden=true;
  const keyboard=document.getElementById('arabic-keyboard');if(keyboard)keyboard.hidden=true;
- document.getElementById('arabic-search-toggle')?.setAttribute('aria-pressed','false');
+ const advanced=document.getElementById('quick-arabic-options');if(advanced)advanced.hidden=true;
+ const toggler=document.getElementById('arabic-search-toggle');if(toggler)toggler.setAttribute('aria-pressed','false');
+ const normal=document.getElementById('quick-normal-mode');if(normal)normal.setAttribute('aria-pressed','true');
+ const arabic=document.getElementById('quick-arabic-mode');if(arabic)arabic.setAttribute('aria-pressed','false');
 }
 function quickSearchRun(){
  const v=(document.getElementById('search')?.value||'').trim();
@@ -942,12 +970,12 @@ async function refetch(){ if(!confirm('GitHub\'dan güncel veri çekilecek. Kayd
 
 // ---- Arama ----
 let stimer=null;
-document.getElementById('search').addEventListener('input',e=>{clearTimeout(stimer);const q=e.target.value.trim();stimer=setTimeout(()=>runSearch(q),200);});
+document.getElementById('search').addEventListener('input',e=>{clearTimeout(stimer);const q=e.target.value.trim();if(document.getElementById('quick-search-overlay')?.hidden)stimer=setTimeout(()=>runSearch(q),300);});
 document.getElementById('search').addEventListener('keydown',e=>{
   if(e.key!=='Enter')return;
   e.preventDefault();
   const q=e.target.value.trim();
-  if(!kolayArama(q))runSearch(q);
+  clearTimeout(stimer);if(!document.getElementById('quick-search-overlay')?.hidden)quickSearchRun();else runSearch(q);
   e.target.blur();
 });
 function sureAdiniBul(q){
@@ -1010,14 +1038,15 @@ function arMatch(metin,q,o=arOpts()){
  const ids=new Set(matches.flat());return [...ids].sort((a,b)=>a-b).map(i=>words[i]);
 }
 function runSearch(q){
-  if(!V)return;
+  q=String(q||'').trim();
+  if(!V){const m=document.getElementById('main');if(m)m.innerHTML='<p class="empty">Âyet verileri henüz yüklenmedi. Bağlantınızı kontrol edip sayfayı yenileyin.</p>';return;}
   if(kolayArama(q))return;
   const rq=q.trim().replace(/\s/g,'').replace('.',':');
   if(/^\d{1,3}:\d{1,3}$/.test(rq)){                 // 2.3 / 2:3 -> dogrudan o ayet
     if(V[rq]) return aramaSonuc(q,[rq]);
     return aramaSonuc(q,[]);
   }
-  if(q.length<3){if(curSure)selectSure(curSure);return;}
+  if(q.length<2){icerigeGec();const m=document.getElementById('main');m.className='';m.innerHTML='<p class="empty">Arama için en az iki harf yazın veya 2.255 gibi âyet numarası girin.</p>';return;}
   adresGuncelle(null);
   const idx=aramaDizini();
   const arapca=/[\u0600-\u06FF]/.test(q);
@@ -1038,17 +1067,41 @@ function runSearch(q){
 }
 let _gaT=null;
 function aramaArapcaVurgula(metin,aranan){const txt=String(metin||''), hits=arMatch(txt,aranan);if(!hits.length)return esc(txt);let out='',at=0;for(const w of hits){if(w.start<at)continue;out+=esc(txt.slice(at,w.start))+'<span class="arama-kirmizi">'+esc(txt.slice(w.start,w.end))+'</span>';at=w.end;}return out+esc(txt.slice(at));}
-function aramaSonuc(q,res){
+let ARAMA_SONUC_DURUMU=null;
+const ARAMA_SAYFA_BOYUTU=60;
+function aramaSayfaDegistir(degisim){
+  if(!ARAMA_SONUC_DURUMU)return;
+  aramaSonuc(ARAMA_SONUC_DURUMU.q,ARAMA_SONUC_DURUMU.refs,ARAMA_SONUC_DURUMU.page+degisim);
+}
+function aramaSonuc(q,res,page=0){
   icerigeGec();
-  if(window.gtag){ clearTimeout(_gaT);           // her tusa degil, yazma bitince gonder
-    _gaT=setTimeout(()=>gtag('event','arama',{terim:q.slice(0,60), sonuc:res.length}),2000); }                                     // cepte liste kapansin, sonuc gorunsun
-  const m=document.getElementById('main'); m.className='';
-  m.innerHTML=`<div class="searchhead">"${esc(q)}" için ${res.length}${res.length>=200?'+':''} sonuç</div>`;
-  const list=el('<div></div>');
-  res.forEach(ref=>{const v=V[ref];
-    const r=el(`<div class="rel" data-ref="${ref}"><div class="ar">${aramaArapcaVurgula(v.ar,q)}</div><div><span class="ref">${esc(v.sa)} ${v.a} (${gr(ref)})</span><div class="rm">${hi(esc(mealMode==='me'?v.me:v.mb),q)}</div></div></div>`);
-    r.onclick=()=>goto(ref);list.appendChild(r);});
-  m.appendChild(list);m.scrollTop=0;
+  const total=res.length;
+  const pageCount=Math.max(1,Math.ceil(total/ARAMA_SAYFA_BOYUTU));
+  page=Math.max(0,Math.min(page,pageCount-1));
+  ARAMA_SONUC_DURUMU={q,refs:res,page};
+  if(window.gtag){clearTimeout(_gaT);_gaT=setTimeout(()=>gtag('event','arama',{terim:q.slice(0,60),sonuc:total}),2000);}
+  const m=document.getElementById('main');m.className='';
+  const first=page*ARAMA_SAYFA_BOYUTU,shown=res.slice(first,first+ARAMA_SAYFA_BOYUTU);
+  m.innerHTML='<div class="searchhead">"'+esc(q)+'" için '+total.toLocaleString('tr-TR')+' sonuç'+
+   (total?' · '+(first+1)+'–'+(first+shown.length)+' gösteriliyor':'')+'</div>';
+  if(!total){m.appendChild(el('<p class="empty">Bu aramayla eşleşen âyet bulunamadı. Arapça arama seçeneklerini değiştirebilirsiniz.</p>'));return;}
+  const list=el('<div class="search-results"></div>');
+  shown.forEach(ref=>{const v=V[ref];if(!v)return;
+    const r=el('<div class="rel" data-ref="'+ref+'"><div class="ar">'+aramaArapcaVurgula(v.ar,q)+
+      '</div><div><span class="ref">'+esc(v.sa)+' '+v.a+' ('+gr(ref)+')</span><div class="rm">'+
+      hi(esc(mealMode==='me'?v.me:v.mb),q)+'</div></div></div>');
+    r.onclick=()=>goto(ref);list.appendChild(r);
+  });
+  m.appendChild(list);
+  if(pageCount>1){
+    const controls=el('<div class="search-pages" aria-label="Arama sonuç sayfaları"><button type="button" class="btn" id="search-page-prev">← Önceki</button><span>Sayfa '+(page+1)+' / '+pageCount+'</span><button type="button" class="btn" id="search-page-next">Sonraki →</button></div>');
+    controls.querySelector('#search-page-prev').disabled=page===0;
+    controls.querySelector('#search-page-next').disabled=page===pageCount-1;
+    controls.querySelector('#search-page-prev').onclick=()=>aramaSayfaDegistir(-1);
+    controls.querySelector('#search-page-next').onclick=()=>aramaSayfaDegistir(1);
+    m.appendChild(controls);
+  }
+  m.scrollTop=0;
 }
 function hi(t,q){try{return t.replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>');}catch(e){return t;}}
 
@@ -1177,12 +1230,35 @@ function setMealEsma(mm){ mealMode=mm; if(curEsma)showEsma(curEsma); }
  const vowels='َ ِ ُ ْ ّ ً ٍ ٌ ٰ ٓ'.split(' ');let showVowels=true;
  function draw(){keys.replaceChildren();[...letters,...(showVowels?vowels:[])].forEach(ch=>{const b=document.createElement('button');b.type='button';b.textContent=ch;b.setAttribute('aria-label','Arapça '+ch);b.addEventListener('click',()=>insert(ch));keys.appendChild(b);});}
  function insert(ch){const a=input.selectionStart??input.value.length,b=input.selectionEnd??a;input.value=input.value.slice(0,a)+ch+input.value.slice(b);input.focus();input.setSelectionRange(a+ch.length,a+ch.length);input.dispatchEvent(new Event('input',{bubbles:true}));}
- function setOpen(on){panel.hidden=!on;toggle.setAttribute('aria-pressed',String(on));input.lang=on?'ar':'tr';input.dir=on?'rtl':'auto';input.placeholder=on?'Arapça kelime veya ifade ara…':'Âyet (5.61), sûre (Bakara 255) veya kavram ara… Ctrl+K';if(on)input.focus();}
- toggle.addEventListener('click',()=>setOpen(panel.hidden));
- // If the user pastes or enters Arabic directly, reveal the boxed on-screen keypad.
- input.addEventListener('input',()=>{if(/[\u0600-\u06FF]/.test(input.value) && panel.hidden) setOpen(true);});
- input.addEventListener('focus',()=>{if(toggle.getAttribute('aria-pressed')==='true')panel.hidden=false;});document.getElementById('arabic-k-close').addEventListener('click',()=>setOpen(false));
- panel.querySelectorAll('[data-ar-action]').forEach(b=>b.addEventListener('click',()=>{switch(b.dataset.arAction){case 'space':insert(' ');break;case 'back':{let p=input.selectionStart??input.value.length,q=input.selectionEnd??p;if(p===q&&p>0)p--;input.value=input.value.slice(0,p)+input.value.slice(q);input.focus();input.setSelectionRange(p,p);input.dispatchEvent(new Event('input',{bubbles:true}));break;}case 'clear':input.value='';input.dispatchEvent(new Event('input',{bubbles:true}));input.focus();break;case 'search':if(!document.getElementById('quick-search-overlay')?.hidden){quickSearchRun();}else{runSearch(input.value.trim());panel.hidden=true;toggle.setAttribute('aria-pressed','false');}break;case 'vowels':showVowels=!showVowels;draw();break;}}));
+ const advanced=document.getElementById('quick-arabic-options'),normalButton=document.getElementById('quick-normal-mode'),arabicButton=document.getElementById('quick-arabic-mode');
+ function setOpen(on){
+   if(on)aramaOdakla();
+   panel.hidden=!on;
+   advanced.hidden=!on;
+   toggle.setAttribute('aria-pressed',String(on));
+   normalButton.setAttribute('aria-pressed',String(!on));
+   arabicButton.setAttribute('aria-pressed',String(on));
+   input.lang=on?'ar':'tr';input.dir=on?'rtl':'auto';
+   input.placeholder=on?'Arapça kelime veya ifade ara…':'Âyet (5.61), sûre (Bakara 255) veya kavram ara… Ctrl+K';
+   if(on)arScopeInitialize();
+   input.focus();
+ }
+ toggle.addEventListener('click',()=>setOpen(toggle.getAttribute('aria-pressed')!=='true'));
+ arabicButton.addEventListener('click',()=>setOpen(true));
+ normalButton.addEventListener('click',()=>{
+   setOpen(false);
+   if(/[\u0600-\u06FF]/.test(input.value))input.value='';
+   input.focus();
+ });
+ // Typing Arabic also activates its dedicated search options.
+ input.addEventListener('input',()=>{
+   if(/[\u0600-\u06FF]/.test(input.value)&&toggle.getAttribute('aria-pressed')!=='true')setOpen(true);
+ });
+ input.addEventListener('focus',()=>{
+   if(document.getElementById('quick-search-overlay')?.hidden)aramaOdakla();
+ });
+ document.getElementById('arabic-k-close').addEventListener('click',()=>{panel.hidden=true;input.focus();});
+ panel.querySelectorAll('[data-ar-action]').forEach(b=>b.addEventListener('click',()=>{switch(b.dataset.arAction){case 'space':insert(' ');break;case 'back':{let p=input.selectionStart??input.value.length,q=input.selectionEnd??p;if(p===q&&p>0)p--;input.value=input.value.slice(0,p)+input.value.slice(q);input.focus();input.setSelectionRange(p,p);input.dispatchEvent(new Event('input',{bubbles:true}));break;}case 'clear':input.value='';input.dispatchEvent(new Event('input',{bubbles:true}));input.focus();break;case 'search':quickSearchRun();break;case 'vowels':showVowels=!showVowels;draw();break;}}));
  draw();
 })();
 

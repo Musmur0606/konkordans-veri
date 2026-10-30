@@ -2942,11 +2942,6 @@
       ],
       "removed": [],
       "status": "confirmed"
-    },
-    "5.59": {
-      "added": [],
-      "removed": [],
-      "status": "review"
     }
   },
   "events": [
@@ -13914,6 +13909,33 @@
             "added": [],
             "removed": [],
             "status": "review"
+          }
+        }
+      ]
+    },
+    {
+      "id": "7845b896-c1b6-44ee-8d56-5130ca32177f",
+      "at": "2026-10-30T19:05:19.305Z",
+      "day_tr": "2026-10-30",
+      "actor": "Musmur0606",
+      "action": "rollback_event",
+      "refs": [],
+      "note": "İşlem geri alındı: ea24ff99-77a1-4640-a45a-2b8192d4c32e",
+      "undo_of": [
+        "ea24ff99-77a1-4640-a45a-2b8192d4c32e"
+      ],
+      "changes": [
+        {
+          "main": "5.59",
+          "before": {
+            "added": [],
+            "removed": [],
+            "status": "review"
+          },
+          "after": {
+            "added": [],
+            "removed": [],
+            "status": null
           }
         }
       ]

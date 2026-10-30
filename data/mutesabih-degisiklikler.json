@@ -2942,6 +2942,11 @@
       ],
       "removed": [],
       "status": "confirmed"
+    },
+    "5.59": {
+      "added": [],
+      "removed": [],
+      "status": "review"
     }
   },
   "events": [
@@ -13885,6 +13890,30 @@
             ],
             "removed": [],
             "status": "confirmed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ea24ff99-77a1-4640-a45a-2b8192d4c32e",
+      "at": "2026-10-30T18:26:27.774Z",
+      "day_tr": "2026-10-30",
+      "actor": "Musmur0606",
+      "action": "review",
+      "refs": [],
+      "note": "a.z",
+      "changes": [
+        {
+          "main": "5.59",
+          "before": {
+            "added": [],
+            "removed": [],
+            "status": null
+          },
+          "after": {
+            "added": [],
+            "removed": [],
+            "status": "review"
           }
         }
       ]

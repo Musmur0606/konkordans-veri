@@ -67,7 +67,7 @@ test('Yedek okunur ama siteye otomatik yazılmaz',()=>{
   const pack=makeBackup([a,t,draft],'2026-11-07T12:00:00.000Z');
   assert.equal(pack.schema,DRAFT_SCHEMA);
   assert.equal(readBackup(pack).length,3);
-  assert.throws(()=>readBackup({...pack,schema:'wrong'}),/yedek/);
+  assert.throws(()=>readBackup({...pack,schema:'wrong'}),/yed[eğ]/i);
   assert.throws(()=>readBackup({...pack,records:[a,a]}),/iki kez/);
   const ready=readyCandidates([a,t,draft],'2026-11-07T12:00:00.000Z');
   assert.equal(ready.schema,CANDIDATE_SCHEMA);

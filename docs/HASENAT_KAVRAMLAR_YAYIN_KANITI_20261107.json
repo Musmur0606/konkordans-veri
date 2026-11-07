@@ -1,0 +1,96 @@
+{
+  "schema": "ayatulkuran.release-evidence.v1",
+  "project": "ayatulkuran",
+  "date_tr": "2026-11-07",
+  "standard": "Tüm Projeler İçin Kalıcı Hafıza ve Kesintisiz Devir Standardı V1",
+  "source_checkpoint": "docs/HASENAT_KAVRAMLAR_KONTROL_20261107.json",
+  "status": "PASS_CODE_READBACK_AND_PAGES_DEPLOYMENT__USER_AUTHENTICATED_UI_ACCEPTANCE_PENDING",
+  "code_commit": "624edc5e3837eb8ba4fcb79418b71d75cb9bb040",
+  "code_tree": "aae98070b17a7c2a5fab5c9eff727db4b97db77a",
+  "files_in_code_tree": 297,
+  "changed_files": 20,
+  "deleted_files": 0,
+  "github_pages": {
+    "run_id": 42406173017,
+    "url": "https://github.com/Musmur0606/konkordans-veri/actions/runs/42406173017",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      "build:success",
+      "report-build-status:success",
+      "deploy:success"
+    ]
+  },
+  "tests": {
+    "passed": 136,
+    "failed": 0,
+    "scope": "Çekirdek, DOM/API benzetimi, eski R234/Word regresyonu ve font statik doğrulaması. Gerçek yazma testleri değildir."
+  },
+  "source_readback": {
+    "paths": [
+      "mutesabih-admin.html",
+      "mutesabih-admin.js",
+      "mutesabih-kavramlar.mjs",
+      "amiri-site.css",
+      "docs/HASENAT_KAVRAMLAR_KONTROL_20261107.json"
+    ],
+    "exact": true,
+    "all_19_precheckpoint_inventory_blobs_match": true
+  },
+  "data_separation": {
+    "concepts_branch": "calisma-kavramlar",
+    "concepts_path": "data/kavramlar-calisma.json",
+    "seed_commit": "6bbf0849c73e3f9868214a1b33d902c1b7ab52f6",
+    "verified_blob": "e2f67393113be5b7d8d78eb3c329d983c72372aa",
+    "records_at_check": 0,
+    "concepts_json_absent_from_main": true,
+    "portal_and_motor_imports_absent": true,
+    "r234_work_branch_unchanged": true,
+    "protected_source_files_unchanged": 13,
+    "repository_private": false
+  },
+  "live_browser_readonly": {
+    "admin_url": "https://www.ayatulkuran.com/mutesabih-admin.html",
+    "admin_script": "/mutesabih-admin.js?v=234-kavramlar-1",
+    "concept_action": "Kavram veri setine aktar",
+    "concept_module_status": "Kavramlar için yönetici girişi bekleniyor.",
+    "concept_target": "calisma-kavramlar / data/kavramlar-calisma.json",
+    "admin_module_initialization": "PASS",
+    "public_url": "https://www.ayatulkuran.com/",
+    "public_version": "2.8.21",
+    "arabic_sample": "Günün âyeti · Hadîd 20",
+    "arabic_computed_font": "\"AyatulKuran Hasenat\", Amiri, serif",
+    "font_face_url": "/assets/fonts/hasenat.ttf?v=1d37c471",
+    "font_set_status": "loaded",
+    "hasenat_font_check_arabic_text": true,
+    "screenshot_viewed": true,
+    "source_text_changed": false,
+    "actual_authenticated_contextmenu_save_test": false,
+    "login_credentials_entered": false,
+    "real_microphone_test": false
+  },
+  "accepted": [
+    "Kod kaynakları GitHub'dan birebir okunarak doğrulandı; Pages yayını başarılı.",
+    "Canlı panelde kavram modülü ve hedef dal/dosya bulundu.",
+    "Canlı ana sayfada v2.8.21, Hasenat CSS/font-face ve Arapça font yükleme kontrolü görüldü.",
+    "Kavramlar yayımlanan veri setine veya motora eklenmedi. Önceki R234 veri ayrımı ve gerçek kaynaklar korundu."
+  ],
+  "hold_review": [
+    {
+      "status": "WAIT_USER",
+      "item": "Mevcut GitHub yönetici girişiyle bir Arapça kelime veya grubu seçip sağ tıkla aktarın; kaynak âyet ve yeni kayıt listesi gerçek tarayıcıda teyit edilmeli."
+    },
+    {
+      "status": "REVIEW",
+      "item": "Bilimsel/ticari olmayan kullanım beyanı ve özgün fontun ticari kullanım kısıtı korunur. Bağımsız yeniden dağıtım lisansı doğrulanmış değil."
+    },
+    {
+      "status": "REVIEW",
+      "item": "Mevcut GitHub deposu herkese açık. Portalda yayımlanmamak GitHub'da gizlilik anlamına gelmez."
+    }
+  ],
+  "last_action": "Canlı yayın ve salt-okunur tarayıcı kontrolü tamamlandı; bu kanıt belge olarak sürümleniyor.",
+  "next_safe_step": "Kullanıcı aynı admin panelini Ctrl+F5 ile açıp bir gerçek seçim/sağ tık aktarımını denetlesin. GitHub anahtarını sohbete göndermesin.",
+  "rollback": "Kod gerekirse yeni bir geri-alma commitinde önceki kaynaklara döndürülür; yeni kullanıcı kavram, R234 veya public kayıtları/dalları silinmez.",
+  "note": "Bu son kanıt, önceki kontrol noktasının PUBLISH_VERIFICATION_PENDING maddesini kapatır. Yetkili uçtan uca kullanıcı testi açık kalır. Önceki ACCEPTED/DO_NOT_REDO ve REVIEW kayıtları korunur."
+}

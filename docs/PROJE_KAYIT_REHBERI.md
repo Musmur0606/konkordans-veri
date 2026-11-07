@@ -14,3 +14,5 @@ Güncelleme: 7 Kasım 2026. Mevcut kabul kayıtları silinmez.
 | Hasenat + Kavramlar kontrol noktası | [HASENAT_KAVRAMLAR_KONTROL_20261107.json](HASENAT_KAVRAMLAR_KONTROL_20261107.json) |
 
 Bu rehber GitHub deposundadır. Çalışma dallarındaki veriler portala yayımlanmaz; ancak mevcut GitHub deposu herkese açık olduğu için bu dallar gizli değildir. Yeni sohbette yalnız bu rehbere dayanarak DEVİR PASS verilmez: güncel dal, dosya ve SHA değerleri gerçek kaynaktan yeniden okunur.
+
+Canlı yayın ve salt-okunur tarayıcı kontrolü: [Hasenat + Kavramlar yayın kanıtı](HASENAT_KAVRAMLAR_YAYIN_KANITI_20261107.json). Yetkili sağ tıkla kayıt için kullanıcı kabulü bu kayıtta ayrıca açık tutulur.

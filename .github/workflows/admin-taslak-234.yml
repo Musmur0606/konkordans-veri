@@ -1,0 +1,36 @@
+name: Ayatulkuran admin 2-3-4 ve terimler taslak testleri
+
+on:
+  push:
+    branches:
+      - feat/admin-taslak-234-terimler-20261107
+  pull_request:
+    branches: [main]
+    paths:
+      - "admin-taslak-core.mjs"
+      - "admin-taslak-panel.mjs"
+      - "admin-taslak.css"
+      - "mutesabih-admin.html"
+      - "test-admin-taslak-234.mjs"
+      - ".github/workflows/admin-taslak-234.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    name: 2-3-4 sesli taslak, terim ve R23 koruma
+    steps:
+      - uses: actions/checkout@v6
+      - name: Runtime
+        run: node --version
+      - name: Yeni kodun sozdizimini denetle
+        run: |
+          node --check admin-taslak-core.mjs
+          node --check admin-taslak-panel.mjs
+          node --check test-admin-taslak-234.mjs
+      - name: Yeni yonetici taslak testleri
+        run: node --test test-admin-taslak-234.mjs
+      - name: Kabul edilmis R23 regresyon testleri
+        run: node --test test-r23-word-matrix.mjs

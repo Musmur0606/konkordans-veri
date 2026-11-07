@@ -1,4 +1,4 @@
-// HASENAT R1: ağsız kaynak/bağlantı/bütünlük testi; gerçek tarayıcı testi değildir.
+// HASENAT R2: ağsız kaynak/bağlantı/bütünlük testi; gerçek tarayıcı testi değildir.
 // Çalıştırma: node test-hasenat-integration.mjs
 // Dosya veya GitHub verisi yazmaz; sonucu yalnız standart çıktıya verir.
 import assert from 'node:assert/strict';
@@ -10,7 +10,7 @@ const text=path=>read(path).toString('utf8');
 const sha256=value=>createHash('sha256').update(value).digest('hex');
 const expectedFontSha='1d37c471fcd5afc126a925c1b18f7727fa944692558a17c12da890abd8ae384c';
 const fontURL='/assets/fonts/hasenat.ttf?v=1d37c471';
-const cssURL='/amiri-site.css?v=hasenat-1';
+const cssURL='/amiri-site.css?v=hasenat-2';
 const css=text('./amiri-site.css').replace(/\/\*[\s\S]*?\*\//g,'');
 const compact=value=>value.replace(/\s+/g,'');
 const index=text('./index.html'), admin=text('./mutesabih-admin.html');
@@ -93,17 +93,47 @@ test('Üç giriş sayfası aynı sürümlü ortak CSS dosyasını yalnız bir ke
   }
 });
 
-test('Mevcut masaüstü/dar ekran boyutları ve okunuş gizleme kuralı değişmez',()=>{
-  const expected=".maincard .ar{font-size:32px;line-height:2.15}.rel .ar{font-size:23px;line-height:2.1}.esma-verse .ar{font-size:25px;line-height:2.1}.ayet .ar{font-size:27px;line-height:2.1}@media(max-width:760px){.maincard .ar{font-size:27px;line-height:2.2}.rel .ar{font-size:21px;line-height:2.15}.esma-verse .ar{font-size:23px;line-height:2.15}.ayet .ar{font-size:25px;line-height:2.15}}";
-  assert.ok(compact(css).includes(compact(expected)));
+const enlarged=[
+  ['.maincard .ar,.maincard .ar.amiri-deneme',44,38],
+  ['.rel .ar',32,30],['.arow .ar',32,28],
+  ['.welcome-example .ar',35,32],['.esma-verse .ar',35,32],
+  ['.ayet .ar',38,35],['.admin-main-verse #main-arabic',40,36],
+  ['.concepts-panel textarea[lang="ar"],.concepts-arabic',36,34],
+  ['.arabic',35,33],['.rec-name.ar',37,35],
+];
+const mediaAt=css.indexOf('@media(max-width:760px)');
+const desktopCSS=compact(css.slice(0,mediaAt));
+const mobileCSS=compact(css.slice(mediaAt));
+test('R2 büyük masaüstü/dar ekran boyutları uygulanır; okunuş gizleme korunur',()=>{
+  assert.ok(mediaAt>0,'Dar ekran kuralı bulunmalı');
+  for(const [selector,desktop,mobile] of enlarged){
+    assert.ok(desktopCSS.includes(compact(selector)+'{font-size:'+desktop+'px;'),selector+' masaüstü');
+    assert.ok(mobileCSS.includes(compact(selector)+'{font-size:'+mobile+'px;'),selector+' dar ekran');
+  }
   assert.ok(compact(css).includes('.ayet>.ok{display:none!important}'));
   assert.match(css,/font-synthesis\s*:\s*none/);
+  evidence.arapca_boyutlari_px=enlarged.map(([alan,masaustu,dar_ekran])=>({alan,masaustu,dar_ekran}));
 });
 
-test('Site/önbellek 2.8.21 eşleşir; ortak stil ve özgün font önbelleğe eklenir',()=>{
-  assert.match(index,/const SITE_SURUM\s*=\s*'2\.8\.21'/);
-  assert.match(sw,/const SURUM\s*=\s*'v2\.8\.21'/);
-  assert.ok(index.includes("register('/sw.js?v=2.8.21', {updateViaCache:'none'})"));
+test('Esmâ adları büyür; yeni boyutlar Türkçe/klavye/karma kutuya taşmaz',()=>{
+  const esma=[['.esma-ar',28],['.esma-ar-big',42],['.esma-side-ar',25]];
+  for(const [selector,size] of esma)assert.ok(desktopCSS.includes(selector+'{font-size:'+size+'px;line-height:1.65}'));
+  const allowed=new Set([...enlarged.map(([selector])=>selector),...esma.map(([selector])=>selector)]);
+  for(const [,rawSelector,body] of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)){
+    if(!/font-size\s*:/.test(body))continue;
+    const selector=rawSelector.trim();
+    assert.ok(allowed.has(selector),'Beklenmeyen boyut seçicisi: '+selector);
+    const height=body.match(/line-height\s*:\s*([\d.]+)/)?.[1];
+    assert.ok(Number(height)>=1.5,'Harekeler için satır aralığı: '+selector);
+    assert.doesNotMatch(body,/(?:^|;)\s*(?:height|max-height)\s*:|overflow\s*:\s*hidden/);
+  }
+  assert.doesNotMatch(css,/#term\s*\{[^}]*font-size\s*:/);
+});
+
+test('Site/önbellek 2.8.22 eşleşir; ortak stil ve özgün font önbelleğe eklenir',()=>{
+  assert.match(index,/const SITE_SURUM\s*=\s*'2\.8\.22'/);
+  assert.match(sw,/const SURUM\s*=\s*'v2\.8\.22'/);
+  assert.ok(index.includes("register('/sw.js?v=2.8.22', {updateViaCache:'none'})"));
   const core=sw.match(/const CEKIRDEK\s*=\s*\[([\s\S]*?)\];/)?.[1]||'';
   assert.ok(core.includes("'"+cssURL+"'"));assert.ok(core.includes("'"+fontURL+"'"));
   assert.match(sw,/x\s*!==\s*AD/,'Eski önbellek sürümü bırakılmaz');

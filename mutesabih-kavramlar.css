@@ -77,6 +77,14 @@
 .concepts-message.success { color: #1f6748; }
 .concepts-panel button:disabled,
 .concepts-context-menu button:disabled { opacity: .55; cursor: not-allowed; }
+.concepts-file-section { margin-top: 20px; padding-top: 16px; border-top: 1px solid #c9d9d0; }
+.concepts-file-section h4 { margin: 0 0 8px; font-size: 1rem; }
+.concepts-file-section [hidden] { display: none !important; }
+.concepts-import-preview { margin-top: 12px; padding: 12px; border: 1px solid #c5d6cb; border-radius: 8px; background: #fff; }
+.concepts-import-list { display: grid; gap: 8px; max-height: 320px; overflow: auto; }
+.concepts-import-row { display: grid; min-width: 0; padding: 7px 10px; border-bottom: 1px solid #e1ebe3; }
+.concepts-import-row .concepts-arabic { overflow-wrap: anywhere; }
+.concepts-import-fingerprint { font-size: .75rem; overflow-wrap: anywhere; color: #496858; }
 @media (max-width: 640px) {
   .concepts-filters { grid-template-columns: 1fr; gap: 0; }
   .concepts-panel { padding: 12px; }

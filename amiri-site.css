@@ -1,4 +1,4 @@
-/* Ayatülkuran — HASENAT ortak Arapça yazı stili, 2026-11-07.
+/* Ayatülkuran — HASENAT ortak Arapça yazı stili R2, 2026-11-07.
    Kaynak: kullanıcının sağladığı özgün hasenat.ttf, SHA-256 1d37c471…
    Font, âyet metni ve hareke verisi değiştirilmez. Türkçe alanlar korunur.
    Lisans/kaynak kaydı: docs/HASENAT_FONT_KAYDI.md
@@ -24,15 +24,32 @@
   font-family:'AyatulKuran Hasenat',system-ui,'Segoe UI',sans-serif!important;
   font-synthesis:none;
 }
-.maincard .ar{font-size:32px;line-height:2.15}
-.rel .ar{font-size:23px;line-height:2.1}
-.esma-verse .ar{font-size:25px;line-height:2.1}
-.ayet .ar{font-size:27px;line-height:2.1}
+/* R2: Okuma alanları büyütülür. Türkçe, genel kontroller, klavye
+   düğmeleri ve karışık dildeki #term alanının boyutu değiştirilmez. */
+.maincard .ar,.maincard .ar.amiri-deneme{font-size:44px;line-height:2.15}
+.rel .ar{font-size:32px;line-height:2.1}
+.arow .ar{font-size:32px;line-height:2.1}
+.welcome-example .ar{font-size:35px;line-height:2.1}
+.esma-verse .ar{font-size:35px;line-height:2.1}
+.ayet .ar{font-size:38px;line-height:2.1}
+.admin-main-verse #main-arabic{font-size:40px;line-height:2.1}
+.concepts-panel textarea[lang="ar"],.concepts-arabic{font-size:36px;line-height:2.05}
+.arabic{font-size:35px;line-height:2.1}
+.rec-name.ar{font-size:37px;line-height:2.1}
+.esma-ar{font-size:28px;line-height:1.65}
+.esma-ar-big{font-size:42px;line-height:1.65}
+.esma-side-ar{font-size:25px;line-height:1.65}
 @media(max-width:760px){
-  .maincard .ar{font-size:27px;line-height:2.2}
-  .rel .ar{font-size:21px;line-height:2.15}
-  .esma-verse .ar{font-size:23px;line-height:2.15}
-  .ayet .ar{font-size:25px;line-height:2.15}
+  .maincard .ar,.maincard .ar.amiri-deneme{font-size:38px;line-height:2.2}
+  .rel .ar{font-size:30px;line-height:2.15}
+  .arow .ar{font-size:28px;line-height:2.15}
+  .welcome-example .ar{font-size:32px;line-height:2.15}
+  .esma-verse .ar{font-size:32px;line-height:2.15}
+  .ayet .ar{font-size:35px;line-height:2.15}
+  .admin-main-verse #main-arabic{font-size:36px;line-height:2.15}
+  .concepts-panel textarea[lang="ar"],.concepts-arabic{font-size:34px;line-height:2.05}
+  .arabic{font-size:33px;line-height:2.1}
+  .rec-name.ar{font-size:35px;line-height:2.1}
 }
 
 /* Sure okuma sayfalarinda Latin harfli okunus satirlari gosterilmez.

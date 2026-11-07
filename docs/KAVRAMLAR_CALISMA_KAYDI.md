@@ -24,6 +24,8 @@ Kayıtla birlikte özgün Arapça metin, kaynak sûre/âyet, âyet içindeki se�
 
 Elle kopyalayıp kavram kutusuna yapıştırma ve **OK** ile ekleme alternatif olarak kullanılabilir. Dışarıdan yapıştırılan metne açık ana âyet kendiliğinden kaynak atanmaz. Kullanıcı kaynak âyet yazarsa metin o âyetle doğrulanır. Arapça dışındaki harfler ve boş giriş reddedilir.
 
+7 Kasım 2026 R2 ilavesi: **Dosya ekle** ile UTF-8 TXT, CSV veya basit JSON listesindeki Arapça kelime/kelime grupları alınabilir. Dosya seçimi yalnız önizlemedir; **OK — Dosyadaki kavramları ekle** ile tek işlemde ayrı çalışma dalına eklenir. Hatalı tek satır bütün aktarımı durdurur; geçerli satırlar sessizce kısmi kaydedilmez. Dosya adı, SHA-256 ve satır/sıra bilgisi mevcut `notes` alanında kaynak notu olarak korunur; v1 veri şeması ve önceki olaylar değişmez. Dosya içeriğine ekranda açık âyet kendiliğinden kaynak atanmaz. Biçimler ve sınırlar: [KAVRAM_DOSYA_EKLEME_R2.md](KAVRAM_DOSYA_EKLEME_R2.md).
+
 Aynı tam metin tek kavram kimliğinde kalır; yeni kaynaklar/notlar mevcut kaydı zenginleştirir. Farklı harekeli metinler otomatik birleştirilmez. Arşivleme kaydı silmez; geri getirme yeni bir işlem olarak korunur.
 
 ## Güvenlik ve önceki kabuller

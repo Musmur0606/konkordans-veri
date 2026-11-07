@@ -8,10 +8,10 @@
   <title>AyetulKuran | Bağımsız Yönetim Paneli</title>
   <link rel="stylesheet" href="/mutesabih-admin.css?v=3">
   <link rel="stylesheet" href="/mutesabih-admin-r16.css?v=3">
-  <script type="module" src="/mutesabih-admin.js?v=234-kavramlar-1"></script>
+  <script type="module" src="/mutesabih-admin.js?v=234-kavramlar-2"></script>
   <link rel="stylesheet" href="/mutesabih-draft234.css?v=1">
-  <link rel="stylesheet" href="/mutesabih-kavramlar.css?v=1">
-<link rel="stylesheet" href="/amiri-site.css?v=hasenat-1">
+  <link rel="stylesheet" href="/mutesabih-kavramlar.css?v=2">
+<link rel="stylesheet" href="/amiri-site.css?v=hasenat-2">
 </head>
 <body>
   <header class="topbar">
@@ -60,6 +60,30 @@
     <button id="concepts-refresh" type="button" class="button outline small">Kavramları yenile</button>
     <button id="concepts-export" type="button" class="button outline small" disabled>JSON indir</button>
   </div>
+  <section class="concepts-file-section" aria-labelledby="concepts-file-heading">
+    <h4 id="concepts-file-heading">Dosyadan Arapça kavram ekle</h4>
+    <p class="micro">TXT dosyasında her satıra bir Arapça kelime veya kelime grubu yazın.
+      CSV dosyasında <code>kavram,not</code> başlıklarını, JSON dosyasında metin dizisini kullanabilirsiniz.
+      UTF-8 biçimi · en çok 1 MB ve 200 dolu satır/sıra. Harekeler ve iç boşluklar korunur;
+      yalnız satır başı/sonu boşlukları temizlenir. Word, PDF ve Excel dosyaları doğrudan okunmaz.</p>
+    <button id="concepts-file-add" type="button" class="button outline"
+      aria-controls="concepts-file" disabled>Dosya ekle</button>
+    <input id="concepts-file" type="file" accept=".txt,.csv,.json,text/plain,text/csv,application/json"
+      aria-label="Arapça kavram dosyası seç" disabled hidden>
+    <p id="concepts-import-message" class="concepts-message" role="status" aria-live="polite"></p>
+    <section id="concepts-import-preview" class="concepts-import-preview" hidden
+      aria-label="Dosyadaki kavramların kayıt önizlemesi">
+      <p id="concepts-import-summary" class="micro"></p>
+      <div id="concepts-import-list" class="concepts-import-list"></div>
+      <p class="micro">Dosya seçmek kayıt yapmaz. Onayladığınızda aşağıdaki kavramlar tek işlemde
+        ayrı çalışma veri setine eklenir. Dosya adı, SHA-256 ve satır/sıra bilgisi kaynak notunda saklanır.
+        Ekranda açık âyet dosyadaki kavramlara kaynak atanmaz; mevcut kayıt ve arşiv durumu korunur.</p>
+      <div class="concepts-actions">
+        <button id="concepts-import-confirm" type="button" class="button primary" disabled>OK — Dosyadaki kavramları ekle</button>
+        <button id="concepts-import-cancel" type="button" class="button outline">Vazgeç</button>
+      </div>
+    </section>
+  </section>
   <p id="concepts-message" class="concepts-message" role="status" aria-live="polite"></p>
   <div class="concepts-filters">
     <div>

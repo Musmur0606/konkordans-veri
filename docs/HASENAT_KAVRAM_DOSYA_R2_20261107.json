@@ -1,0 +1,241 @@
+{
+  "schema": "ayatulkuran.checkpoint.v1",
+  "project": "ayatulkuran",
+  "date_tr": "2026-11-07",
+  "standard": "Tüm Projeler İçin Kalıcı Hafıza ve Kesintisiz Devir Standardı V1",
+  "status": "PASS_LOCAL_220_TESTS__PUBLISH_VERIFICATION_PENDING",
+  "baseline": {
+    "commit": "45d081f5652960b9935614702b6e1374637a9501",
+    "tree": "fe0b7d1a14879520ded4747bcbec10e9187f2cfd",
+    "file_count": 298
+  },
+  "release": {
+    "name": "Hasenat büyük yazı ve kavram dosya ekleme R2",
+    "site_version": "2.8.22",
+    "css_version": "hasenat-2",
+    "admin_version": "234-kavramlar-2",
+    "corpus_modified": false,
+    "font_binary_modified": false
+  },
+  "scope": [
+    "Arapça okuma alanları büyütüldü; Türkçe arayüz boyutu korundu.",
+    "Kavramlara TXT / CSV / JSON dosyasından önizlemeli ve açık OK onaylı ekleme.",
+    "Özgün dosya SHA-256, dosya adı, satır/sıra ve varsa not kayda eklenir; kaynak âyet uydurulmaz.",
+    "Tek atomik SHA-korumalı yazma; mevcut geçmiş, kaynaklar, arşiv durumu korunur.",
+    "Kavram verisi portala veya benzeşen motoruna katılmadı."
+  ],
+  "file_import": {
+    "branch": "calisma-kavramlar",
+    "path": "data/kavramlar-calisma.json",
+    "max_bytes": 1048576,
+    "max_rows": 200,
+    "automatic_publication": false,
+    "full_history_json_replacement_allowed": false
+  },
+  "tests": {
+    "passed": 220,
+    "failed": 0,
+    "suites": [
+      {
+        "file": "test-r234-core.mjs",
+        "passed": 15,
+        "failed": 0
+      },
+      {
+        "file": "test-r234-browser.mjs",
+        "passed": 19,
+        "failed": 0
+      },
+      {
+        "file": "test-r234-regressions.mjs",
+        "passed": 8,
+        "failed": 0
+      },
+      {
+        "file": "test-r23-word-matrix.mjs",
+        "passed": 6,
+        "failed": 0
+      },
+      {
+        "file": "test-kavramlar-core.mjs",
+        "passed": 37,
+        "failed": 0
+      },
+      {
+        "file": "test-kavramlar-panel.mjs",
+        "passed": 73,
+        "failed": 0
+      },
+      {
+        "file": "test-kavramlar-import.mjs",
+        "passed": 51,
+        "failed": 0
+      },
+      {
+        "file": "test-hasenat-integration.mjs",
+        "passed": 11,
+        "failed": 0
+      }
+    ],
+    "qa": "qa/KAVRAMLAR_PANEL_DOSYA_R2_QA_RAPORU.json",
+    "type": "Ağsız çekirdek/DOM-API benzetimi ve statik kontroller; gerçek kullanıcı kayıt testi değildir."
+  },
+  "inventory": [
+    {
+      "path": "amiri-site.css",
+      "bytes": 2695,
+      "sha256": "ff171e1afa63af348cf09bebd99cef839118a8704fffaf9d64e26140a422bd1f",
+      "git_blob": "58cbd23e997d0ad66c842cc4a4df420ce6bf0dca"
+    },
+    {
+      "path": "index.html",
+      "bytes": 102742,
+      "sha256": "c15f2ee6098ec6d617c3a8e7b3872d2a85215b75ba99818820af4eb345143bfa",
+      "git_blob": "9cc20622eb22acca94eaea39826d276082ac6cf0"
+    },
+    {
+      "path": "sw.js",
+      "bytes": 2998,
+      "sha256": "ee2a1f1cc15b6bdb27477f396ea2ad5a0e75d5754267d5322cc79b9264af374f",
+      "git_blob": "8c167856cbfa6863814f634b7813cdf2be29756b"
+    },
+    {
+      "path": "mutesabih-admin.html",
+      "bytes": 13932,
+      "sha256": "be18e7abcaf9bc8d5327a47ca423631842f155b84b7d5089f9ec659b54fdafb2",
+      "git_blob": "83f82acf25d703f44e836aeaca7c7e1cfa44bde7"
+    },
+    {
+      "path": "mutesabih-admin.js",
+      "bytes": 36399,
+      "sha256": "f662a02d811ed623f416720bdc4d261348c819a1d088e659f605b10d5ed68891",
+      "git_blob": "570b4c149ac1fb4d363c20c61c661a872132cb7c"
+    },
+    {
+      "path": "kelime-kavram-deneme.html",
+      "bytes": 21153,
+      "sha256": "cbcacc3f5002f7d5b76353fded8b5e7a32c7d60a51b59e7300dcf8899a047878",
+      "git_blob": "51acc7a8fcfd7738e40bac53a781e1d254fa5b36"
+    },
+    {
+      "path": "mutesabih-kavramlar.mjs",
+      "bytes": 31607,
+      "sha256": "2dd2530fcfb6f6f409104b35a3d98318576e3a07cce3c543d8effe96b4597876",
+      "git_blob": "aeec486c5c541ed2ddc47953a2dedbc42af6ad0e"
+    },
+    {
+      "path": "mutesabih-kavramlar.css",
+      "bytes": 3785,
+      "sha256": "a08a2fc632bad252650c3d93b92b35b585b9382d8cf58e09be234967a4bd959f",
+      "git_blob": "f3bcc4ca085a6d02f191bc1e43630b0c126b9ef4"
+    },
+    {
+      "path": "mutesabih-kavramlar-import.mjs",
+      "bytes": 14672,
+      "sha256": "2f5085927ef9f28b6bb454c97c919eb8072da7394896cd5906023c6efad4f282",
+      "git_blob": "3c485b522c256792a6cba486aa20874eeb5522d4"
+    },
+    {
+      "path": "test-kavramlar-import.mjs",
+      "bytes": 21925,
+      "sha256": "688e448749821ae5a6e54895cb9684c9d6c360ad6237ccba37b734f40ef7773f",
+      "git_blob": "3c4ed72175dda011aaefff3ff7ca443e26848d24"
+    },
+    {
+      "path": "test-kavramlar-panel.mjs",
+      "bytes": 60390,
+      "sha256": "754252143e7899eda567a7fbf55d1496be4a46199fe2e26a4a00851e1c18ce08",
+      "git_blob": "2293ffef7caaac663e51855c64473ccfec3ec9a5"
+    },
+    {
+      "path": "test-hasenat-integration.mjs",
+      "bytes": 9043,
+      "sha256": "89d58217fea3fc4a1109e8d966b4bea59effcf5233d5f0a3f9b8931f9f7ac886",
+      "git_blob": "831a5620d73110199ef98b2b55a969f837ff3998"
+    },
+    {
+      "path": "docs/PROJE_KAYIT_REHBERI.md",
+      "bytes": 2078,
+      "sha256": "bb926835b098b0217138627cb013f44a4b5048022177edb4b45a4bb776d5c2d3",
+      "git_blob": "cf998b54166946b81bc7bc462586c7ed284a34b1"
+    },
+    {
+      "path": "docs/HASENAT_FONT_KAYDI.md",
+      "bytes": 5657,
+      "sha256": "6d67cc5e0e41aa2b2dd2804610136b7677fe50dd55faa6df8b780c5bd29011da",
+      "git_blob": "158c8bd55eae294c3e3c063ad99752894d9a2d81"
+    },
+    {
+      "path": "docs/KAVRAMLAR_CALISMA_KAYDI.md",
+      "bytes": 4102,
+      "sha256": "e1491b8b295fa4b82d27466049ff36de6efbd9729db0455399121c57e19d6566",
+      "git_blob": "c851cca2cb2d38ebfcba84d5f3e2b83b5547760d"
+    },
+    {
+      "path": "docs/KAVRAM_DOSYA_EKLEME_R2.md",
+      "bytes": 4422,
+      "sha256": "5b912f245efb79a8558c8827954844aa75316a1751b74375174ad64e8bc8bbc1",
+      "git_blob": "ec233bc4ed4b69ccfd98ffdb48de07fe2902c041"
+    },
+    {
+      "path": "qa/KAVRAMLAR_PANEL_DOSYA_R2_QA_RAPORU.json",
+      "bytes": 10336,
+      "sha256": "7a69abffddc4f8f7da9a34113a9d7504710245229aa637f87a4f31c7efc2c856",
+      "git_blob": "c10f05a639c99db875f1739bef8528ad1c2c35ea"
+    }
+  ],
+  "preserved": {
+    "font_sha256": "1d37c471fcd5afc126a925c1b18f7727fa944692558a17c12da890abd8ae384c",
+    "app_data_sha256": "c63a37e900054e56fcb10fff688954a11289b1d98fd300e1b217c129d600169e",
+    "concept_core_sha256": "4d126264c36aaea88f2d384979237cb8a9a722a1298492a78781980a429daf11",
+    "concept_data_blob": "e2f67393113be5b7d8d78eb3c329d983c72372aa",
+    "concept_records_at_check": 0,
+    "concept_events_at_check": 0,
+    "r234_branch_head": "315740e5b5ab4699e046e07b418b90adc19ceace",
+    "live_data_writes": 0
+  },
+  "accepted_do_not_redo": [
+    "R234 ayrı 2/3/4 çalışma hedefi ve motorsuz admin akışı.",
+    "Hasenat özgün TTF, önceki kaynak/lisans kaydı ve v2.8.21 yayın kanıtı.",
+    "Sağ tık doğrudan aktarım, manuel ekleme, eklemeli arşiv/geri getirme geçmişi.",
+    "Önceki tüm kontrol noktaları ve kabul/REVIEW kayıtları silinmedi."
+  ],
+  "new_primary_text": {
+    "file": "KURAN_HASENAT_YAZIMI.txt",
+    "bytes": 1337706,
+    "sha256": "90469b1ff1e5414872ba529efccd9bbec375b9f8fd094f70a5a2e1043afe6f9a",
+    "user_decision": "Yeni ana metin kaynağı",
+    "status": "SOURCE_RECEIVED__INTEGRATION_REVIEW",
+    "live_corpus_replaced": false,
+    "special_encoding": "U+067E ve diğer Hasenat gösterim karakterleri ham metinde korunur; arama/seçim/konum eşlemesi ayrı sınanır."
+  },
+  "hold_review": [
+    {
+      "status": "HOLD",
+      "item": "Bu kontrol noktası yayın öncesidir; GitHub kaynak geri okuma, Pages sonucu ve canlı tarayıcı doğrulaması ayrı yayın kanıtında kapatılacak."
+    },
+    {
+      "status": "WAIT_USER",
+      "item": "Yetkili gerçek tarayıcıda dosya seçimi ve OK ile kayıt kabulü; test amaçlı canlı kavram yazılmadı."
+    },
+    {
+      "status": "REVIEW",
+      "item": "Yeni ana metnin tam envanter/görünüm/kaynak-konum geçişi; 41 örneğin tamamı bağımsız doğrulanmadı."
+    },
+    {
+      "status": "REVIEW",
+      "item": "GitHub deposu herkese açık; portal yayını dışında olmak GitHub gizliliği değildir."
+    },
+    {
+      "status": "REVIEW",
+      "item": "Özgün font ve kaynak metin kullanım/yeniden dağıtım koşulları; önceki kayıt korunur."
+    },
+    {
+      "status": "HOLD",
+      "item": "Kavramla benzeşen âyet genişletme ve çift taraflı renklendirme bu sürümün dışında."
+    }
+  ],
+  "last_action": "Son ürün dosyaları ve 8 test paketi yeniden doğrulandı; 220/220 başarılı.",
+  "next_safe_step": "Yalnız bu envanterdeki kod/belge değişiklikleri ve kontrol noktası güvenli commit ile gönderilir; yayımlama doğrulanır. Yeni ana metin bu R2 sürümünde corpus'a uygulanmaz.",
+  "rollback": "Gerekirse yeni geri-alma commitinde yalnız R2 kod değişiklikleri önceki commit kaynaklarına döndürülür; yeni kullanıcı verileri ve çalışma dalları silinmez."
+}

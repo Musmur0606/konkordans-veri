@@ -1,11 +1,11 @@
 /* ayatulkuran — servis calisani (cevrimdisi kullanim)
    Yeni surum yayinlarken asagidaki SURUM satirini degistirin; eski onbellek silinir. */
-const SURUM = 'v2.8.21';
+const SURUM = 'v2.8.22';
 const AD    = 'ayatulkuran-' + SURUM;
 
 const CEKIRDEK = [
   '/', '/index.html', '/manifest.json',
-  '/amiri-site.css?v=hasenat-1', '/assets/fonts/hasenat.ttf?v=1d37c471',
+  '/amiri-site.css?v=hasenat-2', '/assets/fonts/hasenat.ttf?v=1d37c471',
   '/data/benzesen-matris.json?v=20261024',
   '/icon-192.png', '/icon-512.png', '/og.png'
 ];

@@ -4,6 +4,9 @@ import {
   CONCEPTS_BRANCH, CONCEPTS_PATH, assertConceptHistory, assertConceptStorageTarget, conceptSearchKey,
   addConcept, archiveConcept, restoreConcept,
 } from './mutesabih-kavramlar-core.mjs?v=1';
+import {
+  MAX_IMPORT_BYTES, MAX_IMPORT_ROWS, parseConceptImport, buildConceptImport,
+} from './mutesabih-kavramlar-import.mjs?v=1';
 
 const OWNER = 'Musmur0606';
 const REPO = 'konkordans-veri';
@@ -60,6 +63,9 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     'concepts-source-note', 'concepts-note', 'concepts-save', 'concepts-refresh',
     'concepts-export', 'concepts-filter', 'concepts-status-filter', 'concepts-count',
     'concepts-list', 'concepts-message', 'concepts-target', 'main-arabic',
+    'concepts-file-add', 'concepts-file', 'concepts-import-preview',
+    'concepts-import-summary', 'concepts-import-list', 'concepts-import-confirm',
+    'concepts-import-cancel', 'concepts-import-message',
   ];
   const nodes = Object.fromEntries(ids.map(id => [id, document.getElementById(id)]));
   if (typeof getContext !== 'function' || typeof setBusy !== 'function' ||
@@ -74,6 +80,7 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
   let doc = null, sha = '', loading = false, saving = false, needsRefresh = false;
   let epoch = 0, readSequence = 0, operationSequence = 0, activeOperation = null;
   let pendingSelection = null, editorSource = null, wasAuthorized = false;
+  let readingFile = false, fileSequence = 0, pendingImport = null;
   let recordButtons = [];
 
   function context() { return getContext() || {}; }
@@ -101,6 +108,18 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     node('concepts-quick-status').textContent = text;
     node('concepts-quick-status').className = 'concepts-message concepts-quick-status' +
       (type ? ' ' + type : '');
+  }
+  function importMessage(text, type = '') {
+    node('concepts-import-message').textContent = text;
+    node('concepts-import-message').className = 'concepts-message' + (type ? ' ' + type : '');
+  }
+  function clearImport() {
+    fileSequence++; readingFile = false; pendingImport = null;
+    node('concepts-file').value = '';
+    node('concepts-import-preview').hidden = true;
+    node('concepts-import-summary').textContent = '';
+    node('concepts-import-list').replaceChildren();
+    importMessage('');
   }
   function correctLocation() {
     if (CONCEPTS_BRANCH !== 'calisma-kavramlar' ||
@@ -180,7 +199,7 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     const ctx = context(), logged = authorized(ctx);
     if (wasAuthorized && !logged) { onLogout(); return; }
     wasAuthorized = logged;
-    const occupied = saving || !!ctx.busy;
+    const occupied = saving || readingFile || !!ctx.busy;
     const ready = logged && !!doc && !!sha && !loading && !needsRefresh;
     for (const id of ['concepts-text', 'concepts-source', 'concepts-note']) {
       node(id).disabled = !logged || occupied;
@@ -194,6 +213,12 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
       !hasArabic(node('concepts-text').value);
     node('concepts-refresh').disabled = !logged || occupied || loading;
     node('concepts-export').disabled = !ready || occupied;
+    node('concepts-file-add').disabled = !ready || occupied;
+    node('concepts-file').disabled = !ready || occupied;
+    node('concepts-import-confirm').disabled = !ready || occupied ||
+      !pendingImport?.changed || pendingImport.baseSha !== sha ||
+      pendingImport.epoch !== epoch || pendingImport.actor !== ctx.actor;
+    node('concepts-import-cancel').disabled = saving;
     node('concepts-filter').disabled = !logged || !doc;
     node('concepts-status-filter').disabled = !logged || !doc;
     for (const button of recordButtons) button.disabled = !ready || occupied;
@@ -243,6 +268,7 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
   }
   async function refresh() {
     if (saving) return false;
+    clearImport();
     let captured;
     try { captured = session(); }
     catch (error) { message(error.message, 'error'); syncAuth(); return false; }
@@ -333,14 +359,84 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     }
     return { verse, start, end: start + text.length, origin: 'manual' };
   }
+  function renderImport(parsed, fingerprint, result) {
+    const summary = parsed.fileName + ' · ' + parsed.totalRows + ' satır/sıra · ' +
+      result.newCount + ' yeni kavram · ' + result.updatedCount + ' mevcut kayda kaynak/not · ' +
+      result.unchangedCount + ' değişiklik gerektirmeyen kayıt' +
+      (parsed.duplicateRows ? ' · dosya içi ' + parsed.duplicateRows + ' tekrar birleştirildi' : '') +
+      (result.archivedCount ? ' · ' + result.archivedCount + ' arşiv kaydı arşivde kalacak' : '');
+    node('concepts-import-summary').textContent = summary;
+    const list = node('concepts-import-list'); list.replaceChildren();
+    for (const row of result.rows) {
+      const item = textNode('div', 'concepts-import-row', '');
+      const phrase = textNode('span', 'concepts-arabic', row.arabicText);
+      phrase.lang = 'ar'; phrase.dir = 'rtl';
+      const state = row.action === 'new' ? 'Yeni kavram' :
+        row.action === 'update' ? 'Mevcut kavrama dosya kaynağı/notu eklenecek' : 'Zaten kayıtlı';
+      item.append(phrase, textNode('span', 'micro', state + (row.archived ? ' · arşivde kalacak' : '')));
+      list.append(item);
+    }
+    list.append(textNode('p', 'concepts-import-fingerprint', 'Dosya SHA-256: ' + fingerprint));
+    node('concepts-import-preview').hidden = false;
+    importMessage(result.changed
+      ? 'Henüz kaydedilmedi. Listeyi kontrol edip “OK — Dosyadaki kavramları ekle” düğmesine basın.'
+      : 'Bu dosyanın kavramları ve kaynak bilgisi zaten kayıtlı. Yeniden yazılmayacak.',
+    result.changed ? '' : 'success');
+  }
+  async function previewFile() {
+    const ctx = context();
+    if (!authorized(ctx) || ctx.busy || saving || loading || readingFile ||
+        !doc || !sha || needsRefresh) return;
+    const files = Array.from(node('concepts-file').files || []);
+    clearImport();
+    if (!files.length) { syncAuth(); return; }
+    const captured = session(), sequence = ++fileSequence, originalSha = sha;
+    readingFile = true; importMessage('Dosya okunuyor ve Arapça kavramlar kontrol ediliyor…'); syncAuth();
+    try {
+      if (files.length !== 1) throw Error('Bir defada yalnız bir kavram dosyası seçin.');
+      const file = files[0];
+      if (!/\.(txt|csv|json)$/i.test(file.name || '')) throw Error('TXT, CSV veya JSON biçiminde bir kavram dosyası seçin.');
+      if (!Number.isSafeInteger(file.size) || file.size <= 0 || file.size > MAX_IMPORT_BYTES) {
+        throw Error('Dosya boş olmamalı ve en çok 1 MB olmalı.');
+      }
+      const buffer = await file.arrayBuffer();
+      if (!sameSession(captured) || sequence !== fileSequence) return;
+      const bytes = new Uint8Array(buffer);
+      if (bytes.byteLength !== file.size || bytes.byteLength > MAX_IMPORT_BYTES) throw Error('Dosyanın boyutu doğrulanamadı.');
+      let text;
+      try { text = new TextDecoder('utf-8', { fatal: true }).decode(bytes); }
+      catch { throw Error('Dosya UTF-8 biçiminde okunamadı. Arapça harfleri koruyarak UTF-8 olarak kaydedin.'); }
+      if (!globalThis.crypto?.subtle) throw Error('Dosya bütünlük kontrolü kullanılamıyor. Güvenli HTTPS bağlantısıyla yeniden açın.');
+      const hash = await globalThis.crypto.subtle.digest('SHA-256', bytes);
+      if (!sameSession(captured) || sequence !== fileSequence) return;
+      if (sha !== originalSha || needsRefresh || loading || context().busy) throw Error('İşlem durumu değişti. Kavramları yenileyip dosyayı yeniden seçin.');
+      const fingerprint = Array.from(new Uint8Array(hash), value => value.toString(16).padStart(2, '0')).join('');
+      const parsed = parseConceptImport({ fileName: file.name, text });
+      const result = buildConceptImport(doc, parsed, {
+        sha256: fingerprint, actor: captured.actor, corpus: context().corpus,
+      });
+      assertConceptStorageTarget(storage(), result.doc, context().corpus);
+      pendingImport = { parsed, sha256: fingerprint, baseSha: originalSha,
+        epoch: captured.epoch, actor: captured.actor, changed: result.changed };
+      renderImport(parsed, fingerprint, result);
+    } catch (error) {
+      if (sameSession(captured) && sequence === fileSequence) {
+        pendingImport = null;
+        importMessage('Dosya eklenmedi: ' + error.message + ' Hiçbir kavram kaydedilmedi.', 'error');
+      }
+    } finally {
+      if (sequence === fileSequence) { readingFile = false; syncAuth(); }
+    }
+  }
   async function mutate(operation, recordId = '', quickInput = null) {
     const ctx = context();
     const quick = operation === 'quick';
     const report = (text, type = '') => {
       message(text, type);
       if (quick) quickMessage(text, type);
+      if (operation === 'import') importMessage(text, type);
     };
-    if (!authorized(ctx) || ctx.busy || saving || loading) return;
+    if (!authorized(ctx) || ctx.busy || saving || loading || readingFile) return;
     if (!doc || !sha || needsRefresh) {
       report('Kavram çalışma dosyası hazır değil. Önce Kavramları yenile düğmesini kullanın.', 'error'); return;
     }
@@ -365,6 +461,14 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
           arabicText: text, note: quick ? '' : fieldSnapshot.note,
           source: quick ? { ...quickInput.source } : resolveSource(text, ctx.corpus),
         }, captured.actor, ctx.corpus);
+      } else if (operation === 'import') {
+        if (!pendingImport || pendingImport.baseSha !== sha || pendingImport.epoch !== epoch ||
+            pendingImport.actor !== captured.actor) {
+          throw Error('Dosya önizlemesi güncel değil. Dosyayı yeniden seçip kontrol edin.');
+        }
+        result = buildConceptImport(doc, pendingImport.parsed, {
+          sha256: pendingImport.sha256, actor: captured.actor, corpus: ctx.corpus,
+        });
       } else {
         if (!['archive', 'restore'].includes(operation)) throw Error('Geçersiz kavram işlemi.');
         const record = doc.records.find(item => item.id === recordId);
@@ -375,7 +479,7 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
         result = (operation === 'archive' ? archiveConcept : restoreConcept)(
           doc, recordId, '', captured.actor);
       }
-      if (!result.event) {
+      if (!result.changed) {
         report('Aynı kayıt zaten var; yeni kaynak/not veya durum değişikliği bulunmadı.' +
           (quick ? ' · ' + quickInput.source.verse : '')); return;
       }
@@ -410,6 +514,7 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
         throw Error('Kayıt yanıtı doğrulanamadı. Sonuç belirsiz; otomatik tekrar yapılmadı.');
       }
       doc = result.doc; sha = reply.content.sha; needsRefresh = false;
+      clearImport();
       if (operation === 'add' && node('concepts-text').value === fieldSnapshot.text &&
           node('concepts-source').value === fieldSnapshot.source &&
           node('concepts-note').value === fieldSnapshot.note) {
@@ -417,7 +522,10 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
         clearSource();
       }
       renderRecords();
-      report(quick ? 'Kavram veri setine kaydedildi · ' + quickInput.source.verse :
+      report(operation === 'import'
+        ? result.newCount + ' yeni kavram ve ' + result.updatedCount +
+          ' mevcut kayda dosya kaynağı/notu kaydedildi. Portala veya motora aktarılmadı.' :
+        quick ? 'Kavram veri setine kaydedildi · ' + quickInput.source.verse :
         operation === 'archive' ? 'Kavram arşivlendi; geçmişi korunuyor.' :
         operation === 'restore' ? 'Kavram geri getirildi; geçmişi korunuyor.' :
         'Kavram çalışma veri setine kaydedildi. Portala veya motora aktarılmadı.', 'success');
@@ -452,6 +560,7 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     activeOperation = null; saving = false; loading = false;
     doc = null; sha = ''; needsRefresh = false;
     pendingSelection = null; editorSource = null;
+    clearImport();
     for (const id of ['concepts-text', 'concepts-source', 'concepts-note', 'concepts-filter']) node(id).value = '';
     node('concepts-context-menu').hidden = true;
     node('concepts-list').replaceChildren(); recordButtons = [];
@@ -466,6 +575,7 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     const release = activeOperation !== null;
     activeOperation = null; saving = false; loading = false;
     doc = null; sha = ''; needsRefresh = true;
+    clearImport();
     if (release) setBusy(false);
     return refresh();
   }
@@ -493,6 +603,16 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
   });
   node('concepts-save').addEventListener('click', () => mutate('add'));
   node('concepts-refresh').addEventListener('click', refresh);
+  node('concepts-file-add').addEventListener('click', () => {
+    if (!authorized() || !doc || !sha || saving || loading || readingFile || needsRefresh || context().busy) return;
+    clearImport(); syncAuth(); node('concepts-file').click();
+  });
+  node('concepts-file').addEventListener('change', previewFile);
+  node('concepts-import-confirm').addEventListener('click', () => mutate('import'));
+  node('concepts-import-cancel').addEventListener('click', () => {
+    if (saving) return;
+    clearImport(); syncAuth(); importMessage('Dosya aktarımı iptal edildi. Hiçbir kavram kaydedilmedi.');
+  });
   node('concepts-export').addEventListener('click', () => {
     try { download(); } catch (error) { message(error.message, 'error'); }
   });

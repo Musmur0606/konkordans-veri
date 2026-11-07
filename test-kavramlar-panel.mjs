@@ -1,6 +1,6 @@
 // Ağsız DOM/API benzetimi. Gerçek tarayıcı, mikrofon veya GitHub yazması yoktur.
 import assert from 'node:assert/strict';
-import { createHash } from 'node:crypto';
+import { createHash, webcrypto } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -30,6 +30,8 @@ class FakeNode {
     this.isConnected = true;
     this._text = '';
     this.innerHTMLWrites = [];
+    this.clickInvocations = 0;
+    this.files = [];
     this.classList = {
       add: (...names) => { this.className = [...new Set([...this.className.split(/\s+/).filter(Boolean), ...names])].join(' '); },
       remove: (...names) => { this.className = this.className.split(/\s+/).filter(x => !names.includes(x)).join(' '); },
@@ -131,7 +133,7 @@ class FakeNode {
     for (const listener of this.listeners.get(type) || []) await listener.call(this, event);
     return event;
   }
-  async click() { if (!this.disabled) return this.fire('click'); }
+  async click() { this.clickInvocations++; if (!this.disabled) return this.fire('click'); }
   focus() { this.ownerDocument.activeElement = this; }
   select() {}
   scrollIntoView() {}
@@ -212,6 +214,9 @@ const IDS = {
   'concepts-note':'textarea','concepts-save':'button','concepts-refresh':'button',
   'concepts-export':'button','concepts-filter':'input','concepts-status-filter':'select',
   'concepts-count':'span','concepts-list':'div','concepts-message':'p','concepts-target':'span',
+  'concepts-file-add':'button','concepts-file':'input','concepts-import-preview':'section',
+  'concepts-import-summary':'p','concepts-import-list':'div','concepts-import-confirm':'button',
+  'concepts-import-cancel':'button','concepts-import-message':'p',
   'main-arabic':'p','main-translation':'p',
 };
 
@@ -266,6 +271,8 @@ async function harness({selected='2.2', initial=null, authorized=true} = {}) {
     else nodes['concepts-panel'].append(node);
   }
   nodes['concepts-context-menu'].append(nodes['concepts-transfer'],nodes['concepts-selection-note']);
+  nodes['concepts-import-preview'].append(nodes['concepts-import-summary'],nodes['concepts-import-list'],nodes['concepts-import-confirm'],nodes['concepts-import-cancel']);
+  nodes['concepts-file'].type='file';nodes['concepts-import-preview'].hidden=true;
   nodes['concepts-status-filter'].value='active';
   nodes['concepts-context-menu'].hidden=true;
   const ctx={token:authorized?'FAKE_QA_KEY_DO_NOT_SEND':'',actor:authorized?'Musmur0606':'',corpus:CORPUS,selected,busy:false};
@@ -275,6 +282,7 @@ async function harness({selected='2.2', initial=null, authorized=true} = {}) {
   const win = new FakeNode(0,'',doc);
   win.getSelection = () => doc.selection;
   win.scrollX=0;win.scrollY=0;
+  win.crypto=webcrypto;
   const confirmations=[];
   const confirm=message=>{confirmations.push(String(message));return true;};
   win.confirm=confirm;
@@ -298,6 +306,7 @@ async function harness({selected='2.2', initial=null, authorized=true} = {}) {
   clipboard.blockWrite=()=>{let resolve;const promise=new Promise(r=>{resolve=r;});clipboard.writeGate={promise,resolve};return resolve;};
   Object.assign(globalThis,{document:doc,window:win,fetch:remote.fetch,confirm,Node:{ELEMENT_NODE:1,TEXT_NODE:3},HTMLElement:FakeNode,Element:FakeNode});
   Object.defineProperty(globalThis,'navigator',{configurable:true,value:{clipboard:clipboardAPI}});
+  Object.defineProperty(globalThis,'crypto',{configurable:true,value:webcrypto});
   const module=await import(pathToFileURL(join(DIR,'mutesabih-kavramlar.mjs')).href+'?qa='+ ++sessionNumber);
   const busyEvents=[];
   const panel=module.initConceptPanel({getContext:()=>ctx,setBusy:value=>{ctx.busy=value;busyEvents.push(value);}});
@@ -327,15 +336,20 @@ async function test(name, fn) {
   catch (error) { results.push({name,status:'FAIL',message:error.message,stack:error.stack}); console.error('FAIL',name,error.message); }
 }
 
-// Senaryolar ürün API'si hazır olduğunda bu bölüme eklenecek.
+// Önceki 41 sağtık/manuel senaryosu korunur; dosya aktarımı ayrı bölümde ölçülür.
 async function main() {
   CORE = await import(pathToFileURL(join(DIR,'mutesabih-kavramlar-core.mjs')).href);
   await runTests();
-  const report={date:TEST_DAY,test_type:'AGSiZ_DOM_API_BENZETIMI',real_browser:'HOLD_NOT_RUN',real_github_writes:0,
-    product_hashes: Object.fromEntries(await Promise.all(['mutesabih-kavramlar-core.mjs','mutesabih-kavramlar.mjs'].map(async name=>[name,createHash('sha256').update(await readFile(join(DIR,name))).digest('hex')]))),
+  const regressionCount=results.length;
+  await runFileImportTests();
+  const report={date:TEST_DAY,test_type:'AGSIZ_DOM_API_BENZETIMI',real_browser:'HOLD_NOT_RUN',real_github_writes:0,
+    limitations:['Küçük DOM/Range/Selection benzetimidir; gerçek tarayıcı ve dosya seçicisi görsel testi değildir.','Tüm API istekleri bellekte karşılanır; gerçek dosya aktarımı, mikrofon ve canlı GitHub yazması yapılmaz.'],
+    regression:{total:regressionCount,passed:results.slice(0,regressionCount).filter(r=>r.status==='PASS').length},
+    file_import:{total:results.length-regressionCount,passed:results.slice(regressionCount).filter(r=>r.status==='PASS').length},
+    product_hashes: Object.fromEntries(await Promise.all(['mutesabih-kavramlar-core.mjs','mutesabih-kavramlar.mjs','mutesabih-kavramlar-import.mjs'].map(async name=>[name,createHash('sha256').update(await readFile(join(DIR,name))).digest('hex')]))),
     passed:results.filter(r=>r.status==='PASS').length,failed:results.filter(r=>r.status==='FAIL').length,tests:results};
-  await writeFile(join(DIR,'KAVRAMLAR_PANEL_QA_RAPORU.json'),JSON.stringify(report,null,2)+'\n');
-  console.log(JSON.stringify({passed:report.passed,failed:report.failed,report:join(DIR,'KAVRAMLAR_PANEL_QA_RAPORU.json')}));
+  await writeFile(join(DIR,'KAVRAMLAR_PANEL_DOSYA_R2_QA_RAPORU.json'),JSON.stringify(report,null,2)+'\n');
+  console.log(JSON.stringify({passed:report.passed,failed:report.failed,regression:report.regression,file_import:report.file_import,report:join(DIR,'KAVRAMLAR_PANEL_DOSYA_R2_QA_RAPORU.json')}));
   if(report.failed) process.exitCode=1;
 }
 
@@ -607,4 +621,225 @@ async function runTests() {
     }finally{URL.createObjectURL=oldCreate;URL.revokeObjectURL=oldRevoke;}
   });
 }
+function deferred() {
+  let release;
+  const promise=new Promise(resolve=>{release=resolve;});
+  return {promise,release};
+}
+
+function dummyFile(name,content,{size,gate,readError}={}) {
+  const bytes=typeof content==='string'?new TextEncoder().encode(content):Uint8Array.from(content);
+  return {name,size:size??bytes.byteLength,readCalls:0,
+    sha256:createHash('sha256').update(bytes).digest('hex'),
+    async arrayBuffer(){this.readCalls++;if(gate)await gate.promise;if(readError)throw new Error(readError);return bytes.slice().buffer;}};
+}
+
+async function runFileImportTests() {
+  const authorize=async h=>{await h.panel.onAuthorized();await settle();};
+  const noPuts=h=>assert.equal(h.remote.puts.length,0);
+  const input=h=>h.$('concepts-text').value;
+  const snapshot=h=>({text:input(h),source:h.$('concepts-source').value,note:h.$('concepts-note').value});
+  const preview=h=>h.$('concepts-import-preview');
+  const confirm=h=>h.$('concepts-import-confirm');
+  const importMsg=h=>h.$('concepts-import-message').textContent+' '+h.$('concepts-message').textContent;
+  const selectFiles=(h,files)=>{
+    h.$('concepts-file').files=files;h.$('concepts-file').value=files.length?'C:\\fakepath\\'+files[0].name:'';
+    return h.$('concepts-file').fire('change');
+  };
+  const load=async(h,file)=>{await selectFiles(h,[file]);await settle();};
+  const commit=async h=>{await confirm(h).click();await settle();};
+  const fillDraft=async h=>{
+    await h.input('concepts-text','لَا رَيْبَ');await h.input('concepts-source','2.2');
+    await h.input('concepts-note','Başka formun korunacak notu');return snapshot(h);
+  };
+  const twoText='الْكِتَابُ\nلَا رَيْبَ';
+  const assertNoSource=doc=>{for(const record of doc.records)assert.deepEqual(record.sources,[]);};
+  const assertClosed=h=>{noPuts(h);assert.equal(confirm(h).disabled,true);assert.equal(preview(h).hidden,true);};
+
+  await test('DOSYA: Dosya ekle yalnız açık tıklamayla dosya seçicisini çağırır; yazma yapmaz',async()=>{
+    const h=await harness();await authorize(h);assert.equal(h.$('concepts-file').clickInvocations,0);
+    await h.$('concepts-file-add').click();await settle();assert.equal(h.$('concepts-file').clickInvocations,1);
+    assert.equal(preview(h).hidden,true);noPuts(h);
+  });
+  await test('DOSYA: TXT iki harekeli kelime grubu yalnız önizlenir; onay öncesi belge değişmez',async()=>{
+    const h=await harness();await authorize(h);const before=jsonCopy(h.remote.doc),file=dummyFile('kavramlar.txt',twoText);
+    await load(h,file);assert.equal(preview(h).hidden,false);assert.equal(confirm(h).disabled,false);noPuts(h);
+    assert.equal(h.$('concepts-import-list').textContent.includes('الْكِتَابُ'),true);
+    assert.equal(h.$('concepts-import-list').textContent.includes('لَا رَيْبَ'),true);
+    assert(h.$('concepts-import-list').textContent.includes(file.sha256));assert.deepEqual(h.remote.doc,before);
+    assert.match(importMsg(h),/Henüz|kontrol|OK|kaydedilmedi/u);
+  });
+  await test('DOSYA: Açık onay bütün TXT kavramlarını tek atomik PUT ile ayrı hedefe kaydeder',async()=>{
+    const h=await harness();await authorize(h);const file=dummyFile('kavramlar.txt',twoText);await load(h,file);await commit(h);
+    assert.equal(h.remote.puts.length,1);assert.deepEqual(h.remote.doc.records.map(x=>x.arabic_text),twoText.split('\n'));
+    assertNoSource(h.remote.doc);assert.equal(preview(h).hidden,true);
+    for(const record of h.remote.doc.records){assert(record.notes.some(x=>x.text.includes(file.name)&&x.text.includes(file.sha256)));}
+    assert.equal(h.remote.puts[0].branch,'calisma-kavramlar');assert(h.remote.puts[0].path.endsWith('/data/kavramlar-calisma.json'));
+    CORE.assertConceptHistory(h.remote.doc,CORPUS);
+  });
+  await test('DOSYA: CSV tırnaklı virgüllü notları Arapça metinle korur; âyet kaynağı uydurmaz',async()=>{
+    const h=await harness();await authorize(h);const file=dummyFile('kavramlar.csv','kavram,not\nالْكِتَابُ,"Not, açıklama"\nلَا رَيْبَ,İkinci not');
+    await load(h,file);noPuts(h);await commit(h);assert.equal(h.remote.puts.length,1);assertNoSource(h.remote.doc);
+    assert(h.remote.doc.records[0].notes.some(x=>x.text.includes('Not, açıklama')));
+    assert(h.remote.doc.records[1].notes.some(x=>x.text.includes('İkinci not')));
+  });
+  await test('DOSYA: JSON metin ve nesne dizileri ayrı örneklerde doğru alınır',async()=>{
+    for(const text of [JSON.stringify(['الْكِتَابُ','لَا رَيْبَ']),JSON.stringify([{arabic_text:'الْكِتَابُ',note:'JSON özel notu'},{arabic_text:'لَا رَيْبَ'}])]){
+      const h=await harness();await authorize(h);await load(h,dummyFile('kavramlar.json',text));noPuts(h);await commit(h);
+      assert.deepEqual(h.remote.doc.records.map(x=>x.arabic_text),twoText.split('\n'));assertNoSource(h.remote.doc);assert.equal(h.remote.puts.length,1);
+    }
+  });
+  await test('DOSYA: İptal önizlemeyi temizler; geç veya doğrudan onay olayı yazamaz',async()=>{
+    const h=await harness();await authorize(h);await load(h,dummyFile('kavramlar.txt',twoText));
+    await h.$('concepts-import-cancel').click();await settle();assertClosed(h);assert.equal(h.$('concepts-import-list').textContent,'');
+    await confirm(h).fire('click');await settle();noPuts(h);
+  });
+  await test('DOSYA: Önizleme ve onay manuel metin/kaynak/notu değiştirmez veya dosyaya karıştırmaz',async()=>{
+    const h=await harness();await authorize(h);const before=await fillDraft(h);await load(h,dummyFile('kavramlar.txt',twoText));
+    assert.deepEqual(snapshot(h),before);await commit(h);assert.deepEqual(snapshot(h),before);
+    assertNoSource(h.remote.doc);assert(h.remote.doc.records.every(x=>x.notes.every(n=>!n.text.includes(before.note))));
+  });
+  await test('DOSYA: Aynı ad ve aynı baytların yeniden alınması yeni kayıt/olay/PUT oluşturmaz',async()=>{
+    const h=await harness();await authorize(h);await load(h,dummyFile('tekrar.txt',twoText));await commit(h);
+    const before=jsonCopy(h.remote.doc),puts=h.remote.puts.length;await load(h,dummyFile('tekrar.txt',twoText));
+    assert.equal(preview(h).hidden,false);assert.equal(confirm(h).disabled,true);
+    await confirm(h).fire('click');await settle();assert.equal(h.remote.puts.length,puts);assert.deepEqual(h.remote.doc,before);
+  });
+  await test('DOSYA: Dosya içi tam tekrar tek kimliğe birleşir; hareke farkı ayrı kalır',async()=>{
+    const h=await harness();await authorize(h);await load(h,dummyFile('tekrarlar.txt','الْكِتَابُ\nالْكِتَابُ\nالكتاب'));await commit(h);
+    assert.equal(h.remote.doc.records.length,2);assert.deepEqual(h.remote.doc.records.map(x=>x.arabic_text),['الْكِتَابُ','الكتاب']);
+    assert(h.remote.doc.records[0].notes.some(x=>x.text.includes('1, 2')));assert.equal(h.remote.puts.length,1);
+  });
+  await test('DOSYA: Arşiv kaydı, önceki kaynakları ve notları korunur; otomatik geri açılmaz',async()=>{
+    const text='الْكِتَابُ',start=CORPUS.verses['2:2'].ar.indexOf(text);
+    let initial=CORE.emptyConceptHistory(TEST_DAY+'T12:00:00.000Z');
+    initial=CORE.addConcept(initial,{arabicText:text,note:'Önceki kaynak notu',source:{verse:'2.2',start,end:start+text.length,origin:'admin_selection'}},'Musmur0606',CORPUS).doc;
+    initial=CORE.archiveConcept(initial,initial.records[0].id,'Kullanıcı arşiv kararı','Musmur0606').doc;
+    const old=jsonCopy(initial.records[0]),h=await harness({initial});await authorize(h);await load(h,dummyFile('arsiv.txt',twoText));await commit(h);
+    const record=h.remote.doc.records.find(x=>x.id===old.id);assert(record);assert.equal(record.status,'archived');assert.deepEqual(record.sources,old.sources);
+    for(const note of old.notes)assert(record.notes.some(x=>JSON.stringify(x)===JSON.stringify(note)));
+    assert.equal(h.remote.doc.records.length,2);assert.equal(h.remote.doc.events.filter(x=>x.type==='restore').length,0);
+  });
+  await test('DOSYA: Tek geçersiz Arapça satır bütün dosyayı reddeder; ilk satır bile yazılmaz',async()=>{
+    const h=await harness();await authorize(h);const before=jsonCopy(h.remote.doc);await load(h,dummyFile('gecersiz.txt','الْكِتَابُ\nTürkçe kavram'));
+    assertClosed(h);assert.deepEqual(h.remote.doc,before);await confirm(h).fire('click');await settle();noPuts(h);
+  });
+  await test('DOSYA: Desteklenmeyen uzantı boş dosya ve yalnız boşluk ayrı ayrı reddedilir',async()=>{
+    for(const file of [dummyFile('kavram.pdf',twoText),dummyFile('bos.txt',''),dummyFile('bosluk.txt','  \r\n\t\n')]){
+      const h=await harness();await authorize(h);await load(h,file);assertClosed(h);assert.match(importMsg(h),/Dosya eklenmedi|boş|biçim|satır/u);
+    }
+  });
+  await test('DOSYA: Geçersiz UTF8 hiçbir değiştirme karakteriyle sessiz alınmaz',async()=>{
+    const h=await harness();await authorize(h);await load(h,dummyFile('utf8.txt',[0xD8,0xA7,0xC3,0x28]));
+    assertClosed(h);assert.match(importMsg(h),/UTF-8/u);
+  });
+  await test('DOSYA: 1MB üzeri boyut okumadan engellenir; okunan bayt/bildirilen boyut farkı da reddedilir',async()=>{
+    const oversized=dummyFile('buyuk.txt',twoText,{size:1048577});
+    let h=await harness();await authorize(h);await load(h,oversized);assertClosed(h);assert.equal(oversized.readCalls,0);
+    const mismatch=dummyFile('boyut.txt',twoText,{size:1});h=await harness();await authorize(h);await load(h,mismatch);assertClosed(h);assert.equal(mismatch.readCalls,1);
+  });
+  await test('DOSYA: Birden çok dosya seçimi sıfır okuma/sıfır yazmayla reddedilir',async()=>{
+    const h=await harness();await authorize(h);const files=[dummyFile('a.txt','الحمد'),dummyFile('b.txt','الرحمن')];
+    await selectFiles(h,files);await settle();assertClosed(h);assert(files.every(f=>f.readCalls===0));
+  });
+  await test('DOSYA: 201 dolu satır tekrar olsa bile reddedilir; 200 satır sınırı kabul edilir',async()=>{
+    let h=await harness();await authorize(h);await load(h,dummyFile('cok.txt',Array(201).fill('الحمد').join('\n')));assertClosed(h);
+    h=await harness();await authorize(h);await load(h,dummyFile('sinir.txt',Array(200).fill('الحمد').join('\n')));
+    assert.equal(preview(h).hidden,false);noPuts(h);await commit(h);assert.equal(h.remote.doc.records.length,1);assert.equal(h.remote.puts.length,1);
+  });
+  await test('DOSYA: Bozuk CSV/JSON, ek kaynak alanı ve toplu çalışma belgesi failclosed reddedilir',async()=>{
+    const files=[
+      dummyFile('bozuk.csv','kavram,not\nالحمد,"kapanmayan'),
+      dummyFile('bozuk.json','["الحمد",'),
+      dummyFile('kaynak.json',JSON.stringify([{arabic_text:'الحمد',source:'2.1'}])),
+      dummyFile('kaynak.csv','kavram,not,kaynak\nالحمد,Not,2.1'),
+      dummyFile('gecmis.json',JSON.stringify(CORE.emptyConceptHistory(TEST_DAY+'T12:00:00.000Z'))),
+    ];
+    for(const file of files){const h=await harness();await authorize(h);await load(h,file);assertClosed(h);}
+  });
+  await test('DOSYA: UTF8BOM/CRLF ve noktalı virgüllü CSV güvenli biçimde alınır',async()=>{
+    const h=await harness();await authorize(h);await load(h,dummyFile('bom.csv','\uFEFFkavram;not\r\nالحمد;Birinci not\r\nالرحمن;İkinci not\r\n'));
+    assert.equal(preview(h).hidden,false);await commit(h);assert.deepEqual(h.remote.doc.records.map(x=>x.arabic_text),['الحمد','الرحمن']);assertNoSource(h.remote.doc);
+  });
+  await test('DOSYA: Dosyadan gelen HTML notları çalışmaz; textContent olarak saklanır/görünür',async()=>{
+    const h=await harness();await authorize(h);const danger='<img src=x onerror=boom()>';
+    await load(h,dummyFile('notlar.csv','kavram,not\nالحمد,'+danger));noPuts(h);await commit(h);
+    assert(h.remote.doc.records[0].notes.some(x=>x.text.includes(danger)));assert(h.$('concepts-list').textContent.includes(danger));
+    assert.equal(h.$('concepts-list').querySelectorAll('img,script').length,0);assert.equal(globalThis.QA_XSS,undefined);
+  });
+  await test('DOSYA: Okuma sürerken manuel/sağtık/onay kilitlenir; hiçbir eşzamanlı kayıt olmaz',async()=>{
+    const h=await harness();await authorize(h);await fillDraft(h);const gate=deferred(),file=dummyFile('bekleyen.txt',twoText,{gate});
+    const pending=selectFiles(h,[file]);await settle();
+    assert.equal(h.$('concepts-file-add').disabled,true);assert.equal(h.$('concepts-file').disabled,true);assert.equal(h.$('concepts-save').disabled,true);assert.equal(h.$('concepts-text').disabled,true);
+    await h.$('concepts-save').fire('click');await h.select('الْكِتَابُ');await h.$('concepts-transfer').fire('click');await confirm(h).fire('click');await settle();noPuts(h);
+    gate.release();await pending;await settle();assert.equal(preview(h).hidden,false);assert.equal(h.$('concepts-file-add').disabled,false);noPuts(h);
+  });
+  await test('DOSYA: Kayıt sürerken başka dosya okunamaz; ikinci PUT başlamaz',async()=>{
+    const h=await harness();await authorize(h);await load(h,dummyFile('ilk.txt',twoText));
+    const release=h.remote.blockNextGet(),saving=confirm(h).click();await settle();const second=dummyFile('ikinci.txt','الرحمن');
+    assert.equal(h.$('concepts-file-add').disabled,true);await selectFiles(h,[second]);await settle();assert.equal(second.readCalls,0);
+    await confirm(h).fire('click');release();await saving;await settle();assert.equal(h.remote.puts.length,1);assert.equal(h.remote.doc.records.length,2);
+  });
+  await test('DOSYA: Bekleyen ArrayBuffer sırasında çıkış geç cevabın önizleme oluşturmasını engeller',async()=>{
+    const h=await harness();await authorize(h);const gate=deferred(),pending=selectFiles(h,[dummyFile('gec.txt',twoText,{gate})]);await settle();
+    h.ctx.token='';h.ctx.actor='';h.panel.onLogout();gate.release();await pending;await settle();assertClosed(h);assert.equal(h.$('concepts-import-list').textContent,'');
+  });
+  await test('DOSYA: Yeni oturum eski dosya okumasını veya hazır önizlemeyi devralmaz',async()=>{
+    const h=await harness();await authorize(h);const gate=deferred(),pending=selectFiles(h,[dummyFile('eski.txt',twoText,{gate})]);await settle();
+    h.ctx.token='FAKE_RELOGIN_KEY';await h.panel.onAuthorized();gate.release();await pending;await settle();assertClosed(h);
+    await load(h,dummyFile('yeni.txt',twoText));assert.equal(preview(h).hidden,false);await h.panel.onAuthorized();await settle();assertClosed(h);
+  });
+  await test('DOSYA: Okuma sırasında İptal geç cevabı yok sayar; daha yeni dosyanın önizlemesi korunur',async()=>{
+    const h=await harness();await authorize(h);const gate=deferred(),pending=selectFiles(h,[dummyFile('eski.txt','الحمد',{gate})]);await settle();
+    await h.$('concepts-import-cancel').click();await load(h,dummyFile('yeni.txt','الرحمن'));
+    assert(h.$('concepts-import-summary').textContent.includes('yeni.txt'));gate.release();await pending;await settle();
+    assert(h.$('concepts-import-summary').textContent.includes('yeni.txt'));assert(!h.$('concepts-import-list').textContent.includes('الحمد'));noPuts(h);
+    await commit(h);assert.deepEqual(h.remote.doc.records.map(x=>x.arabic_text),['الرحمن']);
+  });
+  await test('DOSYA: Yenile hazır önizlemeyi temizler; eski onay ile kayıt yapılamaz',async()=>{
+    const h=await harness();await authorize(h);await load(h,dummyFile('yenile.txt',twoText));await h.panel.refresh();await settle();assertClosed(h);
+    await confirm(h).fire('click');await settle();noPuts(h);
+  });
+  await test('DOSYA: StaleSHA toplu aktarımı durdurur; otomatik retry yok ve manuel giriş korunur',async()=>{
+    const h=await harness();await authorize(h);const before=await fillDraft(h);await load(h,dummyFile('cakisma.txt',twoText));
+    h.remote.doc=CORE.addConcept(h.remote.doc,{arabicText:'الرحمن',note:'Başka kullanıcı',source:null},'other-user',CORPUS).doc;
+    const remoteBefore=jsonCopy(h.remote.doc);await commit(h);noPuts(h);assert.deepEqual(h.remote.doc,remoteBefore);assert.deepEqual(snapshot(h),before);
+    assert.equal(confirm(h).disabled,true);await confirm(h).fire('click');await settle();noPuts(h);
+    await h.panel.refresh();await settle();assert.equal(preview(h).hidden,true);
+  });
+  await test('DOSYA: PUT409 dosyanın hiçbir kaydını kısmen yazmaz; önizleme/not korunur ve retry yapılmaz',async()=>{
+    const h=await harness();await authorize(h);const before=await fillDraft(h);await load(h,dummyFile('409.txt',twoText));const list=h.$('concepts-import-list').textContent;
+    h.remote.putStatus=409;await commit(h);assert.equal(h.remote.puts.length,1);assert.equal(h.remote.doc.records.length,0);assert.deepEqual(snapshot(h),before);
+    assert.equal(h.$('concepts-import-list').textContent,list);assert.equal(confirm(h).disabled,true);await confirm(h).fire('click');await settle();assert.equal(h.remote.puts.length,1);
+  });
+  await test('DOSYA: Meşgul/yetkisiz/eksik belge durumunda dosya okuması başlamaz',async()=>{
+    const scenarios=[async h=>{h.ctx.busy=true;h.panel.syncAuth();},async h=>{h.ctx.token='';h.ctx.actor='';h.panel.onLogout();},async h=>{h.remote.getStatus=404;await h.panel.refresh();}];
+    for(const setup of scenarios){
+      const h=await harness();await authorize(h);await setup(h);const file=dummyFile('kapali.txt',twoText);
+      await h.$('concepts-file-add').fire('click');await selectFiles(h,[file]);await settle();assert.equal(file.readCalls,0);noPuts(h);assert.equal(confirm(h).disabled,true);
+    }
+  });
+  await test('DOSYA: Başarılı manuel veya sağtık değişikliği eski dosya önizlemesini geçersiz kılar',async()=>{
+    for(const method of ['manual','quick']){
+      const h=await harness();await authorize(h);await load(h,dummyFile('bekleyen.txt','الرحمن'));
+      if(method==='manual'){await h.input('concepts-text','الٓمٓ');await h.$('concepts-save').click();await settle();}
+      else await h.transfer('الْكِتَابُ');
+      assert.equal(h.remote.puts.length,1);assert.equal(preview(h).hidden,true);await confirm(h).fire('click');await settle();assert.equal(h.remote.puts.length,1);
+    }
+  });
+  await test('DOSYA: Dosya okuma hatası ve WebCrypto yokluğu failclosed; eski taslak korunur',async()=>{
+    let h=await harness();await authorize(h);let before=await fillDraft(h);await load(h,dummyFile('okunamadi.txt',twoText,{readError:'Synthetic read error'}));assertClosed(h);assert.deepEqual(snapshot(h),before);
+    h=await harness();await authorize(h);before=await fillDraft(h);Object.defineProperty(globalThis,'crypto',{configurable:true,value:{}});
+    await load(h,dummyFile('crypto.txt',twoText));assertClosed(h);assert.deepEqual(snapshot(h),before);assert.match(importMsg(h),/bütünlük|HTTPS/u);
+  });
+  await test('DOSYA: Geçersiz yeni dosya önceki geçerli önizlemeyi kullanarak kayıt yaptıramaz',async()=>{
+    const h=await harness();await authorize(h);await load(h,dummyFile('gecerli.txt',twoText));assert.equal(preview(h).hidden,false);
+    await load(h,dummyFile('gecersiz.txt','Türkçe'));assertClosed(h);await confirm(h).fire('click');await settle();noPuts(h);
+  });
+  await test('DOSYA: Önizleme ve onay arasında ana âyet değişimi kaynak uydurmaz',async()=>{
+    const h=await harness({selected:'2.2'});await authorize(h);await load(h,dummyFile('bagimsiz.txt',twoText));await h.switchVerse('4.1');await commit(h);
+    assert.equal(h.remote.puts.length,1);assertNoSource(h.remote.doc);assert.equal(h.remote.puts[0].branch,'calisma-kavramlar');
+  });
+}
+
 await main();

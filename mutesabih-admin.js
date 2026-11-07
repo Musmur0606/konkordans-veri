@@ -9,6 +9,35 @@ const HISTORY_PATH = PUBLIC_HISTORY_PATH;
 const API_ROOT = `https://api.github.com/repos/${OWNER}/${REPO}/contents/`;
 const $ = (id) => document.getElementById(id);
 const runtime = { token: '', actor: '', data: null, corpus: null, doc: null, sha: '', draftDoc: null, draftSha: '', draftError: '', selected: '5.61', busy: false, drafts: new Map() };
+let conceptsPanel = null;
+
+function conceptModuleError(error) {
+  const area=$('concepts-message');
+  if(!area)return;
+  area.textContent='Kavramlar bölümü yüklenemedi; yalnız bu bölüm kapalı. Ana benzeşen ve sesli giriş çalışması devam edebilir. '+(error?.message||'');
+  area.className='concepts-message error';
+}
+
+async function refreshConceptsPanel() {
+  if(!conceptsPanel)return;
+  try{await conceptsPanel.onAuthorized();}
+  catch(error){conceptModuleError(error);}
+}
+
+async function initializeConceptsPanel() {
+  // Ayrı modül hatası ana benzeşen/sesli giriş modülünün yüklenmesini kesmez.
+  // Yetki anahtarı bir depoya, global değişkene veya günlük çıktısına aktarılmaz.
+  try{
+    const {initConceptPanel}=await import('/mutesabih-kavramlar.mjs?v=1');
+    conceptsPanel=initConceptPanel({
+      getContext:()=>({token:runtime.token,actor:runtime.actor,corpus:runtime.corpus,selected:runtime.selected,busy:runtime.busy}),
+      setBusy:(value)=>{if(value&&voiceActive)stopVoiceRefs();setBusy(value);}
+    });
+    if(!conceptsPanel.available)throw Error('Kavram bölümünün gerekli ekran alanları bulunamadı.');
+    conceptsPanel.syncAuth();
+    if(runtime.token)await refreshConceptsPanel();
+  }catch(error){conceptModuleError(error);}
+}
 
 // The MAIN verse determines the destination. Matching verses never change it.
 // Capture this object before every asynchronous save/undo; do not route by the
@@ -276,6 +305,7 @@ function renderAuth() {
   $('editor-state').className='editor-state'+(locked?' locked':logged?' ready':' preview');
   $('rollback-day').disabled=!logged||runtime.busy||locked||!$('history-day').value;
   $('download-day').disabled=!$('history-day').value;
+  conceptsPanel?.syncAuth();
 }
 
 function renderAll() {
@@ -492,6 +522,7 @@ async function authorize() {
     runtime.token=input;runtime.actor=user.login;
     $('token').value='';showMessage('login-message','Doğrulandı. Değişiklikler GitHub deposuna kaydedilecek.','success');
     renderAll();
+    void refreshConceptsPanel();
   }catch(error){runtime.token='';runtime.actor='';$('token').value='';showMessage('login-message',error.message,'error');renderAll();}
   finally{$('login').disabled=false;}
 }
@@ -617,7 +648,7 @@ $('refs').addEventListener('input',updateParsed);
 $('voice-refs').addEventListener('click',startVoiceRefs);
 $('login').addEventListener('click',authorize);
 $('token').addEventListener('keydown',(e)=>{if(e.key==='Enter')authorize();});
-$('logout').addEventListener('click',()=>{if(runtime.busy)return;stopVoiceRefs();runtime.token='';runtime.actor='';runtime.data=null;runtime.corpus=null;runtime.doc=null;runtime.sha='';runtime.draftDoc=null;runtime.draftSha='';runtime.draftError='';runtime.drafts.clear();$('main-list').replaceChildren();$('link-list').replaceChildren();showMessage('login-message','Güvenli çıkış yapıldı. Yönetim ekranı kapatıldı.','success');renderAll();});
+$('logout').addEventListener('click',()=>{if(runtime.busy)return;stopVoiceRefs();runtime.token='';runtime.actor='';runtime.data=null;runtime.corpus=null;runtime.doc=null;runtime.sha='';runtime.draftDoc=null;runtime.draftSha='';runtime.draftError='';runtime.drafts.clear();conceptsPanel?.onLogout();$('main-list').replaceChildren();$('link-list').replaceChildren();showMessage('login-message','Güvenli çıkış yapıldı. Yönetim ekranı kapatıldı.','success');renderAll();});
 for(const op of ['add','remove','confirm','review'])$(op).addEventListener('click',()=>submitEdit(op));
 $('history-day').addEventListener('change',()=>{renderHistory();renderAuth();});
 $('clear-day').addEventListener('click',()=>{$('history-day').value='';renderHistory();renderAuth();});
@@ -625,4 +656,6 @@ $('download-day').addEventListener('click',downloadDailyLog);
 $('rollback-day').addEventListener('click',submitUndoDay);
 
 renderAuth(); // Kaynaklar yetkili GitHub girişinden sonra yüklenir.
+void initializeConceptsPanel();
+
 

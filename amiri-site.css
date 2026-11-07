@@ -1,9 +1,27 @@
-/* ayatulkuran Amiri ortak Arapca yazi stili, 2026-10-24.
-   Arapca metin/hareke verisini, esma renklendirmesini veya mealleri degistirmez. */
+/* Ayatülkuran — HASENAT ortak Arapça yazı stili, 2026-11-07.
+   Kaynak: kullanıcının sağladığı özgün hasenat.ttf, SHA-256 1d37c471…
+   Font, âyet metni ve hareke verisi değiştirilmez. Türkçe alanlar korunur.
+   Lisans/kaynak kaydı: docs/HASENAT_FONT_KAYDI.md
+   Dosya adı, mevcut sûre sayfalarının bağlantıları için korunmuştur. */
 @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
 
-.ar,.arabic,.esma-ar,.esma-ar-big,.esma-side-ar{
-  font-family:'Amiri',serif!important;
+@font-face{
+  font-family:'AyatulKuran Hasenat';
+  src:url('/assets/fonts/hasenat.ttf?v=1d37c471') format('truetype');
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+FB50-FDFF,U+FE70-FEFF;
+}
+
+.ar,.arabic,.arabic-text,.esma-ar,.esma-ar-big,.esma-side-ar,
+[lang|="ar"],.ar-k-keys button,#arabic-keys button,#keys button{
+  font-family:'AyatulKuran Hasenat','Amiri',serif!important;
+  font-synthesis:none;
+}
+/* Karışık dildeki terim kutusunda yalnız Arapça aralık Hasenat'tan gelir. */
+#term{
+  font-family:'AyatulKuran Hasenat',system-ui,'Segoe UI',sans-serif!important;
   font-synthesis:none;
 }
 .maincard .ar{font-size:32px;line-height:2.15}

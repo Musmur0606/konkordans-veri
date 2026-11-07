@@ -1,0 +1,178 @@
+{
+  "date": "2026-11-07",
+  "test_type": "AGSiZ_DOM_API_BENZETIMI",
+  "real_browser": "HOLD_NOT_RUN",
+  "real_github_writes": 0,
+  "product_hashes": {
+    "mutesabih-kavramlar-core.mjs": "4d126264c36aaea88f2d384979237cb8a9a722a1298492a78781980a429daf11",
+    "mutesabih-kavramlar.mjs": "ceadf60e846436025d5ff9833cf947194d1835f072c57bcb6b14c369889cb172"
+  },
+  "passed": 41,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "Başlangıç ve yetkilendirme yazma veya clipboard erişimi başlatmaz",
+      "status": "PASS"
+    },
+    {
+      "name": "Geçerli Arapça sağtık menüyü açar; yalnız menü açmak kayıt yapmaz",
+      "status": "PASS"
+    },
+    {
+      "name": "Aktar öğesi açık tıklamayla doğrudan kaydeder; OK gerekmez; kaynak UTF16 doğrudur",
+      "status": "PASS"
+    },
+    {
+      "name": "Sağtık aktarımı form metni/kaynağı/notunu kullanmaz veya silmez",
+      "status": "PASS"
+    },
+    {
+      "name": "Türkçe meâl seçiminin sağtık menüsü yerel kalır; kavrama aktarılmaz",
+      "status": "PASS"
+    },
+    {
+      "name": "Seçim yokken sağtık özel menü açmaz ve yerel menüyü engellemez",
+      "status": "PASS"
+    },
+    {
+      "name": "Kavram giriş kutusunun normal sağtık davranışı korunur",
+      "status": "PASS"
+    },
+    {
+      "name": "Escape ve menü dışına tıklama aktarımı iptal eder",
+      "status": "PASS"
+    },
+    {
+      "name": "Menü açıldıktan sonra ana âyet değişirse eski seçim yeni âyete yazılmaz",
+      "status": "PASS"
+    },
+    {
+      "name": "Aynı âyette seçim değişirse aktarılan kaynak menünün snapshotı dışında değişmez",
+      "status": "PASS"
+    },
+    {
+      "name": "2,3,4 ve diğer sûrelerde tek kavram branch/path kullanılır; R234 yönünden bağımsızdır",
+      "status": "PASS"
+    },
+    {
+      "name": "Yerel Ctrl+V engellenmez; dış metin eski veya açık âyet kaynağını taşımaz",
+      "status": "PASS"
+    },
+    {
+      "name": "Elle giriş ve kutu tıklaması yazmaz; manuel OK kaynaksız kaydı açıkça oluşturur",
+      "status": "PASS"
+    },
+    {
+      "name": "Elle belirtilen yanlış âyet metinle eşleşmeden kaydedilemez",
+      "status": "PASS"
+    },
+    {
+      "name": "Elle verilen doğru kaynak tek birebir konumla doğrulanır",
+      "status": "PASS"
+    },
+    {
+      "name": "Eksik404 belge kapalı kalır; ana dal fallback veya dosya yaratma yoktur",
+      "status": "PASS"
+    },
+    {
+      "name": "Yanlış şema ve açık yayın kilidi kapalı kalır",
+      "status": "PASS"
+    },
+    {
+      "name": "Geçmişle uyuşmayan kayıt kapalı kalır",
+      "status": "PASS"
+    },
+    {
+      "name": "SHA tazelik farkında sağtık aktarımı PUT yapmaz; manuel giriş korunur",
+      "status": "PASS"
+    },
+    {
+      "name": "PUT409 kullanıcının metin/kaynak/notunu ve uzaktaki belgeyi korur",
+      "status": "PASS"
+    },
+    {
+      "name": "Arşivleme ve geri getirme kayıt/kaynak/not geçmişini silmez",
+      "status": "PASS"
+    },
+    {
+      "name": "Ana yönetici meşgulken kavram yazması başlamaz",
+      "status": "PASS"
+    },
+    {
+      "name": "Kayıt sırasında alanlar ve aktarım kilitlenir; çifte yazma olmaz",
+      "status": "PASS"
+    },
+    {
+      "name": "Yükleme sırasında çıkış geç cevabın paneli yeniden açmasını engeller",
+      "status": "PASS"
+    },
+    {
+      "name": "Sağtık kayıt tazelik kontrolünde çıkış yapılırsa PUT gönderilmez",
+      "status": "PASS"
+    },
+    {
+      "name": "Notlardaki HTML olay işleyicileri yalnız textContent ile görünür",
+      "status": "PASS"
+    },
+    {
+      "name": "Yenileme kaydedilmemiş metin/kaynak/notu silmez",
+      "status": "PASS"
+    },
+    {
+      "name": "Yetkisiz panel yazma veya okuma isteği oluşturmaz",
+      "status": "PASS"
+    },
+    {
+      "name": "Türkçe veya karışık Latin kavram girişi kaydedilmez",
+      "status": "PASS"
+    },
+    {
+      "name": "İç içe Arapça DOM düğümlerinde seçim UTF16 sınırı doğrudur",
+      "status": "PASS"
+    },
+    {
+      "name": "Sağtık raw seçim kenar boşluklarını ve kaynak dilimini birebir korur",
+      "status": "PASS"
+    },
+    {
+      "name": "Büyük belge contents boşsa aynı SHA blob üzerinden okunur",
+      "status": "PASS"
+    },
+    {
+      "name": "Büyük belge blob SHA uyuşmazlığı kapalı kalır",
+      "status": "PASS"
+    },
+    {
+      "name": "Yanlış metadata path veya kısa SHA kayıt açamaz",
+      "status": "PASS"
+    },
+    {
+      "name": "Arşivleme onayı iptal edilirse kullanıcı kaydı korunur",
+      "status": "PASS"
+    },
+    {
+      "name": "Bekleyen kayıt sırasında ana âyet değişse bile kaynak başka âyete çevrilmez",
+      "status": "PASS"
+    },
+    {
+      "name": "Eksik clipboardAPI sağtık aktarımını etkilemez ve pano okunmaz",
+      "status": "PASS"
+    },
+    {
+      "name": "Aynı Arapça ifade iki âyette tek kayıtta birikir; not ve eski kaynak kaybolmaz",
+      "status": "PASS"
+    },
+    {
+      "name": "Erişim403 reddinde hiçbir hedefe yazma veya fallback yapılmaz",
+      "status": "PASS"
+    },
+    {
+      "name": "Belgede kayıtlı kaynak güncel corpus dilimiyle uyuşmazsa yükleme kapalı kalır",
+      "status": "PASS"
+    },
+    {
+      "name": "JSON dışa aktarımı etkin/arşivdeki tüm kayıtları ve geçmişi korur; APIye yazmaz",
+      "status": "PASS"
+    }
+  ]
+}

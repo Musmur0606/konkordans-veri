@@ -1,0 +1,61 @@
+{
+  "sonuc": "PASS_HASENAT_STATIC",
+  "test_sayisi": 10,
+  "basarili": 10,
+  "basarisiz": 0,
+  "testler": [
+    {
+      "test": "Özgün Hasenat dosyası 512.196 bayt ve SHA-256 ile birebir",
+      "durum": "PASS"
+    },
+    {
+      "test": "Tek Hasenat yüzü aynı kökten yüklenir; yerel kurulum şartı yok",
+      "durum": "PASS"
+    },
+    {
+      "test": "6.236 âyetteki bütün harf ve harekeler CSS Arapça aralığına girer",
+      "durum": "PASS"
+    },
+    {
+      "test": "Latin harfleri Hasenat aralığına girmez; genel Türkçe alanlar seçilmez",
+      "durum": "PASS"
+    },
+    {
+      "test": "Yalnız Arapça klavye harfleri biçimlenir; Türkçe eylem düğmeleri korunur",
+      "durum": "PASS"
+    },
+    {
+      "test": "Admin Arapça âyet yönü/etiketi ve 2/3/4 çalışma bağlantısı korunur",
+      "durum": "PASS"
+    },
+    {
+      "test": "Üç giriş sayfası aynı sürümlü ortak CSS dosyasını yalnız bir kez yükler",
+      "durum": "PASS"
+    },
+    {
+      "test": "Mevcut masaüstü/dar ekran boyutları ve okunuş gizleme kuralı değişmez",
+      "durum": "PASS"
+    },
+    {
+      "test": "Site/önbellek 2.8.21 eşleşir; ortak stil ve özgün font önbelleğe eklenir",
+      "durum": "PASS"
+    },
+    {
+      "test": "Font yayını kavram çalışma verisini portal okuyucularına bağlamaz",
+      "durum": "PASS"
+    }
+  ],
+  "kanit": {
+    "font_sha256": "1d37c471fcd5afc126a925c1b18f7727fa944692558a17c12da890abd8ae384c",
+    "kaynak_ayet_sayisi": 6236,
+    "farkli_karakter_sayisi": 73,
+    "fallback_bosluklar": [
+      "U+0020",
+      "U+2009"
+    ]
+  },
+  "gercek_ag_cagrisi": 0,
+  "gercek_github_yazimi": 0,
+  "gercek_tarayici_testi": false,
+  "not": "Bu test CSS kaynağı, bağlantılar ve özgün font bütünlüğünü kontrol eder. Fontun tarayıcıda indirilmesi, gerçek CSS yerleşimi ve boşluk fallback görünümü ayrıca kullanıcı tarayıcısında kabul gerektirir."
+}

@@ -1,0 +1,293 @@
+{
+  "schema": "ayatulkuran.feature-checkpoint.v1",
+  "project": "ayatulkuran",
+  "repo": "Musmur0606/konkordans-veri",
+  "date_tr": "2026-11-07",
+  "standard": "Tüm Projeler İçin Kalıcı Hafıza ve Kesintisiz Devir Standardı V1",
+  "baseline": {
+    "main": "fce4e07b5908864563b8e295070e91266874ea3a",
+    "tree": "9f0ba53eee1d7b972ec824a01bcce03f02e511ef",
+    "file_count": 284
+  },
+  "source_zip": {
+    "name": "KURAN_ARASTIRMASI_TEK_DEVIR_DOSYASI.zip",
+    "workspace_source": "project_sources/01-KURAN_ARASTIRMASI_TEK_DEVIR_DOSYASI.zip",
+    "bytes": 422211,
+    "entries": 21,
+    "sha256": "1725d4ff3f61035c04750bc50b83e99c1a8c2d8c8784223a95174e90d9cc05a5",
+    "crc": "PASS",
+    "scope": "Arşiv erişimi ve bütünlüğü denetlendi; bu aşama içindeki tüm tarihsel kararların yeniden kabulü değildir."
+  },
+  "concepts_seed": {
+    "branch": "calisma-kavramlar",
+    "path": "data/kavramlar-calisma.json",
+    "commit": "6bbf0849c73e3f9868214a1b33d902c1b7ab52f6",
+    "blob": "e2f67393113be5b7d8d78eb3c329d983c72372aa",
+    "records": 0,
+    "events": 0,
+    "readback_exact": true,
+    "publication": "not_published"
+  },
+  "font": {
+    "path": "assets/fonts/hasenat.ttf",
+    "sha256": "1d37c471fcd5afc126a925c1b18f7727fa944692558a17c12da890abd8ae384c",
+    "blob": "a4d64e74f801113611d51b2cf133a08f4281ef2d",
+    "bytes": 512196,
+    "user_supplied": true,
+    "unchanged": true,
+    "commercial_use_restriction_in_original_metadata": true,
+    "redistribution_license_independently_verified": false
+  },
+  "protected": [
+    {
+      "path": "app_data.json",
+      "size": 6889235,
+      "sha": "e3e38c1eb4970e4ee14c71eabe1e262f1850ef77"
+    },
+    {
+      "path": "data/benzesen-matris-kaynak.json",
+      "size": 1381,
+      "sha": "1291b38aff496257d07bdba7f8a064b9f2898d4b"
+    },
+    {
+      "path": "data/benzesen-matris.csv",
+      "size": 2192839,
+      "sha": "120d1c32342da18dbc11ef650f3c0b491a855b23"
+    },
+    {
+      "path": "data/benzesen-matris.json",
+      "size": 1416107,
+      "sha": "7695c42e503635abe4355df4ab3d2f27c0480d60"
+    },
+    {
+      "path": "data/mutesabih-degisiklikler.json",
+      "size": 628945,
+      "sha": "f6207d06ba3fe9db4be27716b193c322e7842dd3"
+    },
+    {
+      "path": "mutesabih-core.mjs",
+      "size": 10978,
+      "sha": "77899e045b74d1eb24cf32d5ea207850fda3cb8b"
+    },
+    {
+      "path": "mutesabih-draft234.css",
+      "size": 337,
+      "sha": "06ca6acffcf74481c640cd9b8457fa66530ab407"
+    },
+    {
+      "path": "mutesabih-draft234.mjs",
+      "size": 12307,
+      "sha": "89bfd88e9327c42ab74d1dc4cce931f376d441b8"
+    },
+    {
+      "path": "mutesabih-public.js",
+      "size": 5560,
+      "sha": "ead57914c6a657bec4c8dc3ad732b4959448c7f9"
+    },
+    {
+      "path": "test-r23-word-matrix.mjs",
+      "size": 4694,
+      "sha": "c12badc451bb08cb52cf610d45c651fee7a88ced"
+    },
+    {
+      "path": "test-r234-browser.mjs",
+      "size": 20341,
+      "sha": "20e4998e76740c9e5f73355cd1ddb160b4d1a7a6"
+    },
+    {
+      "path": "test-r234-core.mjs",
+      "size": 10207,
+      "sha": "a4ab73e64c2ce8b0628aaea1f56b721f135ea65b"
+    },
+    {
+      "path": "test-r234-regressions.mjs",
+      "size": 8533,
+      "sha": "9cbd377e722d04354fb33ff81892aa060fac4a42"
+    }
+  ],
+  "stage": "PASS_AUTOMATED_136__PUBLISH_VERIFICATION_PENDING",
+  "verified_inventory": [
+    {
+      "path": "amiri-site.css",
+      "bytes": 1676,
+      "sha256": "45e1fb362797e50f2a2ec44602cb18c4a3ba9394149143205decf17bd477c1db",
+      "git_blob": "2868666d771e259b3602a89c669a3ae88b2d4fcd"
+    },
+    {
+      "path": "assets/fonts/hasenat.ttf",
+      "bytes": 512196,
+      "sha256": "1d37c471fcd5afc126a925c1b18f7727fa944692558a17c12da890abd8ae384c",
+      "git_blob": "a4d64e74f801113611d51b2cf133a08f4281ef2d"
+    },
+    {
+      "path": "index.html",
+      "bytes": 102742,
+      "sha256": "5fbb1e02450d4cb009b986fea56e097280c97e2bf06f4ecb0b6f267084f35f3c",
+      "git_blob": "0bde9bdb35ae4293eb807d3398838cb29dd43dc9"
+    },
+    {
+      "path": "sw.js",
+      "bytes": 2998,
+      "sha256": "05a671c0fde86ada8b663285ae3d542e197834a011c3ad61782046ddd5adfa65",
+      "git_blob": "afa876aa5bbc1a13be4d564200e168ac53148cf8"
+    },
+    {
+      "path": "kelime-kavram-deneme.html",
+      "bytes": 21153,
+      "sha256": "3f6fb262ed90cba539945f82561a71d7ead9d4028d36244a1c75720fc46010fc",
+      "git_blob": "157de08ac4657de02ef3b9ef651a446f4aa0befe"
+    },
+    {
+      "path": "mutesabih-admin.html",
+      "bytes": 12040,
+      "sha256": "d81fa2857af95e12d0fbb9023ad649953ed4c7c864c1ece3c9c46db0f82d2c97",
+      "git_blob": "1944493675aa8d0097a29505aa618668f0d052f4"
+    },
+    {
+      "path": "mutesabih-admin.js",
+      "bytes": 36399,
+      "sha256": "0ba54c74812f106fa50e538924a8daf44cd8c1dd4c54814bf8af21f2181daab3",
+      "git_blob": "9cafd61c45d59d748be7b77511dfe9e4ccf8590a"
+    },
+    {
+      "path": "mutesabih-kavramlar.mjs",
+      "bytes": 24436,
+      "sha256": "ceadf60e846436025d5ff9833cf947194d1835f072c57bcb6b14c369889cb172",
+      "git_blob": "0d4267f194fea141fe22e5a915411a1093150010"
+    },
+    {
+      "path": "mutesabih-kavramlar-core.mjs",
+      "bytes": 15168,
+      "sha256": "4d126264c36aaea88f2d384979237cb8a9a722a1298492a78781980a429daf11",
+      "git_blob": "64b0d1407129993e0d14b65022d6c4cb138c444c"
+    },
+    {
+      "path": "mutesabih-kavramlar.css",
+      "bytes": 3084,
+      "sha256": "db356e46664abf63f6ff93d2e3a40f3c4c13f33c79d2018885d440b2b1c481d7",
+      "git_blob": "2adcc7199f5e46236731d75d806749651b4d6b9c"
+    },
+    {
+      "path": "test-kavramlar-core.mjs",
+      "bytes": 18367,
+      "sha256": "39eb767e899902015de88ac96abfe7c3bff81cb830dae0ee9f5b572ce16f38fd",
+      "git_blob": "0d54d838a81513e64a8b448825c7da4709accd8e"
+    },
+    {
+      "path": "test-kavramlar-panel.mjs",
+      "bytes": 39387,
+      "sha256": "635b417be2d2d4ac89bdf90657d7fde2ee4e25a3881fd98eb74221758c503cf1",
+      "git_blob": "0b16185dd163bfde1156f7628fb808dc97bf99cb"
+    },
+    {
+      "path": "test-hasenat-integration.mjs",
+      "bytes": 7644,
+      "sha256": "226d525f6b3d7769cdf1fe03a7f03f27429df045095b98f6bfba99df672dc548",
+      "git_blob": "40ffeb55862c52801661d223a725c58b55612ea3"
+    },
+    {
+      "path": "docs/HASENAT_FONT_KAYDI.md",
+      "bytes": 3072,
+      "sha256": "988020481feb31d6680c79e7624d0160122c50006905426817c9a2dc9bad47bc",
+      "git_blob": "e98703cbc822154991d7c332497d8b98677cb49b"
+    },
+    {
+      "path": "docs/KAVRAMLAR_CALISMA_KAYDI.md",
+      "bytes": 3450,
+      "sha256": "d8b6f62f0859f3dc94f947f9d62519c74532c60af39a8f13bf17210cf4623f82",
+      "git_blob": "d15835c9e1332a5637968e9a3dbc5966ce5a909e"
+    },
+    {
+      "path": "docs/PROJE_KAYIT_REHBERI.md",
+      "bytes": 1257,
+      "sha256": "ee28d4049d62dae1b3d13c5421e9b59867b04884eb0dea6729629b350cc97cc9",
+      "git_blob": "f9aafe6e764c471a71f8fc1a4fba7d00490fa0d6"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7416,
+      "sha256": "4baa2d537204ff88ff73ff298c5564dfc30ed9eb40c8962e0c3cb1df40f8478f",
+      "git_blob": "36ae7cfc40db57e25432f03856dc22467b6fb3ca"
+    },
+    {
+      "path": "qa/HASENAT_STATIK_RAPORU.json",
+      "bytes": 1951,
+      "sha256": "c99d7e5cb5324c8f4fbde3c9caa5c8ca862a56992875fc6526b04d66ee0bc1e4",
+      "git_blob": "f4e41787da9ebba17211392b8b0211897f1dba03"
+    },
+    {
+      "path": "qa/KAVRAMLAR_PANEL_QA_RAPORU.json",
+      "bytes": 5464,
+      "sha256": "0c6b95f373dab503a2c9c4b7ebd4db7f0f1eea600d19f53b40fbafe2d3a31b5c",
+      "git_blob": "5a49a656b8b3dae4ecb4a4fa11b34b18ed35f878"
+    }
+  ],
+  "tests": [
+    {
+      "command": "node test-r234-core.mjs",
+      "passed": 15
+    },
+    {
+      "command": "node test-r234-browser.mjs",
+      "passed": 19,
+      "note": "DOM/API ve mikrofon benzetimi; gerçek tarayıcı değil"
+    },
+    {
+      "command": "node test-r234-regressions.mjs",
+      "passed": 8
+    },
+    {
+      "command": "node test-r23-word-matrix.mjs",
+      "passed": 6
+    },
+    {
+      "command": "node --test test-kavramlar-core.mjs",
+      "passed": 37
+    },
+    {
+      "command": "node test-kavramlar-panel.mjs",
+      "passed": 41,
+      "note": "DOM/API benzetimi; gerçek GitHub yazması yok"
+    },
+    {
+      "command": "node test-hasenat-integration.mjs",
+      "passed": 10,
+      "note": "Statik font bağlantısı ve kapsam"
+    }
+  ],
+  "test_total": 136,
+  "failed": 0,
+  "ACCEPTED_DO_NOT_REDO": [
+    "Önceki R234 main fce4e07b5908864563b8e295070e91266874ea3a ve calisma-234 başlangıcı korunur.",
+    "R234 çekirdek/CSS, Word JSON/CSV, app_data, public MLOG ve public motor kaynakları byte-eş korunur; 48 regresyon yeniden geçti.",
+    "Orijinal Hasenat fontu byte-eş alınır, âyet/meal/harake verileri yeniden yazılmaz.",
+    "Anahtar kelime ve kelime grubu Arapça kaydedilir; sağ tık menüsünü açmak yazmaz; Aktar öğesi doğrudan kaydeder.",
+    "Kavramlar bütün sûrelerden toplanabilir ve yalnız ayrı kavram dalına yazılır; portal/motor bağlantısı kurulmaz.",
+    "Eski Hasenat önizleme dalları bütünüyle birleştirilmez; eski admin yeni R234 akışının üzerine geçirilmez."
+  ],
+  "HOLD_REVIEW": [
+    {
+      "status": "WAIT_USER",
+      "item": "Yetkili gerçek tarayıcıda Arapça seçim/sağ tık/GitHub kaydı ile uçtan uca kabul; otomatik testler bunun yerine sayılmaz."
+    },
+    {
+      "status": "REVIEW",
+      "item": "Fontun dosya içi ticari kullanım kısıtı korunur; bağımsız Hasenat yeniden dağıtım lisansı doğrulanmış değil."
+    },
+    {
+      "status": "REVIEW",
+      "item": "Önceki test-r22-homepage eski 2.7.0 sabitine bağlıdır; R234 kaydındaki tarihsel inceleme silinmez."
+    },
+    {
+      "status": "REVIEW",
+      "item": "Depo herkese açıktır; çalışma dalları portal dışında kalır ama GitHub üzerinde gizli değildir."
+    }
+  ],
+  "last_action": "Ayrı kavram veri seti oluşturuldu; Hasenat ve sağ tıkla aktarım aday kodu 136 kontrolle doğrulandı.",
+  "next_safe_step": "Ana dala yalnız envanterdeki kod/font/belge dosyalarını gönder; GitHub okuma ve Pages yayınını doğrula. Veri dosyasını main dalına koyma.",
+  "rollback": {
+    "code_base": "fce4e07b5908864563b8e295070e91266874ea3a",
+    "method": "Yalnız bu geliştirmeye ait kod/font/stil değişikliklerini yeni geri-alma commitinde geri çevir. Kullanıcının yeni kavram/R234/public veri kayıtlarını silme veya dal başlarını eskiye zorla taşıma."
+  },
+  "scope_note": "Bu checkpoint font ve kavram eklemesinin kanıtıdır; tüm tarihsel proje kaynaklarına koşulsuz DEVİR PASS değildir. Önceki R234 devir dosyaları değiştirilmez."
+}

@@ -66,3 +66,8 @@ Bu metin zaman zaman güncellenmektedir.
 © ayatulkuran
 
 Teknik destek: M. Mustafa MURAT  
+
+
+## Çalışma kayıtlarını nerede bulacağız?
+
+[Proje kayıt rehberi](docs/PROJE_KAYIT_REHBERI.md), Hasenat özgün fontunun, kaynak notlarının, 2/3/4 benzeşen çalışma dosyasının ve Arapça kavram veri setinin kalıcı konumlarını gösterir. Kavramlar yönetim panelinde seçilen Arapça metinden sağ tıkla aktarılır; ayrı çalışma dalındadır ve bu aşamada portal veya benzeşme motoru tarafından kullanılmaz.

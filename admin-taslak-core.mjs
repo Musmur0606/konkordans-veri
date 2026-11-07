@@ -112,6 +112,35 @@ export function readyCandidates(records,now=new Date().toISOString()) {
     protected_main_suras:[2,3,4],verses,terms};
 }
 
+// Arapca kopyala/yapistir ile harf dizisi taramasi. Bu bir kavramsal eslestirme DEGIL,
+// sadece imla/hareke farklari giderilmis ayet adaylari aramasidir.
+export function normalizeArabicForSearch(value) {
+  return String(value??'').normalize('NFC')
+    .replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06ED\u0640]/gu,'')
+    .replace(/[\u0623\u0625\u0622\u0671]/gu,'\u0627')
+    .replace(/\u0649/gu,'\u064A')
+    .replace(/[\u200C\u200D\uFEFF]/gu,'')
+    .replace(/[^\p{Script=Arabic}\s]/gu,' ')
+    .replace(/\s+/gu,' ').trim();
+}
+export function findArabicCandidateRefs(arabic,verses,limit=100) {
+  const searched=normalizeArabicForSearch(arabic);
+  if(!searched||searched.length<2)throw Error('Arapça arama için en az iki harf gereklidir.');
+  if(!verses||typeof verses!=='object')throw Error('Kur’an Arapça metinleri henüz yüklenmedi.');
+  const found=[];
+  const rows=Object.entries(verses).sort(([a],[b])=>refSortColon(a,b));
+  for(const [ref,verse] of rows) {
+    if(!verse?.ar)continue;
+    const normalized=normalizeArabicForSearch(verse.ar);
+    if(normalized.includes(searched))found.push(ref.replace(':','.'));
+  }
+  return {query:searched,total:found.length,refs:found.slice(0,Math.max(1,Math.min(limit,500)))};
+}
+function refSortColon(a,b) {
+  const x=a.split(':').map(Number),y=b.split(':').map(Number);
+  return x[0]-y[0]||x[1]-y[1];
+}
+
 const NUM=Object.freeze({
   'sıfır':0,'bir':1,'iki':2,'üç':3,'dört':4,'beş':5,'altı':6,'yedi':7,'sekiz':8,'dokuz':9,
   'on':10,'yirmi':20,'otuz':30,'kırk':40,'elli':50,'altmış':60,'yetmiş':70,'seksen':80,'doksan':90

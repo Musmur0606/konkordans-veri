@@ -2,13 +2,13 @@
 // Taslaklar YALNIZ bu tarayicinin IndexedDB deposuna yazilir. GitHub'a POST/PUT yapmaz.
 import {DRAFT_SCHEMA,SURA_LIMITS,TOTAL_LOCKED_VERSES,parseReferenceList,
   saveVerseDraft,saveTermDraft,assertDraftRecord,makeBackup,readBackup,
-  readyCandidates,spokenReferences} from './admin-taslak-core.mjs';
+  readyCandidates,spokenReferences,findArabicCandidateRefs} from './admin-taslak-core.mjs';
 
 const $=id=>document.getElementById(id);
 const DB_NAME='ayatulkuran_unpublished_admin_work_v1';
 const STORE='drafts';
 const controller={authenticated:false,db:null,records:new Map(),corpus:null,
-  verse:null,term:null,voice:null,voiceRunning:false,voiceRetry:0,voiceTimer:null};
+  verse:null,term:null,termCandidates:[],voice:null,voiceRunning:false,voiceRetry:0,voiceTimer:null};
 let authTransition=Promise.resolve();
 const LIMITS={...SURA_LIMITS};
 const STATUS_LABELS={taslak:'Taslak',inceleme:'İncelemede',hazir:'Yayına hazır (henüz yayınlanmadı)'};
@@ -191,6 +191,9 @@ function resetTerm() {
   $('term-delete').disabled=true;
   $('term-undo').disabled=true;
   renderRefsPreview('term-ref-preview','');
+
+  controller.termCandidates=[];$('term-auto-list').replaceChildren();
+  $('term-auto-count').textContent='Arapça metin yapıştırın; ardından ayetlerde aramayı başlatın.';
   $('term-ar').focus();
 }
 function selectTerm(key) {
@@ -204,6 +207,8 @@ function selectTerm(key) {
     new Date(row.updated_at).toLocaleString('tr-TR');
   $('term-delete').disabled=false;$('term-undo').disabled=!row.history.length;
   renderRefsPreview('term-ref-preview',$('term-refs').value);
+  controller.termCandidates=[];$('term-auto-list').replaceChildren();
+  $('term-auto-count').textContent='Bu terimin Arapça imla adaylarını yeniden arayabilirsiniz.';
 }
 async function saveTerm() {
   if(!controller.authenticated)return;
@@ -238,6 +243,43 @@ async function undoTerm() {
     selectTerm(clean.key);renderTerms();renderStats();
     message('Terimin önceki sürümü geri alındı.');
   }catch(e){message(e.message,true);}
+}
+
+function addSuggestedTermRefs(refs) {
+  try{
+    if(!refs.length)return;
+    const existing=$('term-refs').value.trim();
+    const all=parseReferenceList((existing+' '+refs.join(' ')).trim());
+    $('term-refs').value=all.join(' ');
+    renderRefsPreview('term-ref-preview',$('term-refs').value);
+    message(refs.length+' aday ayet kutuya alındı. Kavramsal uygunluk kontrolü ve kaydetme size aittir.');
+  }catch(e){message(e.message,true);}
+}
+function scanArabicTerm() {
+  if(!controller.authenticated)return;
+  try{
+    const result=findArabicCandidateRefs($('term-ar').value,controller.corpus?.verses,100);
+    controller.termCandidates=result.refs;
+    const root=$('term-auto-list');root.replaceChildren();
+    for(const ref of result.refs){
+      const w=controller.corpus.verses[ref.replace('.',':')];
+      const button=text('button','draft-term-button','');
+      button.type='button';
+      button.append(text('b','',ref+' · '+(w?.sa||'')),
+        text('span','draft-arabic',(w?.ar||'').slice(0,180)));
+      button.title=ref+' ayet numarasını terim listesine ekle';
+      button.addEventListener('click',()=>addSuggestedTermRefs([ref]));
+      root.append(button);
+    }
+    const extra=result.total>result.refs.length?' · İlk '+result.refs.length+' gösteriliyor.':'';
+    $('term-auto-count').textContent=result.total+' olası ayette imla/hareke toleranslı metin eşleşmesi bulundu'+extra+
+      ' Bunlar yalnız kelime/kelime grubu adaylarıdır; otomatik kavram kabulü yok.';
+    if(!result.total)root.append(text('p','draft-hint','Bu yazımla sonuç bulunamadı. İlgili ayetleri elle yazabilirsiniz.'));
+  }catch(e){
+    controller.termCandidates=[];
+    $('term-auto-count').textContent='Arama yapılamadı: '+e.message;
+    $('term-auto-list').replaceChildren();
+  }
 }
 function renderTerms() {
   const query=$('term-search').value.toLocaleLowerCase('tr-TR').trim();
@@ -393,6 +435,17 @@ function bind() {
   $('term-delete').addEventListener('click',deleteTerm);
   $('term-undo').addEventListener('click',undoTerm);
   $('term-search').addEventListener('input',renderTerms);
+  $('term-ar-find').addEventListener('click',scanArabicTerm);
+  $('term-auto-add-all').addEventListener('click',()=>{
+    const candidates=controller.termCandidates||[];
+    if(!candidates.length)return message('Önce Arapça arama yapın.',true);
+    if(confirm(candidates.length+' olası ayet numarası kutuya alınacak. Yalnız kelime eşleşmesi olduğu için anlam uygunluğunu tek tek kontrol edecek misiniz?'))
+      addSuggestedTermRefs(candidates);
+  });
+  $('term-ar').addEventListener('input',()=>{
+    controller.termCandidates=[];$('term-auto-list').replaceChildren();
+    $('term-auto-count').textContent='Yeni Arapça metin girildi. Ayetlerde aramak için arama düğmesine basın.';
+  });
   $('draft-backup-export').addEventListener('click',()=>{
     try{downloadJson('AYATULKURAN_234_TERIMLER_YEDEK_'+new Date().toISOString().slice(0,10)+'.json',
       makeBackup([...controller.records.values()]));

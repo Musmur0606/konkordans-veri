@@ -1,0 +1,12 @@
+{
+  "schema": "ayatulkuran.draft234.v1",
+  "scope": [2, 3, 4],
+  "publication": {
+    "status": "not_published",
+    "automatic": false
+  },
+  "created_at": "2026-11-07T18:20:28Z",
+  "updated_at": "2026-11-07T18:20:28Z",
+  "overrides": {},
+  "events": []
+}

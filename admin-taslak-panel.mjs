@@ -333,6 +333,7 @@ function route() {
   const permitted=controller.authenticated;
   const hash=location.hash.replace('#','');
   const tab=hash==='taslak-234'?'verses':hash==='terimler'?'terms':'current';
+  $('admin-draft-backups').hidden=!permitted||tab==='current';
   $('admin-current-workspace').hidden=permitted&&tab!=='current';
   $('admin-draft-234-workspace').hidden=!permitted||tab!=='verses';
   $('admin-draft-terms-workspace').hidden=!permitted||tab!=='terms';

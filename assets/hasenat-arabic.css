@@ -1,0 +1,43 @@
+/*
+ * HASENAT Arapça yazı tipi (yerel kurulum).
+ * Lisans/yeniden dağıtım yetkisi teyit edilmedikçe TTF/WOFF dosyası
+ * bu herkese açık GitHub deposuna yüklenmez.
+ * Metinler ve Türkçe/İngilizce arayüz yazı tipleri değiştirilmez.
+ */
+@font-face {
+  font-family: "AyatulKuran Hasenat";
+  src: local("HASENAT"), local("Hasenat");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+/* Sûre okuyucu, ayet analizi, benzeşenler, Esmâ, terimler,
+   arama ve Arapça sanal klavye */
+.ar,
+.arabic,
+.arabic-text,
+.esma-ar,
+.esma-ar-big,
+.esma-side-ar,
+.esma-verse .ar,
+.arow .ar,
+.maincard .ar,
+.maincard .ar.amiri-deneme,
+.verse-card .arabic,
+.public-matches .arabic,
+.admin-main-verse .arabic,
+.term-row .ar,
+.candidate-ar,
+.arabic-entry,
+.ar-k-keys button,
+#arabic-keys button,
+#ar-keys button,
+[lang="ar"],
+:lang(ar),
+input[dir="rtl"],
+textarea[dir="rtl"] {
+  font-family: "AyatulKuran Hasenat", "HASENAT",
+    "Amiri Quran", "Amiri", "Noto Naskh Arabic",
+    "Traditional Arabic", serif !important;
+  font-synthesis: none;
+}

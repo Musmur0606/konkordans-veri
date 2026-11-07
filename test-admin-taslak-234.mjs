@@ -4,7 +4,8 @@ import {test} from 'node:test';
 import {
   DRAFT_SCHEMA,CANDIDATE_SCHEMA,SURA_LIMITS,TOTAL_LOCKED_VERSES,
   isLockedVerse,parseReferenceList,saveVerseDraft,saveTermDraft,
-  assertDraftRecord,makeBackup,readBackup,readyCandidates,spokenReferences
+  assertDraftRecord,makeBackup,readBackup,readyCandidates,spokenReferences,
+  normalizeArabicForSearch,findArabicCandidateRefs
 } from './admin-taslak-core.mjs';
 
 test('662 ana ayet: sadece 2, 3 ve 4 açılır',()=>{
@@ -59,6 +60,20 @@ test('Arapça yapıştırıldığı gibi saklanır; terim/ayet veri setleri ayr�
   assert.throws(()=>saveTermDraft({id:'t_bad123',arabic:'الله',turkish:''}),/Türkçe/);
 });
 
+test('Arapça kopyala-yapıştır: hareke farkını kaldırır, sonuçlar yalnız adaydır',()=>{
+  assert.equal(normalizeArabicForSearch('ٱلرَّحْمَٰنُ'),'الرحمن');
+  const corpus={
+    '1:1':{ar:'بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ'},
+    '2:1':{ar:'الٓمٓ'},
+    '2:2':{ar:'ذَٰلِكَ ٱلْكِتَٰبُ'}
+  };
+  const result=findArabicCandidateRefs('الرَّحْمٰن',corpus);
+  assert.deepEqual(result.refs,['1.1']);
+  assert.equal(result.total,1);
+  assert.deepEqual(findArabicCandidateRefs('الْكِتَاب',corpus).refs,['2.2']);
+  assert.throws(()=>findArabicCandidateRefs('ا',corpus),/iki harf/);
+});
+
 test('Yedek okunur ama siteye otomatik yazılmaz',()=>{
   const a=saveVerseDraft({main:'4.1',refs:'2.1',status:'hazir'});
   const t=saveTermDraft({id:'t_example67890',arabic:'ٱلْكِتَابُ',
@@ -81,7 +96,7 @@ test('HTML yöneticiye sekme ekler; mevcut kaynakların kimlikleri korunur',()=>
   assert.ok(html.includes('id="admin-current-workspace"'));
   for(const id of ['admin-draft-nav','admin-draft-234-workspace','admin-draft-terms-workspace',
       'draft-backup-export','draft-ready-export','draft-import-file','d234-voice','term-voice',
-      'term-ar','d234-save','d234-refs']){
+      'term-ar','term-ar-find','term-auto-list','d234-save','d234-refs']){
     assert.ok(html.includes('id="'+id+'"'),id);
   }
   assert.ok(html.includes('src="/mutesabih-admin.js?v=8"'));

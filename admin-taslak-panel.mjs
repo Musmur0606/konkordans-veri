@@ -80,7 +80,7 @@ function populateAyahs(sure) {
 }
 function activateFirstVerse() {
   if(!LIMITS[$('d234-sure').value])$('d234-sure').value='2';
-  if(!$('d234-ayet').options.length)populateAyahs(2);
+  populateAyahs(+$('d234-sure').value);
   renderVerse();
 }
 function renderVerse() {

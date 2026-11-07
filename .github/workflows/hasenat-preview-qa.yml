@@ -1,0 +1,20 @@
+name: HASENAT Arabic typography preview QA
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/hasenat-arabic.css'
+      - 'test-hasenat-arabic.mjs'
+      - '**.html'
+      - '.github/workflows/hasenat-preview-qa.yml'
+permissions:
+  contents: read
+jobs:
+  hasenat:
+    name: Check all Arabic font links (114 + 114 pages)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout preview
+        uses: actions/checkout@v6
+      - name: Validate font style and 236 HTML references
+        run: node --test test-hasenat-arabic.mjs

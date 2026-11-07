@@ -1,0 +1,3 @@
+.save-target{padding:12px 14px;border:1px solid #cbd9d1;border-radius:10px;background:#edf5ef;color:#234b37;font-size:13px;font-weight:700;overflow-wrap:anywhere;line-height:1.6}
+.save-target[data-scope="draft234"]{background:#fff5dc;border-color:#d8b558;color:#65490c}
+button:disabled,select:disabled,input:disabled{cursor:not-allowed}

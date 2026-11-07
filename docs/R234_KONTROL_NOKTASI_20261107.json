@@ -1,0 +1,1522 @@
+{
+  "standard": "Tüm Projeler İçin Kalıcı Hafıza ve Kesintisiz Devir Standardı V1",
+  "checkpoint": "AYATULKURAN_R234_20261107_R1",
+  "repository": "Musmur0606/konkordans-veri",
+  "date_tr": "2026-11-07",
+  "baseline_commit": "3a0c08fbba3da25e7529351c954347c56863737c",
+  "baseline_tree": "afec4bacf15138feaa1f811e6901804bc50d0584",
+  "baseline_file_count": 276,
+  "baseline_tree_truncated": false,
+  "baseline_inventory": [
+    {
+      "path": ".nojekyll",
+      "git_blob_sha1": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+      "bytes": 1
+    },
+    {
+      "path": "1-fatiha.html",
+      "git_blob_sha1": "ae75fe68b4e4fb4f4e5d3193654b2f693c795a14",
+      "bytes": 6743
+    },
+    {
+      "path": "10-yunus.html",
+      "git_blob_sha1": "9fadb597a2f2f3a85c6bcce38b47a7667e284823",
+      "bytes": 98803
+    },
+    {
+      "path": "100-adiyat.html",
+      "git_blob_sha1": "b35fcf843b5ae5a6bd57555c24c5839ff5315129",
+      "bytes": 8310
+    },
+    {
+      "path": "101-karia.html",
+      "git_blob_sha1": "8545e4a54684aa68a5148a40abcba0a419204cba",
+      "bytes": 8070
+    },
+    {
+      "path": "102-tekasur.html",
+      "git_blob_sha1": "1a2f3be5c017b418adc96a44bb2c63222e32ce03",
+      "bytes": 7215
+    },
+    {
+      "path": "103-asr.html",
+      "git_blob_sha1": "91ac7813bc5c1283b530ececd27c1c8dc505cde9",
+      "bytes": 5267
+    },
+    {
+      "path": "104-humeze.html",
+      "git_blob_sha1": "ce126665a065fce4c403654cc4ef8641d3e9bd41",
+      "bytes": 7524
+    },
+    {
+      "path": "105-fil.html",
+      "git_blob_sha1": "232a5c85534e7ba1b38c5753557fbd5826167066",
+      "bytes": 6053
+    },
+    {
+      "path": "106-kureys.html",
+      "git_blob_sha1": "a6ea7b2810507755a5e1b48f5268d4a170e33577",
+      "bytes": 5749
+    },
+    {
+      "path": "107-maun.html",
+      "git_blob_sha1": "5ef3419bd15a57beae2ed482dcfcb93f7ec5ecd4",
+      "bytes": 6641
+    },
+    {
+      "path": "108-kevser.html",
+      "git_blob_sha1": "ccb7ee16abe7239602c1fa9d72eba34485bbf3d9",
+      "bytes": 5107
+    },
+    {
+      "path": "109-kafirun.html",
+      "git_blob_sha1": "ca289c070fb1c5c2721a3e3ced3265b7077cb181",
+      "bytes": 6349
+    },
+    {
+      "path": "11-hud.html",
+      "git_blob_sha1": "1a11fb2ea738bf472ce25037f30f687a71fc215b",
+      "bytes": 105834
+    },
+    {
+      "path": "110-nasr.html",
+      "git_blob_sha1": "49cc149d45adaa9080acac2feb04d663e9a3134f",
+      "bytes": 5377
+    },
+    {
+      "path": "111-mesed.html",
+      "git_blob_sha1": "90e7ebeeae099bc98fddd7ce1e0c22e56edc47ed",
+      "bytes": 5881
+    },
+    {
+      "path": "112-ihlas.html",
+      "git_blob_sha1": "8141a5a9d5428d23d1f8ab9a25d4765f01bf6ad8",
+      "bytes": 5438
+    },
+    {
+      "path": "113-felak.html",
+      "git_blob_sha1": "b7dcec17fb4e017f023ddee9d0c69ea0db2a3bb5",
+      "bytes": 5855
+    },
+    {
+      "path": "114-nas.html",
+      "git_blob_sha1": "ea5619f36dbc2897f47d9bc9f48ff8afc66af4f0",
+      "bytes": 6489
+    },
+    {
+      "path": "12-yusuf.html",
+      "git_blob_sha1": "41fa35e8ca942c1dc47ef598a924deb26d948705",
+      "bytes": 99357
+    },
+    {
+      "path": "13-rad.html",
+      "git_blob_sha1": "591411672416d9a1d555d99a3e300afe9d84bfd5",
+      "bytes": 46791
+    },
+    {
+      "path": "14-ibrahim.html",
+      "git_blob_sha1": "3a29930ddbb4ffd19a4e582cb52ca04a010ac0ef",
+      "bytes": 48550
+    },
+    {
+      "path": "15-hicr.html",
+      "git_blob_sha1": "a0e86d82e2fc1c23042a9220089c62ef2bf7c653",
+      "bytes": 54153
+    },
+    {
+      "path": "16-nahl.html",
+      "git_blob_sha1": "b8f888d3b51fce30fd6ae626cbc3697ee7a0e6af",
+      "bytes": 104469
+    },
+    {
+      "path": "17-isra.html",
+      "git_blob_sha1": "6635333f6da1a94fa34a4fda183caae548db72a8",
+      "bytes": 90105
+    },
+    {
+      "path": "18-kehf.html",
+      "git_blob_sha1": "6354d790921087d103acf298fc245f4e5ead046c",
+      "bytes": 91226
+    },
+    {
+      "path": "19-meryem.html",
+      "git_blob_sha1": "c1bf57855f18c0fd7de2f476b017873f5ae856ff",
+      "bytes": 64451
+    },
+    {
+      "path": "2-bakara.html",
+      "git_blob_sha1": "60ae59b32200dcf7f889d7fc41266654fdfa747c",
+      "bytes": 305170
+    },
+    {
+      "path": "20-taha.html",
+      "git_blob_sha1": "ccf972b1733d56c5b1edd166afcbb5ca51608035",
+      "bytes": 88297
+    },
+    {
+      "path": "21-enbiya.html",
+      "git_blob_sha1": "06040273e3cbcb3d7e5505cc2aadb68442c6739a",
+      "bytes": 77633
+    },
+    {
+      "path": "22-hac.html",
+      "git_blob_sha1": "37b09a7609e15da5b4160db3f19c8d63e4c83607",
+      "bytes": 70415
+    },
+    {
+      "path": "23-muminun.html",
+      "git_blob_sha1": "1853463868e3bcc9b29b79fccebe7b97e8ae16f0",
+      "bytes": 75016
+    },
+    {
+      "path": "24-nur.html",
+      "git_blob_sha1": "c9b50d0921327f0af334156d171e463c0f97349f",
+      "bytes": 69851
+    },
+    {
+      "path": "25-furkan.html",
+      "git_blob_sha1": "9e63aa98daab7713abce53c4eb42ca625e4edc15",
+      "bytes": 57478
+    },
+    {
+      "path": "26-suara.html",
+      "git_blob_sha1": "a855518384a0c55743add4979deecb1ebffb3786",
+      "bytes": 113012
+    },
+    {
+      "path": "27-neml.html",
+      "git_blob_sha1": "20f6d98ca07df8b5919e7227dfce363d93355a61",
+      "bytes": 70854
+    },
+    {
+      "path": "28-kasas.html",
+      "git_blob_sha1": "d951a69277e811091f1542fbb9600b12ad70a028",
+      "bytes": 78963
+    },
+    {
+      "path": "29-ankebut.html",
+      "git_blob_sha1": "7bd08e4d1b99039c2bcd340d9c811b82e0b51cfc",
+      "bytes": 58984
+    },
+    {
+      "path": "3-al-i-imran.html",
+      "git_blob_sha1": "2ef481baf366c8dd7e1c3cba01686223a710f3b7",
+      "bytes": 185471
+    },
+    {
+      "path": "30-rum.html",
+      "git_blob_sha1": "6e5a17cd703dd14b59ad1ddb9e9417f18e109ad9",
+      "bytes": 49730
+    },
+    {
+      "path": "31-lokman.html",
+      "git_blob_sha1": "d110072a04aef2a5d3d177407b3b755cdadd768a",
+      "bytes": 32468
+    },
+    {
+      "path": "32-secde.html",
+      "git_blob_sha1": "5e29b134acbad992027853ae6300e6cafe0080c4",
+      "bytes": 25245
+    },
+    {
+      "path": "33-ahzab.html",
+      "git_blob_sha1": "f6d7bbc384f6bece4f7be7d117c33c8ebe30a1f5",
+      "bytes": 72471
+    },
+    {
+      "path": "34-sebe.html",
+      "git_blob_sha1": "0e742be52e8245651a08d299cb2c8c3fcf0e132b",
+      "bytes": 50157
+    },
+    {
+      "path": "35-fatir.html",
+      "git_blob_sha1": "588a6de952fc3ef14acce345af2df9f0e412a11b",
+      "bytes": 44013
+    },
+    {
+      "path": "36-yasin.html",
+      "git_blob_sha1": "7877a8aa343d4213f1c122382c251ee5a9cd6366",
+      "bytes": 52429
+    },
+    {
+      "path": "37-saffat.html",
+      "git_blob_sha1": "49511337a9845812175a543a01d591a01dfd1986",
+      "bytes": 85762
+    },
+    {
+      "path": "38-sad.html",
+      "git_blob_sha1": "d022c2f248b702689c8a8805b9089283412b30c6",
+      "bytes": 54345
+    },
+    {
+      "path": "39-zumer.html",
+      "git_blob_sha1": "ce3a67e2a598963f80a80296dd0c3c5b9d74f0a6",
+      "bytes": 66353
+    },
+    {
+      "path": "4-nisa.html",
+      "git_blob_sha1": "31b99ec7c25f6e2a1889e9e4f6053c1dc82e5c30",
+      "bytes": 188252
+    },
+    {
+      "path": "40-mumin-gafir.html",
+      "git_blob_sha1": "ae35607b1c31866171aa7440c8785186efd8d34a",
+      "bytes": 71961
+    },
+    {
+      "path": "41-fussilet.html",
+      "git_blob_sha1": "7d4ed09c6b1238cb9feb991a56e3413cdc7d7076",
+      "bytes": 47770
+    },
+    {
+      "path": "42-sura.html",
+      "git_blob_sha1": "68a20764b18f7f60917cdb57fc3f2f1196d25838",
+      "bytes": 48342
+    },
+    {
+      "path": "43-zuhruf.html",
+      "git_blob_sha1": "908521439f2cbc513478f5189b0d628d3b3875f9",
+      "bytes": 59550
+    },
+    {
+      "path": "44-duhan.html",
+      "git_blob_sha1": "2bc655b08c9e337ee4ca3fbc67fd8e15115017f0",
+      "bytes": 31917
+    },
+    {
+      "path": "45-casiye.html",
+      "git_blob_sha1": "079fc5c1942b04a3ac97b4b4f3bd57ebee5b510d",
+      "bytes": 31833
+    },
+    {
+      "path": "46-ahkaf.html",
+      "git_blob_sha1": "f9f917763e568126b8a9aefd8ded5a117d8b5bd0",
+      "bytes": 36823
+    },
+    {
+      "path": "47-muhammed.html",
+      "git_blob_sha1": "6b21fd0a3a20e9e5d3d0627118c37af352cde327",
+      "bytes": 35548
+    },
+    {
+      "path": "48-fetih.html",
+      "git_blob_sha1": "326172523a7fbeb59df9f8382667b78fafd17f7f",
+      "bytes": 33370
+    },
+    {
+      "path": "49-hucurat.html",
+      "git_blob_sha1": "1f707979c9be2bc68dedb7a562bda7a2fbb527d8",
+      "bytes": 21855
+    },
+    {
+      "path": "5-maide.html",
+      "git_blob_sha1": "66637865f64dc0dac68365ffbc979b1805089f2f",
+      "bytes": 138452
+    },
+    {
+      "path": "50-kaf.html",
+      "git_blob_sha1": "9360c8f46dba4e3290cf81ad8d355d329faf62e0",
+      "bytes": 29270
+    },
+    {
+      "path": "51-zariyat.html",
+      "git_blob_sha1": "518595556056ac945255c2c9177db930c12eb4f8",
+      "bytes": 33396
+    },
+    {
+      "path": "52-tur.html",
+      "git_blob_sha1": "3869252fc3e74fd1cb60a6f3498c64dfa0177188",
+      "bytes": 28280
+    },
+    {
+      "path": "53-necm.html",
+      "git_blob_sha1": "121c2bcf0e7d5e97ae6ce585b961fbd45645525d",
+      "bytes": 32475
+    },
+    {
+      "path": "54-kamer.html",
+      "git_blob_sha1": "e167d6fcb376d3a49431a05ac4ccb708d95373b4",
+      "bytes": 32262
+    },
+    {
+      "path": "55-rahman.html",
+      "git_blob_sha1": "b78715c617f276ad10f1f734a574518846449867",
+      "bytes": 38495
+    },
+    {
+      "path": "56-vakia.html",
+      "git_blob_sha1": "6e1cc8cfc97b6e2480bc67a66aa241bc8175c762",
+      "bytes": 43836
+    },
+    {
+      "path": "57-hadid.html",
+      "git_blob_sha1": "f04a5e03ca123305d77b943cb62c209e343d56ad",
+      "bytes": 33637
+    },
+    {
+      "path": "58-mucadele.html",
+      "git_blob_sha1": "db494d4905b5b1940e8e418b7ac53ece9b8943a7",
+      "bytes": 27939
+    },
+    {
+      "path": "59-hasr.html",
+      "git_blob_sha1": "f82149497241d49b75ba7086f1f547bd20c59c4c",
+      "bytes": 27239
+    },
+    {
+      "path": "6-enam.html",
+      "git_blob_sha1": "805de8421b08acac1596fbd1b5359753565ba128",
+      "bytes": 159891
+    },
+    {
+      "path": "60-mumtehine.html",
+      "git_blob_sha1": "f1e51e94f20731c75735cf9606e0a1e46854749b",
+      "bytes": 21051
+    },
+    {
+      "path": "61-saff.html",
+      "git_blob_sha1": "88c678246effa8d65e665893b22df1a7d5c2bf9d",
+      "bytes": 15682
+    },
+    {
+      "path": "62-cuma.html",
+      "git_blob_sha1": "9814691fb816027166cb4dd40cf8ba9e82b50807",
+      "bytes": 13460
+    },
+    {
+      "path": "63-munafikun.html",
+      "git_blob_sha1": "242ca16594339f299eece7b673be5e1156e8c3c1",
+      "bytes": 14026
+    },
+    {
+      "path": "64-tegabun.html",
+      "git_blob_sha1": "bc3068877cf4a68556911e69d01f71f9bb01a033",
+      "bytes": 18395
+    },
+    {
+      "path": "65-talak.html",
+      "git_blob_sha1": "7ab44763da64ec10203aca1d85dc071e5a8417a6",
+      "bytes": 18022
+    },
+    {
+      "path": "66-tahrim.html",
+      "git_blob_sha1": "03cbc8d1b5cd20c3d439a41a470ba0e7de4a0dc4",
+      "bytes": 16627
+    },
+    {
+      "path": "67-mulk.html",
+      "git_blob_sha1": "2eb409777078df0193d5918050ebb50d0c94e7ed",
+      "bytes": 23909
+    },
+    {
+      "path": "68-kalem.html",
+      "git_blob_sha1": "8475c439f643b61e20b57f362601f684cf2784ab",
+      "bytes": 29096
+    },
+    {
+      "path": "69-hakka.html",
+      "git_blob_sha1": "5a688f48e56d1d607b374994d87fc846d52adabf",
+      "bytes": 27389
+    },
+    {
+      "path": "7-araf.html",
+      "git_blob_sha1": "7930defa11799ac65dbb8619102197e3744e2cdd",
+      "bytes": 184613
+    },
+    {
+      "path": "70-mearic.html",
+      "git_blob_sha1": "fea4615ccf189af32e81cdf4ef3aabb5f34e9b23",
+      "bytes": 23653
+    },
+    {
+      "path": "71-nuh.html",
+      "git_blob_sha1": "bbe98bd363824d0d4870165dd0bd721843b5ee2c",
+      "bytes": 19695
+    },
+    {
+      "path": "72-cin.html",
+      "git_blob_sha1": "28552ed2f827c027b75fbb88338198c326c71a74",
+      "bytes": 21737
+    },
+    {
+      "path": "73-muzzemmil.html",
+      "git_blob_sha1": "0dd61e92bd7640ea3425f880c230a69ee9f558be",
+      "bytes": 16782
+    },
+    {
+      "path": "74-muddessir.html",
+      "git_blob_sha1": "80c45801e7eaceaf1ba27d597fbf6ecce7e85bff",
+      "bytes": 27769
+    },
+    {
+      "path": "75-kiyame.html",
+      "git_blob_sha1": "6dc39ab40c73c1f303d2830ed5788de114e789c1",
+      "bytes": 20457
+    },
+    {
+      "path": "76-insan.html",
+      "git_blob_sha1": "782d7c057a96ce50ebc80c3cb2156642e743f6df",
+      "bytes": 21275
+    },
+    {
+      "path": "77-murselat.html",
+      "git_blob_sha1": "b74c456b5736763876ef143802d598a9e075d087",
+      "bytes": 24147
+    },
+    {
+      "path": "78-nebe.html",
+      "git_blob_sha1": "4b3f3c3862af4a4028ccd85186a521cbd92358e6",
+      "bytes": 20748
+    },
+    {
+      "path": "79-naziat.html",
+      "git_blob_sha1": "76c133bdfcacbc5992d75b695ee58425e5345d84",
+      "bytes": 22641
+    },
+    {
+      "path": "8-enfal.html",
+      "git_blob_sha1": "39b5259b7c44d57f9aa98fbcef5defcdb2a8dd17",
+      "bytes": 70225
+    },
+    {
+      "path": "80-abese.html",
+      "git_blob_sha1": "c2e8e2dbcfdd39a02e2fbd1f310fd7277ad90eef",
+      "bytes": 19649
+    },
+    {
+      "path": "81-tekvir.html",
+      "git_blob_sha1": "7aa4c7cde9776a1e1cdbf12a3d04d85f460eb28f",
+      "bytes": 15290
+    },
+    {
+      "path": "82-infitar.html",
+      "git_blob_sha1": "f35567791c96894a1ab6e01a2b02f6b9f3931a25",
+      "bytes": 11814
+    },
+    {
+      "path": "83-mutaffifin.html",
+      "git_blob_sha1": "257a0604ecd730280505b0af45f1ec398c661c23",
+      "bytes": 19704
+    },
+    {
+      "path": "84-insikak.html",
+      "git_blob_sha1": "0b8e0acc58a7c6fedd13a27d395dbeb62678dec2",
+      "bytes": 14299
+    },
+    {
+      "path": "85-buruc.html",
+      "git_blob_sha1": "4b54c19a1fb04162571e956276b8341cf81abbb8",
+      "bytes": 13515
+    },
+    {
+      "path": "86-tarik.html",
+      "git_blob_sha1": "d4f90a602dc69fb51a7d7316b8043b1fcd35d224",
+      "bytes": 10431
+    },
+    {
+      "path": "87-ala.html",
+      "git_blob_sha1": "8dac7cbbc6b3b16d6911bb5e168bebfd19d8156a",
+      "bytes": 11377
+    },
+    {
+      "path": "88-gasiye.html",
+      "git_blob_sha1": "e9e1afad9e0dd8411c10b41b93f6a8a8daabe7d4",
+      "bytes": 13911
+    },
+    {
+      "path": "89-fecr.html",
+      "git_blob_sha1": "b6d6a26fcd792b1a7e107a1e03beb930dd5d8c3e",
+      "bytes": 16502
+    },
+    {
+      "path": "9-tevbe.html",
+      "git_blob_sha1": "ca39955989032edd844d0b9d2c1bc15ad9af7f71",
+      "bytes": 132639
+    },
+    {
+      "path": "90-beled.html",
+      "git_blob_sha1": "acc8d3c2818761651c6c3b539512c0984d0ba708",
+      "bytes": 11870
+    },
+    {
+      "path": "91-sems.html",
+      "git_blob_sha1": "462a48f21a526c0d97a2816bc18ef853ae57bd6d",
+      "bytes": 10068
+    },
+    {
+      "path": "92-leyl.html",
+      "git_blob_sha1": "ba93d3a10536a13b0ff8cfa2a0bb124af91dfb38",
+      "bytes": 12100
+    },
+    {
+      "path": "93-duha.html",
+      "git_blob_sha1": "b0f4b7ddbd8b85857a459079475694fa994d6e73",
+      "bytes": 8176
+    },
+    {
+      "path": "94-insirah.html",
+      "git_blob_sha1": "b1ec05f417bdec8ecea996775475ab277f637755",
+      "bytes": 6947
+    },
+    {
+      "path": "95-tin.html",
+      "git_blob_sha1": "91acf33bdc165126b92f1570a8e56d4a83c49313",
+      "bytes": 7186
+    },
+    {
+      "path": "96-alak.html",
+      "git_blob_sha1": "bf42b646d80c63bb48ed52859d05217266413269",
+      "bytes": 11163
+    },
+    {
+      "path": "97-kadr.html",
+      "git_blob_sha1": "443f5aa4c52d9615a1f196fe929255578bf56a74",
+      "bytes": 6113
+    },
+    {
+      "path": "98-beyyine.html",
+      "git_blob_sha1": "e1fd82617d915e8f20074d2bb4a4618ae6327ce1",
+      "bytes": 9588
+    },
+    {
+      "path": "99-zilzal.html",
+      "git_blob_sha1": "6e1c29f36c4615e539d5ceb30356aa560dc92440",
+      "bytes": 7358
+    },
+    {
+      "path": "CNAME",
+      "git_blob_sha1": "58509b2c388db56bd240f9b610d76a41c56d45bf",
+      "bytes": 19
+    },
+    {
+      "path": "OKU.txt",
+      "git_blob_sha1": "dfca6dbc7026febaeac12b18dd6215274c68e6ab",
+      "bytes": 432
+    },
+    {
+      "path": "OKU_1.txt",
+      "git_blob_sha1": "4ad09f65b367c3a532e883510f444186e81092f6",
+      "bytes": 470
+    },
+    {
+      "path": "OKU_2.txt",
+      "git_blob_sha1": "0a916c0d6e9d216e35cba3c1d96c956a68c441fb",
+      "bytes": 503
+    },
+    {
+      "path": "OKU_ACIL.txt",
+      "git_blob_sha1": "2ba19117340d43579636dcc58a1bca394e8544cc",
+      "bytes": 612
+    },
+    {
+      "path": "OKU_ONCE.txt",
+      "git_blob_sha1": "6dea7e0340f01e91f52b0d9c02fefd5839b020c5",
+      "bytes": 433
+    },
+    {
+      "path": "OKU_YUKLEME.txt",
+      "git_blob_sha1": "f0a8db87f0ca4dd6446ae39c8357a4c3cecfe293",
+      "bytes": 1105
+    },
+    {
+      "path": "README.md",
+      "git_blob_sha1": "2e815959f8d9137ec7959c329b9cc0a246891a31",
+      "bytes": 6979
+    },
+    {
+      "path": "amiri-site.css",
+      "git_blob_sha1": "6edbab6e0371bd30984eb33fbf08aac4f2b452f9",
+      "bytes": 900
+    },
+    {
+      "path": "app_data.json",
+      "git_blob_sha1": "e3e38c1eb4970e4ee14c71eabe1e262f1850ef77",
+      "bytes": 6889235
+    },
+    {
+      "path": "apple-touch-icon.png",
+      "git_blob_sha1": "107c7d53f4507f3f5eadc89abf4603060948d362",
+      "bytes": 23238
+    },
+    {
+      "path": "data/benzesen-matris-kaynak.json",
+      "git_blob_sha1": "1291b38aff496257d07bdba7f8a064b9f2898d4b",
+      "bytes": 1381
+    },
+    {
+      "path": "data/benzesen-matris.csv",
+      "git_blob_sha1": "120d1c32342da18dbc11ef650f3c0b491a855b23",
+      "bytes": 2192839
+    },
+    {
+      "path": "data/benzesen-matris.json",
+      "git_blob_sha1": "7695c42e503635abe4355df4ab3d2f27c0480d60",
+      "bytes": 1416107
+    },
+    {
+      "path": "data/kelime-kavram-deneme/kayitlar.json",
+      "git_blob_sha1": "d573014b75479ba6d6c2d166500b33d5ff7c0546",
+      "bytes": 23728
+    },
+    {
+      "path": "data/kelime-kavram-deneme/kelime_ayet_harekeli.json",
+      "git_blob_sha1": "95d7be9f0c87b61e1b36bc833855a9da07a76af9",
+      "bytes": 1108633
+    },
+    {
+      "path": "data/mutesabih-degisiklikler.json",
+      "git_blob_sha1": "f6207d06ba3fe9db4be27716b193c322e7842dd3",
+      "bytes": 628945
+    },
+    {
+      "path": "data/mutesabih-r14.json",
+      "git_blob_sha1": "c3e6e6b5e4eb8867b861d751ba67567537ca55aa",
+      "bytes": 93837
+    },
+    {
+      "path": "docs/DEVIR_2026-10-24_ESMA_R1.md",
+      "git_blob_sha1": "e224d1509b7cb7af28f14ea1e5e948450552a28b",
+      "bytes": 19261
+    },
+    {
+      "path": "docs/DEVIR_2026-10-26_KELIME_KAVRAM_R12.md",
+      "git_blob_sha1": "4935467d8692319d70beedba1fe15b813b6f8dba",
+      "bytes": 3887
+    },
+    {
+      "path": "docs/KELIME_KAVRAM_DENEME_R1_20261026.md",
+      "git_blob_sha1": "02ba93de8452bf42314aa2d0169a1979f77b9efd",
+      "bytes": 3751
+    },
+    {
+      "path": "draft_esma.html",
+      "git_blob_sha1": "6c701630412a04ffd3d227ff798398c662ea0331",
+      "bytes": 63884
+    },
+    {
+      "path": "esma_index.json",
+      "git_blob_sha1": "889df97349043ce44211f60dd471106fa3e323bf",
+      "bytes": 25303
+    },
+    {
+      "path": "guncel-286.html",
+      "git_blob_sha1": "051bf18a593452ed683767ac9052a5bcdd9eabd2",
+      "bytes": 81104
+    },
+    {
+      "path": "guncel-287.html",
+      "git_blob_sha1": "a515554af073183555ee6280d2fcfe79c620dafc",
+      "bytes": 81296
+    },
+    {
+      "path": "hakkinda.md",
+      "git_blob_sha1": "115731c67a567ad7e344c955094e9b21117b4c81",
+      "bytes": 8749
+    },
+    {
+      "path": "icon-192.png",
+      "git_blob_sha1": "b7477109218bef8eaa30d49bd8b8255cd672b667",
+      "bytes": 25709
+    },
+    {
+      "path": "icon-512-maskable.png",
+      "git_blob_sha1": "c1cf8e7be1e9f1da17bd6d6f69e94f2bc4bdbefa",
+      "bytes": 82420
+    },
+    {
+      "path": "icon-512.png",
+      "git_blob_sha1": "849109a3a9f51d15d1be79060dd6bb4f7a15f035",
+      "bytes": 121647
+    },
+    {
+      "path": "index.html",
+      "git_blob_sha1": "71827a0478993d6c7f21e4b0ca471a3c5260cf4c",
+      "bytes": 102734
+    },
+    {
+      "path": "kelime-kavram-deneme.html",
+      "git_blob_sha1": "a303e2b79676a35a79f4c2d45fa7127fb8eab120",
+      "bytes": 21093
+    },
+    {
+      "path": "manifest.json",
+      "git_blob_sha1": "32f8138b7ebfc3ba6e2234624d217667050e4023",
+      "bytes": 792
+    },
+    {
+      "path": "mutesabih-admin-r16.css",
+      "git_blob_sha1": "e5574d6740a427fb39862fb4a379a39647e0d0b1",
+      "bytes": 1609
+    },
+    {
+      "path": "mutesabih-admin.css",
+      "git_blob_sha1": "7023b711883653ea7512909112314b91c207c7c1",
+      "bytes": 7914
+    },
+    {
+      "path": "mutesabih-admin.html",
+      "git_blob_sha1": "4cd63a1a35d87aaca741706bc488ecc885c454c5",
+      "bytes": 8516
+    },
+    {
+      "path": "mutesabih-admin.js",
+      "git_blob_sha1": "39c022d9eb1c1ec5952d974c8e55fdfcdc73adc6",
+      "bytes": 28913
+    },
+    {
+      "path": "mutesabih-core.mjs",
+      "git_blob_sha1": "77899e045b74d1eb24cf32d5ea207850fda3cb8b",
+      "bytes": 10978
+    },
+    {
+      "path": "mutesabih-public.css",
+      "git_blob_sha1": "7f75280097ae2740f24307b5c49b99d8a68c0df5",
+      "bytes": 2477
+    },
+    {
+      "path": "mutesabih-public.js",
+      "git_blob_sha1": "ead57914c6a657bec4c8dc3ad732b4959448c7f9",
+      "bytes": 5560
+    },
+    {
+      "path": "mutesabih.html",
+      "git_blob_sha1": "6d15d6cc159a73f6ef40109f883bd91a04c862e4",
+      "bytes": 3342
+    },
+    {
+      "path": "og.png",
+      "git_blob_sha1": "e1e682ebeae676343e7e5267ed2409a48943eddf",
+      "bytes": 40079
+    },
+    {
+      "path": "robots.txt",
+      "git_blob_sha1": "ba2e43b30d15da8aa382d1310f25c899fa6188bf",
+      "bytes": 73
+    },
+    {
+      "path": "sitemap.xml",
+      "git_blob_sha1": "d8091f4f1f93b2ff9872a1381ccbbb4286317c76",
+      "bytes": 17801
+    },
+    {
+      "path": "sure-1-fatiha.html",
+      "git_blob_sha1": "f2296b10f429ef86e6830108e5c7454d14b2ea1e",
+      "bytes": 6319
+    },
+    {
+      "path": "sure-10-yunus.html",
+      "git_blob_sha1": "aaa870a241259f79a2afc90a4dac2d2af1aa5d35",
+      "bytes": 98382
+    },
+    {
+      "path": "sure-100-adiyat.html",
+      "git_blob_sha1": "96834aa3b30c0ea1e60c3bdf01cb0b1ea0131660",
+      "bytes": 7891
+    },
+    {
+      "path": "sure-101-karia.html",
+      "git_blob_sha1": "172c8c9479d922186569c74df138b83d16fd7ba6",
+      "bytes": 7652
+    },
+    {
+      "path": "sure-102-tekasur.html",
+      "git_blob_sha1": "4e6c5d72ccc41f8a23a206d7655bc0d40beb990d",
+      "bytes": 6796
+    },
+    {
+      "path": "sure-103-asr.html",
+      "git_blob_sha1": "c1871d5d0da307e2a6539f217cdab025cb8e621b",
+      "bytes": 4848
+    },
+    {
+      "path": "sure-104-humeze.html",
+      "git_blob_sha1": "d167e4ad85df9cabbce6269d229e324c9bc49c5a",
+      "bytes": 7105
+    },
+    {
+      "path": "sure-105-fil.html",
+      "git_blob_sha1": "6f1442322cff371354128adef350622f325c1d06",
+      "bytes": 5635
+    },
+    {
+      "path": "sure-106-kureys.html",
+      "git_blob_sha1": "5e9760489c6b6177602e264891d0dd073018277a",
+      "bytes": 5331
+    },
+    {
+      "path": "sure-107-maun.html",
+      "git_blob_sha1": "ccad5f37c914dd7149493feadd9e4b98ef1dba47",
+      "bytes": 6222
+    },
+    {
+      "path": "sure-108-kevser.html",
+      "git_blob_sha1": "2dd4bff29ede88a5c4df09060079401c579d6a63",
+      "bytes": 4689
+    },
+    {
+      "path": "sure-109-kafirun.html",
+      "git_blob_sha1": "d7d3548ea8cc1e7187b4031fde04da3c64268adc",
+      "bytes": 5930
+    },
+    {
+      "path": "sure-11-hud.html",
+      "git_blob_sha1": "af619864c53f88705c0a94c915a7b6cc21fa60b7",
+      "bytes": 105413
+    },
+    {
+      "path": "sure-110-nasr.html",
+      "git_blob_sha1": "500755b19ee532df4923897e90c71b415042c0d1",
+      "bytes": 4959
+    },
+    {
+      "path": "sure-111-mesed.html",
+      "git_blob_sha1": "d427b6359ca90c3c27d162d615a8539eeb6938a8",
+      "bytes": 5463
+    },
+    {
+      "path": "sure-112-ihlas.html",
+      "git_blob_sha1": "c06c665a36dc71b4e5ee2b57518badf70956e816",
+      "bytes": 5020
+    },
+    {
+      "path": "sure-113-felak.html",
+      "git_blob_sha1": "715f8f060b031bd9cec3022302979d0bc5286654",
+      "bytes": 5437
+    },
+    {
+      "path": "sure-114-nas.html",
+      "git_blob_sha1": "61a6638c18252fabcce750fb39425f1aa576335b",
+      "bytes": 6065
+    },
+    {
+      "path": "sure-12-yusuf.html",
+      "git_blob_sha1": "553b392ee1bd4a9f3c0bd0285dcc55b3f005e650",
+      "bytes": 98936
+    },
+    {
+      "path": "sure-13-rad.html",
+      "git_blob_sha1": "6c57d531a25518dad2aa4f58363c11692b8a72dd",
+      "bytes": 46370
+    },
+    {
+      "path": "sure-14-ibrahim.html",
+      "git_blob_sha1": "10771ffaec66a2da8c1855a58a78fd007aa61639",
+      "bytes": 48129
+    },
+    {
+      "path": "sure-15-hicr.html",
+      "git_blob_sha1": "99a68ebc276c07ec7aa72c7bd507202a88c4d6a9",
+      "bytes": 53732
+    },
+    {
+      "path": "sure-16-nahl.html",
+      "git_blob_sha1": "51225503d0548d3c62d2bf6ca88f854d9ce37a57",
+      "bytes": 104048
+    },
+    {
+      "path": "sure-17-isra.html",
+      "git_blob_sha1": "58f25275fb4bde5f906d75685778bcc0fdf71534",
+      "bytes": 89684
+    },
+    {
+      "path": "sure-18-kehf.html",
+      "git_blob_sha1": "48ac9247d4603376a4bc1dc84400a8fdec4e5d9d",
+      "bytes": 90805
+    },
+    {
+      "path": "sure-19-meryem.html",
+      "git_blob_sha1": "afa2602fd3537478f7a841c58c457003db86fb73",
+      "bytes": 64030
+    },
+    {
+      "path": "sure-2-bakara.html",
+      "git_blob_sha1": "8e639dc3fe26dc7dfcd1e7ff1ac501affdefb9fc",
+      "bytes": 304749
+    },
+    {
+      "path": "sure-20-taha.html",
+      "git_blob_sha1": "fbd39a195fb8619c0430469f9400d12ad803f1c7",
+      "bytes": 87876
+    },
+    {
+      "path": "sure-21-enbiya.html",
+      "git_blob_sha1": "b9eefcc203eaf0e12d411e84a4169bee5acc9a79",
+      "bytes": 77212
+    },
+    {
+      "path": "sure-22-hac.html",
+      "git_blob_sha1": "67ee70c44740b454c2f3e8a1ce38ff52f6c7a625",
+      "bytes": 69994
+    },
+    {
+      "path": "sure-23-muminun.html",
+      "git_blob_sha1": "2b1e321075ed902e8cf7af3e54b1981e419c0679",
+      "bytes": 74595
+    },
+    {
+      "path": "sure-24-nur.html",
+      "git_blob_sha1": "014178382d7cad7ea35d44af1d04d8045243ae3d",
+      "bytes": 69430
+    },
+    {
+      "path": "sure-25-furkan.html",
+      "git_blob_sha1": "f862350b52234b00f39acaa360a8bf3e0d879782",
+      "bytes": 57057
+    },
+    {
+      "path": "sure-26-suara.html",
+      "git_blob_sha1": "1341e3f33acc23381b5879d892f14a606ed91291",
+      "bytes": 112591
+    },
+    {
+      "path": "sure-27-neml.html",
+      "git_blob_sha1": "8e567c486e2f5c36be038725ee0464e5fbe41b14",
+      "bytes": 70433
+    },
+    {
+      "path": "sure-28-kasas.html",
+      "git_blob_sha1": "05cc73fba7f124987e43ea3cffd7731e16109d23",
+      "bytes": 78542
+    },
+    {
+      "path": "sure-29-ankebut.html",
+      "git_blob_sha1": "3159bc8063dcd5cb614f8444bead8469ff2d69a5",
+      "bytes": 58563
+    },
+    {
+      "path": "sure-3-al-i-imran.html",
+      "git_blob_sha1": "cc3e5e5a3a1cdad30dc3d7bdbebb2547f1d648ef",
+      "bytes": 185050
+    },
+    {
+      "path": "sure-30-rum.html",
+      "git_blob_sha1": "f97ad31365755caf42379d26bccefa900397acbd",
+      "bytes": 49309
+    },
+    {
+      "path": "sure-31-lokman.html",
+      "git_blob_sha1": "ed7ef7a1b5ad5646bea834f1b9932167f59f0532",
+      "bytes": 32047
+    },
+    {
+      "path": "sure-32-secde.html",
+      "git_blob_sha1": "e51904253bc9aa32aea31e87d4d0b8c43dc45042",
+      "bytes": 24824
+    },
+    {
+      "path": "sure-33-ahzab.html",
+      "git_blob_sha1": "f34ff4d364b88622633c948806acaedac349a383",
+      "bytes": 72050
+    },
+    {
+      "path": "sure-34-sebe.html",
+      "git_blob_sha1": "f12c045562e011b0d599dd697ed44c3f5e68e329",
+      "bytes": 49736
+    },
+    {
+      "path": "sure-35-fatir.html",
+      "git_blob_sha1": "69efb22ff3fdb41514db207c66f9ca45ce338027",
+      "bytes": 43592
+    },
+    {
+      "path": "sure-36-yasin.html",
+      "git_blob_sha1": "c93813423d11303e3fd0263fb9c6db59414684f3",
+      "bytes": 52008
+    },
+    {
+      "path": "sure-37-saffat.html",
+      "git_blob_sha1": "80397ff8a8658037d07d407f95ecd4683790e8be",
+      "bytes": 85341
+    },
+    {
+      "path": "sure-38-sad.html",
+      "git_blob_sha1": "22bbd79245184979e83211c0f51c04385064c377",
+      "bytes": 53924
+    },
+    {
+      "path": "sure-39-zumer.html",
+      "git_blob_sha1": "8d073941667b50a6fe308113c0e1aceaab01d0fb",
+      "bytes": 65932
+    },
+    {
+      "path": "sure-4-nisa.html",
+      "git_blob_sha1": "5a06ee464d5c6b2418600d6b0846f79a9f7f8ee4",
+      "bytes": 187831
+    },
+    {
+      "path": "sure-40-mumin-gafir.html",
+      "git_blob_sha1": "686d012087e3b7a36b1858b121a785625dfcf53d",
+      "bytes": 71540
+    },
+    {
+      "path": "sure-41-fussilet.html",
+      "git_blob_sha1": "ef875c50fdc8b1547b88505ec115ce53f652b772",
+      "bytes": 47349
+    },
+    {
+      "path": "sure-42-sura.html",
+      "git_blob_sha1": "a239ea085e5ac100a3319a17e66473fde34dfdd4",
+      "bytes": 47921
+    },
+    {
+      "path": "sure-43-zuhruf.html",
+      "git_blob_sha1": "fcfea0b22918135bf5a685219d1f7c8d217ed5d1",
+      "bytes": 59129
+    },
+    {
+      "path": "sure-44-duhan.html",
+      "git_blob_sha1": "dc94b3508638fe6c242e47d308684f545fd7d2a8",
+      "bytes": 31498
+    },
+    {
+      "path": "sure-45-casiye.html",
+      "git_blob_sha1": "42f48eb485083016fc1184a309d9dfe5be50771d",
+      "bytes": 31412
+    },
+    {
+      "path": "sure-46-ahkaf.html",
+      "git_blob_sha1": "06f2102f8add862a896f280e5dbd745061603665",
+      "bytes": 36402
+    },
+    {
+      "path": "sure-47-muhammed.html",
+      "git_blob_sha1": "9054eda54a154ec895b6f19fa882e40f9b529694",
+      "bytes": 35127
+    },
+    {
+      "path": "sure-48-fetih.html",
+      "git_blob_sha1": "0d7960e6b3f20349ecb51e29c18764ce4718b0f0",
+      "bytes": 32951
+    },
+    {
+      "path": "sure-49-hucurat.html",
+      "git_blob_sha1": "16c8dcc0a886c71a1398d5b26c2f94e10869f6c6",
+      "bytes": 21436
+    },
+    {
+      "path": "sure-5-maide.html",
+      "git_blob_sha1": "dc9bdadc0041949201d7e31dfd7fe61bc9414bb1",
+      "bytes": 138031
+    },
+    {
+      "path": "sure-50-kaf.html",
+      "git_blob_sha1": "2613e03dbb213ad0eee06d2f881c50835a34db13",
+      "bytes": 28849
+    },
+    {
+      "path": "sure-51-zariyat.html",
+      "git_blob_sha1": "d42babedcfd5280772477f1a194152afe532a8e8",
+      "bytes": 32977
+    },
+    {
+      "path": "sure-52-tur.html",
+      "git_blob_sha1": "cc3667cdc94618ce4c8ff0ce68e7a50c64280f3a",
+      "bytes": 27861
+    },
+    {
+      "path": "sure-53-necm.html",
+      "git_blob_sha1": "9fd93b48c847f4546d4e9b4582f43c9940e06088",
+      "bytes": 32054
+    },
+    {
+      "path": "sure-54-kamer.html",
+      "git_blob_sha1": "566c825a0dfd0e24c01e6c51dd2db2b62ea964fa",
+      "bytes": 31843
+    },
+    {
+      "path": "sure-55-rahman.html",
+      "git_blob_sha1": "62a00e02d17c2115067e5be5adc354cc9f5e8396",
+      "bytes": 38076
+    },
+    {
+      "path": "sure-56-vakia.html",
+      "git_blob_sha1": "61cbda824fa93a476caea1add675a722cc540ad7",
+      "bytes": 43415
+    },
+    {
+      "path": "sure-57-hadid.html",
+      "git_blob_sha1": "34c461bfe2ae3dd2bd8d94d97698bbec4a4079fe",
+      "bytes": 33216
+    },
+    {
+      "path": "sure-58-mucadele.html",
+      "git_blob_sha1": "df43e5272097a179f3014a0ee857bd3833d575db",
+      "bytes": 27520
+    },
+    {
+      "path": "sure-59-hasr.html",
+      "git_blob_sha1": "cc76363f0fb1889f487b380b26968bb65e1adaf2",
+      "bytes": 26820
+    },
+    {
+      "path": "sure-6-enam.html",
+      "git_blob_sha1": "cd37dfd90542888db13137d8ca1ee057cdac5ae8",
+      "bytes": 159470
+    },
+    {
+      "path": "sure-60-mumtehine.html",
+      "git_blob_sha1": "22f0da5e087dbb6b85c5576d461560f75f5fb083",
+      "bytes": 20632
+    },
+    {
+      "path": "sure-61-saff.html",
+      "git_blob_sha1": "9efc2c2ed70f7d98141645e43358771dc0e8db61",
+      "bytes": 15263
+    },
+    {
+      "path": "sure-62-cuma.html",
+      "git_blob_sha1": "f07f9b822d05ef6a6ecca597c2d71fd2896f6bcc",
+      "bytes": 13041
+    },
+    {
+      "path": "sure-63-munafikun.html",
+      "git_blob_sha1": "2543c349c6d0f3d5c15ad2c045d9226bfb4cd322",
+      "bytes": 13607
+    },
+    {
+      "path": "sure-64-tegabun.html",
+      "git_blob_sha1": "766a57ffe710c46a77f88702ee1c5748508d6a62",
+      "bytes": 17976
+    },
+    {
+      "path": "sure-65-talak.html",
+      "git_blob_sha1": "a19b255b7a373dc1cd91b4b031db1c3dbbbfb43a",
+      "bytes": 17603
+    },
+    {
+      "path": "sure-66-tahrim.html",
+      "git_blob_sha1": "8f4e06f9accb505dc7de46a0039d0d7d8e17ed43",
+      "bytes": 16208
+    },
+    {
+      "path": "sure-67-mulk.html",
+      "git_blob_sha1": "79dc7758f10a69dec76f9a4772bd3a527f062451",
+      "bytes": 23490
+    },
+    {
+      "path": "sure-68-kalem.html",
+      "git_blob_sha1": "bc7bf104fe4d417d2ac81f1c51a9199770f0fd98",
+      "bytes": 28675
+    },
+    {
+      "path": "sure-69-hakka.html",
+      "git_blob_sha1": "5d11b181162f95b4f53185043e204da5f6b01ba0",
+      "bytes": 26970
+    },
+    {
+      "path": "sure-7-araf.html",
+      "git_blob_sha1": "361268406b81470a3322bb3d4c647cb66dfba4cb",
+      "bytes": 184192
+    },
+    {
+      "path": "sure-70-mearic.html",
+      "git_blob_sha1": "23d36ea17c6020bc544729ed61c3a1678c249276",
+      "bytes": 23234
+    },
+    {
+      "path": "sure-71-nuh.html",
+      "git_blob_sha1": "54093a394c713ed6a2a2de24178e429705b504c3",
+      "bytes": 19276
+    },
+    {
+      "path": "sure-72-cin.html",
+      "git_blob_sha1": "114ea95cccafcda088f833ae3d16f569b4eee7c2",
+      "bytes": 21318
+    },
+    {
+      "path": "sure-73-muzzemmil.html",
+      "git_blob_sha1": "20fd88597dc07f0146f56616ee91aeb1367e4a0d",
+      "bytes": 16363
+    },
+    {
+      "path": "sure-74-muddessir.html",
+      "git_blob_sha1": "579dab1225b94e8445a4403f5c83112d2b7d0fb0",
+      "bytes": 27350
+    },
+    {
+      "path": "sure-75-kiyame.html",
+      "git_blob_sha1": "1aaaf831e3ca0c494923b77b577ac8fe8d706c35",
+      "bytes": 20038
+    },
+    {
+      "path": "sure-76-insan.html",
+      "git_blob_sha1": "142787fba89167bb0d38b46eb2be4f4d487b3046",
+      "bytes": 20856
+    },
+    {
+      "path": "sure-77-murselat.html",
+      "git_blob_sha1": "824d93afa02df4c4c33f7af733e04b5921138f2b",
+      "bytes": 23728
+    },
+    {
+      "path": "sure-78-nebe.html",
+      "git_blob_sha1": "f3b99259f3c4bf583aef8d29a960e959eeed46df",
+      "bytes": 20329
+    },
+    {
+      "path": "sure-79-naziat.html",
+      "git_blob_sha1": "d372f63337cc5d0d118727d30b0e5217f91846ac",
+      "bytes": 22222
+    },
+    {
+      "path": "sure-8-enfal.html",
+      "git_blob_sha1": "34195c2859fc6850e0f835c7d8b427c56c3a0f92",
+      "bytes": 69804
+    },
+    {
+      "path": "sure-80-abese.html",
+      "git_blob_sha1": "6a870c15996211d0ca17a4e17f418f0e3938d4d6",
+      "bytes": 19230
+    },
+    {
+      "path": "sure-81-tekvir.html",
+      "git_blob_sha1": "826356cfb43044b8a873b214422936c856a657ad",
+      "bytes": 14871
+    },
+    {
+      "path": "sure-82-infitar.html",
+      "git_blob_sha1": "2e815d9c832ec86f56ccd9146f2b73b5cb96d4c1",
+      "bytes": 11395
+    },
+    {
+      "path": "sure-83-mutaffifin.html",
+      "git_blob_sha1": "265047c031bc7c7e2a19887a6878a286d4ab7285",
+      "bytes": 19285
+    },
+    {
+      "path": "sure-84-insikak.html",
+      "git_blob_sha1": "8d4418f6a6c0332b2143678adcae11d1365b0d82",
+      "bytes": 13880
+    },
+    {
+      "path": "sure-85-buruc.html",
+      "git_blob_sha1": "00d498ace6da2b0121c79ecebf7e6af77a3147a7",
+      "bytes": 13096
+    },
+    {
+      "path": "sure-86-tarik.html",
+      "git_blob_sha1": "295c9ce208369221bf6d238979df031c01bc8bd9",
+      "bytes": 10012
+    },
+    {
+      "path": "sure-87-ala.html",
+      "git_blob_sha1": "ae17763fba44a137392c09a453663b5bb51f3b4a",
+      "bytes": 10958
+    },
+    {
+      "path": "sure-88-gasiye.html",
+      "git_blob_sha1": "75e12f4decfa209cb5a9fc652b1f3aa1ba9f3913",
+      "bytes": 13492
+    },
+    {
+      "path": "sure-89-fecr.html",
+      "git_blob_sha1": "8b8a234d6c1fe7cafc63e9befe08afe6a895d711",
+      "bytes": 16083
+    },
+    {
+      "path": "sure-9-tevbe.html",
+      "git_blob_sha1": "f8bb3131711513f6666b145a3b40b3b1857edabc",
+      "bytes": 132218
+    },
+    {
+      "path": "sure-90-beled.html",
+      "git_blob_sha1": "d69d11b2ed667e3e61ada20f32ee49b829812e4f",
+      "bytes": 11451
+    },
+    {
+      "path": "sure-91-sems.html",
+      "git_blob_sha1": "9ad6e76e48b766d0d26cc7852f30197a57f65090",
+      "bytes": 9649
+    },
+    {
+      "path": "sure-92-leyl.html",
+      "git_blob_sha1": "2f20342eb600dd265d6a17a7a34df9dc39cdfa23",
+      "bytes": 11681
+    },
+    {
+      "path": "sure-93-duha.html",
+      "git_blob_sha1": "e16f136aa3ec58ad9c3202544c37ea2862cb3aaa",
+      "bytes": 7757
+    },
+    {
+      "path": "sure-94-insirah.html",
+      "git_blob_sha1": "73662ff97addf5bbaaa1628d185882bed904a1c3",
+      "bytes": 6528
+    },
+    {
+      "path": "sure-95-tin.html",
+      "git_blob_sha1": "96dabd70d17dfd32cd8b24fb05bd4d36d0df800b",
+      "bytes": 6767
+    },
+    {
+      "path": "sure-96-alak.html",
+      "git_blob_sha1": "298953bee8c97d739f215c8be31087a1378cf029",
+      "bytes": 10744
+    },
+    {
+      "path": "sure-97-kadr.html",
+      "git_blob_sha1": "9408e97bf88da354fd2087c0332faf04fdd7da7f",
+      "bytes": 5695
+    },
+    {
+      "path": "sure-98-beyyine.html",
+      "git_blob_sha1": "41a8ff621498a39895bce12639a5b0e548294625",
+      "bytes": 9169
+    },
+    {
+      "path": "sure-99-zilzal.html",
+      "git_blob_sha1": "abcb3207de04a0121d0ef85023162f9fdfd7f0a4",
+      "bytes": 6939
+    },
+    {
+      "path": "sureler.html",
+      "git_blob_sha1": "5f4f502788d69340e7dd0b0b0784531dce05d440",
+      "bytes": 10455
+    },
+    {
+      "path": "sw.js",
+      "git_blob_sha1": "a016ae661fa4140541c9dbaf974d27116a9bc9d2",
+      "bytes": 2925
+    },
+    {
+      "path": "test-r22-homepage.mjs",
+      "git_blob_sha1": "3131ef1366238db74ecd6b859e5770c691bf2d7d",
+      "bytes": 2450
+    },
+    {
+      "path": "test-r23-word-matrix.mjs",
+      "git_blob_sha1": "c12badc451bb08cb52cf610d45c651fee7a88ced",
+      "bytes": 4694
+    }
+  ],
+  "intended_changes": [
+    "mutesabih-admin.js",
+    "mutesabih-admin.html",
+    "mutesabih-draft234.mjs",
+    "mutesabih-draft234.css",
+    "test-r234-core.mjs",
+    "test-r234-browser.mjs",
+    "test-r234-regressions.mjs",
+    "docs/DEVIR_2026-11-07_234_AYRI_KAYIT_R1.md",
+    "docs/R234_KONTROL_NOKTASI_20261107.json",
+    "qa/R234_UI_BENZETIM_RAPORU.json"
+  ],
+  "do_not_redo": [
+    {
+      "path": "app_data.json",
+      "git_blob_sha1": "e3e38c1eb4970e4ee14c71eabe1e262f1850ef77",
+      "bytes": 6889235
+    },
+    {
+      "path": "data/benzesen-matris.csv",
+      "git_blob_sha1": "120d1c32342da18dbc11ef650f3c0b491a855b23",
+      "bytes": 2192839
+    },
+    {
+      "path": "data/benzesen-matris.json",
+      "git_blob_sha1": "7695c42e503635abe4355df4ab3d2f27c0480d60",
+      "bytes": 1416107
+    },
+    {
+      "path": "data/mutesabih-degisiklikler.json",
+      "git_blob_sha1": "f6207d06ba3fe9db4be27716b193c322e7842dd3",
+      "bytes": 628945
+    },
+    {
+      "path": "index.html",
+      "git_blob_sha1": "71827a0478993d6c7f21e4b0ca471a3c5260cf4c",
+      "bytes": 102734
+    },
+    {
+      "path": "mutesabih-core.mjs",
+      "git_blob_sha1": "77899e045b74d1eb24cf32d5ea207850fda3cb8b",
+      "bytes": 10978
+    },
+    {
+      "path": "mutesabih-public.js",
+      "git_blob_sha1": "ead57914c6a657bec4c8dc3ad732b4959448c7f9",
+      "bytes": 5560
+    },
+    {
+      "path": "sw.js",
+      "git_blob_sha1": "a016ae661fa4140541c9dbaf974d27116a9bc9d2",
+      "bytes": 2925
+    }
+  ],
+  "known_sha256": {
+    "mutesabih-admin.js": "b2b1ce5ec845cda8d2163540a7e3f235a20f1aaeb6ee8299592b6432c5cd9dba",
+    "mutesabih-draft234.mjs": "17644d3668d7f16c7b70b1f45eabc302806b7e870f4ba04a2782ee593b708738",
+    "mutesabih-admin.html": "9953ea894353d320b75379bd8b0655a747a76598c7470474b9bad604b258377c",
+    "mutesabih-draft234.css": "49bc89e763285a624b96141dce3aefabb6d958bf84ad01d8b2b001af405192da",
+    "data/benzesen-matris.json": "ebda17bae6e873f15b096b160d48ca57536541d1216760fbfbd29ad5ce325da9",
+    "data/benzesen-matris.csv": "f0c48d2247015a630d4c7c50bc7fa233a38f0508c391b32bc0e58e59f4836c9a"
+  },
+  "routes": [
+    {
+      "main_suras": [
+        2,
+        3,
+        4
+      ],
+      "branch": "calisma-234",
+      "path": "data/mutesabih-calisma-234.json",
+      "schema": "ayatulkuran.draft234.v1",
+      "initial_links": [],
+      "automatic_publication": false,
+      "source": "kullanici_calismasi"
+    },
+    {
+      "main_suras": "diğer 111 sûre",
+      "branch": "main",
+      "path": "data/mutesabih-degisiklikler.json",
+      "schema": "ayatulkuran.github-edits.v1",
+      "behavior": "mevcut davranış korunur"
+    }
+  ],
+  "work_seed": {
+    "commit": "315740e5b5ab4699e046e07b418b90adc19ceace",
+    "blob": "303d68e94c3bfc98affd9b37f2d7a606e18c3223",
+    "overrides": 0,
+    "events": 0,
+    "readback_verified": true
+  },
+  "public_baseline": {
+    "overrides": 103,
+    "events": 154,
+    "main_234_overrides": 0,
+    "main_234_events": 0
+  },
+  "tests": {
+    "core": 15,
+    "dom_api_simulation": 19,
+    "regression": 8,
+    "existing_word_matrix": 6,
+    "total": 48,
+    "real_github_test_writes": 0,
+    "real_microphone": "WAIT_USER",
+    "chromium": "HOLD_SOCKET_EPERM"
+  },
+  "recovery": {
+    "admin_sha256": "b2b1ce5ec845cda8d2163540a7e3f235a20f1aaeb6ee8299592b6432c5cd9dba",
+    "exact_tested_source": true,
+    "missing_ids": [],
+    "duplicate_ids": [],
+    "speech_parser_unchanged": true,
+    "js_syntax": "PASS",
+    "html_sha256": "9953ea894353d320b75379bd8b0655a747a76598c7470474b9bad604b258377c",
+    "css_sha256": "49bc89e763285a624b96141dce3aefabb6d958bf84ad01d8b2b001af405192da"
+  },
+  "review": [
+    {
+      "path": "test-r22-homepage.mjs",
+      "result": "4/5",
+      "reason": "Önceden kalan 2.7.0 beklentisi; gerçek index/sw sürümü 2.8.20. Bu işte değiştirilmedi."
+    }
+  ],
+  "preserved_branches": [
+    "feat/admin-taslak-234-terimler-20261107",
+    "feat/hasenat-arapca-tum-site-20261107"
+  ],
+  "privacy_note": "Depo herkese açık. calisma-234 portal yayını dışında; GitHub üzerinde gizli değildir.",
+  "next_safe_step": "Bu kontrol noktası commit'inin Pages yayınını doğrula; gerçek kullanıcı oturumunda ve mikrofonunda kabul kontrolü yap. QA yayın kanıtı calisma-234 dalındaki qa/R234_YAYIN_DOGRULAMA_20261107.json dosyasında tutulabilir."
+}

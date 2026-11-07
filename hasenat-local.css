@@ -1,0 +1,19 @@
+/* AYATULKURAN — HASENAT Arapça yazı tipi.
+   Açık depoda font dosyası dağıtılmaz; yalnız kullanıcıdaki kurulu font kullanılır. */
+@font-face {
+  font-family: "AyatHasenatYerel";
+  src: local("HASENAT"), local("Hasenat");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+:root {
+  --ayat-arapca-font: "AyatHasenatYerel", "HASENAT", "Hasenat", "Amiri Quran", "Amiri", "Noto Naskh Arabic", serif;
+}
+.ar, .arabic, [lang="ar"], .esma-ar, .esma-ar-big, .esma-side-ar,
+.ar-k-keys button, #arabic-keys button, .ar-keyboard button,
+.verse-arabic, .admin-main-verse .ar,
+input[lang="ar"], textarea[lang="ar"] {
+  font-family: var(--ayat-arapca-font) !important;
+  font-synthesis: none;
+}

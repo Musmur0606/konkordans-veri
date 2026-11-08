@@ -60,9 +60,10 @@ function textNode(tag, className, text) {
   return node;
 }
 
-export function initConceptPanel({ getContext, setBusy, onChanged } = {}) {
+export function initConceptPanel({ getContext, setBusy, onChanged, onEsmaSelected } = {}) {
   const ids = [
-    'concepts-panel', 'concepts-context-menu', 'concepts-transfer', 'concepts-selection-note',
+    'concepts-panel', 'concepts-context-menu', 'concepts-transfer', 'concepts-esma-show',
+    'concepts-selection-note',
     'concepts-quick-status', 'concepts-quick-preview', 'concepts-quick-text',
     'concepts-quick-confirm', 'concepts-quick-cancel', 'concepts-text', 'concepts-source',
     'concepts-source-note', 'concepts-note', 'concepts-save', 'concepts-refresh',
@@ -224,6 +225,8 @@ export function initConceptPanel({ getContext, setBusy, onChanged } = {}) {
       node('concepts-context-menu').hidden = true;
     }
     node('concepts-transfer').disabled = !ready || occupied || !pendingSelection;
+    node('concepts-esma-show').disabled = !logged || occupied || !pendingSelection ||
+      typeof onEsmaSelected !== 'function';
     node('concepts-quick-preview').hidden = !pendingSelection;
     node('concepts-quick-confirm').disabled = !ready || occupied || !pendingSelection;
     node('concepts-quick-cancel').disabled = occupied;
@@ -378,6 +381,28 @@ export function initConceptPanel({ getContext, setBusy, onChanged } = {}) {
     closeContextMenu();
     quickMessage('Aktarım hazır. Yalnız “OK — Veri setine kaydet” onayından sonra yazılacak.');
     syncAuth();
+  }
+  async function showEsmaSelection() {
+    const ctx=context();
+    if (!authorized(ctx) || ctx.busy || saving || readingFile || !pendingIsCurrent() ||
+        typeof onEsmaSelected !== 'function') {
+      quickMessage('Esmâ sorgusu için geçerli Arapça seçimi gerekli.', 'error');return;
+    }
+    const captured=session();
+    const selection={text:pendingSelection.text,source:{...pendingSelection.source}};
+    closeContextMenu();
+    quickMessage('Seçilen ibare Esmâ veri setinde aranıyor…');
+    try {
+      const result=await onEsmaSelected(selection);
+      if (!sameSession(captured) || !context().corpus ||
+          context().selected !== selection.source.verse) return;
+      cancelQuickSelection();
+      quickMessage(typeof result === 'string' ? result :
+        'Esmâ sorgusu tamamlandı. Ayrı Esmâ sûre/âyet listesine bakın.');
+    } catch(error) {
+      if(!sameSession(captured))return;
+      quickMessage('Esmâ sorgusu açılamadı: '+error.message,'error');
+    }
   }
   function confirmQuickSelection() {
     if (!pendingIsCurrent()) {
@@ -651,6 +676,10 @@ export function initConceptPanel({ getContext, setBusy, onChanged } = {}) {
     if (event.button === 0) event.preventDefault();
   });
   node('concepts-transfer').addEventListener('click', transferSelection);
+  node('concepts-esma-show').addEventListener('mousedown', event => {
+    if (event.button === 0) event.preventDefault();
+  });
+  node('concepts-esma-show').addEventListener('click', showEsmaSelection);
   node('concepts-quick-confirm').addEventListener('click', confirmQuickSelection);
   node('concepts-quick-cancel').addEventListener('click', () => {
     cancelQuickSelection(); quickMessage('Aktarım iptal edildi. Veri seti değişmedi.');

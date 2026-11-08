@@ -211,7 +211,8 @@ const CORPUS = { verses: {
   '5:1': {ar:'يَا أَيُّهَا الَّذِينَ آمَنُوا'},
 }};
 const IDS = {
-  'concepts-panel':'section','concepts-context-menu':'div','concepts-transfer':'button','concepts-selection-note':'p',
+  'concepts-panel':'section','concepts-context-menu':'div','concepts-transfer':'button',
+  'concepts-esma-show':'button','concepts-selection-note':'p',
   'concepts-quick-status':'p','concepts-quick-preview':'section','concepts-quick-text':'p',
   'concepts-quick-confirm':'button','concepts-quick-cancel':'button',
   'concepts-text':'textarea','concepts-source':'input','concepts-source-note':'p',
@@ -266,7 +267,8 @@ function makeRemote(initial, core) {
 
 let sessionNumber = 0;
 let CORE;
-async function harness({selected='2.2', initial=null, authorized=true, corpus=CORPUS} = {}) {
+async function harness({selected='2.2', initial=null, authorized=true, corpus=CORPUS,
+  onEsmaSelected=null} = {}) {
   const doc = new FakeDocument();
   const nodes = {};
   for (const [id, tag] of Object.entries(IDS)) {
@@ -274,7 +276,7 @@ async function harness({selected='2.2', initial=null, authorized=true, corpus=CO
     if (id==='concepts-panel' || id.startsWith('main-')) doc.body.append(node);
     else nodes['concepts-panel'].append(node);
   }
-  nodes['concepts-context-menu'].append(nodes['concepts-transfer'],nodes['concepts-selection-note']);
+  nodes['concepts-context-menu'].append(nodes['concepts-transfer'],nodes['concepts-esma-show'],nodes['concepts-selection-note']);
   nodes['concepts-quick-preview'].append(nodes['concepts-quick-text'],nodes['concepts-quick-confirm'],nodes['concepts-quick-cancel']);
   nodes['concepts-quick-preview'].hidden=true;
   nodes['concepts-import-preview'].append(nodes['concepts-import-summary'],nodes['concepts-import-list'],nodes['concepts-import-confirm'],nodes['concepts-import-cancel']);
@@ -316,7 +318,8 @@ async function harness({selected='2.2', initial=null, authorized=true, corpus=CO
   Object.defineProperty(globalThis,'crypto',{configurable:true,value:webcrypto});
   const module=await import(pathToFileURL(join(DIR,'mutesabih-kavramlar.mjs')).href+'?qa='+ ++sessionNumber);
   const busyEvents=[];
-  const panel=module.initConceptPanel({getContext:()=>ctx,setBusy:value=>{ctx.busy=value;busyEvents.push(value);}});
+  const panel=module.initConceptPanel({getContext:()=>ctx,setBusy:value=>{ctx.busy=value;busyEvents.push(value);},
+    onEsmaSelected:onEsmaSelected||undefined});
   const api={doc,nodes,ctx,remote,panel,confirmations,busyEvents,clipboard,
     $:id=>nodes[id],
     async input(id,value) { nodes[id].value=value; await nodes[id].fire('input'); },
@@ -424,6 +427,31 @@ async function runTests() {
     await h.$('concepts-quick-cancel').click();await settle();
     noPuts(h);assert.equal(h.$('concepts-quick-preview').hidden,true);
     await h.$('concepts-quick-confirm').click();await settle();noPuts(h);
+  });
+  await test('Sağtık iki seçenek sunar: Esmâ sorgusu âyetleri açar, kavram veri setine yazmaz',async()=>{
+    const calls=[];
+    const h=await harness({onEsmaSelected:async value=>{
+      calls.push(jsonCopy(value));return 'Esmâ: örnek · 5 sûre/âyet listelendi.';
+    }});await authorize(h);
+    await h.select('الْكِتَابُ');
+    assert.equal(h.$('concepts-context-menu').hidden,false);
+    assert.equal(h.$('concepts-transfer').disabled,false);
+    assert.equal(h.$('concepts-esma-show').disabled,false);
+    noPuts(h);
+    await h.$('concepts-esma-show').click();await settle();
+    assert.equal(calls.length,1);assert.equal(calls[0].text,'الْكِتَابُ');
+    assert.equal(calls[0].source.verse,'2.2');
+    assert.equal(h.$('concepts-quick-preview').hidden,true);
+    assert.equal(h.$('concepts-context-menu').hidden,true);
+    assert.match(h.$('concepts-quick-status').textContent,/Esmâ/);
+    noPuts(h);assert.deepEqual(h.remote.doc.records,[]);
+  });
+  await test('Eski ana âyetin Esmâ seçimi diğer âyete aktarılamaz',async()=>{
+    let count=0;
+    const h=await harness({onEsmaSelected:async()=>{count++;return 'Esmâ bulundu';}});
+    await authorize(h);await h.select('الْكِتَابُ');await h.switchVerse('3.1');
+    await h.$('concepts-esma-show').fire('click');await settle();
+    assert.equal(count,0);noPuts(h);
   });
   await test('Türkçe meâl seçiminin sağtık menüsü yerel kalır; kavrama aktarılmaz',async()=>{
     const h=await harness();await authorize(h);const event=await h.select('Rahmân',h.$('main-translation'));

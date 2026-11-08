@@ -9,9 +9,9 @@
   <link rel="stylesheet" href="/mutesabih-admin.css?v=kavram-1">
   <link rel="stylesheet" href="/mutesabih-admin-r16.css?v=3">
   <script src="/vendor/jszip.min.js?v=kavram-2" defer></script>
-  <script type="module" src="/mutesabih-admin.js?v=kavram-2"></script>
+  <script type="module" src="/mutesabih-admin.js?v=esma-1"></script>
   <link rel="stylesheet" href="/mutesabih-draft234.css?v=1">
-  <link rel="stylesheet" href="/mutesabih-kavramlar.css?v=kavram-1">
+  <link rel="stylesheet" href="/mutesabih-kavramlar.css?v=esma-1">
 <link rel="stylesheet" href="/amiri-site.css?v=hasenat-3">
 </head>
 <body>
@@ -32,7 +32,9 @@
 <div id="concepts-context-menu" class="concepts-context-menu" role="menu"
   aria-label="Seçilen Arapça metin" hidden>
   <button id="concepts-transfer" type="button" class="button primary small"
-    role="menuitem">Kavram veri setine aktar</button>
+    role="menuitem">Kavram veri setine ekle</button>
+  <button id="concepts-esma-show" type="button" class="button outline small"
+    role="menuitem">Esmâ olarak sorgula</button>
   <span id="concepts-selection-note" class="micro"></span>
 </div>
 <p id="concepts-quick-status" class="concepts-message concepts-quick-status"
@@ -49,6 +51,15 @@
     OK düğmesine basılana kadar veri seti değişmez.</p>
 </section>
 <h3>Türkçe meal</h3><p id="main-turkish" lang="tr">Âyet seçildiğinde Türkçe meali burada görünür.</p></section>
+        <section id="esma-match-panel" class="esma-match-panel" hidden
+          aria-label="Seçilen Esmânın kaynak sûre ve âyetleri">
+          <div class="esma-match-header"><strong id="esma-match-title">Esmâ sonucu</strong>
+            <button type="button" id="esma-match-clear" class="button outline small">Kapat</button></div>
+          <p id="esma-match-status" class="micro" role="status" aria-live="polite"></p>
+          <div id="esma-match-refs" class="esma-match-refs" aria-label="Esmâ sûre ve âyet numaraları"></div>
+          <p class="micro">Bu numaralar kabul edilmiş Esmâ veri setinden okunur. Kavram veya
+            benzeşen veri tabanına kayıt yapılmaz; diğer benzeşenler korunur.</p>
+        </section>
         <div class="section-title"><h3>Benzeşen âyetler</h3><span id="link-count"></span></div>
         <p class="notice" id="source-note">Mevcut kayıtlar korunur; kavram benzeşmeleri ayrı çalışma adaylarıdır.</p>
         <p id="concepts-match-status" class="micro" role="status" aria-live="polite">Kavram benzeşmesi için yönetici oturumu bekleniyor.</p>

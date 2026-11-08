@@ -30,6 +30,8 @@ Elle kopyalayıp kavram kutusuna yapıştırma ve **OK** ile ekleme alternatif o
 
 8 Kasım 2026 V2 ilavesi (ayrı taslak özellik dalı): Word **DOCX** için bir paragraf bir kavram; iki sütunlu tabloda ilk sütun kavram, ikinci sütun isteğe bağlı not olarak okunur. Metin katmanlı **PDF** için bir metin satırı bir kavram olarak önizlenir. Bu biçimler en fazla 10 MiB/40 PDF sayfası, ortak sınır 200 kavramdır. Metin katmanı bozuk olan veya taranmış PDF'ler güvenli biçimde reddedilir; otomatik Arapça OCR ve sahte düzeltme yoktur. Dosya metni yalnız tarayıcı belleğinde okunur; kullanıcıya özgün ibareler gösterilerek **OK** beklenir. Orijinal Arapça korunur, yazı tipi farkı kaydı dönüştürmez; arama esnasında Unicode NFKC ve hareke/harf eşdeğerliği ayrı uygulanır. Detay: [DEVIR_2026-11-08_DOSYA_IMPORT_V2.md](DEVIR_2026-11-08_DOSYA_IMPORT_V2.md). Bu ekleme canlı yayına alınmış sayılmaz.
 
+8 Kasım 2026 V3 sağ tık ayrımı: **Kavram veri setine ekle** (önizleme + OK ile ayrı kavram çalışma kaydı) veya **Esmâ olarak sorgula** (kabul edilmiş `main/esma_index.json` içindeki 99 isim / 2.050 sûre-âyet bağını salt okunur göster). Eşleşen Esmâya ait **bütün kayıtlı sûre/âyet numaraları** ayrı geçici listede çıkar; Esmâ yoksa açık hata görünür. Esmâ sorgusu kavram dosyasına veya benzeşen ilişkilerine PUT yapmaz. Detay: [DEVIR_2026-11-08_ESMA_SAGTIK_V3.md](DEVIR_2026-11-08_ESMA_SAGTIK_V3.md).
+
 Aynı tam metin tek kavram kimliğinde kalır; yeni kaynaklar/notlar mevcut kaydı zenginleştirir. Farklı harekeli metinler otomatik birleştirilmez. Arşivleme kaydı silmez; geri getirme yeni bir işlem olarak korunur.
 
 ## Güvenlik ve önceki kabuller

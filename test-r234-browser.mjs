@@ -9,11 +9,13 @@ import {createHash,webcrypto} from 'node:crypto';
 import * as publicCore from './mutesabih-core.mjs';
 import * as draftCore from './mutesabih-draft234.mjs';
 import {compareConceptVerses,fillArabicHighlights} from './mutesabih-kavram-eslestirme.mjs';
+import {assertEsmaDataset,findSelectedEsma,esmaRanges} from './mutesabih-esma-benzesme.mjs';
 
 const read=name=>readFileSync(new URL(name,import.meta.url),'utf8');
 const html=read('./mutesabih-admin.html');
 const source=read('./mutesabih-admin.js');
 const corpus=JSON.parse(read('./app_data.json'));
+const esmaDataset=JSON.parse(read('./esma_index.json'));
 const matrix=JSON.parse(read('./data/benzesen-matris.json'));
 const publicInitial=JSON.parse(read('./data/mutesabih-degisiklikler.json'));
 const draftInitial=draftCore.emptyDraftHistory('2026-11-07T19:00:00.000Z');
@@ -40,7 +42,7 @@ function harness(options={}) {
     set value(v){this._value=String(v);}get value(){return this._value;}
     set textContent(v){this._text=String(v??'');this.children=[];}
     get textContent(){return this._text+this.children.map(c=>c?.textContent??String(c)).join('');}
-    append(...nodes){for(const node of nodes){node.parent=this;this.children.push(node);}}
+    append(...nodes){for(const node of nodes){if(node.tagName==='FRAGMENT'){this.append(...node.children);continue;}node.parent=this;this.children.push(node);}}
     replaceChildren(...nodes){this.children=[];this._text='';this.append(...nodes);}
     setAttribute(k,v){this.attributes[k]=String(v);}
     addEventListener(type,fn){if(!this.handlers.has(type))this.handlers.set(type,[]);this.handlers.get(type).push(fn);}
@@ -51,7 +53,7 @@ function harness(options={}) {
     remove(){if(this.parent)this.parent.children=this.parent.children.filter(x=>x!==this);}
   }
   for(const id of ids)elements.set(id,new Element('div',id));
-  const document={getElementById(id){if(!elements.has(id))throw Error('HTML kimliği yok: '+id);return elements.get(id);},createElement(tag){return new Element(tag);},createTextNode(text){return {textContent:String(text)};},body:new Element('body')};
+  const document={getElementById(id){if(!elements.has(id))throw Error('HTML kimliği yok: '+id);return elements.get(id);},createElement(tag){return new Element(tag);},createDocumentFragment(){return new Element('fragment');},createTextNode(text){return {textContent:String(text)};},body:new Element('body')};
   const blobMap=new Map();
   class FakeURL extends URL {}
   FakeURL.createObjectURL=blob=>{const url='blob:test-'+blobMap.size;blobMap.set(url,blob);return url;};
@@ -68,6 +70,7 @@ function harness(options={}) {
     calls.push({method,url:u.href});
     if(u.origin==='https://ayatulkuran.test'&&method==='GET'){
       if(u.pathname==='/app_data.json')return response(200,corpus);
+      if(u.pathname==='/esma_index.json')return response(200,esmaDataset);
       if(u.pathname==='/data/benzesen-matris.json')return response(200,matrix);
     }
     if(u.origin==='https://api.github.com'&&u.pathname==='/user'&&method==='GET')return response(200,{login:'Musmur0606'});
@@ -109,11 +112,11 @@ function harness(options={}) {
     const previous=globalThis.document;globalThis.document=document;
     try{return fillArabicHighlights(node,text,ranges);}finally{globalThis.document=previous;}
   };
-  const scope={...publicCore,...draftCore,compareConceptVerses,fillArabicHighlights:highlightForFakeDocument,document,console:{log:()=>{},error:e=>errors.push(String(e))},fetch:fetchMock,TextEncoder,TextDecoder,Blob,URL:FakeURL,Event:FakeEvent,crypto:webcrypto,Date,Map,Set,Uint8Array,atob:s=>Buffer.from(s,'base64').toString('binary'),btoa:s=>Buffer.from(s,'binary').toString('base64'),setTimeout:(fn,ms)=>{const id=++timerId;timers.set(id,{fn,ms});return id;},clearTimeout:id=>timers.delete(id),SpeechRecognition:SpeechAPI,confirm:message=>{confirmations.push(message);return controls.confirm;}};
+  const scope={...publicCore,...draftCore,compareConceptVerses,assertEsmaDataset,findSelectedEsma,fillArabicHighlights:highlightForFakeDocument,document,console:{log:()=>{},error:e=>errors.push(String(e))},fetch:fetchMock,TextEncoder,TextDecoder,Blob,URL:FakeURL,Event:FakeEvent,crypto:webcrypto,Date,Map,Set,Uint8Array,atob:s=>Buffer.from(s,'base64').toString('binary'),btoa:s=>Buffer.from(s,'binary').toString('base64'),setTimeout:(fn,ms)=>{const id=++timerId;timers.set(id,{fn,ms});return id;},clearTimeout:id=>timers.delete(id),SpeechRecognition:SpeechAPI,confirm:message=>{confirmations.push(message);return controls.confirm;}};
   scope.window=scope;
   vm.createContext(scope);
   vm.runInContext(source.replace(/^import[^\n]+\n/gm,''),scope,{filename:'mutesabih-admin.js'});
-  const api=vm.runInContext('({runtime,historyForMain,chooseMain,authorize,startVoiceRefs,stopVoiceRefs,submitEdit,submitUndoOne,submitUndoDay,downloadDailyLog,loadGitHubFile,saveNext,renderAll})',scope);
+  const api=vm.runInContext('({runtime,historyForMain,chooseMain,authorize,startVoiceRefs,stopVoiceRefs,submitEdit,submitUndoOne,submitUndoDay,downloadDailyLog,loadGitHubFile,saveNext,renderAll,showSelectedAsEsma})',scope);
   const get=id=>elements.get(id);
   async function login(){get('token').value='TEST_ONLY_NOT_A_REAL_KEY';await get('login').fire('click');assert.equal(api.runtime.actor,'Musmur0606',get('login-message').textContent);assert.ok(api.runtime.token);}
   function select(main){api.chooseMain(main,true);assert.equal(api.runtime.selected,main);}
@@ -139,6 +142,25 @@ try {
     assert.ok(h.calls.some(x=>x.url.endsWith(draftCore.DRAFT234_PATH+'?ref=calisma-234')));
     assert.ok(h.calls.some(x=>x.url.endsWith(draftCore.PUBLIC_HISTORY_PATH+'?ref=main')));
     assert.equal(h.puts.length,0);h.routesClean();
+  });
+  await test('Esmâ sağtık seçeneği veri setindeki 5 âyeti ayrı listede gösterir; GitHub yazmaz',async()=>{
+    const demo=harness();await demo.login();demo.select('4.43');
+    const original=state(demo),verse=corpus.verses['4:43'].arh;
+    const range=esmaRanges(verse,esmaDataset.index.AFUV.ar)[0];assert(range);
+    const result=await demo.api.showSelectedAsEsma({
+      text:verse.slice(range.start,range.end),source:{verse:'4.43',start:range.start,
+        end:range.end,text_field:'arh',origin:'admin_selection'}
+    });
+    assert.match(result,/AFUV/);assert.equal(demo.get('esma-match-panel').hidden,false);
+    const refs=demo.get('esma-match-refs').children.map(node=>node.textContent);
+    assert.deepEqual(refs,esmaDataset.index.AFUV.r.map(ref=>ref.replace(':','.')));
+    assert.equal(demo.get('esma-match-refs').children.length,5);
+    assert.equal(demo.puts.length,0);assert.deepEqual(state(demo),original);
+    demo.select('4.44');assert.equal(demo.get('esma-match-panel').hidden,true);
+    demo.select('4.43');
+    const noMatch=await demo.api.showSelectedAsEsma({text:'يَا',source:{verse:'4.43',start:0,end:3,text_field:'arh'}});
+    assert.match(noMatch,/bulunamadı/);assert.equal(demo.get('esma-match-refs').children.length,0);
+    assert.equal(demo.puts.length,0);demo.routesClean();
   });
   await test('2/3/4 başlangıç listeleri motor verisi olsa da boş',async()=>{
     for(const s of [2,3,4]){

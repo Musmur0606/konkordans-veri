@@ -141,7 +141,7 @@ try {
     assert.ok(h.calls.some(x=>x.url.endsWith(draftCore.PUBLIC_HISTORY_PATH+'?ref=main')));
     assert.equal(h.puts.length,0);h.routesClean();
   });
-  await test('Esmâ sağ tık seçim kutusunda 99 isim vardır; seçilince 4 aday listeye ve numara alanına eklenir, kayıt yapılmaz',async()=>{
+  await test('Esmâ seçili kelimeyi doğrudan sorgular; 99 isimli kutuyu ve âyet adaylarını otomatik açar, kayıt yapmaz',async()=>{
     h=harness();await h.login();h.select('4.43');
     const before=state(h),ar=corpus.verses['4:43'].arh||corpus.verses['4:43'].ar;
     const match=esmaCore.esmaRanges(ar,esmaIndex.index.AFUV.ar)[0];
@@ -152,18 +152,49 @@ try {
     }});
     assert.equal(h.get('esma-match-panel').hidden,false);
     assert.equal(h.get('esma-match-select').children.length,100);
-    assert.equal(h.get('refs').value,'','Liste açılışı kayıt veya ekleme yapmamalı');
-    h.get('esma-match-select').value='AFUV';
-    await h.get('esma-match-select').fire('change');
     const candidates=['4.99','4.149','22.60','58.2'];
     assert.deepEqual(links(h),candidates);
     assert.deepEqual(publicCore.parseVerses(h.get('refs').value),candidates);
+    assert.equal(h.get('esma-match-select').value,'AFUV');
     assert.equal(h.get('esma-match-refs').children.length,5);
+    assert.match(h.get('esma-match-status').textContent,/DOĞRUDAN ESMÂ EŞLEŞMESİ/);
+    h.get('esma-match-select').value='AFUV';
+    await h.get('esma-match-select').fire('change');
+    assert.deepEqual(publicCore.parseVerses(h.get('refs').value),candidates,'Aynı Esmâ tekrar eklenemez');
     assert.match(h.get('link-count').textContent,/4 Esmâ adayı/);
     assert.equal(h.puts.length,0);assert.deepEqual(state(h),before);
     await h.get('esma-match-clear').fire('click');
     assert.equal(h.get('refs').value,'');assert.deepEqual(links(h),[]);
     assert.equal(h.puts.length,0);assert.deepEqual(state(h),before);h.routesClean();
+  });
+  await test('Yeni Esmâ eski Esmâ numaralarını temizler ve elle yazılmış numaraları korur',async()=>{
+    const e=harness();await e.login();e.select('4.43');
+    e.get('refs').value='77.1';
+    const ar=corpus.verses['4:43'].arh||corpus.verses['4:43'].ar;
+    const {start,end}=esmaCore.esmaRanges(ar,esmaIndex.index.AFUV.ar)[0];
+    await e.api.showSelectedAsEsma({text:ar.slice(start,end),source:{verse:'4.43',start,end,
+      ...(corpus.verses['4:43'].arh?{text_field:'arh'}:{})}});
+    assert(publicCore.parseVerses(e.get('refs').value).includes('4.149'));
+    e.get('esma-match-select').value='BASÎR';
+    await e.get('esma-match-select').fire('change');
+    const expected=esmaCore.stageEsmaReferences({references:esmaIndex.index.BASÎR.r,
+      main:'4.43',pendingText:'77.1'});
+    assert.deepEqual(publicCore.parseVerses(e.get('refs').value),publicCore.parseVerses(expected.mergedText));
+    assert.equal(publicCore.parseVerses(e.get('refs').value).includes('77.1'),true);
+    assert.match(e.get('esma-match-status').textContent,/MANUEL ESMÂ TERCİHİ/);
+    assert.equal(e.puts.length,0);e.routesClean();
+  });
+  await test('Esmâ listesinde bulunmayan seçili Allah ibaresi açıklanır; yanlış eşleştirme onaysız yapılmaz',async()=>{
+    const e=harness();await e.login();e.select('5.61');
+    const ar=corpus.verses['5:61'].arh||corpus.verses['5:61'].ar;
+    const word='اللّٰهُ',start=ar.indexOf(word);assert(start>=0);
+    await e.api.showSelectedAsEsma({text:word,source:{verse:'5.61',start,end:start+word.length,
+      ...(corpus.verses['5:61'].arh?{text_field:'arh'}:{})}});
+    assert.match(e.get('esma-match-status').textContent,/BULUNAMADI/);
+    assert.equal(e.get('refs').value,'');
+    e.controls.confirm=false;
+    e.get('esma-match-select').value='AFUV';await e.get('esma-match-select').fire('change');
+    assert.equal(e.get('refs').value,'');assert.equal(e.puts.length,0);e.routesClean();
   });
   await test('Esmâ adayları 4.43 için ikinci onayla kaydedilirse yalnız 2/3/4 taslak dalına yazılır',async()=>{
     const e=harness();await e.login();e.select('4.43');

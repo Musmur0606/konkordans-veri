@@ -35,35 +35,74 @@ async function showSelectedAsEsma(selection) {
   }
   const match = findSelectedEsma({...selection, dataset: data, corpus: runtime.corpus});
   const prior = runtime.esmaSelection?.main === sourceMain ? runtime.esmaSelection : null;
+  let baseline;
+  try { baseline = removeOldEsmaNumbers(prior); }
+  catch(error) { throw Error('Önce âyet numarası kutusunu düzeltin: '+error.message); }
+  $('refs').value=baseline;
   runtime.esmaSelection = {
     main: sourceMain, query: selection.text, suggested: match?.name || null,
-    name: prior?.name || null, candidates: prior?.candidates || [], inserted: prior?.inserted || []
+    name: null, candidates: [], inserted: []
   };
-  renderEsmaSelection();
-  return 'Esmâ veri setindeki 99 isim açıldı. Listeden isim seçerek ilgili sûre/âyetleri getirin.';
+  let result;
+  if(match) {
+    try { result=applyEsmaCandidates(match.name); }
+    catch(error){
+      renderSelected();
+      $('esma-match-status').textContent='Esmâ bulundu ancak numaraları hazırlamak mümkün olmadı: '+error.message;
+      throw error;
+    }
+  } else renderSelected();
+  $('esma-match-panel').scrollIntoView?.({behavior:'smooth',block:'start'});
+  return match
+    ? 'Seçili “'+selection.text.trim()+'” → '+match.name+' · '+result.inserted.length+
+      ' yeni sûre/âyet adayı bulundu; otomatik hazırlandı. Kalıcı kayıt için ayrıca onay gerekir.'
+    : 'Seçili “'+selection.text.trim()+'” kabul edilmiş 99 Esmâ içinde bulunamadı. Açılan listeden elle tercih yapabilirsiniz.';
+}
+
+function removeOldEsmaNumbers(selection) {
+  const raw=$('refs').value;
+  if(!selection?.inserted?.length || !raw.trim())return raw;
+  const removable=new Set(selection.inserted);
+  return formatEsmaRefs(parseVerses(raw).filter(key=>!removable.has(key)));
+}
+
+function applyEsmaCandidates(name) {
+  const selection = runtime.esmaSelection;
+  if (!runtime.token || runtime.busy || !selection || selection.main !== runtime.selected ||
+      !runtime.esmaIndex || !Object.hasOwn(runtime.esmaIndex.index,name)) {
+    throw Error('Esmâ seçim oturumu geçerli değil.');
+  }
+  const base = currentBase();
+  if (!base) throw Error('Ana âyet yüklenmedi.');
+  const baseline=removeOldEsmaNumbers(selection);
+  const currentLinks=getMerged(base,historyForMain().doc?.overrides?.[base.main]).map(ref=>ref.key);
+  const staged=stageEsmaReferences({references:runtime.esmaIndex.index[name].r,
+    main:base.main,currentLinks,pendingText:baseline});
+  $('refs').value=staged.mergedText;
+  selection.name=name;
+  selection.candidates=staged.candidates;
+  selection.inserted=staged.inserted;
+  renderSelected();
+  showMessage('edit-message',name+': '+staged.inserted.length+
+    ' yeni sûre/âyet numarası kayıt kutusuna hazırlandı. Kalıcı ekleme için “+ Benzeşen ekle” ve ikinci onay gereklidir.');
+  return staged;
 }
 
 function chooseEsmaFromList() {
-  const selection = runtime.esmaSelection;
-  if (!runtime.token || runtime.busy || !selection || selection.main !== runtime.selected || !runtime.esmaIndex) return;
-  const name = $('esma-match-select').value;
-  if (!name || !Object.hasOwn(runtime.esmaIndex.index,name)) return;
-  const base = currentBase();
-  if (!base) return;
+  const selection=runtime.esmaSelection;
+  if(!selection || selection.main!==runtime.selected || runtime.busy)return;
+  const name=$('esma-match-select').value;
+  if(!name || !Object.hasOwn(runtime.esmaIndex?.index||{},name))return;
+  if(name!==selection.suggested && !window.confirm(
+    'Seçtiğiniz Arapça ifade “'+selection.query.trim()+'”, '+name+
+    ' Esmâsıyla otomatik eşleşmedi. Yine de bu Esmânın sûre/âyet numaralarını '+
+    'manuel tercih olarak hazırlamak istiyor musunuz?')){
+    $('esma-match-select').value=selection.name||'';
+    $('esma-match-status').textContent='Farklı Esmâ tercihi iptal edildi; yalnız doğrulanmış eşleşme korunuyor.';
+    return;
+  }
   try {
-    const currentLinks = getMerged(base,historyForMain().doc?.overrides?.[base.main]).map(ref=>ref.key);
-    const staged = stageEsmaReferences({
-      references:runtime.esmaIndex.index[name].r,main:base.main,
-      currentLinks,pendingText:$('refs').value
-    });
-    $('refs').value = staged.mergedText;
-    selection.name = name;
-    selection.candidates = [...new Set([...selection.candidates,...staged.candidates])];
-    selection.inserted = [...new Set([...selection.inserted,...staged.inserted])];
-    renderSelected();
-    showMessage('edit-message',
-      name+': '+staged.inserted.length+' yeni sûre/âyet numarası kayıt kutusuna hazırlandı. '+
-      'Kalıcı ekleme için “+ Benzeşen ekle” ve ikinci onay gereklidir.');
+    applyEsmaCandidates(name);
   } catch(error) {
     $('esma-match-status').textContent = 'Esmâ seçimi eklenemedi: '+error.message;
   }
@@ -114,8 +153,8 @@ function renderEsmaSelection() {
   if (!selection.name) {
     $('esma-match-title').textContent = 'Esmâ veri setinden seç — 99 isim';
     $('esma-match-status').textContent = selection.suggested
-      ? 'Ana âyette '+selection.suggested+' adı bulundu; listeden istediğiniz Esmâyı seçiniz.'
-      : '99 Esmâ listelendi. Seçilen metin birebir eşleşmeyebilir; hangi Esmâyı ilişkilendireceğinizi listeden seçiniz.';
+      ? 'Seçilen “'+selection.query.trim()+'” ifadesi '+selection.suggested+' adıyla eşleşti. Kaynaklar hazırlanmamışsa listeden bu adı seçiniz.'
+      : 'Seçilen “'+selection.query.trim()+'” ifadesi kabul edilmiş 99 Esmâ içinde BULUNAMADI. Farklı bir Esmâ seçimi açık onayınıza bağlıdır.';
     return;
   }
   const entry = runtime.esmaIndex.index[selection.name];
@@ -123,8 +162,10 @@ function renderEsmaSelection() {
   const candidateSet=new Set(selection.candidates);
   const pendingSet=pendingEsmaInput();
   const remaining=selection.candidates.filter(key=>pendingSet.has(key));
-  $('esma-match-status').textContent = entry.n+' kayıtlı sûre/âyet · '+
-    remaining.length+' kaydedilmemiş benzeşen adayı. Mevcut benzeşenler ve ana âyet tekrarlanmadı.';
+  $('esma-match-status').textContent = 'Sorgulanan: “'+selection.query.trim()+'” · '+
+    (selection.suggested===selection.name?'DOĞRUDAN ESMÂ EŞLEŞMESİ':'MANUEL ESMÂ TERCİHİ')+' · '+
+    entry.n+' kayıtlı sûre/âyet · '+remaining.length+' kaydedilmemiş benzeşen adayı. '+
+    'Ana âyet ve mevcut benzeşenler tekrarlanmadı.';
   const base = currentBase();
   const history = historyForMain();
   const existing = new Set(base ? getMerged(base, history.doc?.overrides?.[base.main]).map(x => x.key) : []);

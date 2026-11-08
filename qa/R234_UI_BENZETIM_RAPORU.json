@@ -1,9 +1,11 @@
 {
   "sonuc": "PASS_R234_UI_BENZETIM",
-  "test_sayisi": 21,
+  "test_sayisi": 23,
   "testler": [
     "HTML kimlikleri ve giriş akışı; iki veri seti doğru daldan okunur",
-    "Esmâ sağ tık seçim kutusunda 99 isim vardır; seçilince 4 aday listeye ve numara alanına eklenir, kayıt yapılmaz",
+    "Esmâ seçili kelimeyi doğrudan sorgular; 99 isimli kutuyu ve âyet adaylarını otomatik açar, kayıt yapmaz",
+    "Yeni Esmâ eski Esmâ numaralarını temizler ve elle yazılmış numaraları korur",
+    "Esmâ listesinde bulunmayan seçili Allah ibaresi açıklanır; yanlış eşleştirme onaysız yapılmaz",
     "Esmâ adayları 4.43 için ikinci onayla kaydedilirse yalnız 2/3/4 taslak dalına yazılır",
     "2/3/4 başlangıç listeleri motor verisi olsa da boş",
     "Ses yalnız kutuyu doldurur; ikinci onay yoksa yazı yok",

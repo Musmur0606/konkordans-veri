@@ -76,6 +76,10 @@
 .concepts-quick-status { min-height: 0; margin: 5px 0 10px; }
 .concepts-quick-status:empty { display: none; }
 .concepts-filters { display: grid; grid-template-columns: minmax(0, 1fr) 130px; gap: 10px; }
+.concepts-registry { padding: 14px 15px; margin: 15px 0 20px; border: 1px solid #bdd9c3; border-radius: 9px; background: #f2f8f3; }
+.concepts-registry h4 { margin: 0 0 6px; font: 600 17px Georgia,serif; color: #24593f; }
+.concepts-registry > .micro { margin: 5px 0 12px; }
+.concepts-registry #concepts-count { font-weight: 700; color: #38664a; }
 .concepts-list { display: grid; gap: 10px; margin-top: 12px; max-height: 420px; overflow: auto; }
 .concepts-record { border: 1px solid #d0ddd5; border-radius: 8px; padding: 12px; background: #fff; }
 .concepts-record-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }

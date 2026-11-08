@@ -274,7 +274,7 @@ async function harness({selected='2.2', initial=null, authorized=true, corpus=CO
   nodes['concepts-context-menu'].append(nodes['concepts-transfer'],nodes['concepts-esma-show'],nodes['concepts-selection-note']);
   nodes['concepts-import-preview'].append(nodes['concepts-import-summary'],nodes['concepts-import-list'],nodes['concepts-import-confirm'],nodes['concepts-import-cancel']);
   nodes['concepts-file'].type='file';nodes['concepts-import-preview'].hidden=true;
-  nodes['concepts-status-filter'].value='active';
+  nodes['concepts-status-filter'].value='all';
   nodes['concepts-context-menu'].hidden=true;
   const ctx={token:authorized?'FAKE_QA_KEY_DO_NOT_SEND':'',actor:authorized?'Musmur0606':'',corpus,selected,busy:false};
   const shownVerse=corpus.verses[selected.replace('.',':')];
@@ -384,6 +384,26 @@ async function runTests() {
     noPuts(h);assert.equal(h.clipboard.reads,0);assert.equal(h.clipboard.writes.length,0);
     assert.equal(h.remote.requests.filter(x=>x.method==='GET').length,1);
   });
+  await test('Eklenen tüm kavramlar: 150 sınırı yok, arşivle birlikte tam liste varsayılan görünür',async()=>{
+    let initial=CORE.emptyConceptHistory(TEST_DAY+'T12:00:00.000Z');
+    for(let i=1;i<=151;i++)initial=CORE.addConcept(initial,
+      {arabicText:'كِتَاب '+i,note:'',source:null},'Musmur0606',CORPUS,
+      TEST_DAY+'T12:01:00.000Z').doc;
+    initial=CORE.archiveConcept(initial,initial.records[0].id,'','Musmur0606',
+      TEST_DAY+'T12:02:00.000Z').doc;
+    const h=await harness({initial});await authorize(h);
+    assert.equal(h.$('concepts-status-filter').value,'all');
+    assert.equal(h.$('concepts-list').querySelectorAll('article').length,151,
+      '151 kavramın tamamı gösterilmeli; ilk 150 kesilmemeli');
+    assert.match(h.$('concepts-count').textContent,/151 kavram gösteriliyor.*150 etkin, 1 arşivde/);
+    assert(h.$('concepts-list').textContent.includes('كِتَاب 151'));
+    assert(h.$('concepts-list').textContent.includes('Arşivde'));
+    h.$('concepts-status-filter').value='active';await h.$('concepts-status-filter').fire('change');
+    assert.equal(h.$('concepts-list').querySelectorAll('article').length,150);
+    h.$('concepts-status-filter').value='all';await h.$('concepts-status-filter').fire('change');
+    assert.equal(h.$('concepts-list').querySelectorAll('article').length,151);
+    noPuts(h);
+  });
   await test('Geçerli Arapça sağtık menüyü açar; yalnız menü açmak kayıt yapmaz',async()=>{
     const h=await harness();await authorize(h);const event=await h.select('الْكِتَابُ');
     assert.equal(event.defaultPrevented,true);assert.equal(h.$('concepts-context-menu').hidden,false);
@@ -411,6 +431,18 @@ async function runTests() {
     assert.equal(record.arabic_text,word);assert.equal(source.verse,'2.2');assert.equal(source.start,start);
     assert.equal(source.end,start+word.length);assert.equal(source.origin,'admin_selection');
     assert.deepEqual(record.notes,[]);CORE.assertConceptHistory(h.remote.doc,CORPUS);
+  });
+  await test('Yeni eklenen kavram filtreye takılmaz; Tümü görünümünde kayıt en üstte görülür',async()=>{
+    const h=await harness();await authorize(h);
+    h.$('concepts-status-filter').value='archived';await h.$('concepts-status-filter').fire('change');
+    await h.input('concepts-filter','eşleşmez');
+    await h.transfer('الْكِتَابُ');
+    assert.equal(h.$('concepts-status-filter').value,'all');
+    assert.equal(h.$('concepts-filter').value,'');
+    assert.match(h.$('concepts-count').textContent,/1 kavram gösteriliyor.*1 etkin, 0 arşivde/);
+    assert.equal(h.$('concepts-list').querySelectorAll('article').length,1);
+    assert.match(h.$('concepts-list').textContent,/الْكِتَابُ/);
+    assert.equal(h.remote.puts.length,1);
   });
   await test('Sağtık aktarımı form metni/kaynağı/notunu kullanmaz veya silmez',async()=>{
     const h=await harness();await authorize(h);const before=await fillDraft(h);await h.transfer('الْكِتَابُ');

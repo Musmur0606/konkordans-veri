@@ -204,7 +204,7 @@ async function initializeConceptsPanel() {
   // Ayrı modül hatası ana benzeşen/sesli giriş modülünün yüklenmesini kesmez.
   // Yetki anahtarı bir depoya, global değişkene veya günlük çıktısına aktarılmaz.
   try{
-    const {initConceptPanel}=await import('/mutesabih-kavramlar.mjs?v=esma-only-1');
+    const {initConceptPanel}=await import('/mutesabih-kavramlar.mjs?v=concept-list-all-1');
     conceptsPanel=initConceptPanel({
       getContext:()=>({token:runtime.token,actor:runtime.actor,corpus:runtime.corpus,selected:runtime.selected,busy:runtime.busy}),
       setBusy:(value)=>{if(value&&voiceActive)stopVoiceRefs();setBusy(value);},
@@ -807,7 +807,7 @@ async function submitEdit(operation) {
     setBusy(true);
     const refs=result.changed.length?' ('+result.changed.length+' âyet)':'';
     const saved=await saveNext(result,'AyetulKuran'+(destination.draft?' 234 CALISMA (yayina aktarilmaz)':'')+': '+base.main+' '+operation+refs,destination);
-    showMessage('edit-message',(destination.draft?'Ayrı çalışma veri setine kaydedildi. Portala aktarılmadı. ':'Yayımlanan veri setine kaydedildi. ')+'İşlem: '+saved.commit.slice(0,9),'success');
+    showMessage('edit-message',(destination.draft?'Ayrı çalışma veri setine kaydedildi. Portala aktarılmadı (halka açık web sayfalarında yayımlanmadı). ':'Yayımlanan veri setine kaydedildi. ')+'İşlem: '+saved.commit.slice(0,9),'success');
     runtime.drafts.delete(base.main);
     runtime.esmaSelection=null;
     if(runtime.selected===base.main){$('refs').value='';$('reason').value='';}renderAll();

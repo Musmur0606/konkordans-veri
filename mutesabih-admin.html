@@ -8,9 +8,9 @@
   <title>AyetulKuran | Bağımsız Yönetim Paneli</title>
   <link rel="stylesheet" href="/mutesabih-admin.css?v=3">
   <link rel="stylesheet" href="/mutesabih-admin-r16.css?v=saved-additions-1">
-  <script type="module" src="/mutesabih-admin.js?v=saved-additions-1"></script>
+  <script type="module" src="/mutesabih-admin.js?v=concept-list-all-1"></script>
   <link rel="stylesheet" href="/mutesabih-draft234.css?v=1">
-  <link rel="stylesheet" href="/mutesabih-kavramlar.css?v=esma-only-3">
+  <link rel="stylesheet" href="/mutesabih-kavramlar.css?v=concept-list-all-1">
 <link rel="stylesheet" href="/amiri-site.css?v=hasenat-3">
 </head>
 <body>
@@ -65,6 +65,26 @@
 </section>
 <section id="concepts-panel" class="concepts-panel" aria-labelledby="concepts-heading">
   <h3 id="concepts-heading">Kavramlar — çalışma veri seti</h3>
+  <section id="concepts-registry" class="concepts-registry" aria-labelledby="concepts-registry-heading">
+    <h4 id="concepts-registry-heading">Eklenen tüm kavramlar</h4>
+    <p class="micro">Bu bölümde kayıtlı kavramların tamamı, kaynak sûre/âyet numaraları ve durumları görünür. Arşivdeki kavramlar da varsayılan olarak listelenir.</p>
+    <div class="concepts-filters">
+      <div>
+        <label for="concepts-filter">Kavramlarda ara</label>
+        <input id="concepts-filter" type="search" autocomplete="off" placeholder="Arapça ifade, âyet veya not">
+      </div>
+      <div>
+        <label for="concepts-status-filter">Kayıt durumu</label>
+        <select id="concepts-status-filter">
+          <option value="all" selected>Tümü</option>
+          <option value="active">Etkin</option>
+          <option value="archived">Arşivde</option>
+        </select>
+      </div>
+    </div>
+    <p id="concepts-count" class="micro" role="status">Kayıtlar yüklenmedi.</p>
+    <div id="concepts-list" class="concepts-list" aria-live="polite"></div>
+  </section>
   <p class="micro">Yukarıdaki ana âyetin Arapça metninden kelime veya kelime grubu seçin.
     Sağ tıklayıp “Kavram veri setine aktar” öğesine basın; seçilen metin kaynağıyla birlikte
     doğrudan ayrı çalışma kaydına eklenir. Menü açılması tek başına kayıt yapmaz.
@@ -109,23 +129,7 @@
     </section>
   </section>
   <p id="concepts-message" class="concepts-message" role="status" aria-live="polite"></p>
-  <div class="concepts-filters">
-    <div>
-      <label for="concepts-filter">Kayıtlarda ara</label>
-      <input id="concepts-filter" type="search" autocomplete="off" placeholder="Arapça ifade, âyet veya not">
-    </div>
-    <div>
-      <label for="concepts-status-filter">Kayıt durumu</label>
-      <select id="concepts-status-filter">
-        <option value="active">Etkin</option>
-        <option value="archived">Arşivde</option>
-        <option value="all">Tümü</option>
-      </select>
-    </div>
-  </div>
-  <p id="concepts-count" class="micro">Kayıtlar yüklenmedi.</p>
-  <div id="concepts-list" class="concepts-list" aria-live="polite"></div>
-  <p class="micro">Bu çalışma kaydı portala veya motora aktarılmaz. Depo herkese açık olduğu için
+  <p class="micro">Bu çalışma kaydı yönetici panelinde görünür; halka açık âyet sayfalarına veya benzeşen motoruna aktarılmaz. Depo herkese açık olduğu için
     ayrı dal GitHub üzerinden erişilebilir; gizli depo değildir.</p>
 </section>
       </section>

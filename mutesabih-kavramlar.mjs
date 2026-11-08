@@ -243,10 +243,12 @@ export function initConceptPanel({ getContext, setBusy, onEsmaSelected } = {}) {
       const terms = [record.arabic_text, record.search_key,
         ...record.sources.map(source => source.verse), ...record.notes.map(note => note.text)];
       return !query || terms.some(text => filterKey(text).includes(query));
-    });
-    node('concepts-count').textContent = filtered.length + ' eşleşme · ' +
-      doc.records.length + ' toplam kayıt' + (filtered.length > 150 ? ' · ilk 150 gösteriliyor' : '');
-    for (const record of filtered.slice(0, 150)) {
+    }).sort((a,b)=>b.updated_at.localeCompare(a.updated_at)||b.id.localeCompare(a.id));
+    const activeCount=doc.records.filter(record=>record.status==='active').length;
+    const archivedCount=doc.records.length-activeCount;
+    node('concepts-count').textContent = filtered.length + ' kavram gösteriliyor · ' +
+      doc.records.length + ' toplam kayıt (' + activeCount + ' etkin, ' + archivedCount + ' arşivde)';
+    for (const record of filtered) {
       const card = textNode('article', 'concepts-record', '');
       const head = textNode('div', 'concepts-record-head', '');
       const phrase = textNode('strong', 'concepts-arabic', record.arabic_text);
@@ -550,14 +552,21 @@ export function initConceptPanel({ getContext, setBusy, onEsmaSelected } = {}) {
         node('concepts-text').value = ''; node('concepts-note').value = '';
         clearSource();
       }
+      if (operation === 'add' || quick || operation === 'import') {
+        node('concepts-filter').value='';
+        node('concepts-status-filter').value='all';
+      }
       renderRecords();
+      if (operation === 'add' || quick || operation === 'import') {
+        document.getElementById('concepts-registry')?.scrollIntoView?.({behavior:'smooth',block:'start'});
+      }
       report(operation === 'import'
         ? result.newCount + ' yeni kavram ve ' + result.updatedCount +
-          ' mevcut kayda dosya kaynağı/notu kaydedildi. Portala veya motora aktarılmadı.' :
+          ' mevcut kayda dosya kaynağı/notu kaydedildi. Yönetici panelinde görünür; halka açık âyet sayfalarına veya motora aktarılmadı.' :
         quick ? 'Kavram veri setine kaydedildi · ' + quickInput.source.verse :
         operation === 'archive' ? 'Kavram arşivlendi; geçmişi korunuyor.' :
         operation === 'restore' ? 'Kavram geri getirildi; geçmişi korunuyor.' :
-        'Kavram çalışma veri setine kaydedildi. Portala veya motora aktarılmadı.', 'success');
+        'Kavram çalışma veri setine kaydedildi. Yönetici panelinde görünür; halka açık âyet sayfalarına veya motora aktarılmadı.', 'success');
     } catch (error) {
       if (sameSession(captured) && activeOperation === operationId) {
         needsRefresh = true;
@@ -591,6 +600,7 @@ export function initConceptPanel({ getContext, setBusy, onEsmaSelected } = {}) {
     pendingSelection = null; editorSource = null;
     clearImport();
     for (const id of ['concepts-text', 'concepts-source', 'concepts-note', 'concepts-filter']) node(id).value = '';
+    node('concepts-status-filter').value = 'all';
     node('concepts-context-menu').hidden = true;
     node('concepts-list').replaceChildren(); recordButtons = [];
     node('concepts-count').textContent = 'Kayıtlar yüklenmedi.';

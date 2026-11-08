@@ -4,6 +4,9 @@ import { createHash, webcrypto } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
+import { createRequire } from 'node:module';
+
+const JSZip = createRequire(import.meta.url)('jszip');
 
 const DIR = dirname(fileURLToPath(import.meta.url));
 const TEST_DAY = '2026-11-07';
@@ -208,8 +211,10 @@ const CORPUS = { verses: {
   '5:1': {ar:'يَا أَيُّهَا الَّذِينَ آمَنُوا'},
 }};
 const IDS = {
-  'concepts-panel':'section','concepts-context-menu':'div','concepts-transfer':'button','concepts-selection-note':'p',
-  'concepts-quick-status':'p',
+  'concepts-panel':'section','concepts-context-menu':'div','concepts-transfer':'button',
+  'concepts-esma-show':'button','concepts-selection-note':'p',
+  'concepts-quick-status':'p','concepts-quick-preview':'section','concepts-quick-text':'p',
+  'concepts-quick-confirm':'button','concepts-quick-cancel':'button',
   'concepts-text':'textarea','concepts-source':'input','concepts-source-note':'p',
   'concepts-note':'textarea','concepts-save':'button','concepts-refresh':'button',
   'concepts-export':'button','concepts-filter':'input','concepts-status-filter':'select',
@@ -262,7 +267,8 @@ function makeRemote(initial, core) {
 
 let sessionNumber = 0;
 let CORE;
-async function harness({selected='2.2', initial=null, authorized=true, corpus=CORPUS} = {}) {
+async function harness({selected='2.2', initial=null, authorized=true, corpus=CORPUS,
+  onEsmaSelected=null} = {}) {
   const doc = new FakeDocument();
   const nodes = {};
   for (const [id, tag] of Object.entries(IDS)) {
@@ -270,7 +276,9 @@ async function harness({selected='2.2', initial=null, authorized=true, corpus=CO
     if (id==='concepts-panel' || id.startsWith('main-')) doc.body.append(node);
     else nodes['concepts-panel'].append(node);
   }
-  nodes['concepts-context-menu'].append(nodes['concepts-transfer'],nodes['concepts-selection-note']);
+  nodes['concepts-context-menu'].append(nodes['concepts-transfer'],nodes['concepts-esma-show'],nodes['concepts-selection-note']);
+  nodes['concepts-quick-preview'].append(nodes['concepts-quick-text'],nodes['concepts-quick-confirm'],nodes['concepts-quick-cancel']);
+  nodes['concepts-quick-preview'].hidden=true;
   nodes['concepts-import-preview'].append(nodes['concepts-import-summary'],nodes['concepts-import-list'],nodes['concepts-import-confirm'],nodes['concepts-import-cancel']);
   nodes['concepts-file'].type='file';nodes['concepts-import-preview'].hidden=true;
   nodes['concepts-status-filter'].value='active';
@@ -310,7 +318,8 @@ async function harness({selected='2.2', initial=null, authorized=true, corpus=CO
   Object.defineProperty(globalThis,'crypto',{configurable:true,value:webcrypto});
   const module=await import(pathToFileURL(join(DIR,'mutesabih-kavramlar.mjs')).href+'?qa='+ ++sessionNumber);
   const busyEvents=[];
-  const panel=module.initConceptPanel({getContext:()=>ctx,setBusy:value=>{ctx.busy=value;busyEvents.push(value);}});
+  const panel=module.initConceptPanel({getContext:()=>ctx,setBusy:value=>{ctx.busy=value;busyEvents.push(value);},
+    onEsmaSelected:onEsmaSelected||undefined});
   const api={doc,nodes,ctx,remote,panel,confirmations,busyEvents,clipboard,
     $:id=>nodes[id],
     async input(id,value) { nodes[id].value=value; await nodes[id].fire('input'); },
@@ -324,6 +333,7 @@ async function harness({selected='2.2', initial=null, authorized=true, corpus=CO
     async transfer(text) {
       await api.select(text);
       await nodes['concepts-transfer'].click();await settle();
+      await nodes['concepts-quick-confirm'].click();await settle();
     },
     async switchVerse(value) {ctx.selected=value;const verse=corpus.verses[value.replace('.',':')];nodes['main-arabic'].textContent=verse.arh||verse.ar;doc.clearSelection();await panel.syncAuth();},
   };
@@ -389,10 +399,18 @@ async function runTests() {
     assert.match(h.$('concepts-transfer').textContent||'Kavram veri setine aktar',/Kavram/);
     noPuts(h);assert.equal(input(h),'');assert.equal(h.clipboard.reads,0);assert.equal(h.clipboard.writes.length,0);
   });
-  await test('Aktar öğesi açık tıklamayla doğrudan kaydeder; OK gerekmez; kaynak UTF16 doğrudur',async()=>{
+  await test('Fareyle seçilen kavram OK bekler; yalnız açık onay yazılır; kaynak UTF16 doğrudur',async()=>{
     const h=await harness();await authorize(h);const word='الْكِتَابُ';
-    await h.transfer(word);assert.equal(h.remote.puts.length,1);assert.equal(h.remote.doc.records.length,1);
-    const record=h.remote.doc.records[0],source=record.sources[0],start=CORPUS.verses['2:2'].ar.indexOf(word);
+    const start=h.$('main-arabic').textContent.indexOf(word);
+    h.doc.selectIn(h.$('main-arabic'),start,start+word.length);
+    await h.$('main-arabic').fire('mouseup');await settle();
+    assert.equal(h.$('concepts-quick-preview').hidden,false);
+    assert(h.$('concepts-quick-text').textContent.includes(word));
+    noPuts(h);
+    await h.$('concepts-quick-confirm').click();await settle();
+    assert.equal(h.$('concepts-quick-preview').hidden,true);
+    assert.equal(h.remote.puts.length,1);assert.equal(h.remote.doc.records.length,1);
+    const record=h.remote.doc.records[0],source=record.sources[0];
     assert.equal(record.arabic_text,word);assert.equal(source.verse,'2.2');assert.equal(source.start,start);
     assert.equal(source.end,start+word.length);assert.equal(source.origin,'admin_selection');
     assert.deepEqual(record.notes,[]);CORE.assertConceptHistory(h.remote.doc,CORPUS);
@@ -401,6 +419,39 @@ async function runTests() {
     const h=await harness();await authorize(h);const before=await fillDraft(h);await h.transfer('الْكِتَابُ');
     assert.equal(h.remote.puts.length,1);assert.deepEqual(snapshot(h),before);
     assert.equal(h.remote.doc.records[0].arabic_text,'الْكِتَابُ');assert.deepEqual(h.remote.doc.records[0].notes,[]);
+  });
+  await test('Sağtık Aktar yalnız önizleme açar; OK öncesi, Vazgeç sonrası yazmaz',async()=>{
+    const h=await harness();await authorize(h);await h.select('الْكِتَابُ');
+    await h.$('concepts-transfer').click();await settle();
+    noPuts(h);assert.equal(h.$('concepts-quick-preview').hidden,false);
+    await h.$('concepts-quick-cancel').click();await settle();
+    noPuts(h);assert.equal(h.$('concepts-quick-preview').hidden,true);
+    await h.$('concepts-quick-confirm').click();await settle();noPuts(h);
+  });
+  await test('Sağtık iki seçenek sunar: Esmâ sorgusu âyetleri açar, kavram veri setine yazmaz',async()=>{
+    const calls=[];
+    const h=await harness({onEsmaSelected:async value=>{
+      calls.push(jsonCopy(value));return 'Esmâ: örnek · 5 sûre/âyet listelendi.';
+    }});await authorize(h);
+    await h.select('الْكِتَابُ');
+    assert.equal(h.$('concepts-context-menu').hidden,false);
+    assert.equal(h.$('concepts-transfer').disabled,false);
+    assert.equal(h.$('concepts-esma-show').disabled,false);
+    noPuts(h);
+    await h.$('concepts-esma-show').click();await settle();
+    assert.equal(calls.length,1);assert.equal(calls[0].text,'الْكِتَابُ');
+    assert.equal(calls[0].source.verse,'2.2');
+    assert.equal(h.$('concepts-quick-preview').hidden,true);
+    assert.equal(h.$('concepts-context-menu').hidden,true);
+    assert.match(h.$('concepts-quick-status').textContent,/Esmâ/);
+    noPuts(h);assert.deepEqual(h.remote.doc.records,[]);
+  });
+  await test('Eski ana âyetin Esmâ seçimi diğer âyete aktarılamaz',async()=>{
+    let count=0;
+    const h=await harness({onEsmaSelected:async()=>{count++;return 'Esmâ bulundu';}});
+    await authorize(h);await h.select('الْكِتَابُ');await h.switchVerse('3.1');
+    await h.$('concepts-esma-show').fire('click');await settle();
+    assert.equal(count,0);noPuts(h);
   });
   await test('Türkçe meâl seçiminin sağtık menüsü yerel kalır; kavrama aktarılmaz',async()=>{
     const h=await harness();await authorize(h);const event=await h.select('Rahmân',h.$('main-translation'));
@@ -418,13 +469,15 @@ async function runTests() {
     const event=await h.$('concepts-text').fire('contextmenu',{button:2});
     assert.equal(event.defaultPrevented,false);noPuts(h);
   });
-  await test('Escape ve menü dışına tıklama aktarımı iptal eder',async()=>{
+  await test('Escape seçimi iptal eder; menü dışına tıklama bekleyen OK seçimini korur',async()=>{
     const h=await harness();await authorize(h);await h.select('الْكِتَابُ');
     await h.doc.fire('keydown',{key:'Escape'});assert.equal(h.$('concepts-context-menu').hidden,true);
     await h.$('concepts-transfer').fire('click');await settle();noPuts(h);
     await h.select('الْكِتَابُ');await h.doc.fire('mousedown',{target:h.doc.body,button:0});
     assert.equal(h.$('concepts-context-menu').hidden,true);
     await h.$('concepts-transfer').fire('click');await settle();noPuts(h);
+    assert.equal(h.$('concepts-quick-preview').hidden,false);
+    await h.$('concepts-quick-cancel').click();await settle();noPuts(h);
   });
   await test('Menü açıldıktan sonra ana âyet değişirse eski seçim yeni âyete yazılmaz',async()=>{
     const h=await harness();await authorize(h);await h.select('الْكِتَابُ');await h.switchVerse('4.1');
@@ -435,6 +488,8 @@ async function runTests() {
     const word='لَا رَيْبَ',start=h.$('main-arabic').textContent.indexOf(word);
     h.doc.selectIn(h.$('main-arabic'),start,start+word.length);await h.doc.fire('selectionchange');
     await h.$('concepts-transfer').fire('click');await settle();
+    assert.equal(h.remote.puts.length,0);
+    await h.$('concepts-quick-confirm').click();await settle();
     for(const record of h.remote.doc.records)assert.equal(record.arabic_text,'الْكِتَابُ');
     assert(h.remote.puts.length<=1);
   });
@@ -505,13 +560,13 @@ async function runTests() {
   await test('Ana yönetici meşgulken kavram yazması başlamaz',async()=>{
     const h=await harness();await authorize(h);await h.input('concepts-text','الٓمٓ');h.ctx.busy=true;await h.panel.syncAuth();
     assert.equal(h.$('concepts-save').disabled,true);await h.$('concepts-save').fire('click');
-    await h.select('الْكِتَابُ');await h.$('concepts-transfer').fire('click');await settle();noPuts(h);
+    await h.select('الْكِتَابُ');await h.$('concepts-transfer').fire('click');await h.$('concepts-quick-confirm').click();await settle();noPuts(h);
   });
   await test('Kayıt sırasında alanlar ve aktarım kilitlenir; çifte yazma olmaz',async()=>{
     const h=await harness();await authorize(h);await h.select('الْكِتَابُ');const release=h.remote.blockNextGet();
-    const saving=h.$('concepts-transfer').click();await settle();
+    const saving=h.$('concepts-quick-confirm').click();await settle();
     assert.equal(h.$('concepts-save').disabled,true);assert.equal(h.$('concepts-text').disabled,true);assert.equal(h.ctx.busy,true);
-    await h.$('concepts-transfer').fire('click');await settle();release();await saving;await settle();
+    await h.$('concepts-quick-confirm').click();await settle();release();await saving;await settle();
     assert.equal(h.remote.puts.length,1);assert.equal(h.ctx.busy,false);
   });
   await test('Yükleme sırasında çıkış geç cevabın paneli yeniden açmasını engeller',async()=>{
@@ -521,7 +576,7 @@ async function runTests() {
   });
   await test('Sağtık kayıt tazelik kontrolünde çıkış yapılırsa PUT gönderilmez',async()=>{
     const h=await harness();await authorize(h);await h.select('الْكِتَابُ');const release=h.remote.blockNextGet();
-    const saving=h.$('concepts-transfer').click();await settle();h.ctx.token='';h.ctx.actor='';h.panel.onLogout();release();await saving;await settle();noPuts(h);
+    const saving=h.$('concepts-quick-confirm').click();await settle();h.ctx.token='';h.ctx.actor='';h.panel.onLogout();release();await saving;await settle();noPuts(h);
   });
   await test('Notlardaki HTML olay işleyicileri yalnız textContent ile görünür',async()=>{
     const h=await harness();await authorize(h);await h.input('concepts-text','الٓمٓ');
@@ -549,7 +604,7 @@ async function runTests() {
     main.replaceChildren(h.doc.createTextNode(raw.slice(0,start)),span,h.doc.createTextNode(raw.slice(start+word.length)));
     const range=h.doc.createRange();range.selectNodeContents(main);range.setStart(span.firstChild,0);range.setEnd(span.firstChild,word.length);
     h.doc.selection={rangeCount:1,isCollapsed:false,getRangeAt:()=>range,toString:()=>range.toString()};
-    await main.fire('contextmenu',{button:2,clientX:120,clientY:100});await h.$('concepts-transfer').click();await settle();
+    await main.fire('contextmenu',{button:2,clientX:120,clientY:100});await h.$('concepts-transfer').click();await h.$('concepts-quick-confirm').click();await settle();
     assert.equal(h.remote.doc.records[0].arabic_text,word);assert.equal(h.remote.doc.records[0].sources[0].start,start);
     assert.equal(h.remote.doc.records[0].sources[0].end,start+word.length);
   });
@@ -580,7 +635,7 @@ async function runTests() {
   });
   await test('Bekleyen kayıt sırasında ana âyet değişse bile kaynak başka âyete çevrilmez',async()=>{
     const h=await harness();await authorize(h);await h.select('الْكِتَابُ');const release=h.remote.blockNextGet();
-    const saving=h.$('concepts-transfer').click();await settle();await h.switchVerse('4.1');release();await saving;await settle();
+    const saving=h.$('concepts-quick-confirm').click();await settle();await h.switchVerse('4.1');release();await saving;await settle();
     for(const record of h.remote.doc.records){assert.equal(record.arabic_text,'الْكِتَابُ');assert.equal(record.sources[0].verse,'2.2');}
     assert(h.remote.puts.length<=1);
   });
@@ -715,6 +770,26 @@ async function runFileImportTests() {
     assert.equal(h.$('concepts-import-list').textContent.includes('لَا رَيْبَ'),true);
     assert(h.$('concepts-import-list').textContent.includes(file.sha256));assert.deepEqual(h.remote.doc,before);
     assert.match(importMsg(h),/Henüz|kontrol|OK|kaydedilmedi/u);
+  });
+  await test('DOSYA: Word iki sütun kavramı bir ifade olarak yalnız OK sonrası kaydeder',async()=>{
+    const xml='<?xml version="1.0"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:tbl>'+
+      '<w:tr><w:tc><w:p><w:r><w:t>Kavram</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>Not</w:t></w:r></w:p></w:tc></w:tr>'+
+      '<w:tr><w:tc><w:p><w:r><w:t>رَبِّ الْعَالَمِينَ</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>Word notu</w:t></w:r></w:p></w:tc></w:tr>'+
+      '</w:tbl></w:body></w:document>';
+    const zip=new JSZip();zip.file('word/document.xml',xml);
+    const bytes=await zip.generateAsync({type:'uint8array',compression:'DEFLATE'});
+    const h=await harness();await authorize(h);
+    const previous=globalThis.JSZip;globalThis.JSZip=JSZip;
+    try {
+      await load(h,dummyFile('word-kavram.docx',bytes));
+      assert.equal(preview(h).hidden,false);noPuts(h);
+      assert(h.$('concepts-import-list').textContent.includes('رَبِّ الْعَالَمِينَ'));
+      await commit(h);assert.equal(h.remote.puts.length,1);
+      assert.equal(h.remote.doc.records[0].arabic_text,'رَبِّ الْعَالَمِينَ');
+      assert.deepEqual(h.remote.doc.records[0].sources,[]);
+      assert(h.remote.doc.records[0].notes.some(x=>x.text.includes('Word notu')));
+      assert.equal(h.remote.puts[0].branch,'calisma-kavramlar');
+    } finally {globalThis.JSZip=previous;}
   });
   await test('DOSYA: Açık onay bütün TXT kavramlarını tek atomik PUT ile ayrı hedefe kaydeder',async()=>{
     const h=await harness();await authorize(h);const file=dummyFile('kavramlar.txt',twoText);await load(h,file);await commit(h);

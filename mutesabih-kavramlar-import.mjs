@@ -39,8 +39,8 @@ function wellFormed(text) {
 }
 function fileInfo(fileName) {
   if (typeof fileName !== 'string' || !fileName || fileName.length > 255 || fileName !== fileName.trim() || BAD_FILENAME.test(fileName) || !wellFormed(fileName)) fail('Dosya adı geçersiz; yalnız yolu içermeyen, en çok 255 karakterlik dosya adı kullanılabilir.');
-  const match = fileName.match(/^(.+)\.(txt|csv|json)$/iu);
-  if (!match || /^\.+$/u.test(match[1])) fail('Yalnız .txt, .csv veya .json uzantılı kavram dosyaları alınabilir.');
+  const match = fileName.match(/^(.+)\.(txt|csv|json|docx|pdf)$/iu);
+  if (!match || /^\.+$/u.test(match[1])) fail('Yalnız .txt, .csv, .json, .docx veya .pdf uzantılı kavram dosyaları alınabilir.');
   return {fileName,format:match[2].toLowerCase()};
 }
 function location(format, position) { return `${format === 'json' ? 'JSON sıra' : format.toUpperCase() + ' satır'} ${position}`; }
@@ -149,17 +149,35 @@ function jsonRows(text) {
 }
 
 export function parseConceptImport(input) {
-  fields(input,['fileName','text'],[],'Dosya girişi');
+  fields(input,['fileName'],['text','rows'],'Dosya girişi');
   const {fileName,format} = fileInfo(input.fileName);
-  if (typeof input.text !== 'string' || !wellFormed(input.text)) fail('Dosya içeriği geçerli UTF-8 metni olarak okunmalı.');
-  if (new TextEncoder().encode(input.text).byteLength > MAX_IMPORT_BYTES) fail(`Dosya ${MAX_IMPORT_BYTES} baytlık (1 MiB) sınırı aşıyor.`);
-  // UTF-8 BOM yalnız okuma sırasında ayrılır; gerçek dosya SHA'sı dışarıda,
-  // özgün baytlar üzerinden hesaplanıp buildConceptImport'a verilmelidir.
-  const text = input.text.startsWith('\uFEFF') ? input.text.slice(1) : input.text;
+  const binary = format === 'docx' || format === 'pdf';
+  if (binary !== own(input,'rows') || binary === own(input,'text')) fail('Dosya türüne uygun metin veya çıkarılmış belge satırları gerekli.');
   let rows;
-  if (format === 'txt') rows = text.split(/\r\n|\r|\n/u).map((value,index) => ({value,note:'',position:index + 1})).filter(row => row.value.trim());
-  else if (format === 'csv') rows = csvRows(text);
-  else rows = jsonRows(text);
+  if (binary) {
+    if (!list(input.rows) || input.rows.length > MAX_IMPORT_ROWS ||
+        new TextEncoder().encode(JSON.stringify(input.rows)).byteLength > MAX_IMPORT_BYTES) {
+      fail('Word/PDF dosyasından en çok 200 kavram satırı ve 1 MiB çıkarılmış metin alınabilir.');
+    }
+    let previous = 0;
+    rows = input.rows.map((row,index) => {
+      fields(row,['value','note','position'],[],`${format.toUpperCase()} kayıt ${index + 1}`);
+      if (!Number.isSafeInteger(row.position) || row.position <= previous ||
+          row.position > MAX_IMPORT_BYTES || typeof row.value !== 'string' || typeof row.note !== 'string') {
+        fail(`${format.toUpperCase()} kayıt ${index + 1}: satır sırası veya veri türü geçersiz.`);
+      }
+      previous = row.position;
+      return {value:row.value,note:row.note,position:row.position};
+    });
+  } else {
+    if (typeof input.text !== 'string' || !wellFormed(input.text)) fail('Dosya içeriği geçerli UTF-8 metni olarak okunmalı.');
+    if (new TextEncoder().encode(input.text).byteLength > MAX_IMPORT_BYTES) fail(`Dosya ${MAX_IMPORT_BYTES} baytlık (1 MiB) sınırı aşıyor.`);
+    // UTF-8 BOM yalnız okuma sırasında ayrılır; dosya SHA'sı özgün baytlar üzerindendir.
+    const text = input.text.startsWith('\uFEFF') ? input.text.slice(1) : input.text;
+    if (format === 'txt') rows = text.split(/\r\n|\r|\n/u).map((value,index) => ({value,note:'',position:index + 1})).filter(row => row.value.trim());
+    else if (format === 'csv') rows = csvRows(text);
+    else rows = jsonRows(text);
+  }
   if (!rows.length) fail(`${format.toUpperCase()} ${format === 'json' ? 'sıra' : 'satır'} 1: dosyada alınabilecek kavram yok.`);
   if (rows.length > MAX_IMPORT_ROWS) fail(`${location(format, rows[MAX_IMPORT_ROWS].position)}: bir dosyada en çok ${MAX_IMPORT_ROWS} veri satırı olabilir.`);
   const byText = new Map();

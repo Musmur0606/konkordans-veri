@@ -30,7 +30,7 @@ function harness(options={}) {
   const elements=new Map(), calls=[], puts=[], failures=[], confirmations=[], exports=[];
   const timers=new Map(), speech=[], pending=[], errors=[];
   const store=new Map([
-    [PUBLIC,{doc:copy(publicInitial),sha:hash(publicInitial)}],
+    [PUBLIC,{doc:copy(options.publicDoc||publicInitial),sha:hash(options.publicDoc||publicInitial)}],
     [DRAFT,{doc:copy(options.draftDoc||draftInitial),sha:hash(options.draftDoc||draftInitial)}],
   ]);
   let timerId=0,commitNumber=0;
@@ -125,6 +125,8 @@ function harness(options={}) {
 
 const state=h=>({public:JSON.stringify(h.store.get(PUBLIC).doc),draft:JSON.stringify(h.store.get(DRAFT).doc)});
 const links=h=>h.get('link-list').children.filter(n=>n.className.split(' ').includes('link')).map(n=>n.children.find(x=>x.tagName==='STRONG').textContent);
+const savedLists=h=>h.get('saved-additions-content').children.filter(n=>n.className==='saved-additions-list')
+  .map(list=>list.children.map(item=>({ref:item.textContent,removed:item.className.includes('removed')})));
 const today=()=>publicCore.dayInTurkey(new Date().toISOString());
 const lastPut=h=>h.puts.at(-1);
 const assertDraftPut=h=>{assert.equal(lastPut(h).path,draftCore.DRAFT234_PATH);assert.equal(lastPut(h).branch,draftCore.DRAFT234_BRANCH);};
@@ -231,10 +233,19 @@ try {
     e.get('esma-match-select').value='AFUV';
     await e.get('esma-match-select').fire('change');
     assert.equal(e.puts.length,0);
+    assert.deepEqual(savedLists(e),[],'Onay bekleyen Esmâ adayları kaydedilenler bölümüne alınmaz');
     await e.get('add').fire('click');
     assertDraftPut(e);
     assert.equal(JSON.stringify(e.store.get(PUBLIC).doc),oldPublic);
     assert.equal(e.puts.length,1);
+    const expected=['4.99','4.149','22.60','58.2'];
+    assert.deepEqual(savedLists(e)[0].map(x=>x.ref),expected,'Son eklenen sûre/âyetler ayrı alanda görülür');
+    assert.deepEqual(savedLists(e)[1].map(x=>x.ref),expected,'Halen kayıtlı olanlar ayrıca görülür');
+    assert.match(e.get('saved-additions-summary').textContent,/4 âyet.*portala yansımaz/);
+    const reloaded=harness({draftDoc:e.store.get(DRAFT).doc});await reloaded.login();reloaded.select('4.43');
+    assert.deepEqual(savedLists(reloaded),savedLists(e),'Son ekleme bilgisi sayfa yeniden açılınca geçmişten gelir');
+    reloaded.select('4.44');assert.deepEqual(savedLists(reloaded),[],'Başka ana âyetin eklemeleri karışmaz');
+    reloaded.routesClean();
     e.routesClean();
   });
   await test('2/3/4 başlangıç listeleri motor verisi olsa da boş',async()=>{
@@ -264,6 +275,8 @@ try {
     assert.equal(lastPut(h).doc.overrides['2.1'].status,'review');
     assert.deepEqual(lastPut(h).doc.publication,{status:'not_published',automatic:false});
     assert.ok(h.get('edit-message').textContent.includes('Portala aktarılmadı'));
+    assert.deepEqual(savedLists(h)[0].map(x=>x.ref),['114.6']);
+    assert.deepEqual(savedLists(h)[1].map(x=>x.ref),['114.6']);
   });
   await test('Âl-i İmrân ve Nisâ eklemeleri aynı ayrı çalışma dosyasında kalır',async()=>{
     const before=state(h).public;
@@ -276,17 +289,25 @@ try {
     assert.equal(lastPut(h).doc.overrides['4.1'].status,'confirmed');
     assert.deepEqual(lastPut(h).doc.publication,{status:'not_published',automatic:false});
     await edit(h,'4.1','remove','5.1');assert.deepEqual(links(h),['1.1','114.6']);
+    assert.deepEqual(savedLists(h)[0].find(x=>x.ref==='5.1'),{ref:'5.1',removed:true});
+    assert.deepEqual(savedLists(h)[1].map(x=>x.ref),['1.1','114.6']);
     const removedId=lastPut(h).doc.events.at(-1).id;
     await h.api.submitUndoOne(removedId,draftCore.DRAFT234_PATH);assertDraftPut(h);
     assert.deepEqual(links(h),['1.1','5.1','114.6']);assert.equal(state(h).public,before);
+    assert.deepEqual(savedLists(h)[0].find(x=>x.ref==='5.1'),{ref:'5.1',removed:false});
   });
   await test('Diğer ana sûre canlı dosyaya yazılır; 2/3/4 hedef olabilir',async()=>{
     const before=state(h).draft;
     const targets=missingPublicTargets(h,'5.1');await edit(h,'5.1','add',targets.join(' '));
     assert.equal(lastPut(h).path,draftCore.PUBLIC_HISTORY_PATH);assert.equal(lastPut(h).branch,'main');
     for(const target of targets)assert.ok(links(h).includes(target));
+    assert.deepEqual(savedLists(h)[0].map(x=>x.ref),targets);
+    for(const target of targets)assert(savedLists(h)[1].some(x=>x.ref===target));
     assert.equal(state(h).draft,before);
     assert.equal(h.get('history-title').textContent,'Günlük MLOG');
+    const reloaded=harness({publicDoc:h.store.get(PUBLIC).doc});await reloaded.login();reloaded.select('5.1');
+    assert.deepEqual(savedLists(reloaded)[0].map(x=>x.ref),targets);
+    reloaded.routesClean();
   });
   await test('Geçmiş ve günlük dışa aktarma seçilen ana sûrenin dosyasına bağlı',async()=>{
     for(const [main,key,branch,scope] of [['2.1',DRAFT,'calisma-234','draft234'],['5.1',PUBLIC,'main','public']]){

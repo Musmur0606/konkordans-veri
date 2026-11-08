@@ -410,6 +410,36 @@ function pendingEsmaInput() {
   catch { return new Set(); }
 }
 
+function renderSavedAdditions(base, destination, links) {
+  const content=$('saved-additions-content');content.replaceChildren();
+  const current=links.filter(ref=>ref.added).map(ref=>ref.key);
+  const currentKeys=new Set(links.map(ref=>ref.key));
+  const recent=[...(destination.doc?.events||[])].reverse().find(event=>
+    event.action==='add' && Array.isArray(event.refs) && event.refs.length>0 &&
+    event.changes?.some(change=>change.main===base.main));
+  $('saved-additions-summary').textContent='Ana âyet '+base.main+' · Halen kayıtlı yeni benzeşen: '+
+    current.length+' âyet · '+(destination.draft?'Yalnız 2/3/4 çalışma kaydı; portala yansımaz.':'Yayımlanan veri seti.');
+  if (recent) {
+    const when=new Date(recent.at).toLocaleString('tr-TR',{timeZone:'Europe/Istanbul'});
+    content.append(createText('p','saved-additions-subtitle','Son ekleme işlemi · '+when+' · '+recent.refs.length+' âyet'));
+    const list=createText('div','saved-additions-list','');
+    for(const ref of recent.refs) {
+      const active=currentKeys.has(ref);
+      const item=createText('span','saved-additions-ref'+(active?'':' removed'),ref);
+      item.title=active?'Son eklemede kaydedildi; halen benzeşen listesinde':'Son eklemede kaydedildi; sonra çıkarıldı veya geri alındı';
+      list.append(item);
+    }
+    content.append(list);
+    if(recent.refs.some(ref=>!currentKeys.has(ref)))content.append(createText('p','saved-additions-note',
+      'Üzeri çizilen numaralar sonradan çıkarılmış veya geri alınmıştır.'));
+  } else content.append(createText('p','saved-additions-note','Bu ana âyet için henüz başarılı bir ekleme işlemi kaydı yok.'));
+  content.append(createText('p','saved-additions-subtitle','Halen listede bulunan yönetici eklemeleri ('+current.length+')'));
+  if(!current.length){content.append(createText('p','saved-additions-note','Mevcut Word/site benzeşenleri korunur; yeni yönetici eklemesi yok.'));return;}
+  const currentList=createText('div','saved-additions-list','');
+  for(const ref of current)currentList.append(createText('span','saved-additions-ref',ref));
+  content.append(currentList);
+}
+
 function renderSelected() {
   const base=currentBase();if(!base)return;
   const destination=historyForMain(base.main);
@@ -449,6 +479,7 @@ function renderSelected() {
     target.append(pill);
   }
   if(!links.length&&!candidates.length)target.append(createText('p','micro','Bu ana âyet için görünür benzeşen kayıt yok.'));
+  renderSavedAdditions(base,destination,links);
   renderEsmaSelection();
   updateParsed();
 }

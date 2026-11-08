@@ -15,3 +15,13 @@
 .editor-state.ready{background:#e9f7ee;color:#23633e;border-color:#b8dbc3}
 .editor-state.locked{background:#f2f3f2;color:#59695e;border-color:#d9dfda}
 @media(max-width:700px){.admin-main-verse{padding:13px}.admin-main-verse #main-arabic{font-size:25px}}
+
+/* Başarılı ekleme kayıtları; Esmâ taslakları ve mevcut Word bağlantıları ayrı kalır. */
+.saved-additions{margin:19px 0 24px;padding:16px 17px;background:#f2f8f3;border:1px solid #b9d6c3;border-radius:9px}
+.saved-additions h3{font:500 18px Georgia,serif;color:#23543e;margin:0 0 7px}
+.saved-additions #saved-additions-summary{margin:0 0 12px;color:#51715b}
+.saved-additions-subtitle{font-size:12px;font-weight:700;color:#285d42;margin:13px 0 6px}
+.saved-additions-note{font-size:11px;color:#667b6e;line-height:1.55;margin:5px 0}
+.saved-additions-list{display:flex;flex-wrap:wrap;align-content:flex-start;gap:6px;max-height:190px;overflow:auto;border:1px solid #d5e6d8;border-radius:6px;background:#fff;padding:9px}
+.saved-additions-ref{display:inline-block;padding:6px 9px;background:#def4e7;border:1px solid #a6d4b6;border-radius:5px;font-size:12px;color:#1c6640;font-variant-numeric:tabular-nums;font-weight:650}
+.saved-additions-ref.removed{background:#f0f1ee;border-color:#d4d8d0;color:#778277;text-decoration:line-through}

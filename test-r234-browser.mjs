@@ -186,15 +186,40 @@ try {
   });
   await test('Esmâ listesinde bulunmayan seçili Allah ibaresi açıklanır; yanlış eşleştirme onaysız yapılmaz',async()=>{
     const e=harness();await e.login();e.select('5.61');
+    const originalLinks=links(e);
     const ar=corpus.verses['5:61'].arh||corpus.verses['5:61'].ar;
     const word='اللّٰهُ',start=ar.indexOf(word);assert(start>=0);
     await e.api.showSelectedAsEsma({text:word,source:{verse:'5.61',start,end:start+word.length,
       ...(corpus.verses['5:61'].arh?{text_field:'arh'}:{})}});
-    assert.match(e.get('esma-match-status').textContent,/BULUNAMADI/);
+    assert.match(e.get('esma-match-status').textContent,/Esmâ veri setinde EŞLEŞME YOK/);
+    assert.match(e.get('esma-match-title').textContent,/Esmâ eşleşmesi yok/);
+    assert.match(e.get('esma-match-status').className,/esma-not-found/);
+    assert.equal(e.get('esma-match-refs').children.length,0);
+    assert.deepEqual(links(e),originalLinks,'Mevcut benzeşen listesi korunur');
     assert.equal(e.get('refs').value,'');
     e.controls.confirm=false;
     e.get('esma-match-select').value='AFUV';await e.get('esma-match-select').fire('change');
     assert.equal(e.get('refs').value,'');assert.equal(e.puts.length,0);e.routesClean();
+  });
+  await test('Esmâ eşleşmesi yoksa eski otomatik âyetler silinir, elle yazılanlar korunur; başka arama yapılmaz',async()=>{
+    const e=harness();await e.login();e.select('4.43');
+    const ar=corpus.verses['4:43'].arh||corpus.verses['4:43'].ar;
+    const afuv=esmaCore.esmaRanges(ar,esmaIndex.index.AFUV.ar)[0];assert(afuv);
+    e.get('refs').value='77.1';
+    await e.api.showSelectedAsEsma({text:ar.slice(afuv.start,afuv.end),source:{verse:'4.43',
+      start:afuv.start,end:afuv.end,...(corpus.verses['4:43'].arh?{text_field:'arh'}:{})}});
+    assert(publicCore.parseVerses(e.get('refs').value).includes('4.149'));
+    const unmatched='سُكَارٰى',start=ar.indexOf(unmatched);assert(start>=0);
+    const requestCount=e.calls.length;
+    const result=await e.api.showSelectedAsEsma({text:unmatched,source:{verse:'4.43',
+      start,end:start+unmatched.length,...(corpus.verses['4:43'].arh?{text_field:'arh'}:{})}});
+    assert.match(result,/Esmâ veri setinde eşleşme yok/);
+    assert.equal(e.get('refs').value,'77.1');
+    assert.deepEqual(links(e),[]);
+    assert.equal(e.get('esma-match-refs').children.length,0);
+    assert.match(e.get('esma-match-status').textContent,/Bu sorgudan âyet eklenmedi/);
+    assert.equal(e.calls.length,requestCount,'Esmâ harici sorgu veya GitHub isteği yapılmaz');
+    assert.equal(e.puts.length,0);e.routesClean();
   });
   await test('Esmâ adayları 4.43 için ikinci onayla kaydedilirse yalnız 2/3/4 taslak dalına yazılır',async()=>{
     const e=harness();await e.login();e.select('4.43');

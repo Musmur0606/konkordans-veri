@@ -56,7 +56,8 @@ async function showSelectedAsEsma(selection) {
   return match
     ? 'Seçili “'+selection.text.trim()+'” → '+match.name+' · '+result.inserted.length+
       ' yeni sûre/âyet adayı bulundu; otomatik hazırlandı. Kalıcı kayıt için ayrıca onay gerekir.'
-    : 'Seçili “'+selection.text.trim()+'” kabul edilmiş 99 Esmâ içinde bulunamadı. Açılan listeden elle tercih yapabilirsiniz.';
+    : 'Esmâ veri setinde eşleşme yok. Seçilen ifade: “'+selection.text.trim()+
+      '”. Bu sorgudan âyet eklenmedi.';
 }
 
 function removeOldEsmaNumbers(selection) {
@@ -151,14 +152,18 @@ function renderEsmaSelection() {
   picker.value=selection.name||'';
   list.replaceChildren();
   if (!selection.name) {
-    $('esma-match-title').textContent = 'Esmâ veri setinden seç — 99 isim';
+    $('esma-match-title').textContent = selection.suggested
+      ? 'Esmâ veri setinden seç — 99 isim' : 'Esmâ eşleşmesi yok';
+    $('esma-match-status').className = selection.suggested ? 'micro' : 'micro esma-not-found';
     $('esma-match-status').textContent = selection.suggested
       ? 'Seçilen “'+selection.query.trim()+'” ifadesi '+selection.suggested+' adıyla eşleşti. Kaynaklar hazırlanmamışsa listeden bu adı seçiniz.'
-      : 'Seçilen “'+selection.query.trim()+'” ifadesi kabul edilmiş 99 Esmâ içinde BULUNAMADI. Farklı bir Esmâ seçimi açık onayınıza bağlıdır.';
+      : 'Esmâ veri setinde EŞLEŞME YOK. Seçilen “'+selection.query.trim()+
+        '” ifadesi 99 kayıtlı Esmâdan hiçbiriyle eşleşmedi. Bu sorgudan âyet eklenmedi.';
     return;
   }
   const entry = runtime.esmaIndex.index[selection.name];
   $('esma-match-title').textContent = 'Esmâ: ' + selection.name + ' · ' + entry.ar;
+  $('esma-match-status').className = 'micro';
   const candidateSet=new Set(selection.candidates);
   const pendingSet=pendingEsmaInput();
   const remaining=selection.candidates.filter(key=>pendingSet.has(key));

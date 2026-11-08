@@ -65,6 +65,7 @@
 .esma-match-panel[hidden] { display: none; }
 .esma-match-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
 .esma-match-panel label { display: block; margin: 12px 0 5px; font-weight: 600; color: #214a36; }
+#esma-match-status.esma-not-found { padding: 10px 12px; border: 1px solid #d3a77c; border-radius: 7px; background: #fff3e6; color: #753b17; font-weight: 700; }
 #esma-match-select { width: 100%; max-width: 650px; box-sizing: border-box; padding: 10px; border-radius: 7px; border: 1px solid #92ac96; background: #fff; color: #173f2a; font-size: 1rem; }
 .esma-match-refs { display: flex; flex-wrap: wrap; gap: 6px; max-height: 245px; overflow-y: auto; }
 .esma-ref { display: inline-block; padding: 4px 8px; border: 1px solid #b8c5a8; border-radius: 5px; color: #244237; background: #fff; font-variant-numeric: tabular-nums; font-size: .89rem; }

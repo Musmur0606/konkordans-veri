@@ -4,6 +4,9 @@ import { createHash, webcrypto } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
+import { createRequire } from 'node:module';
+
+const JSZip = createRequire(import.meta.url)('jszip');
 
 const DIR = dirname(fileURLToPath(import.meta.url));
 const TEST_DAY = '2026-11-07';
@@ -739,6 +742,26 @@ async function runFileImportTests() {
     assert.equal(h.$('concepts-import-list').textContent.includes('لَا رَيْبَ'),true);
     assert(h.$('concepts-import-list').textContent.includes(file.sha256));assert.deepEqual(h.remote.doc,before);
     assert.match(importMsg(h),/Henüz|kontrol|OK|kaydedilmedi/u);
+  });
+  await test('DOSYA: Word iki sütun kavramı bir ifade olarak yalnız OK sonrası kaydeder',async()=>{
+    const xml='<?xml version="1.0"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:tbl>'+
+      '<w:tr><w:tc><w:p><w:r><w:t>Kavram</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>Not</w:t></w:r></w:p></w:tc></w:tr>'+
+      '<w:tr><w:tc><w:p><w:r><w:t>رَبِّ الْعَالَمِينَ</w:t></w:r></w:p></w:tc><w:tc><w:p><w:r><w:t>Word notu</w:t></w:r></w:p></w:tc></w:tr>'+
+      '</w:tbl></w:body></w:document>';
+    const zip=new JSZip();zip.file('word/document.xml',xml);
+    const bytes=await zip.generateAsync({type:'uint8array',compression:'DEFLATE'});
+    const h=await harness();await authorize(h);
+    const previous=globalThis.JSZip;globalThis.JSZip=JSZip;
+    try {
+      await load(h,dummyFile('word-kavram.docx',bytes));
+      assert.equal(preview(h).hidden,false);noPuts(h);
+      assert(h.$('concepts-import-list').textContent.includes('رَبِّ الْعَالَمِينَ'));
+      await commit(h);assert.equal(h.remote.puts.length,1);
+      assert.equal(h.remote.doc.records[0].arabic_text,'رَبِّ الْعَالَمِينَ');
+      assert.deepEqual(h.remote.doc.records[0].sources,[]);
+      assert(h.remote.doc.records[0].notes.some(x=>x.text.includes('Word notu')));
+      assert.equal(h.remote.puts[0].branch,'calisma-kavramlar');
+    } finally {globalThis.JSZip=previous;}
   });
   await test('DOSYA: Açık onay bütün TXT kavramlarını tek atomik PUT ile ayrı hedefe kaydeder',async()=>{
     const h=await harness();await authorize(h);const file=dummyFile('kavramlar.txt',twoText);await load(h,file);await commit(h);

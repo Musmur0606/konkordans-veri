@@ -6,7 +6,10 @@ import {
 } from './mutesabih-kavramlar-core.mjs?v=hasenat-3';
 import {
   MAX_IMPORT_BYTES, MAX_IMPORT_ROWS, parseConceptImport, buildConceptImport,
-} from './mutesabih-kavramlar-import.mjs?v=hasenat-3';
+} from './mutesabih-kavramlar-import.mjs?v=kavram-2';
+import {
+  MAX_DOCUMENT_BYTES, extractConceptDocument,
+} from './mutesabih-kavramlar-document.mjs?v=kavram-2';
 
 const OWNER = 'Musmur0606';
 const REPO = 'konkordans-veri';
@@ -444,23 +447,31 @@ export function initConceptPanel({ getContext, setBusy, onChanged } = {}) {
     try {
       if (files.length !== 1) throw Error('Bir defada yalnız bir kavram dosyası seçin.');
       const file = files[0];
-      if (!/\.(txt|csv|json)$/i.test(file.name || '')) throw Error('TXT, CSV veya JSON biçiminde bir kavram dosyası seçin.');
-      if (!Number.isSafeInteger(file.size) || file.size <= 0 || file.size > MAX_IMPORT_BYTES) {
-        throw Error('Dosya boş olmamalı ve en çok 1 MB olmalı.');
+      if (!/\.(txt|csv|json|docx|pdf)$/i.test(file.name || '')) throw Error('TXT, CSV, JSON, DOCX veya PDF biçiminde bir kavram dosyası seçin.');
+      const binary = /\.(docx|pdf)$/i.test(file.name);
+      const limit = binary ? MAX_DOCUMENT_BYTES : MAX_IMPORT_BYTES;
+      if (!Number.isSafeInteger(file.size) || file.size <= 0 || file.size > limit) {
+        throw Error(binary ? 'Word/PDF dosyası en çok 10 MiB olabilir.' : 'Dosya boş olmamalı ve en çok 1 MiB olmalı.');
       }
       const buffer = await file.arrayBuffer();
       if (!sameSession(captured) || sequence !== fileSequence) return;
       const bytes = new Uint8Array(buffer);
-      if (bytes.byteLength !== file.size || bytes.byteLength > MAX_IMPORT_BYTES) throw Error('Dosyanın boyutu doğrulanamadı.');
+      if (bytes.byteLength !== file.size || bytes.byteLength > limit) throw Error('Dosyanın boyutu doğrulanamadı.');
       let text;
-      try { text = new TextDecoder('utf-8', { fatal: true }).decode(bytes); }
-      catch { throw Error('Dosya UTF-8 biçiminde okunamadı. Arapça harfleri koruyarak UTF-8 olarak kaydedin.'); }
+      if (!binary) {
+        try { text = new TextDecoder('utf-8', { fatal: true }).decode(bytes); }
+        catch { throw Error('Dosya UTF-8 biçiminde okunamadı. Arapça harfleri koruyarak UTF-8 olarak kaydedin.'); }
+      }
       if (!globalThis.crypto?.subtle) throw Error('Dosya bütünlük kontrolü kullanılamıyor. Güvenli HTTPS bağlantısıyla yeniden açın.');
       const hash = await globalThis.crypto.subtle.digest('SHA-256', bytes);
       if (!sameSession(captured) || sequence !== fileSequence) return;
       if (sha !== originalSha || needsRefresh || loading || context().busy) throw Error('İşlem durumu değişti. Kavramları yenileyip dosyayı yeniden seçin.');
       const fingerprint = Array.from(new Uint8Array(hash), value => value.toString(16).padStart(2, '0')).join('');
-      const parsed = parseConceptImport({ fileName: file.name, text });
+      const extracted = binary ? await extractConceptDocument({fileName:file.name,bytes}) : null;
+      if (!sameSession(captured) || sequence !== fileSequence) return;
+      const parsed = binary
+        ? parseConceptImport({fileName:file.name,rows:extracted})
+        : parseConceptImport({fileName:file.name,text});
       const result = buildConceptImport(doc, parsed, {
         sha256: fingerprint, actor: captured.actor, corpus: context().corpus,
       });

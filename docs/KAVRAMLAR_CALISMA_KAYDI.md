@@ -28,6 +28,8 @@ Elle kopyalayıp kavram kutusuna yapıştırma ve **OK** ile ekleme alternatif o
 
 7 Kasım 2026 R2 ilavesi: **Dosya ekle** ile UTF-8 TXT, CSV veya basit JSON listesindeki Arapça kelime/kelime grupları alınabilir. Dosya seçimi yalnız önizlemedir; **OK — Dosyadaki kavramları ekle** ile tek işlemde ayrı çalışma dalına eklenir. Hatalı tek satır bütün aktarımı durdurur; geçerli satırlar sessizce kısmi kaydedilmez. Dosya adı, SHA-256 ve satır/sıra bilgisi mevcut `notes` alanında kaynak notu olarak korunur; v1 veri şeması ve önceki olaylar değişmez. Dosya içeriğine ekranda açık âyet kendiliğinden kaynak atanmaz. Biçimler ve sınırlar: [KAVRAM_DOSYA_EKLEME_R2.md](KAVRAM_DOSYA_EKLEME_R2.md).
 
+8 Kasım 2026 V2 ilavesi (ayrı taslak özellik dalı): Word **DOCX** için bir paragraf bir kavram; iki sütunlu tabloda ilk sütun kavram, ikinci sütun isteğe bağlı not olarak okunur. Metin katmanlı **PDF** için bir metin satırı bir kavram olarak önizlenir. Bu biçimler en fazla 10 MiB/40 PDF sayfası, ortak sınır 200 kavramdır. Metin katmanı bozuk olan veya taranmış PDF'ler güvenli biçimde reddedilir; otomatik Arapça OCR ve sahte düzeltme yoktur. Dosya metni yalnız tarayıcı belleğinde okunur; kullanıcıya özgün ibareler gösterilerek **OK** beklenir. Orijinal Arapça korunur, yazı tipi farkı kaydı dönüştürmez; arama esnasında Unicode NFKC ve hareke/harf eşdeğerliği ayrı uygulanır. Detay: [DEVIR_2026-11-08_DOSYA_IMPORT_V2.md](DEVIR_2026-11-08_DOSYA_IMPORT_V2.md). Bu ekleme canlı yayına alınmış sayılmaz.
+
 Aynı tam metin tek kavram kimliğinde kalır; yeni kaynaklar/notlar mevcut kaydı zenginleştirir. Farklı harekeli metinler otomatik birleştirilmez. Arşivleme kaydı silmez; geri getirme yeni bir işlem olarak korunur.
 
 ## Güvenlik ve önceki kabuller

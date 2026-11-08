@@ -29,7 +29,7 @@ async function initializeConceptsPanel() {
   // Ayrı modül hatası ana benzeşen/sesli giriş modülünün yüklenmesini kesmez.
   // Yetki anahtarı bir depoya, global değişkene veya günlük çıktısına aktarılmaz.
   try{
-    const {initConceptPanel}=await import('/mutesabih-kavramlar.mjs?v=kavram-1');
+    const {initConceptPanel}=await import('/mutesabih-kavramlar.mjs?v=kavram-2');
     conceptsPanel=initConceptPanel({
       getContext:()=>({token:runtime.token,actor:runtime.actor,corpus:runtime.corpus,selected:runtime.selected,busy:runtime.busy}),
       setBusy:(value)=>{if(value&&voiceActive)stopVoiceRefs();setBusy(value);},

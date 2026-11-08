@@ -5,7 +5,71 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-07T19:11:54.000Z",
-  "records": [],
-  "events": []
+  "updated_at": "2026-11-08T08:29:31.910Z",
+  "records": [
+    {
+      "id": "kavram-00000001",
+      "arabic_text": "عٖيسَى ابْنَ مَرْيَمَ",
+      "search_key": "عيسى ابن مريم",
+      "status": "active",
+      "sources": [
+        {
+          "verse": "5.116",
+          "start": 25,
+          "end": 46,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-08T08:29:31.910Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000001"
+        }
+      ],
+      "notes": [],
+      "created_at": "2026-11-08T08:29:31.910Z",
+      "updated_at": "2026-11-08T08:29:31.910Z",
+      "created_by": "Musmur0606",
+      "updated_by": "Musmur0606"
+    }
+  ],
+  "events": [
+    {
+      "id": "kavram-olay-00000001",
+      "type": "add",
+      "at": "2026-11-08T08:29:31.910Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000001",
+      "note": "",
+      "source": {
+        "verse": "5.116",
+        "start": 25,
+        "end": 46,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": null,
+      "after": {
+        "id": "kavram-00000001",
+        "arabic_text": "عٖيسَى ابْنَ مَرْيَمَ",
+        "search_key": "عيسى ابن مريم",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "5.116",
+            "start": 25,
+            "end": 46,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-08T08:29:31.910Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000001"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-08T08:29:31.910Z",
+        "updated_at": "2026-11-08T08:29:31.910Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    }
+  ]
 }

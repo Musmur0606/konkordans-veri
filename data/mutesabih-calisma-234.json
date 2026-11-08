@@ -1,12 +1,61 @@
 {
   "schema": "ayatulkuran.draft234.v1",
-  "scope": [2, 3, 4],
+  "scope": [
+    2,
+    3,
+    4
+  ],
   "publication": {
     "status": "not_published",
     "automatic": false
   },
   "created_at": "2026-11-07T18:20:28Z",
-  "updated_at": "2026-11-07T18:20:28Z",
-  "overrides": {},
-  "events": []
+  "updated_at": "2026-11-08T10:12:49.474Z",
+  "overrides": {
+    "4.1": {
+      "added": [
+        "5.117",
+        "11.93",
+        "33.52"
+      ],
+      "removed": [],
+      "status": "review"
+    }
+  },
+  "events": [
+    {
+      "id": "42c9ac03-c2d4-4ecd-b555-5387eee33084",
+      "at": "2026-11-08T10:12:49.474Z",
+      "day_tr": "2026-11-08",
+      "actor": "Musmur0606",
+      "action": "add",
+      "scope": "draft234",
+      "source": "kullanici_calismasi",
+      "note": "",
+      "refs": [
+        "5.117",
+        "11.93",
+        "33.52"
+      ],
+      "changes": [
+        {
+          "main": "4.1",
+          "before": {
+            "added": [],
+            "removed": [],
+            "status": null
+          },
+          "after": {
+            "added": [
+              "5.117",
+              "11.93",
+              "33.52"
+            ],
+            "removed": [],
+            "status": "review"
+          }
+        }
+      ]
+    }
+  ]
 }

@@ -55,6 +55,23 @@
 .concepts-context-menu[hidden] { display: none; }
 .concepts-context-menu button { min-height: 38px; white-space: normal; }
 .concepts-context-menu .micro { font-size: .8rem; color: #496858; }
+.esma-match-panel {
+  margin: 14px 0 18px;
+  padding: 13px 16px;
+  border: 1px solid #b6c7a2;
+  border-radius: 9px;
+  background: #f7f9ee;
+}
+.esma-match-panel[hidden] { display: none; }
+.esma-match-header { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.esma-match-panel label { display: block; margin: 12px 0 5px; font-weight: 600; color: #214a36; }
+#esma-match-select { width: 100%; max-width: 650px; box-sizing: border-box; padding: 10px; border-radius: 7px; border: 1px solid #92ac96; background: #fff; color: #173f2a; font-size: 1rem; }
+.esma-match-refs { display: flex; flex-wrap: wrap; gap: 6px; max-height: 245px; overflow-y: auto; }
+.esma-ref { display: inline-block; padding: 4px 8px; border: 1px solid #b8c5a8; border-radius: 5px; color: #244237; background: #fff; font-variant-numeric: tabular-nums; font-size: .89rem; }
+.esma-ref.is-main { background: #f9e7b0; border-color: #c6a64d; }
+.esma-ref.is-existing { background: #e2f1e9; border-color: #96b7a4; }
+.esma-ref.is-pending { background: #fff0c3; border-color: #e5bf66; }
+.links .link.esma-pending { background: #fff2c9; border: 1px solid #b9954a; }
 .concepts-quick-status { min-height: 0; margin: 5px 0 10px; }
 .concepts-quick-status:empty { display: none; }
 .concepts-filters { display: grid; grid-template-columns: minmax(0, 1fr) 130px; gap: 10px; }

@@ -208,7 +208,8 @@ const CORPUS = { verses: {
   '5:1': {ar:'يَا أَيُّهَا الَّذِينَ آمَنُوا'},
 }};
 const IDS = {
-  'concepts-panel':'section','concepts-context-menu':'div','concepts-transfer':'button','concepts-selection-note':'p',
+  'concepts-panel':'section','concepts-context-menu':'div','concepts-transfer':'button',
+  'concepts-esma-show':'button','concepts-selection-note':'p',
   'concepts-quick-status':'p',
   'concepts-text':'textarea','concepts-source':'input','concepts-source-note':'p',
   'concepts-note':'textarea','concepts-save':'button','concepts-refresh':'button',
@@ -262,7 +263,7 @@ function makeRemote(initial, core) {
 
 let sessionNumber = 0;
 let CORE;
-async function harness({selected='2.2', initial=null, authorized=true, corpus=CORPUS} = {}) {
+async function harness({selected='2.2', initial=null, authorized=true, corpus=CORPUS, onEsmaSelected=null} = {}) {
   const doc = new FakeDocument();
   const nodes = {};
   for (const [id, tag] of Object.entries(IDS)) {
@@ -270,7 +271,7 @@ async function harness({selected='2.2', initial=null, authorized=true, corpus=CO
     if (id==='concepts-panel' || id.startsWith('main-')) doc.body.append(node);
     else nodes['concepts-panel'].append(node);
   }
-  nodes['concepts-context-menu'].append(nodes['concepts-transfer'],nodes['concepts-selection-note']);
+  nodes['concepts-context-menu'].append(nodes['concepts-transfer'],nodes['concepts-esma-show'],nodes['concepts-selection-note']);
   nodes['concepts-import-preview'].append(nodes['concepts-import-summary'],nodes['concepts-import-list'],nodes['concepts-import-confirm'],nodes['concepts-import-cancel']);
   nodes['concepts-file'].type='file';nodes['concepts-import-preview'].hidden=true;
   nodes['concepts-status-filter'].value='active';
@@ -310,7 +311,7 @@ async function harness({selected='2.2', initial=null, authorized=true, corpus=CO
   Object.defineProperty(globalThis,'crypto',{configurable:true,value:webcrypto});
   const module=await import(pathToFileURL(join(DIR,'mutesabih-kavramlar.mjs')).href+'?qa='+ ++sessionNumber);
   const busyEvents=[];
-  const panel=module.initConceptPanel({getContext:()=>ctx,setBusy:value=>{ctx.busy=value;busyEvents.push(value);}});
+  const panel=module.initConceptPanel({getContext:()=>ctx,setBusy:value=>{ctx.busy=value;busyEvents.push(value);},onEsmaSelected});
   const api={doc,nodes,ctx,remote,panel,confirmations,busyEvents,clipboard,
     $:id=>nodes[id],
     async input(id,value) { nodes[id].value=value; await nodes[id].fire('input'); },
@@ -388,6 +389,20 @@ async function runTests() {
     assert.equal(event.defaultPrevented,true);assert.equal(h.$('concepts-context-menu').hidden,false);
     assert.match(h.$('concepts-transfer').textContent||'Kavram veri setine aktar',/Kavram/);
     noPuts(h);assert.equal(input(h),'');assert.equal(h.clipboard.reads,0);assert.equal(h.clipboard.writes.length,0);
+  });
+  await test('Esmâ seçeneği seçilen ibareyi ve ana âyeti iletir; hiçbir veri setine yazmaz',async()=>{
+    const selections=[];
+    const h=await harness({onEsmaSelected:async selection=>{selections.push(selection);return 'Esmâ sonuçları gösterildi.';}});
+    await authorize(h);
+    await h.select('الْكِتَابُ');
+    assert.equal(h.$('concepts-esma-show').disabled,false);
+    await h.$('concepts-esma-show').click();await settle();
+    assert.equal(selections.length,1);
+    assert.equal(selections[0].text,'الْكِتَابُ');
+    assert.equal(selections[0].source.verse,'2.2');
+    assert.equal(h.$('concepts-context-menu').hidden,true);
+    assert.match(h.$('concepts-quick-status').textContent,/Esmâ sonuçları/);
+    assert.equal(h.remote.puts.length,0);
   });
   await test('Aktar öğesi açık tıklamayla doğrudan kaydeder; OK gerekmez; kaynak UTF16 doğrudur',async()=>{
     const h=await harness();await authorize(h);const word='الْكِتَابُ';

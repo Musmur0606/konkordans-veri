@@ -1,8 +1,10 @@
 {
   "sonuc": "PASS_R234_UI_BENZETIM",
-  "test_sayisi": 19,
+  "test_sayisi": 21,
   "testler": [
     "HTML kimlikleri ve giriş akışı; iki veri seti doğru daldan okunur",
+    "Esmâ sağ tık seçim kutusunda 99 isim vardır; seçilince 4 aday listeye ve numara alanına eklenir, kayıt yapılmaz",
+    "Esmâ adayları 4.43 için ikinci onayla kaydedilirse yalnız 2/3/4 taslak dalına yazılır",
     "2/3/4 başlangıç listeleri motor verisi olsa da boş",
     "Ses yalnız kutuyu doldurur; ikinci onay yoksa yazı yok",
     "Bakara sesli girdisi yalnız taslağa kaydedilir; canlı veri byte-eş korunur",

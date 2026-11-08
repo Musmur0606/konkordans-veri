@@ -57,9 +57,9 @@ function textNode(tag, className, text) {
   return node;
 }
 
-export function initConceptPanel({ getContext, setBusy } = {}) {
+export function initConceptPanel({ getContext, setBusy, onEsmaSelected } = {}) {
   const ids = [
-    'concepts-panel', 'concepts-context-menu', 'concepts-transfer', 'concepts-selection-note',
+    'concepts-panel', 'concepts-context-menu', 'concepts-transfer', 'concepts-esma-show', 'concepts-selection-note',
     'concepts-quick-status', 'concepts-text', 'concepts-source',
     'concepts-source-note', 'concepts-note', 'concepts-save', 'concepts-refresh',
     'concepts-export', 'concepts-filter', 'concepts-status-filter', 'concepts-count',
@@ -211,6 +211,8 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
       node('concepts-context-menu').hidden = true;
     }
     node('concepts-transfer').disabled = !ready || occupied || !pendingSelection;
+    node('concepts-esma-show').disabled = !logged || occupied || !pendingSelection ||
+      typeof onEsmaSelected !== 'function';
     node('concepts-save').disabled = !ready || occupied ||
       !hasArabic(node('concepts-text').value);
     node('concepts-refresh').disabled = !logged || occupied || loading;
@@ -345,6 +347,25 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     };
     closeContextMenu();
     return mutate('quick', '', captured);
+  }
+  async function showEsmaSelection() {
+    const ctx = context();
+    if (!authorized(ctx) || ctx.busy || saving || readingFile || !pendingIsCurrent() ||
+        typeof onEsmaSelected !== 'function') {
+      quickMessage('Esmâ sorgusu için geçerli Arapça seçimi gerekli.', 'error');
+      return;
+    }
+    const captured = session();
+    const selection = {text: pendingSelection.text, source: {...pendingSelection.source}};
+    closeContextMenu();
+    quickMessage('Seçilen ibare Esmâ veri setinde aranıyor…');
+    try {
+      const result = await onEsmaSelected(selection);
+      if (!sameSession(captured) || context().selected !== selection.source.verse) return;
+      quickMessage(typeof result === 'string' ? result : 'Esmâ sorgusu tamamlandı.');
+    } catch(error) {
+      if (sameSession(captured)) quickMessage('Esmâ sorgusu açılamadı: ' + error.message, 'error');
+    }
   }
   function clearSource() {
     editorSource = null; node('concepts-source').value = '';
@@ -593,6 +614,10 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     if (event.button === 0) event.preventDefault();
   });
   node('concepts-transfer').addEventListener('click', transferSelection);
+  node('concepts-esma-show').addEventListener('mousedown', event => {
+    if (event.button === 0) event.preventDefault();
+  });
+  node('concepts-esma-show').addEventListener('click', showEsmaSelection);
   document.addEventListener('mousedown', event => {
     if (!node('concepts-context-menu').hidden && !node('concepts-context-menu').contains(event.target)) closeContextMenu();
   });

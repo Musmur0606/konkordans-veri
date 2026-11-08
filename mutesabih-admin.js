@@ -1,5 +1,6 @@
 import { parseVerses, normalizeMain, otherVerseBase, wordMatrixBaseline, cleanState, getMerged, applyEdit, undoOne, undoDay, dayInTurkey, eventLabel } from '/mutesabih-core.mjs?v=3';
 import { DRAFT234_PATH, DRAFT234_BRANCH, PUBLIC_HISTORY_PATH, PUBLIC_HISTORY_BRANCH, isDraftMain, storageForMain, draftBase, assertDraftHistory, assertRouteDocument, assertStorageTarget, applyDraftEdit, undoDraftOne, undoDraftDay } from '/mutesabih-draft234.mjs?v=1';
+import { assertEsmaDataset, findSelectedEsma, stageEsmaReferences, formatEsmaRefs } from '/mutesabih-esma-benzesme.mjs?v=esma-only-1';
 
 const OWNER = 'Musmur0606';
 const REPO = 'konkordans-veri';
@@ -8,8 +9,137 @@ const BASE_PATH = 'data/benzesen-matris.json';
 const HISTORY_PATH = PUBLIC_HISTORY_PATH;
 const API_ROOT = `https://api.github.com/repos/${OWNER}/${REPO}/contents/`;
 const $ = (id) => document.getElementById(id);
-const runtime = { token: '', actor: '', data: null, corpus: null, doc: null, sha: '', draftDoc: null, draftSha: '', draftError: '', selected: '5.61', busy: false, drafts: new Map() };
+const runtime = { token: '', actor: '', data: null, corpus: null, doc: null, sha: '', draftDoc: null, draftSha: '', draftError: '', selected: '5.61', busy: false, drafts: new Map(), esmaIndex: null, esmaSelection: null };
 let conceptsPanel = null;
+let esmaLoading = null;
+
+async function loadEsmaIndex() {
+  if (runtime.esmaIndex) return runtime.esmaIndex;
+  if (!esmaLoading) esmaLoading = (async () => {
+    const response = await fetch('/esma_index.json?v=esma-only-1', {cache: 'no-store'});
+    if (!response.ok) throw Error('Esmâ veri seti yüklenemedi (' + response.status + ').');
+    const data = await response.json();
+    assertEsmaDataset(data, runtime.corpus);
+    runtime.esmaIndex = data;
+    return data;
+  })().finally(() => { esmaLoading = null; });
+  return esmaLoading;
+}
+
+async function showSelectedAsEsma(selection) {
+  const sourceMain = selection.source.verse, token = runtime.token;
+  if (!token || runtime.selected !== sourceMain) throw Error('Esmâ için güncel ana âyet seçimini yapın.');
+  const data = await loadEsmaIndex();
+  if (!runtime.token || runtime.token !== token || runtime.selected !== sourceMain) {
+    throw Error('Oturum veya ana âyet değişti; eski Esmâ sorgusu gösterilmedi.');
+  }
+  const match = findSelectedEsma({...selection, dataset: data, corpus: runtime.corpus});
+  const prior = runtime.esmaSelection?.main === sourceMain ? runtime.esmaSelection : null;
+  runtime.esmaSelection = {
+    main: sourceMain, query: selection.text, suggested: match?.name || null,
+    name: prior?.name || null, candidates: prior?.candidates || [], inserted: prior?.inserted || []
+  };
+  renderEsmaSelection();
+  return 'Esmâ veri setindeki 99 isim açıldı. Listeden isim seçerek ilgili sûre/âyetleri getirin.';
+}
+
+function chooseEsmaFromList() {
+  const selection = runtime.esmaSelection;
+  if (!runtime.token || runtime.busy || !selection || selection.main !== runtime.selected || !runtime.esmaIndex) return;
+  const name = $('esma-match-select').value;
+  if (!name || !Object.hasOwn(runtime.esmaIndex.index,name)) return;
+  const base = currentBase();
+  if (!base) return;
+  try {
+    const currentLinks = getMerged(base,historyForMain().doc?.overrides?.[base.main]).map(ref=>ref.key);
+    const staged = stageEsmaReferences({
+      references:runtime.esmaIndex.index[name].r,main:base.main,
+      currentLinks,pendingText:$('refs').value
+    });
+    $('refs').value = staged.mergedText;
+    selection.name = name;
+    selection.candidates = [...new Set([...selection.candidates,...staged.candidates])];
+    selection.inserted = [...new Set([...selection.inserted,...staged.inserted])];
+    renderSelected();
+    showMessage('edit-message',
+      name+': '+staged.inserted.length+' yeni sûre/âyet numarası kayıt kutusuna hazırlandı. '+
+      'Kalıcı ekleme için “+ Benzeşen ekle” ve ikinci onay gereklidir.');
+  } catch(error) {
+    $('esma-match-status').textContent = 'Esmâ seçimi eklenemedi: '+error.message;
+  }
+}
+
+function cancelEsmaCandidates() {
+  const selection = runtime.esmaSelection;
+  if (!selection) return;
+  try {
+    if (selection.inserted?.length && $('refs').value.trim()) {
+      const removable = new Set(selection.inserted);
+      const remaining = parseVerses($('refs').value).filter(key=>!removable.has(key));
+      $('refs').value = formatEsmaRefs(remaining);
+    }
+  } catch(error) {
+    $('esma-match-status').textContent='Adayları geri almak için önce numara alanını düzeltin: '+error.message;
+    return;
+  }
+  runtime.esmaSelection=null;
+  renderSelected();
+  showMessage('edit-message','Esmâ adayları iptal edildi; önceden yazdığınız numaralar korundu. GitHub kaydı yapılmadı.');
+}
+
+function renderEsmaSelection() {
+  const selection = runtime.esmaSelection;
+  const panel = $('esma-match-panel'), list = $('esma-match-refs'), picker=$('esma-match-select');
+  if (!selection || selection.main !== runtime.selected || !runtime.esmaIndex || !runtime.token) {
+    panel.hidden = true;
+    list.replaceChildren();
+    picker.replaceChildren();
+    return;
+  }
+  panel.hidden = false;
+  picker.disabled=runtime.busy;
+  const placeholder=document.createElement('option');
+  placeholder.value=''; placeholder.textContent='Esmâ seçiniz — 99 kayıt';
+  const options=document.createDocumentFragment();options.append(placeholder);
+  for (const name of runtime.esmaIndex.esmalar) {
+    const entry=runtime.esmaIndex.index[name];
+    const item=document.createElement('option');
+    item.value=name;
+    item.textContent=name+' — '+entry.ar+(selection.suggested===name?' (seçilen ifadeyle eşleşti)':'');
+    options.append(item);
+  }
+  picker.replaceChildren(options);
+  picker.value=selection.name||'';
+  list.replaceChildren();
+  if (!selection.name) {
+    $('esma-match-title').textContent = 'Esmâ veri setinden seç — 99 isim';
+    $('esma-match-status').textContent = selection.suggested
+      ? 'Ana âyette '+selection.suggested+' adı bulundu; listeden istediğiniz Esmâyı seçiniz.'
+      : '99 Esmâ listelendi. Seçilen metin birebir eşleşmeyebilir; hangi Esmâyı ilişkilendireceğinizi listeden seçiniz.';
+    return;
+  }
+  const entry = runtime.esmaIndex.index[selection.name];
+  $('esma-match-title').textContent = 'Esmâ: ' + selection.name + ' · ' + entry.ar;
+  const candidateSet=new Set(selection.candidates);
+  const pendingSet=pendingEsmaInput();
+  const remaining=selection.candidates.filter(key=>pendingSet.has(key));
+  $('esma-match-status').textContent = entry.n+' kayıtlı sûre/âyet · '+
+    remaining.length+' kaydedilmemiş benzeşen adayı. Mevcut benzeşenler ve ana âyet tekrarlanmadı.';
+  const base = currentBase();
+  const history = historyForMain();
+  const existing = new Set(base ? getMerged(base, history.doc?.overrides?.[base.main]).map(x => x.key) : []);
+  const fragment = document.createDocumentFragment();
+  for (const ref of entry.r) {
+    const key = ref.replace(':', '.');
+    const state = key===runtime.selected?' is-main':existing.has(key)?' is-existing':
+      candidateSet.has(key)&&pendingSet.has(key)?' is-pending':'';
+    const item = createText('span', 'esma-ref'+state, key);
+    item.title = key===runtime.selected?'Seçilen ana âyet':existing.has(key)?
+      'Mevcut benzeşen listesinde de var':state===' is-pending'? 'Kaydedilmemiş Esmâ adayı':'Esmâ veri setindeki sûre/âyet';
+    fragment.append(item);
+  }
+  list.append(fragment);
+}
 
 function conceptModuleError(error) {
   const area=$('concepts-message');
@@ -28,10 +158,11 @@ async function initializeConceptsPanel() {
   // Ayrı modül hatası ana benzeşen/sesli giriş modülünün yüklenmesini kesmez.
   // Yetki anahtarı bir depoya, global değişkene veya günlük çıktısına aktarılmaz.
   try{
-    const {initConceptPanel}=await import('/mutesabih-kavramlar.mjs?v=hasenat-3');
+    const {initConceptPanel}=await import('/mutesabih-kavramlar.mjs?v=esma-only-1');
     conceptsPanel=initConceptPanel({
       getContext:()=>({token:runtime.token,actor:runtime.actor,corpus:runtime.corpus,selected:runtime.selected,busy:runtime.busy}),
-      setBusy:(value)=>{if(value&&voiceActive)stopVoiceRefs();setBusy(value);}
+      setBusy:(value)=>{if(value&&voiceActive)stopVoiceRefs();setBusy(value);},
+      onEsmaSelected:showSelectedAsEsma
     });
     if(!conceptsPanel.available)throw Error('Kavram bölümünün gerekli ekran alanları bulunamadı.');
     conceptsPanel.syncAuth();
@@ -169,6 +300,7 @@ function chooseMain(main,filterToMain=false) {
   if(runtime.busy)return;
   const next=normalizeMain(main);
   if(next!==runtime.selected) {
+    runtime.esmaSelection=null;
     if(voiceActive)stopVoiceRefs();
     const oldDraft={refs:$('refs').value,reason:$('reason').value};
     if(oldDraft.refs||oldDraft.reason)runtime.drafts.set(runtime.selected,oldDraft);
@@ -227,6 +359,11 @@ function openMain() {
   }catch(error){showMessage('main-message',error.message,'error');}
 }
 
+function pendingEsmaInput() {
+  try { return new Set($('refs').value.trim()?parseVerses($('refs').value):[]); }
+  catch { return new Set(); }
+}
+
 function renderSelected() {
   const base=currentBase();if(!base)return;
   const destination=historyForMain(base.main);
@@ -246,7 +383,13 @@ function renderSelected() {
   $('save-target').dataset.scope=destination.draft?'draft234':'public';
   $('main-status').textContent=label;$('main-status').className='pill '+color;
   const links=getMerged(base,currentState);
-  $('link-count').textContent=destination.draft?links.length+' çalışma ilişkisi · yayımlanmaz':links.length+' ilişki ('+base.links.length+(base.status==='site'?' mevcut site':' Word matrisi')+' kaydı)';
+  const existing=new Set(links.map(ref=>ref.key));
+  const staged=runtime.esmaSelection?.main===base.main?runtime.esmaSelection.candidates:[];
+  const pending=pendingEsmaInput();
+  const candidates=staged.filter(key=>key!==base.main&&!existing.has(key)&&pending.has(key));
+  $('link-count').textContent=(destination.draft?links.length+' çalışma ilişkisi · yayımlanmaz':
+    links.length+' ilişki ('+base.links.length+(base.status==='site'?' mevcut site':' Word matrisi')+' kaydı)')+
+    (candidates.length?' + '+candidates.length+' Esmâ adayı (onay bekliyor)':'');
   const target=$('link-list');target.replaceChildren();
   for (const ref of links) {
     const pill=createText('span','link'+(ref.added?' added':''),'');
@@ -254,7 +397,13 @@ function renderSelected() {
     if(ref.added)pill.append(createText('small','source','Yönetici ekledi'));
     target.append(pill);
   }
-  if(!links.length)target.append(createText('p','micro','Bu ana âyet için görünür benzeşen kayıt yok.'));
+  for(const key of candidates) {
+    const pill=createText('span','link esma-pending','');
+    pill.append(createText('strong','',key),createText('small','source','Esmâ adayı · kaydedilmedi'));
+    target.append(pill);
+  }
+  if(!links.length&&!candidates.length)target.append(createText('p','micro','Bu ana âyet için görünür benzeşen kayıt yok.'));
+  renderEsmaSelection();
   updateParsed();
 }
 
@@ -505,6 +654,7 @@ async function refreshFiles(authToken=runtime.token) {
   try{draft=await loadGitHubFile(DRAFT234_PATH,authToken,DRAFT234_BRANCH);assertDraftHistory(draft.content);}
   catch(error){draft=null;draftError=error.message;}
   runtime.data=data;runtime.corpus=corpus;runtime.doc=history.content;runtime.sha=history.sha;
+  runtime.esmaSelection=null;
   runtime.draftDoc=draft?.content||null;runtime.draftSha=draft?.sha||'';runtime.draftError=draftError;
   populateSuras();
   renderAll();
@@ -582,6 +732,7 @@ async function submitEdit(operation) {
     const saved=await saveNext(result,'AyetulKuran'+(destination.draft?' 234 CALISMA (yayina aktarilmaz)':'')+': '+base.main+' '+operation+refs,destination);
     showMessage('edit-message',(destination.draft?'Ayrı çalışma veri setine kaydedildi. Portala aktarılmadı. ':'Yayımlanan veri setine kaydedildi. ')+'İşlem: '+saved.commit.slice(0,9),'success');
     runtime.drafts.delete(base.main);
+    runtime.esmaSelection=null;
     if(runtime.selected===base.main){$('refs').value='';$('reason').value='';}renderAll();
   }catch(error){showMessage('edit-message',error.message,'error');}
   finally{setBusy(false);}
@@ -645,10 +796,13 @@ $('ayah-picker').addEventListener('change',()=>{
 $('open-main').addEventListener('click',openMain);
 $('direct-main').addEventListener('keydown',(e)=>{if(e.key==='Enter')openMain();});
 $('refs').addEventListener('input',updateParsed);
+$('refs').addEventListener('input',()=>{if(runtime.esmaSelection?.name)renderSelected();});
 $('voice-refs').addEventListener('click',startVoiceRefs);
 $('login').addEventListener('click',authorize);
 $('token').addEventListener('keydown',(e)=>{if(e.key==='Enter')authorize();});
-$('logout').addEventListener('click',()=>{if(runtime.busy)return;stopVoiceRefs();runtime.token='';runtime.actor='';runtime.data=null;runtime.corpus=null;runtime.doc=null;runtime.sha='';runtime.draftDoc=null;runtime.draftSha='';runtime.draftError='';runtime.drafts.clear();conceptsPanel?.onLogout();$('main-list').replaceChildren();$('link-list').replaceChildren();showMessage('login-message','Güvenli çıkış yapıldı. Yönetim ekranı kapatıldı.','success');renderAll();});
+$('logout').addEventListener('click',()=>{if(runtime.busy)return;stopVoiceRefs();runtime.token='';runtime.actor='';runtime.data=null;runtime.corpus=null;runtime.doc=null;runtime.sha='';runtime.draftDoc=null;runtime.draftSha='';runtime.draftError='';runtime.esmaIndex=null;runtime.esmaSelection=null;runtime.drafts.clear();conceptsPanel?.onLogout();$('main-list').replaceChildren();$('link-list').replaceChildren();renderEsmaSelection();showMessage('login-message','Güvenli çıkış yapıldı. Yönetim ekranı kapatıldı.','success');renderAll();});
+$('esma-match-select').addEventListener('change',chooseEsmaFromList);
+$('esma-match-clear').addEventListener('click',cancelEsmaCandidates);
 for(const op of ['add','remove','confirm','review'])$(op).addEventListener('click',()=>submitEdit(op));
 $('history-day').addEventListener('change',()=>{renderHistory();renderAuth();});
 $('clear-day').addEventListener('click',()=>{$('history-day').value='';renderHistory();renderAuth();});

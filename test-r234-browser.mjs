@@ -8,11 +8,13 @@ import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {createHash,webcrypto} from 'node:crypto';
 import * as publicCore from './mutesabih-core.mjs';
 import * as draftCore from './mutesabih-draft234.mjs';
+import * as esmaCore from './mutesabih-esma-benzesme.mjs';
 
 const read=name=>readFileSync(new URL(name,import.meta.url),'utf8');
 const html=read('./mutesabih-admin.html');
 const source=read('./mutesabih-admin.js');
 const corpus=JSON.parse(read('./app_data.json'));
+const esmaIndex=JSON.parse(read('./esma_index.json'));
 const matrix=JSON.parse(read('./data/benzesen-matris.json'));
 const publicInitial=JSON.parse(read('./data/mutesabih-degisiklikler.json'));
 const draftInitial=draftCore.emptyDraftHistory('2026-11-07T19:00:00.000Z');
@@ -39,7 +41,10 @@ function harness(options={}) {
     set value(v){this._value=String(v);}get value(){return this._value;}
     set textContent(v){this._text=String(v??'');this.children=[];}
     get textContent(){return this._text+this.children.map(c=>c?.textContent??String(c)).join('');}
-    append(...nodes){for(const node of nodes){node.parent=this;this.children.push(node);}}
+    append(...nodes){for(const node of nodes){
+      if(node.tagName==='FRAGMENT'){this.append(...node.children);continue;}
+      node.parent=this;this.children.push(node);
+    }}
     replaceChildren(...nodes){this.children=[];this._text='';this.append(...nodes);}
     setAttribute(k,v){this.attributes[k]=String(v);}
     addEventListener(type,fn){if(!this.handlers.has(type))this.handlers.set(type,[]);this.handlers.get(type).push(fn);}
@@ -50,7 +55,7 @@ function harness(options={}) {
     remove(){if(this.parent)this.parent.children=this.parent.children.filter(x=>x!==this);}
   }
   for(const id of ids)elements.set(id,new Element('div',id));
-  const document={getElementById(id){if(!elements.has(id))throw Error('HTML kimliği yok: '+id);return elements.get(id);},createElement(tag){return new Element(tag);},body:new Element('body')};
+  const document={getElementById(id){if(!elements.has(id))throw Error('HTML kimliği yok: '+id);return elements.get(id);},createElement(tag){return new Element(tag);},createDocumentFragment(){return new Element('fragment');},body:new Element('body')};
   const blobMap=new Map();
   class FakeURL extends URL {}
   FakeURL.createObjectURL=blob=>{const url='blob:test-'+blobMap.size;blobMap.set(url,blob);return url;};
@@ -68,6 +73,7 @@ function harness(options={}) {
     if(u.origin==='https://ayatulkuran.test'&&method==='GET'){
       if(u.pathname==='/app_data.json')return response(200,corpus);
       if(u.pathname==='/data/benzesen-matris.json')return response(200,matrix);
+      if(u.pathname==='/esma_index.json')return response(200,esmaIndex);
     }
     if(u.origin==='https://api.github.com'&&u.pathname==='/user'&&method==='GET')return response(200,{login:'Musmur0606'});
     const prefix='/repos/Musmur0606/konkordans-veri/contents/';
@@ -104,11 +110,11 @@ function harness(options={}) {
     failures.push({method,url:u.href});
     throw Error('Test ağı dışı istek engellendi: '+method+' '+u.origin+u.pathname);
   }
-  const scope={...publicCore,...draftCore,document,console:{log:()=>{},error:e=>errors.push(String(e))},fetch:fetchMock,TextEncoder,TextDecoder,Blob,URL:FakeURL,Event:FakeEvent,crypto:webcrypto,Date,Map,Set,Uint8Array,atob:s=>Buffer.from(s,'base64').toString('binary'),btoa:s=>Buffer.from(s,'binary').toString('base64'),setTimeout:(fn,ms)=>{const id=++timerId;timers.set(id,{fn,ms});return id;},clearTimeout:id=>timers.delete(id),SpeechRecognition:SpeechAPI,confirm:message=>{confirmations.push(message);return controls.confirm;}};
+  const scope={...publicCore,...draftCore,...esmaCore,document,console:{log:()=>{},error:e=>errors.push(String(e))},fetch:fetchMock,TextEncoder,TextDecoder,Blob,URL:FakeURL,Event:FakeEvent,crypto:webcrypto,Date,Map,Set,Uint8Array,atob:s=>Buffer.from(s,'base64').toString('binary'),btoa:s=>Buffer.from(s,'binary').toString('base64'),setTimeout:(fn,ms)=>{const id=++timerId;timers.set(id,{fn,ms});return id;},clearTimeout:id=>timers.delete(id),SpeechRecognition:SpeechAPI,confirm:message=>{confirmations.push(message);return controls.confirm;}};
   scope.window=scope;
   vm.createContext(scope);
   vm.runInContext(source.replace(/^import[^\n]+\n/gm,''),scope,{filename:'mutesabih-admin.js'});
-  const api=vm.runInContext('({runtime,historyForMain,chooseMain,authorize,startVoiceRefs,stopVoiceRefs,submitEdit,submitUndoOne,submitUndoDay,downloadDailyLog,loadGitHubFile,saveNext,renderAll})',scope);
+  const api=vm.runInContext('({runtime,historyForMain,chooseMain,authorize,startVoiceRefs,stopVoiceRefs,showSelectedAsEsma,submitEdit,submitUndoOne,submitUndoDay,downloadDailyLog,loadGitHubFile,saveNext,renderAll})',scope);
   const get=id=>elements.get(id);
   async function login(){get('token').value='TEST_ONLY_NOT_A_REAL_KEY';await get('login').fire('click');assert.equal(api.runtime.actor,'Musmur0606',get('login-message').textContent);assert.ok(api.runtime.token);}
   function select(main){api.chooseMain(main,true);assert.equal(api.runtime.selected,main);}
@@ -134,6 +140,46 @@ try {
     assert.ok(h.calls.some(x=>x.url.endsWith(draftCore.DRAFT234_PATH+'?ref=calisma-234')));
     assert.ok(h.calls.some(x=>x.url.endsWith(draftCore.PUBLIC_HISTORY_PATH+'?ref=main')));
     assert.equal(h.puts.length,0);h.routesClean();
+  });
+  await test('Esmâ sağ tık seçim kutusunda 99 isim vardır; seçilince 4 aday listeye ve numara alanına eklenir, kayıt yapılmaz',async()=>{
+    h=harness();await h.login();h.select('4.43');
+    const before=state(h),ar=corpus.verses['4:43'].arh||corpus.verses['4:43'].ar;
+    const match=esmaCore.esmaRanges(ar,esmaIndex.index.AFUV.ar)[0];
+    assert(match);
+    await h.api.showSelectedAsEsma({text:ar.slice(match.start,match.end),source:{
+      verse:'4.43',start:match.start,end:match.end,
+      ...(corpus.verses['4:43'].arh?{text_field:'arh'}:{})
+    }});
+    assert.equal(h.get('esma-match-panel').hidden,false);
+    assert.equal(h.get('esma-match-select').children.length,100);
+    assert.equal(h.get('refs').value,'','Liste açılışı kayıt veya ekleme yapmamalı');
+    h.get('esma-match-select').value='AFUV';
+    await h.get('esma-match-select').fire('change');
+    const candidates=['4.99','4.149','22.60','58.2'];
+    assert.deepEqual(links(h),candidates);
+    assert.deepEqual(publicCore.parseVerses(h.get('refs').value),candidates);
+    assert.equal(h.get('esma-match-refs').children.length,5);
+    assert.match(h.get('link-count').textContent,/4 Esmâ adayı/);
+    assert.equal(h.puts.length,0);assert.deepEqual(state(h),before);
+    await h.get('esma-match-clear').fire('click');
+    assert.equal(h.get('refs').value,'');assert.deepEqual(links(h),[]);
+    assert.equal(h.puts.length,0);assert.deepEqual(state(h),before);h.routesClean();
+  });
+  await test('Esmâ adayları 4.43 için ikinci onayla kaydedilirse yalnız 2/3/4 taslak dalına yazılır',async()=>{
+    const e=harness();await e.login();e.select('4.43');
+    const oldPublic=JSON.stringify(e.store.get(PUBLIC).doc);
+    const ar=corpus.verses['4:43'].arh||corpus.verses['4:43'].ar;
+    const {start,end}=esmaCore.esmaRanges(ar,esmaIndex.index.AFUV.ar)[0];
+    await e.api.showSelectedAsEsma({text:ar.slice(start,end),source:{verse:'4.43',start,end,
+      ...(corpus.verses['4:43'].arh?{text_field:'arh'}:{})}});
+    e.get('esma-match-select').value='AFUV';
+    await e.get('esma-match-select').fire('change');
+    assert.equal(e.puts.length,0);
+    await e.get('add').fire('click');
+    assertDraftPut(e);
+    assert.equal(JSON.stringify(e.store.get(PUBLIC).doc),oldPublic);
+    assert.equal(e.puts.length,1);
+    e.routesClean();
   });
   await test('2/3/4 başlangıç listeleri motor verisi olsa da boş',async()=>{
     for(const s of [2,3,4]){

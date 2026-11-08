@@ -42,7 +42,7 @@ function renderDetail(){
   $('public-key').textContent='ANA ÂYET · '+base.main;
   $('public-heading').textContent=verseName(base.main);
   $('public-status').className='pill '+color;$('public-status').textContent=name;
-  $('public-arabic').textContent=item?.ar||'Arapça metin bulunamadı.';
+  $('public-arabic').textContent=item?.arh||item?.ar||'Arapça metin bulunamadı.';
   $('public-turkish').textContent=item?.mb||'Türkçe meal bulunamadı.';
   $('public-english').textContent=item?.me||'English translation not found.';
   const matches=getMerged(base,STATE.overrides[base.main]);
@@ -53,7 +53,7 @@ function renderDetail(){
     const summary=document.createElement('summary');summary.append(text('span',match.key+' · '+verseName(match.key)));
     if(match.added)summary.append(text('span','Yönetici ekledi','match-added'));
     const inside=text('div','','inside');const v=verseData(match.key);
-    inside.append(text('div',v?.ar||'Arapça bulunamadı.','arabic'));
+    inside.append(text('div',v?.arh||v?.ar||'Arapça bulunamadı.','arabic'));
     inside.append(text('h3','Türkçe meal'),text('p',v?.mb||'Türkçe meal bulunamadı.'));
     inside.append(text('h3','English'),text('p',v?.me||'English translation not found.'));
     if(match.page)inside.append(text('p','Kaynak Word sayfası: '+match.page,'public-hint'));
@@ -69,7 +69,7 @@ async function load(){
   const responses=await Promise.all([
     fetch('/data/benzesen-matris.json?v=20261024',{cache:'force-cache'}),
     fetch('https://raw.githubusercontent.com/Musmur0606/konkordans-veri/main/data/mutesabih-degisiklikler.json?cb='+stamp,{cache:'no-store'}),
-    fetch('/app_data.json',{cache:'force-cache'}),
+    fetch('/app_data.json?v=hasenat-3',{cache:'no-cache'}),
   ]);
   for(let i=0;i<responses.length;i++)if(!responses[i].ok)throw Error(['Ana âyet verisi','GitHub güncelleme geçmişi','Kur’an metinleri'][i]+' yüklenemedi ('+responses[i].status+').');
   const [matrix,changed,corpus]=await Promise.all(responses.map(r=>r.json()));

@@ -76,7 +76,8 @@ function validateArabic(value) {
 }
 
 function sourceShape(source, meta = false) {
-  exactKeys(source, meta ? SOURCE_META_KEYS : SOURCE_KEYS, 'Kaynak');
+  exactKeys(source, sourceKeys(source, meta), 'Kaynak');
+  if (Object.hasOwn(source, 'text_field') && source.text_field !== 'arh') fail('Kaynak metin alanı geçersiz.');
   if (normalizeConceptVerse(source.verse) !== source.verse) fail('Kaynak âyet numarası standart noktalı biçimde olmalı.');
   if (!Number.isSafeInteger(source.start) || !Number.isSafeInteger(source.end) || source.start < 0 || source.end <= source.start) fail('Kaynak seçim sınırları geçersiz.');
   if (!['admin_selection','manual'].includes(source.origin)) fail('Kaynak giriş yöntemi geçersiz.');
@@ -86,21 +87,28 @@ function sourceShape(source, meta = false) {
   }
   return source;
 }
-function bareSource(source) {
-  return {verse:source.verse,start:source.start,end:source.end,origin:source.origin};
+// Önceki kaynaklar alan eklenmeden ar metnini işaretlemeye devam eder.
+// Yeni Hasenat seçimleri kendi ham metin/konumlarını açıkça tanımlar.
+function sourceKeys(source, meta = false) {
+  const keys = meta ? SOURCE_META_KEYS : SOURCE_KEYS;
+  return object(source) && Object.hasOwn(source, 'text_field') ? [...keys, 'text_field'] : keys;
 }
-function corpusArabic(corpus, verse) {
+function bareSource(source) {
+  return {verse:source.verse,start:source.start,end:source.end,origin:source.origin,
+    ...(source.text_field === 'arh' ? {text_field:'arh'} : {})};
+}
+function corpusArabic(corpus, verse, field = 'ar') {
   const item = corpus?.verses?.[verse.replace('.', ':')];
-  if (!item || typeof item.ar !== 'string' || !item.ar.length) fail('Kaynak âyetin asıl Arapça metni bulunamadı; kaynak atanmadı.');
-  return item.ar;
+  if (!item || typeof item[field] !== 'string' || !item[field].length) fail('Kaynak âyetin asıl Arapça metni bulunamadı; kaynak atanmadı.');
+  return item[field];
 }
 function verifySlice(source, arabicText, corpus) {
-  const original = corpusArabic(corpus, source.verse);
+  const original = corpusArabic(corpus, source.verse, source.text_field || 'ar');
   if (source.end > original.length || original.slice(source.start, source.end) !== arabicText) fail('Seçilen metin, kaynak âyetin belirtilen Arapça dilimiyle birebir eşleşmiyor.');
 }
 function inputSource(source, arabicText, corpus) {
   if (source === undefined || source === null) return null;
-  exactKeys(source, SOURCE_KEYS, 'Kaynak');
+  exactKeys(source, sourceKeys(source), 'Kaynak');
   const result = {...source, verse:normalizeConceptVerse(source.verse)};
   sourceShape(result);
   verifySlice(result, arabicText, corpus);

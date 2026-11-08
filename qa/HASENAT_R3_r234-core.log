@@ -1,0 +1,17 @@
+PASS Ana sûreye göre iki ayrı kayıt yolu
+PASS Boş taslak ve varsa çalışma JSON dosyası yayın kilitli
+PASS Dal ve dosya birlikte yönlendirilir; taslak main dalına yazılamaz
+PASS Taslak başlangıcı motor ilişkilerini okumaz
+PASS Yalnız 2/3/4 ana yazılabilir; benzeşen tüm sûrelerden
+PASS Kendine bağlantı, hatalı referans ve motorlu başlangıç reddi
+PASS Tekilleştirme, no-op ve girdi dokümanı korunur
+PASS Doğrulama yayın değildir; yeni değişiklik taslağa döner
+PASS Çıkarma ve geri alma append-only; diğer ana âyet korunur
+PASS Daha yeni aynı ana âyet değişikliğinde geri alma durur
+PASS Gün geri alma Türkiye tarihini ve ayrı ana âyetleri izler
+PASS Yol, şema, kapsam ve yayın kilidi çapraz yazmayı engeller
+PASS Bozulmuş geçmiş, durum ve sahte ana âyet reddi
+PASS Canlı çekirdeğin 2/3/4 ana kilidi değişmedi
+CANLI_KAYNAK {"ana_kayit":103,"islem":154}
+PASS Mevcut gerçek canlı geçmişi salt okunur geçer
+{"sonuc":"PASS_R234_DRAFT_CORE","test_sayisi":15,"canli_dosya_degisti":false,"yayin":false}

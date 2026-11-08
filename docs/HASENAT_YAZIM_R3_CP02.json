@@ -1,0 +1,36 @@
+{
+  "standart": "Tüm Projeler İçin Kalıcı Hafıza ve Kesintisiz Devir Standardı V1",
+  "proje": "ayatulkuran",
+  "surum": "HASENAT_R3_CP02",
+  "durum": "YEREL_KOD_VE_VERI_TESTLERI_GECTI_GORSEL_KONTROL_SURUYOR",
+  "baslangic_main": "d7b9594c09c152943e90fe4d74fefbabb5ec611e",
+  "kaynak_zip_sha256": "01c12bc3881c9e0ece9d0c10cd3f0ef033b9da8f48afeb137ac13dc66fec9b52",
+  "ana_metin_sha256": "74a934db426bf60de735f55f9a6340c195d188208255508c0619b356cd93c2d0",
+  "ACCEPTED_DO_NOT_REDO": [
+    "6236/114 kaynak envanteri",
+    "86 referans NFC eşliği",
+    "eski ar/kr/meal/ilişki alanlarını koru",
+    "orijinal hasenat.ttf SHA 1d37c471...e384c",
+    "2/3/4 ve kavram çalışma verilerinin yayın kilidi"
+  ],
+  "HOLD_REVIEW": [
+    "arama-gösterim köprüsü",
+    "esmâ eski eşleşmelerini yeni kelimelere taşı",
+    "yönetim/kavram kaynak dilimleri",
+    "U+08D7 ve U+08D9 için metni koruyan yedek font doğrulaması",
+    "hedefli kabul ve yayın önbelleği"
+  ],
+  "son_islem": "6236 kelime haritası, arama/esmâ köprüsü, Hasenat seçim kaynağı, yerel destek fontu ve önbellek sürümü birleştirildi.",
+  "sonraki_guvenli_adim": "Önizlemede arama/esmâ/sûre görünümünü kontrol et; ardından doğrulanmış değişiklikleri tek sürümde yayınla.",
+  "kayit_zamani_utc": "2026-11-07T22:34:23.153699+00:00",
+  "tamamlanan": [
+    "15/15 arama ve esmâ; 77428 eski ve 77773 yeni kelime geçişi",
+    "2050 esmâ bağlantısı; eski1069 çift/1081 kelime kararı",
+    "77/77 kavram paneli benzetimi",
+    "93/93 kavram ve dosya çekirdeği (bir yeni dosya uyum testi ayrıca eklendi)",
+    "12/12 font ve önbellek bağlantı kontrolü"
+  ],
+  "font_karari": "Özgün Hasenat aynen; U08D7/U08D9 kaynakta korunur; sabit Scheherazade New4.500 destek fontu.",
+  "eski_yerel_cikti": "repo dışı hasenat_previous_attempt/data_hasenat; güncel kaynak tools/hasenat/cikti",
+  "canli_yazim": false
+}

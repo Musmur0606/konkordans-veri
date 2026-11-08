@@ -1,0 +1,65 @@
+{
+  "project": "ayatulkuran",
+  "version": "Hasenat R3 — 20261108 paketi",
+  "standard": "Tüm Projeler İçin Kalıcı Hafıza ve Kesintisiz Devir Standardı V1",
+  "source_zip": {
+    "name": "AI_DEVIR_PAKETI_20261108.zip",
+    "sha256": "01c12bc3881c9e0ece9d0c10cd3f0ef033b9da8f48afeb137ac13dc66fec9b52"
+  },
+  "baseline_git": "d7b9594c09c152943e90fe4d74fefbabb5ec611e",
+  "superseded": [
+    {
+      "path": "diyanet_filtre.py",
+      "sha256": "079b2ed26bca3ccdce1a298f1310f68d29e0ef9996685441cfafa7a2cbe6c2f2",
+      "bytes": 4862,
+      "backup": "onceki_surum/079b2ed26bca3ccdce1a298f1310f68d29e0ef9996685441cfafa7a2cbe6c2f2/diyanet_filtre.py",
+      "status": "SUPERSEDED_DO_NOT_USE",
+      "reason": "Yeni yüklenen 20261108 paketinin filtre sürümü ile değiştirildi."
+    }
+  ],
+  "sources": [
+    {
+      "path": "diyanet_filtre.py",
+      "bytes": 5490,
+      "sha256": "66ce2e30cc8a58523235bb7fec882acb178fd2de8fac2a798d5f42b1433c6b3a",
+      "archive_member": "diyanet_filtre.py"
+    },
+    {
+      "path": "site_donustur.py",
+      "bytes": 4904,
+      "sha256": "2981e5126a7621dc0cbfa832b143f6e7580a41456a0e0f261160f50358061924",
+      "archive_member": "site_donustur.py"
+    },
+    {
+      "path": "kaynak_diyanet/kuran.json",
+      "bytes": 3894339,
+      "sha256": "da8b017dbdc5b568b54ed97472622d61ee82fcde6bbb6e25ff54210fa4fc3b83",
+      "archive_member": "kaynak_diyanet\\kuran.json"
+    },
+    {
+      "path": "kaynak_diyanet/LICENSE",
+      "bytes": 18657,
+      "sha256": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411",
+      "archive_member": "kaynak_diyanet\\LICENSE"
+    },
+    {
+      "path": "cikti/KURAN_HASENAT_YAZIMI.txt",
+      "bytes": 1337668,
+      "sha256": "74a934db426bf60de735f55f9a6340c195d188208255508c0619b356cd93c2d0",
+      "archive_member": "cikti\\KURAN_HASENAT_YAZIMI.txt"
+    },
+    {
+      "path": "test/referans.txt",
+      "bytes": 26339,
+      "sha256": "11e7c1423a3e4af953d4e8738910763c3cfddd0011369541620df48d5922af28",
+      "archive_member": "test\\referans.txt"
+    }
+  ],
+  "rules": [
+    "ar ve kr motor kaynağıdır; değiştirilmez.",
+    "arh ekran yazımıdır; krh paket sürümündeki hizalamayı aynen korur.",
+    "arh_map her yeni kelime için eski ar kelimelerinin sıfır tabanlı indis listesidir.",
+    "1→2 eşlemesinde eski indis iki yeni kelimeye de verilir; 2→1 eşlemesinde iki eski indis aynı listeye konur.",
+    "Unicode karakterleri sessizce silinmez veya normalize edilmez; NFC yalnız referans karşılaştırmasında kullanılır."
+  ]
+}

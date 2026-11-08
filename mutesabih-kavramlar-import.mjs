@@ -1,7 +1,7 @@
 // Dosyadan kavram içe aktarma: yalnız önizleme ve kopya üzerinde eklemeli kayıt.
 // Dosyanın dış boşlukları kırpılır; Arapça harfler, harekeler ve iç boşluklar
 // değiştirilmez. Kaynak âyet tahmin edilmez; dosya izi ayrı notta tutulur.
-import {addConcept, conceptSearchKey, assertConceptHistory} from './mutesabih-kavramlar-core.mjs';
+import {addConcept, conceptSearchKey, assertConceptHistory} from './mutesabih-kavramlar-core.mjs?v=hasenat-3';
 
 export const MAX_IMPORT_BYTES = 1048576;
 export const MAX_IMPORT_ROWS = 200;

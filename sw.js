@@ -1,11 +1,13 @@
 /* ayatulkuran — servis calisani (cevrimdisi kullanim)
    Yeni surum yayinlarken asagidaki SURUM satirini degistirin; eski onbellek silinir. */
-const SURUM = 'v2.8.22';
+const SURUM = 'v2.8.23';
 const AD    = 'ayatulkuran-' + SURUM;
 
 const CEKIRDEK = [
   '/', '/index.html', '/manifest.json',
-  '/amiri-site.css?v=hasenat-2', '/assets/fonts/hasenat.ttf?v=1d37c471',
+  '/amiri-site.css?v=hasenat-3', '/assets/fonts/hasenat.ttf?v=1d37c471',
+  '/hasenat-display.js?v=hasenat-3',
+  '/assets/fonts/ScheherazadeNew-Regular.woff2?v=fd12c322',
   '/data/benzesen-matris.json?v=20261024',
   '/icon-192.png', '/icon-512.png', '/og.png'
 ];
@@ -62,7 +64,7 @@ self.addEventListener('fetch', e => {
   }
 
   // 2) Veri: once ag, internet yoksa onbellek (sorgusuz adresle)
-  if (VERI.test(r.url)) {
+  if (VERI.test(r.url) || (u.origin === location.origin && u.pathname === '/app_data.json')) {
     const a = anahtar(r.url);
     e.respondWith(
       fetch(r, { cache: 'no-store' })

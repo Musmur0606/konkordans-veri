@@ -1,0 +1,26 @@
+[
+  {
+    "test": "test-r234-core.mjs",
+    "exit_code": 0,
+    "log": "qa/HASENAT_R3_r234-core.log",
+    "summary": "PASS Çıkarma ve geri alma append-only; diğer ana âyet korunur\nPASS Daha yeni aynı ana âyet değişikliğinde geri alma durur\nPASS Gün geri alma Türkiye tarihini ve ayrı ana âyetleri izler\nPASS Yol, şema, kapsam ve yayın kilidi çapraz yazmayı engeller\nPASS Bozulmuş geçmiş, durum ve sahte ana âyet reddi\nPASS Canlı çekirdeğin 2/3/4 ana kilidi değişmedi\nCANLI_KAYNAK {\"ana_kayit\":103,\"islem\":154}\nPASS Mevcut gerçek canlı geçmişi salt okunur geçer\n{\"sonuc\":\"PASS_R234_DRAFT_CORE\",\"test_sayisi\":15,\"canli_dosya_degisti\":false,\"yayin\":false}"
+  },
+  {
+    "test": "test-r234-browser.mjs",
+    "exit_code": 0,
+    "log": "qa/HASENAT_R3_r234-browser.log",
+    "summary": "PASS Taslak şeması yanlışsa kayıt kapalı; public şemaya yönlendirme yok\nPASS SHA çakışmasında PUT yok; yazılan giriş korunur\nPASS Kayıt sürerken seçim kilitli; gecikmiş okuma doğru dosyaya yazar\nPASS Sûre değişince önceki mikrofonun geç sonucu yeni âyete eklenmez\nPASS Eski mikrofon bitiş/hata olayı yeni dinlemeyi bozamaz\nPASS Contents 1 MB içeriği atladığında aynı SHA blob fallback okunur\nPASS Blob SHA uyuşmazlığı girişi engeller; hiçbir dosyaya yazı yok\nPASS Hatalı dal/yol yükleme API isteği yapılmadan reddedilir\n{\"sonuc\":\"PASS_R234_UI_BENZETIM\",\"test_sayisi\":19,\"testler\":[\"HTML kimlikleri ve giriş akışı; iki veri seti doğru daldan okunur\",\"2/3/4 başlangıç listeleri motor verisi olsa da boş\",\"Ses yalnız kutuyu doldurur; ikinci onay yoksa yazı yok\",\"Bakara sesli girdisi yalnız taslağa kaydedilir; canlı veri byte-eş korunur\",\"Âl-i İmrân ve Nisâ eklemeleri aynı ayrı çalışma dosyasında kalır\",\"Taslak doğrulama yayın yapmaz; çıkarma ve geri alma yalnız taslakta\",\"Diğer ana sûre canlı dosyaya yazılır; 2/3/4 hedef olabilir\",\"Geçmiş ve günlük dışa aktarma seçilen ana sûrenin dosyasına bağlı\",\"Canlı işlem geri alma taslağı etkilemez; eski taslak düğmesi başka dosyada reddedilir\",\"Taslak günlük geri alma canlı veri setine dokunmaz\",\"Taslak dosyası yoksa kapalı kalır; canlıya fallback yapılmaz\",\"Taslak şeması yanlışsa kayıt kapalı; public şemaya yönlendirme yok\",\"SHA çakışmasında PUT yok; yazılan giriş korunur\",\"Kayıt sürerken seçim kilitli; gecikmiş okuma doğru dosyaya yazar\",\"Sûre değişince önceki mikrofonun geç sonucu yeni âyete eklenmez\",\"Eski mikrofon bitiş/hata olayı yeni dinlemeyi bozamaz\",\"Contents 1 MB içeriği atladığında aynı SHA blob fallback okunur\",\"Blob SHA uyuşmazlığı girişi engeller; hiçbir dosyaya yazı yok\",\"Hatalı dal/yol yükleme API isteği yapılmadan reddedilir\"],\"gercek_ag_cagrisi\":0,\"gercek_github_yazimi\":0,\"gercek_tarayici\":\"HOLD_SOCKET_EPERM\",\"gorsel_kontrol\":\"YAPILAMADI\",\"mikrofon\":\"Yapay SpeechRecognition olayı; gerçek ses doğrulanmadı\"}"
+  },
+  {
+    "test": "test-r234-regressions.mjs",
+    "exit_code": 0,
+    "log": "qa/HASENAT_R3_r234-regressions.log",
+    "summary": "PASS 1 MB üstü içerik aynı SHA blob yolundan okunuyor\nPASS Fallback farklı blob SHA yanıtını reddediyor\nPASS Normal base64 içerik tek istekle korunuyor\nPASS Taslak main dalı ağ isteğinden önce reddediliyor\nPASS Sure değişiminde eski end/error/result yeni sesi bozmuyor\nPASS Geçerli oturum normal yeniden başlatmayı sürdürüyor\nPASS Eski yeniden başlatma zamanlayıcısı oturum sınırını aşmıyor\nPASS Aynı ana ayette hızlı durdur/başlat eski oturumdan ayrılıyor\n{\"sonuc\":\"PASS_R234_FIX_REGRESSION\",\"test_sayisi\":8,\"admin_sha256\":\"c832f6bb5e865f5f0fe03d12d8111f590e9d6a029ee193a7bcefc98e56bea111\",\"urun_dosyasi_degismedi\":true,\"github_yazmasi\":false,\"gercek_mikrofon_testi\":false}"
+  },
+  {
+    "test": "test-r23-word-matrix.mjs",
+    "exit_code": 0,
+    "log": "qa/HASENAT_R3_r23-word-matrix.log",
+    "summary": "✔ R23: hatalı matriste kısmi kaydetme yok (78.156096ms)\nℹ tests 6\nℹ suites 0\nℹ pass 6\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 563.327255"
+  }
+]

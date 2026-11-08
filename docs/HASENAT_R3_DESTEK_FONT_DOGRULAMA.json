@@ -1,0 +1,78 @@
+{
+  "source_url": "https://software.sil.org/downloads/r/scheherazade/ScheherazadeNew-4.500.zip",
+  "source_zip_sha256": "49c789c21305bed13d90d7500877b50d62db1e8e4d6f7715178e556319ddbda9",
+  "version": "4.500",
+  "files": [
+    {
+      "path": "/workspace/scratch/4146d27013fb/font_sources/scheherazade_new_4_500/ScheherazadeNew-Regular.ttf",
+      "member": "ScheherazadeNew-4.500/ScheherazadeNew-Regular.ttf",
+      "bytes": 331504,
+      "sha256": "794bac8dc9e83d1d620bc471ea694f5f31d0965ce8006490a79dfc51a2d283b3"
+    },
+    {
+      "path": "/workspace/scratch/4146d27013fb/font_sources/scheherazade_new_4_500/ScheherazadeNew-Regular.woff2",
+      "member": "ScheherazadeNew-4.500/web/ScheherazadeNew-Regular.woff2",
+      "bytes": 124783,
+      "sha256": "fd12c322cd8a0033d5c30b0a9fc0432e1d51288cd065f3f04a85a7974f1de3b7"
+    },
+    {
+      "path": "/workspace/scratch/4146d27013fb/font_sources/scheherazade_new_4_500/OFL.txt",
+      "member": "ScheherazadeNew-4.500/OFL.txt",
+      "bytes": 4495,
+      "sha256": "5b9fd21ce2377fc542debebd9edfe1c48f2d3525e78a2a8abdba4a0ec3280163"
+    }
+  ],
+  "unique_corpus_characters": 57,
+  "uncovered_corpus_characters": [],
+  "marks": [
+    {
+      "codepoint": "U+08D7",
+      "glyph": "uni08D7",
+      "occurrences": 102,
+      "base_codepoints": {
+        "U+0628": 3,
+        "U+0631": 5,
+        "U+0629": 6,
+        "U+0649": 3,
+        "U+0647": 13,
+        "U+0627": 29,
+        "U+0643": 6,
+        "U+0646": 14,
+        "U+062A": 2,
+        "U+0645": 7,
+        "U+062D": 2,
+        "U+064A": 2,
+        "U+062F": 3,
+        "U+0644": 2,
+        "U+063A": 1,
+        "U+0642": 1,
+        "U+0636": 1,
+        "U+0633": 1,
+        "U+062C": 1
+      },
+      "followed_by_another_combining_mark": []
+    },
+    {
+      "codepoint": "U+08D9",
+      "glyph": "uni08D9",
+      "occurrences": 33,
+      "base_codepoints": {
+        "U+0630": 5,
+        "U+0627": 6,
+        "U+0644": 2,
+        "U+0631": 2,
+        "U+062D": 2,
+        "U+062F": 2,
+        "U+0629": 5,
+        "U+0637": 2,
+        "U+0621": 2,
+        "U+0645": 1,
+        "U+0646": 2,
+        "U+0643": 1,
+        "U+0636": 1
+      },
+      "followed_by_another_combining_mark": []
+    }
+  ],
+  "decision": "Özgün Hasenat ve metin değişmez. Scheherazade New tam font olarak Hasenat ardından fallback. Unicode-range iki işaretle sınırlanmaz; combining cluster korunur."
+}

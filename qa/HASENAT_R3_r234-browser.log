@@ -1,0 +1,20 @@
+PASS HTML kimlikleri ve giriş akışı; iki veri seti doğru daldan okunur
+PASS 2/3/4 başlangıç listeleri motor verisi olsa da boş
+PASS Ses yalnız kutuyu doldurur; ikinci onay yoksa yazı yok
+PASS Bakara sesli girdisi yalnız taslağa kaydedilir; canlı veri byte-eş korunur
+PASS Âl-i İmrân ve Nisâ eklemeleri aynı ayrı çalışma dosyasında kalır
+PASS Taslak doğrulama yayın yapmaz; çıkarma ve geri alma yalnız taslakta
+PASS Diğer ana sûre canlı dosyaya yazılır; 2/3/4 hedef olabilir
+PASS Geçmiş ve günlük dışa aktarma seçilen ana sûrenin dosyasına bağlı
+PASS Canlı işlem geri alma taslağı etkilemez; eski taslak düğmesi başka dosyada reddedilir
+PASS Taslak günlük geri alma canlı veri setine dokunmaz
+PASS Taslak dosyası yoksa kapalı kalır; canlıya fallback yapılmaz
+PASS Taslak şeması yanlışsa kayıt kapalı; public şemaya yönlendirme yok
+PASS SHA çakışmasında PUT yok; yazılan giriş korunur
+PASS Kayıt sürerken seçim kilitli; gecikmiş okuma doğru dosyaya yazar
+PASS Sûre değişince önceki mikrofonun geç sonucu yeni âyete eklenmez
+PASS Eski mikrofon bitiş/hata olayı yeni dinlemeyi bozamaz
+PASS Contents 1 MB içeriği atladığında aynı SHA blob fallback okunur
+PASS Blob SHA uyuşmazlığı girişi engeller; hiçbir dosyaya yazı yok
+PASS Hatalı dal/yol yükleme API isteği yapılmadan reddedilir
+{"sonuc":"PASS_R234_UI_BENZETIM","test_sayisi":19,"testler":["HTML kimlikleri ve giriş akışı; iki veri seti doğru daldan okunur","2/3/4 başlangıç listeleri motor verisi olsa da boş","Ses yalnız kutuyu doldurur; ikinci onay yoksa yazı yok","Bakara sesli girdisi yalnız taslağa kaydedilir; canlı veri byte-eş korunur","Âl-i İmrân ve Nisâ eklemeleri aynı ayrı çalışma dosyasında kalır","Taslak doğrulama yayın yapmaz; çıkarma ve geri alma yalnız taslakta","Diğer ana sûre canlı dosyaya yazılır; 2/3/4 hedef olabilir","Geçmiş ve günlük dışa aktarma seçilen ana sûrenin dosyasına bağlı","Canlı işlem geri alma taslağı etkilemez; eski taslak düğmesi başka dosyada reddedilir","Taslak günlük geri alma canlı veri setine dokunmaz","Taslak dosyası yoksa kapalı kalır; canlıya fallback yapılmaz","Taslak şeması yanlışsa kayıt kapalı; public şemaya yönlendirme yok","SHA çakışmasında PUT yok; yazılan giriş korunur","Kayıt sürerken seçim kilitli; gecikmiş okuma doğru dosyaya yazar","Sûre değişince önceki mikrofonun geç sonucu yeni âyete eklenmez","Eski mikrofon bitiş/hata olayı yeni dinlemeyi bozamaz","Contents 1 MB içeriği atladığında aynı SHA blob fallback okunur","Blob SHA uyuşmazlığı girişi engeller; hiçbir dosyaya yazı yok","Hatalı dal/yol yükleme API isteği yapılmadan reddedilir"],"gercek_ag_cagrisi":0,"gercek_github_yazimi":0,"gercek_tarayici":"HOLD_SOCKET_EPERM","gorsel_kontrol":"YAPILAMADI","mikrofon":"Yapay SpeechRecognition olayı; gerçek ses doğrulanmadı"}

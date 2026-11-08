@@ -386,7 +386,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/amiri-site.css?v=hasenat-2">
+<link rel="stylesheet" href="/amiri-site.css?v=hasenat-3">
 </head>
 <body>
 <header>
@@ -427,14 +427,15 @@
   <div id="main"><div class="hint"><div class="big">☾</div><span id="boothint">Veriler yükleniyor…</span></div></div>
 </div>
 
+<script src="/hasenat-display.js?v=hasenat-3"></script>
 <script>
 // ===== YAPILANDIRMA =====
-const DATA_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/app_data.json";
+const DATA_URL = "/app_data.json";
 // Word'den üretilen 175.478 ilişki, orijinal Kur’an metinlerinden ayrı tutulur.
 const BENZESEN_URL = '/data/benzesen-matris.json?v=20261024';
 const MLOG_URL = 'https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/data/mutesabih-degisiklikler.json';
 const ABOUT_URL = "https://raw.githubusercontent.com/Musmur0606/konkordans-veri/refs/heads/main/hakkinda.md";
-const SITE_SURUM = '2.8.22';
+const SITE_SURUM = '2.8.23';
 try{if(localStorage.getItem('ayat-tema')==='dark')document.documentElement.dataset.theme='dark';}catch(e){}
 // surum yazisi veriden bagimsiz yazilir: veri gelmese de gorunur
 addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.surum-yaz').forEach(x=>x.textContent='v'+SITE_SURUM);});   // 18.07.2026 · cep duzeni
@@ -579,7 +580,7 @@ async function boot(){
     addEventListener('offline',()=>{ if(DB) setStatus('offline','🟡 çevrimdışı','bağlantı kesildi · kayıtlı veriyle çalışıyorsunuz'); });
   addEventListener('online', ()=>{ if(DB) setStatus('online','🟢','bağlantı geri geldi'); });
   if('serviceWorker' in navigator && location.protocol==='https:'){
-    navigator.serviceWorker.register('/sw.js?v=2.8.22', {updateViaCache:'none'}).catch(()=>{});
+    navigator.serviceWorker.register('/sw.js?v=2.8.23', {updateViaCache:'none'}).catch(()=>{});
   }
   kurBarKur();
   // sure sayfalarindan gelen baglantilar:  ?ayet=2.255  ya da  ?sure=2
@@ -718,7 +719,7 @@ function gosterimMeali(metin){
 function renderWelcome(){
   const m=document.getElementById('main');m.className='';
   const gununRef=gununAyetSec(),v=V&&V[gununRef];
-  const ornek=v?'<div class="welcome-example"><h3>Günün âyeti · '+esc(v.sa)+' '+v.a+'</h3><div class="ar" dir="rtl" lang="ar">'+esc(v.ar||'')+'</div><p>'+esc(gosterimMeali(v.mb))+'</p><div class="welcome-actions"><button class="btn primary" onclick="openRef(\''+gununRef+'\')">Bu âyetin benzeşenlerini incele →</button><button class="btn" onclick="paylasAyet(\''+gununRef+'\')">↗ Günün âyetini paylaş</button></div></div>':'';
+  const ornek=v?'<div class="welcome-example"><h3>Günün âyeti · '+esc(v.sa)+' '+v.a+'</h3><div class="ar" dir="rtl" lang="ar">'+esc(v.arh||v.ar||'')+'</div><p>'+esc(gosterimMeali(v.mb))+'</p><div class="welcome-actions"><button class="btn primary" onclick="openRef(\''+gununRef+'\')">Bu âyetin benzeşenlerini incele →</button><button class="btn" onclick="paylasAyet(\''+gununRef+'\')">↗ Günün âyetini paylaş</button></div></div>':'';
   m.innerHTML='<section class="welcome" aria-labelledby="welcome-title">'+
     '<div class="welcome-hero"><p class="welcome-eyebrow">Kur’an-ı Kerim konkordansı</p>'+
     '<h2 id="welcome-title">Bir âyeti açın, Kur’an’daki bağlantılarını keşfedin.</h2>'+
@@ -780,7 +781,7 @@ function rootsOf(v){return new Set((v.kr||[]).filter(Boolean));}
 function showMeal(v,roots){ return mealMode==='me' ? esc(v.me||'') : hlTr(v.mb||'',roots); }
 function mealSrc(){ return mealMode==='me' ? 'İngilizce Meâli' : 'Türkçe Meâli'; }
 function sortRefs(arr){ return arr.sort((a,b)=>{const x=a.split(':').map(Number),y=b.split(':').map(Number);return x[0]-y[0]||x[1]-y[1];}); }
-function hlAr(v,roots){const ws=v.ar.split(' '),kr=v.kr||[];
+function hlAr(v,roots){const ws=(v.arh||v.ar).split(' '),kr=(v.arh?v.krh:v.kr)||[];
   return ws.map((w,i)=>(kr[i]&&roots.has(kr[i]))?'<b class="hl">'+esc(w)+'</b>':esc(w)).join(' ');}
 // Arapca kelimeyi sadelestir: harekeleri, tatweel'i, bas elif-lam'i at, alef turevlerini birlestir
 // Esmâ eşleştirme: yalnız aynı isim, hareke/i‘rab farkı, isteğe bağlı elif-lâm.
@@ -799,18 +800,7 @@ function esmaIskelet(x){
   if(ustunTenvin&&saf.endsWith('\u0627'))saf=saf.slice(0,-1);
   return saf;
 }
-function hlArEsma(v,esmaAr){
-  if(!esmaAr)return esc(v.ar);
-  const hedef=esmaIskelet(esmaAr);
-  if(!hedef)return esc(v.ar);
-  // Boşlukları ve bütün Arapça işaretleri orijinal metindeki gibi muhafaza et.
-  return String(v.ar||'').split(/(\s+)/).map(parca=>{
-    if(!parca.trim())return parca;
-    return esmaIskelet(parca)===hedef
-      ? '<b class="esmahl">'+esc(parca)+'</b>'
-      : esc(parca);
-  }).join('');
-}
+function hlArEsma(v,esmaAr){return HASENAT.esmaHTML(v,esmaAr);}
 function hlTr(meal,roots){let kws=[];roots.forEach(r=>{if(TRK[r])kws=kws.concat(TRK[r]);});
   kws=[...new Set(kws)].filter(Boolean).sort((a,b)=>b.length-a.length);let out=esc(meal||'');
   if(!kws.length)return out;const pat=kws.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|');
@@ -1037,6 +1027,7 @@ function arMatch(metin,q,o=arOpts()){
  }
  const ids=new Set(matches.flat());return [...ids].sort((a,b)=>a-b).map(i=>words[i]);
 }
+const HASENAT=HasenatDisplay.create({arMatch,arToken,arEq,esmaIskelet,escape:esc});
 function runSearch(q){
   q=String(q||'').trim();
   if(!V){const m=document.getElementById('main');if(m)m.innerHTML='<p class="empty">Âyet verileri henüz yüklenmedi. Bağlantınızı kontrol edip sayfayı yenileyin.</p>';return;}
@@ -1060,13 +1051,13 @@ function runSearch(q){
     if(ara.includes('\u0631\u0628\u0627')) adaylar.push(ara.replace(/\u0631\u0628\u0627/g,'\u0631\u0628\u0648\u0627'));
   }
   const bulunan=new Set();
-  if(arapca){const o=arOpts();arScopeInitialize();for(const ref in V){const n=Number(ref.split(':')[0]);if(o.scope==='range'&&(n<o.from||n>o.to))continue;if(arMatch(V[ref].ar||'',q,o).length)bulunan.add(ref);}}
+  if(arapca){const o=arOpts();arScopeInitialize();for(const ref in V){const n=Number(ref.split(':')[0]);if(o.scope==='range'&&(n<o.from||n>o.to))continue;if(HASENAT.match(V[ref],q,o).length)bulunan.add(ref);}}
   else {for(const ref in idx){if(adaylar.some(x=>idx[ref].includes(x)))bulunan.add(ref);}}
   const res=[...bulunan].sort((x,y)=>{const a1=x.split(':'),b1=y.split(':');return a1[0]-b1[0]||a1[1]-b1[1];});
   aramaSonuc(q,res);
 }
 let _gaT=null;
-function aramaArapcaVurgula(metin,aranan){const txt=String(metin||''), hits=arMatch(txt,aranan);if(!hits.length)return esc(txt);let out='',at=0;for(const w of hits){if(w.start<at)continue;out+=esc(txt.slice(at,w.start))+'<span class="arama-kirmizi">'+esc(txt.slice(w.start,w.end))+'</span>';at=w.end;}return out+esc(txt.slice(at));}
+function aramaArapcaVurgula(ayet,aranan){return HASENAT.searchHTML(ayet,aranan,arOpts());}
 let ARAMA_SONUC_DURUMU=null;
 const ARAMA_SAYFA_BOYUTU=60;
 function aramaSayfaDegistir(degisim){
@@ -1087,7 +1078,7 @@ function aramaSonuc(q,res,page=0){
   if(!total){m.appendChild(el('<p class="empty">Bu aramayla eşleşen âyet bulunamadı. Arapça arama seçeneklerini değiştirebilirsiniz.</p>'));return;}
   const list=el('<div class="search-results"></div>');
   shown.forEach(ref=>{const v=V[ref];if(!v)return;
-    const r=el('<div class="rel" data-ref="'+ref+'"><div class="ar">'+aramaArapcaVurgula(v.ar,q)+
+    const r=el('<div class="rel" data-ref="'+ref+'"><div class="ar">'+aramaArapcaVurgula(v,q)+
       '</div><div><span class="ref">'+esc(v.sa)+' '+v.a+' ('+gr(ref)+')</span><div class="rm">'+
       hi(esc(mealMode==='me'?v.me:v.mb),q)+'</div></div></div>');
     r.onclick=()=>goto(ref);list.appendChild(r);

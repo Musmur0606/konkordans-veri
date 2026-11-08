@@ -1,0 +1,163 @@
+{
+  "schema": "ayatulkuran.hasenat-r3-data-acceptance.v1",
+  "project": "ayatulkuran",
+  "standard": "Tüm Projeler İçin Kalıcı Hafıza ve Kesintisiz Devir Standardı V1",
+  "verified_at_utc": "2026-11-07T22:34:51.406Z",
+  "status": "PASS_LOCAL_DATA",
+  "scope": "Hasenat R3 yerel veri kabulü; yayın ve font/UI kabulü ayrıca doğrulanır.",
+  "baseline_git": "d7b9594c09c152943e90fe4d74fefbabb5ec611e",
+  "package_sha256": "01c12bc3881c9e0ece9d0c10cd3f0ef033b9da8f48afeb137ac13dc66fec9b52",
+  "current_app_data": {
+    "bytes": 8797513,
+    "sha256": "2db8fe12e83a141a4a9e2876f44c7f2ccfddb71f21dfa287db43cdb20408a4b6",
+    "preserved_verse_fields": 65604,
+    "verses": 6236,
+    "allowed_added_fields": [
+      "arh",
+      "krh",
+      "arh_map"
+    ],
+    "arh_krh_sha256": "b5686640b852d4a54c5fdcf01faa322fee440f76fc0965eb2502c659a654106f",
+    "arh_map_sha256": "aa5e8c6f6873e3314a4fae344ce9b4c9b2a1c2386dd54d3f39544bcb08a4395e"
+  },
+  "mapping": {
+    "old_words": 77428,
+    "new_words": 77773,
+    "split_old_words": 375,
+    "merged_new_words": 30,
+    "candidate_sha256": "e1924bc329f7747dd81ceb5678bf84329d856e1493f3f31ce32af780c072cfed"
+  },
+  "static_pages": {
+    "count": 228,
+    "arabic_divs": 12472,
+    "package_inventory_sha256": "5ef042845488f5f8e4c0feeb02ad4c71918b5659c47f34c3964fed7bce9f63fe",
+    "disk_inventory_sha256": "0252ed425555903ad1f7f7d252f864644924c6c62d5dd954033c420a76d58246",
+    "only_change_outside_arabic": "/amiri-site.css?v=<önceki sürüm> → /amiri-site.css?v=hasenat-3"
+  },
+  "protected_files": [
+    {
+      "path": "data/benzesen-matris-kaynak.json",
+      "bytes": 1381,
+      "sha256": "d3f14d2b024b0e861c65bde16632d5f3ca407f2d8ecea7a9451752be87487e62",
+      "baseline_equal": true
+    },
+    {
+      "path": "data/benzesen-matris.json",
+      "bytes": 1416107,
+      "sha256": "ebda17bae6e873f15b096b160d48ca57536541d1216760fbfbd29ad5ce325da9",
+      "baseline_equal": true
+    },
+    {
+      "path": "data/benzesen-matris.csv",
+      "bytes": 2192839,
+      "sha256": "f0c48d2247015a630d4c7c50bc7fa233a38f0508c391b32bc0e58e59f4836c9a",
+      "baseline_equal": true
+    },
+    {
+      "path": "data/mutesabih-degisiklikler.json",
+      "bytes": 628945,
+      "sha256": "e551be4f5cce459fae3875cd3b861fcbcb71182a3eef966207932c9394c742aa",
+      "baseline_equal": true
+    },
+    {
+      "path": "data/mutesabih-r14.json",
+      "bytes": 93837,
+      "sha256": "9bef53893270bf0055fa91afaf7a9f97e001863b4532f96d4244052a86d2c935",
+      "baseline_equal": true
+    },
+    {
+      "path": "esma_index.json",
+      "bytes": 25303,
+      "sha256": "93b58164440f0ee9b2f603de873adc479cb57abb432923d42499cc66bf826927",
+      "baseline_equal": true
+    },
+    {
+      "path": "data/kelime-kavram-deneme/kayitlar.json",
+      "bytes": 23728,
+      "sha256": "ad94184a5af5ce764fe7c380062201b3d8b97a3e313b2b3b17b6ad248fad7a78",
+      "baseline_equal": true
+    },
+    {
+      "path": "data/kelime-kavram-deneme/kelime_ayet_harekeli.json",
+      "bytes": 1108633,
+      "sha256": "fe1901046ab875c1b4d5ae71212ce4ca508ec8351d73c5763fcab31d90320f7d",
+      "baseline_equal": true
+    }
+  ],
+  "private_work_data_separation": {
+    "paths_absent_from_worktree_and_index": [
+      "data/mutesabih-calisma-234.json",
+      "data/kavramlar-calisma.json"
+    ],
+    "disk_sha256": null,
+    "disk_sha256_reason": "Bu iki ayrı dal verisi yerel ana dal ağacında bulunmuyor; dosya hashleri uydurulmadı."
+  },
+  "local_git_evidence": {
+    "head": "d7b9594c09c152943e90fe4d74fefbabb5ec611e",
+    "branch": "fix/hasenat-metin-20261108",
+    "refs": [
+      "refs/heads/fix/hasenat-metin-20261108 d7b9594c09c152943e90fe4d74fefbabb5ec611e",
+      "refs/heads/main d7b9594c09c152943e90fe4d74fefbabb5ec611e",
+      "refs/remotes/origin/main d7b9594c09c152943e90fe4d74fefbabb5ec611e"
+    ],
+    "protected_data_diff": [],
+    "network_calls_by_this_test": 0,
+    "remote_write_calls_by_this_test": 0
+  },
+  "remote_work_branch_reference": {
+    "method": "git ls-remote origin refs/heads/calisma-234 refs/heads/calisma-kavramlar",
+    "stage": "before_publication",
+    "read_only": true,
+    "verified_in_this_session": true,
+    "heads": {
+      "refs/heads/calisma-234": "315740e5b5ab4699e046e07b418b90adc19ceace",
+      "refs/heads/calisma-kavramlar": "6bbf0849c73e3f9868214a1b33d902c1b7ab52f6"
+    }
+  },
+  "remote_verification_limit": "Uzak dal başları yayın öncesi salt okunur referanstır. Yayın sonrası aynı başlarla karşılaştırma ayrıca gerekir; bu yerel test uzak durumu yeniden okumaz.",
+  "tests": {
+    "passed": 7,
+    "failed": 0,
+    "checks": [
+      {
+        "name": "Kabul edilmiş Git tabanı ve Hasenat kaynak hashleri",
+        "status": "PASS"
+      },
+      {
+        "name": "Eski bütün JSON alanları korunur; yalnız arh/krh/arh_map eklenir",
+        "status": "PASS"
+      },
+      {
+        "name": "6236 arh/krh paketle aynı ve metin kaynağı birebir",
+        "status": "PASS"
+      },
+      {
+        "name": "6236 eşleme kabul edilmiş üretimle aynı ve eski kelimeleri eksiksiz kapsar",
+        "status": "PASS"
+      },
+      {
+        "name": "228 statik sayfa: paket Arapçası ve yalnız CSS hasenat-3 sürüm farkı",
+        "status": "PASS"
+      },
+      {
+        "name": "Matris, MLOG, esmâ ve önceki çalışma veri dosyaları bayt düzeyinde korunur",
+        "status": "PASS"
+      },
+      {
+        "name": "234 ve kavram çalışma verileri main çalışma ağacına veya Git indexine eklenmez",
+        "status": "PASS"
+      }
+    ]
+  },
+  "accepted_do_not_redo": [
+    "Eski JSON alanlarının d7b959 ile tam değer eşitliği.",
+    "228 statik sayfada yalnız kaynak Arapçası ve CSS sürümü değişimi.",
+    "Korunan veri dosyalarının Git tabanı ve sabit SHA-256 ile bayt eşitliği."
+  ],
+  "hold_review": [
+    "Font/UI kabulü bu testin kapsamı dışındadır.",
+    "Uzak çalışma dalı başlarının yayın sonrası karşılaştırması henüz bu rapora ait değildir."
+  ],
+  "last_action": "Salt okunur yerel veri kontrolleri; yalnız istenirse bu QA raporu yazılır.",
+  "next_safe_step": "Ana dal yayını sonrası calisma-234 ve calisma-kavramlar başlarını yayın öncesi referanslarla karşılaştır."
+}

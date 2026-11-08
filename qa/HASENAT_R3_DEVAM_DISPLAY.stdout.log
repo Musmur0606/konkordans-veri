@@ -1,0 +1,158 @@
+PASS Entegre index gerçek arama işlevlerini ve R3 esmâ iskeletini aynen korur
+PASS Eski veri ve eksik/bozuk harita kaynak gösterimi ile aramayı birlikte korur
+PASS Boşluk indisleri arToken indisleriyle karışmaz; baştaki işaret ve çift boşluk korunur
+PASS Hasenat özel harfleri token başlangıcında da aranır, gösterim harfleri değiştirilmez
+PASS Tam kelime, hareke, ek ve sıralı kelime grubu seçenekleri çalışır
+PASS Esmâ R3 hareke/tenvin/tanımlık kabulü korunur; kökdeş başka kelimeler boyanmaz
+PASS Elif silme yok: ALİY/عَلَى, MALİK/الملك, HALLÂK/خلق ve HÂLİK/الخلق ayrı kalır
+PASS 6.236 kaynak ar/kr kaydı kabul edilmiş Git sürümüyle aynıdır; bütün gösterim haritaları geçerlidir
+PASS Bütün eski ve Hasenat kelime geçişleri kendi âyetini bulur; 6.339 kopuk geçiş giderilmiştir
+PASS Gerçek 2:54 çağrı ayrımı ve 8:29 birleşimi arama vurgusunu doğru kelimeye taşır
+PASS 2:101 U+08D7 ve 7:8 U+08D9 işaretleri taban kelimeyle aynı vurgu içinde kalır
+PASS Arama seçenekleriyle bütün korpusta eski sonuçlar kaybolmaz ve sonuç metni arh kalır
+PASS 2.050 esmâ–âyet bağlantısının eski eşleşme kararı ve gösterim metni korunur
+PASS Gerçek yanlış esmâ vurguları yok; VELÎ 7:196 vurgusu geri gelmiştir
+PASS Testler disk verisini veya bellekteki metin/kök/haritaları değiştirmemiştir
+{
+  "result": "PASS_HASENAT_DISPLAY",
+  "tests": 15,
+  "baseline": "d7b9594c09c152943e90fe4d74fefbabb5ec611e",
+  "data_sha256": "2db8fe12e83a141a4a9e2876f44c7f2ccfddb71f21dfa287db43cdb20408a4b6",
+  "self_search": {
+    "source_words": 77428,
+    "display_words": 77773,
+    "before_failed_words": 6339,
+    "before_affected_verses": 3634,
+    "after_failed_words": 0,
+    "old_query_losses": 0
+  },
+  "search_regressions": [
+    {
+      "query": "الله",
+      "options": {
+        "whole": false,
+        "noharaka": true,
+        "affixes": false,
+        "mode": "all"
+      },
+      "old_count": 1746,
+      "new_count": 1746,
+      "lost": 0
+    },
+    {
+      "query": "عَلَى",
+      "options": {
+        "whole": true,
+        "noharaka": true,
+        "affixes": false,
+        "mode": "all"
+      },
+      "old_count": 607,
+      "new_count": 607,
+      "lost": 0
+    },
+    {
+      "query": "عَلِيّ",
+      "options": {
+        "whole": true,
+        "noharaka": true,
+        "affixes": false,
+        "mode": "all"
+      },
+      "old_count": 607,
+      "new_count": 607,
+      "lost": 0
+    },
+    {
+      "query": "خَلَقَ",
+      "options": {
+        "whole": true,
+        "noharaka": true,
+        "affixes": false,
+        "mode": "all"
+      },
+      "old_count": 90,
+      "new_count": 90,
+      "lost": 0
+    },
+    {
+      "query": "كِتَاب",
+      "options": {
+        "whole": true,
+        "noharaka": true,
+        "affixes": true,
+        "mode": "all"
+      },
+      "old_count": 4,
+      "new_count": 220,
+      "lost": 0
+    },
+    {
+      "query": "ٱلۡحَمۡدُ",
+      "options": {
+        "whole": true,
+        "noharaka": false,
+        "affixes": false,
+        "mode": "all"
+      },
+      "old_count": 24,
+      "new_count": 24,
+      "lost": 0
+    },
+    {
+      "query": "ٱلۡحَمۡدُ لِلَّهِ",
+      "options": {
+        "whole": false,
+        "noharaka": true,
+        "affixes": false,
+        "mode": "phrase"
+      },
+      "old_count": 23,
+      "new_count": 23,
+      "lost": 0
+    },
+    {
+      "query": "مُوسَىٰ لِقَوۡمِهِۦ يَٰقَوۡمِ",
+      "options": {
+        "whole": true,
+        "noharaka": true,
+        "affixes": false,
+        "mode": "phrase"
+      },
+      "old_count": 3,
+      "new_count": 3,
+      "lost": 0
+    },
+    {
+      "query": "ٱللَّهُ لَآ إِلَٰهَ",
+      "options": {
+        "whole": false,
+        "noharaka": false,
+        "affixes": false,
+        "mode": "all"
+      },
+      "old_count": 21,
+      "new_count": 21,
+      "lost": 0
+    },
+    {
+      "query": "ٱلۡحَمۡدُ وَإِذۡ",
+      "options": {
+        "whole": false,
+        "noharaka": true,
+        "affixes": false,
+        "mode": "any"
+      },
+      "old_count": 257,
+      "new_count": 257,
+      "lost": 0
+    }
+  ],
+  "esma": {
+    "pairs": 2050,
+    "old_marked_pairs": 1069,
+    "new_marked_pairs": 1069,
+    "old_marked_words": 1081,
+    "new_marked_words": 1081
+  }
+}

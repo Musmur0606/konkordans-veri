@@ -28,7 +28,7 @@ async function initializeConceptsPanel() {
   // Ayrı modül hatası ana benzeşen/sesli giriş modülünün yüklenmesini kesmez.
   // Yetki anahtarı bir depoya, global değişkene veya günlük çıktısına aktarılmaz.
   try{
-    const {initConceptPanel}=await import('/mutesabih-kavramlar.mjs?v=2');
+    const {initConceptPanel}=await import('/mutesabih-kavramlar.mjs?v=hasenat-3');
     conceptsPanel=initConceptPanel({
       getContext:()=>({token:runtime.token,actor:runtime.actor,corpus:runtime.corpus,selected:runtime.selected,busy:runtime.busy}),
       setBusy:(value)=>{if(value&&voiceActive)stopVoiceRefs();setBusy(value);}
@@ -238,7 +238,7 @@ function renderSelected() {
   const verse=runtime.corpus?.verses?.[base.main.replace('.',':')];
   $('main-title').textContent=base.status==='site' && verse?.sa?verse.sa+' Sûresi · '+verse.a+'. Âyet':base.heading;
   $('main-source').textContent=destination.draft?'Kaynak: kullanıcı çalışması · Motor ilişkileri bu listeye otomatik alınmaz.':base.status==='site'?'Kaynak: '+base.source.file+' · Mevcut site ilişkileri korunur.':'Kaynak: '+base.source.file+' · 114 Word belgesinden çıkarılan sûre/âyet matrisi';
-  $('main-arabic').textContent=verse?.ar||'Bu âyetin Arapça metni bulunamadı.';
+  $('main-arabic').textContent=verse?.arh||verse?.ar||'Bu âyetin Arapça metni bulunamadı.';
   $('main-turkish').textContent=verse?.mb||'Bu âyetin Türkçe meali bulunamadı.';
   $('source-note').textContent=base.status==='site'?'Korumalı sûrenin mevcut site kayıtları gösterilir; bu ana âyet değiştirilemez.':'Word kaynaklı 175.478 bağlantı ayrı bir kaynak olarak korunur. Bu ana âyet için ekleme/çıkarma GitHub MLOG dosyasına ve ana sitenin görünümüne yansır. İlişkilerin anlamı ayrıca incelenebilir.';
   if(destination.draft)$('source-note').textContent=runtime.draftError?'Çalışma veri seti okunamadı; kayıt kapalı. Yayımlanan dosyaya yönlendirme yapılmaz. '+runtime.draftError:'Bakara, Âl-i İmrân ve Nisâ girişleri ayrı çalışma veri setine yazılır. Portal bu dosyayı okumaz; mevcut motor sonuçları değişmez. Kaydı doğrulamak da yayın onayı değildir.';
@@ -492,7 +492,7 @@ async function refreshFiles(authToken=runtime.token) {
   // from GitHub's contents API with SHA, never from service-worker caches.
   const [baseResponse,corpusResponse]=await Promise.all([
     fetch('/'+BASE_PATH+'?t='+Date.now(),{cache:'no-store'}),
-    fetch('/app_data.json',{cache:'force-cache'}),
+    fetch('/app_data.json?v=hasenat-3',{cache:'no-cache'}),
   ]);
   if(!baseResponse.ok)throw Error('Yeni Word matrisi henüz yayına ulaşmadı ('+baseResponse.status+').');
   if(!corpusResponse.ok)throw Error('Kur’an metni ve benzeşme kaynağı yüklenemedi ('+corpusResponse.status+').');

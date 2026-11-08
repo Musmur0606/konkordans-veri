@@ -3,10 +3,10 @@
 import {
   CONCEPTS_BRANCH, CONCEPTS_PATH, assertConceptHistory, assertConceptStorageTarget, conceptSearchKey,
   addConcept, archiveConcept, restoreConcept,
-} from './mutesabih-kavramlar-core.mjs?v=1';
+} from './mutesabih-kavramlar-core.mjs?v=hasenat-3';
 import {
   MAX_IMPORT_BYTES, MAX_IMPORT_ROWS, parseConceptImport, buildConceptImport,
-} from './mutesabih-kavramlar-import.mjs?v=1';
+} from './mutesabih-kavramlar-import.mjs?v=hasenat-3';
 
 const OWNER = 'Musmur0606';
 const REPO = 'konkordans-veri';
@@ -29,7 +29,8 @@ function canonicalRef(value, corpus) {
 
 function sourceMatches(source, text, corpus) {
   if (!source) return false;
-  const ar = corpus?.verses?.[source.verse?.replace('.', ':')]?.ar;
+  if (source.text_field !== undefined && source.text_field !== 'arh') return false;
+  const ar = corpus?.verses?.[source.verse?.replace('.', ':')]?.[source.text_field || 'ar'];
   return typeof ar === 'string' && Number.isInteger(source.start) &&
     Number.isInteger(source.end) && source.start >= 0 &&
     source.end > source.start && source.end <= ar.length &&
@@ -190,7 +191,8 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     const ctx = context();
     let main;
     try { main = canonicalRef(ctx.selected, ctx.corpus); } catch { return false; }
-    const ar = ctx.corpus.verses[main.replace('.', ':')].ar;
+    const verse = ctx.corpus.verses[main.replace('.', ':')];
+    const ar = verse.arh || verse.ar;
     return main === pendingSelection.source.verse &&
       node('main-arabic').textContent === ar &&
       sourceMatches(pendingSelection.source, pendingSelection.text, ctx.corpus);
@@ -298,7 +300,9 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     if (!host.contains(range.startContainer) || !host.contains(range.endContainer)) return null;
     let verse;
     try { verse = canonicalRef(ctx.selected, ctx.corpus); } catch { return null; }
-    const ar = ctx.corpus.verses[verse.replace('.', ':')].ar;
+    const item = ctx.corpus.verses[verse.replace('.', ':')];
+    const field = item.arh ? 'arh' : 'ar';
+    const ar = item[field];
     if (typeof ar !== 'string' || host.textContent !== ar) return null;
     const before = document.createRange();
     before.selectNodeContents(host); before.setEnd(range.startContainer, range.startOffset);
@@ -306,7 +310,8 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     if (!raw.trim() || raw.length > MAX_TEXT) return null;
     try { conceptSearchKey(raw); } catch { return null; }
     const start = before.toString().length;
-    const source = { verse, start, end: start + raw.length, origin: 'admin_selection' };
+    const source = { verse, start, end: start + raw.length, origin: 'admin_selection',
+      ...(field === 'arh' ? {text_field:'arh'} : {}) };
     return sourceMatches(source, raw, ctx.corpus) ? { text: raw, source } : null;
   }
   function closeContextMenu() {
@@ -351,13 +356,16 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     }
     const typed = node('concepts-source').value.trim();
     if (!typed) return null;
-    const verse = canonicalRef(typed, corpus), ar = corpus.verses[verse.replace('.', ':')].ar;
-    const start = ar.indexOf(text);
-    if (start < 0 || ar.indexOf(text, start + 1) >= 0) {
-      throw Error('Metnin belirtilen âyette birebir ve tek konumu bulunamadı. ' +
-        'Âyetten yeniden seçerek kopyalayın veya kaynak alanını boş bırakın.');
+    const verse = canonicalRef(typed, corpus), item = corpus.verses[verse.replace('.', ':')];
+    for (const field of item.arh ? ['arh','ar'] : ['ar']) {
+      const ar = item[field], start = ar.indexOf(text);
+      if (start < 0) continue;
+      if (ar.indexOf(text, start + 1) >= 0) break;
+      return { verse, start, end: start + text.length, origin: 'manual',
+        ...(field === 'arh' ? {text_field:'arh'} : {}) };
     }
-    return { verse, start, end: start + text.length, origin: 'manual' };
+    throw Error('Metnin belirtilen âyette birebir ve tek konumu bulunamadı. ' +
+      'Âyetten yeniden seçerek kopyalayın veya kaynak alanını boş bırakın.');
   }
   function renderImport(parsed, fingerprint, result) {
     const summary = parsed.fileName + ' · ' + parsed.totalRows + ' satır/sıra · ' +

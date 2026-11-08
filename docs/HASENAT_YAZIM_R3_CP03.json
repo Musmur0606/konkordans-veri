@@ -1,0 +1,1456 @@
+{
+  "standart": "Tüm Projeler İçin Kalıcı Hafıza ve Kesintisiz Devir Standardı V1",
+  "proje": "ayatulkuran",
+  "surum": "HASENAT_R3_CP03",
+  "site_surumu": "2.8.23",
+  "durum": "YEREL_KABUL_VE_GERCEK_TARAYICI_KONTROLU_GECTI_YAYINA_HAZIR",
+  "kayit_zamani_utc": "2026-11-07T23:06:03.446163+00:00",
+  "baslangic_main": "d7b9594c09c152943e90fe4d74fefbabb5ec611e",
+  "kaynak_zip_sha256": "01c12bc3881c9e0ece9d0c10cd3f0ef033b9da8f48afeb137ac13dc66fec9b52",
+  "ana_metin_sha256": "74a934db426bf60de735f55f9a6340c195d188208255508c0619b356cd93c2d0",
+  "orijinal_font_sha256": "1d37c471fcd5afc126a925c1b18f7727fa944692558a17c12da890abd8ae384c",
+  "kaynak_sayilari": {
+    "sure": 114,
+    "ayet": 6236,
+    "statik_sayfa": 228,
+    "eski_kelime_gecisi": 77428,
+    "hasenat_kelime_gecisi": 77773
+  },
+  "ACCEPTED_DO_NOT_REDO": [
+    "CP01/CP02 ve önceki kabul kayıtları silinmeden korunur.",
+    "86 referans NFC eşliği, 6236/114 envanteri ve kaynak hashleri korunur.",
+    "15 gösterim/arama/esmâ ile 5 sayfa kabulü; 8 kritik dosya SHA eşliği bugün yeniden doğrulandı, aynı testler tekrarlanmadı.",
+    "Hasenat aramalarında 0 kayıp; eski ar/kr/meal/ilişki alanları korunur.",
+    "2050 esmâ bağlantısında önceki 1069 vurgulu çift ve 1081 vurgulu kelime korunur.",
+    "Korunan matris/esmâ/kavram verileri ve ayrı çalışma dalları aynı kalır."
+  ],
+  "kapatilan_onceki_HOLD": [
+    "Arama-gösterim köprüsü",
+    "Esmâ vurgusunu yeni kelime sınırlarına taşıma",
+    "Yönetim/kavram kaynak dilimlerinin Hasenat uyumu",
+    "U+08D7/U+08D9 için kaynak metni koruyan destek fontu",
+    "Yerel gerçek tarayıcı görünümü"
+  ],
+  "tarayici_kabul": {
+    "ortam": "Chromium; mevcut yerel önizleme",
+    "surum": "2.8.23",
+    "bakara_2_54": "Hasenat metin, 44px; بَارِئِكُمْ sorgusu tek doğru ayeti, iki doğru kırmızı vurguyu verir.",
+    "araf_7_8": "U+08D9 korunur ve destek fontuyla görünür.",
+    "esma_rahim": "114 ayet; ilk örneklerde doğru الرَّحٖيم kelimesi vurgulanır.",
+    "ihlas_112": "Sûre sayfasının dört ayeti yeni metin ve Hasenat ile görünür.",
+    "font_yukleme": {
+      "hasenat": true,
+      "scheherazade_new": true
+    },
+    "gorsel_inceleme": true
+  },
+  "uzak_dallar_yayin_oncesi": {
+    "main": "d7b9594c09c152943e90fe4d74fefbabb5ec611e",
+    "calisma-234": "315740e5b5ab4699e046e07b418b90adc19ceace",
+    "calisma-kavramlar": "6bbf0849c73e3f9868214a1b33d902c1b7ab52f6"
+  },
+  "HOLD_REVIEW": [
+    "Canlı dağıtım ve yayın sonrası veri/font/sayfa kabulü bu kayıt anında bekliyor.",
+    "Önceki belgelerdeki lisans ve kullanıcı yetkili panel kabul kayıtları kapsam dışı olarak korunur."
+  ],
+  "son_islem": "Önceki kesilen oturumun kodu ve kabul hashleri doğrulandı; hedefli gerçek tarayıcı kontrolleri tamamlandı.",
+  "sonraki_guvenli_adim": "Bu değişiklikleri tek commit olarak main dalına normal fast-forward ile gönder; Pages başarısını ve canlı dosyaları doğrula.",
+  "geri_alma": "Önceki main sürümüne gerekirse yeni bir geri-alma commit ile dön; kullanıcı çalışma dallarını ve kayıtlarını silme.",
+  "dosya_envanteri": [
+    {
+      "dosya": "1-fatiha.html",
+      "bayt": 6751,
+      "sha256": "a3d18b7a2a0849e2d43983e5a4d98e24e3c34e1f14625f21ce811dba31918d84"
+    },
+    {
+      "dosya": "10-yunus.html",
+      "bayt": 97828,
+      "sha256": "94f78879aeb817e8f5d1972d3f9bccf928192ac98b7eed33069682a82013568f"
+    },
+    {
+      "dosya": "100-adiyat.html",
+      "bayt": 8302,
+      "sha256": "852fec87122d497b374e4ba6c04032453e185342605b9c720ea9733fdf77ee12"
+    },
+    {
+      "dosya": "101-karia.html",
+      "bayt": 8066,
+      "sha256": "56bfc003b4111020625469bb75d924da2f3b8bf392dda8a99532a87b538744eb"
+    },
+    {
+      "dosya": "102-tekasur.html",
+      "bayt": 7217,
+      "sha256": "f9cf66dc16049b7d2b380b162c4f86b8aafab4c1532cff547233f4d8a396e908"
+    },
+    {
+      "dosya": "103-asr.html",
+      "bayt": 5265,
+      "sha256": "63b1ce70e0fb6876db716711b8f113397444ec149e88de37afee18acd8258ac0"
+    },
+    {
+      "dosya": "104-humeze.html",
+      "bayt": 7512,
+      "sha256": "f88e2beab697847340bbc72ad31f9d299127da699e1767d074891ca4e3f1f7c3"
+    },
+    {
+      "dosya": "105-fil.html",
+      "bayt": 6059,
+      "sha256": "750ee6086a760433ebab5110728f9800c56f91deb2def9154a35d5002a20568e"
+    },
+    {
+      "dosya": "106-kureys.html",
+      "bayt": 5749,
+      "sha256": "174554b8192b76cc2f9e94d2cdbc40fb788ef72a55ef9ab4f533f92169f9f7b5"
+    },
+    {
+      "dosya": "107-maun.html",
+      "bayt": 6645,
+      "sha256": "e5f7c4e9585281664e5babd7e747c853237a698d46b247d394fec8a52637a7f1"
+    },
+    {
+      "dosya": "108-kevser.html",
+      "bayt": 5113,
+      "sha256": "c92f414d28f9e96b6d383a8f185fddb498ebe32494dbcc240696048525bb0202"
+    },
+    {
+      "dosya": "109-kafirun.html",
+      "bayt": 6342,
+      "sha256": "91727ead0c2b6a8c36ee718785a981822809cba7bc6934d7763bb11ac982b394"
+    },
+    {
+      "dosya": "11-hud.html",
+      "bayt": 104665,
+      "sha256": "ae6f9b5ca7dd600a07a7d1f59e9912f12b03f39e83cfd07d76a971c96ad8281b"
+    },
+    {
+      "dosya": "110-nasr.html",
+      "bayt": 5377,
+      "sha256": "a05a9884484920ad68c0e2bf8073b8f1816ab3d78a4792cc1ec93ffe601e9aeb"
+    },
+    {
+      "dosya": "111-mesed.html",
+      "bayt": 5873,
+      "sha256": "62078c4bec1186210c5cee469380145f0151f71d7f5971bed0d135b44ebf79f1"
+    },
+    {
+      "dosya": "112-ihlas.html",
+      "bayt": 5444,
+      "sha256": "0c02e012e6b610948a01217bf2e78f33832a60e2c8363c0ff8ac534e6cffffd8"
+    },
+    {
+      "dosya": "113-felak.html",
+      "bayt": 5869,
+      "sha256": "3beecfab9a1704340312b4557bcd89997acf0c733c2671b720a0a397eef5d898"
+    },
+    {
+      "dosya": "114-nas.html",
+      "bayt": 6499,
+      "sha256": "9cdc6a72e804adf571c8e69de8ffbf7bc8dde712e696cab16501495ce9217cde"
+    },
+    {
+      "dosya": "12-yusuf.html",
+      "bayt": 98331,
+      "sha256": "c6a5896243e8b6f6bb695b7a37edad23ffc13428fe80bf95ff880076e42e1568"
+    },
+    {
+      "dosya": "13-rad.html",
+      "bayt": 46322,
+      "sha256": "45b48c8c38c16cde705577b14c7c342dc900cc109d02f1d7078dc2919cdd5ed4"
+    },
+    {
+      "dosya": "14-ibrahim.html",
+      "bayt": 48182,
+      "sha256": "b25fe92184875cb0d843a858f51ffdce8b5d1953eee5c50f8e0f6ccfc4436635"
+    },
+    {
+      "dosya": "15-hicr.html",
+      "bayt": 53857,
+      "sha256": "53f4d085f43ac46bb9c80034fcd597390baca5713bef5e55605f3f0ddb216fbc"
+    },
+    {
+      "dosya": "16-nahl.html",
+      "bayt": 103638,
+      "sha256": "94c39f2fb725424d77b49070f6189bb84bb644a96d0fd884568c3a8f4f3da257"
+    },
+    {
+      "dosya": "17-isra.html",
+      "bayt": 89238,
+      "sha256": "df0ff2a29c3fde9e0c9dbbbf1eb8f270349b8163458b0f0ccd023fc580da8640"
+    },
+    {
+      "dosya": "18-kehf.html",
+      "bayt": 90494,
+      "sha256": "639710575cd58497e51eb3c329e66225bea716a1b28c3a5d2010161dcfd31198"
+    },
+    {
+      "dosya": "19-meryem.html",
+      "bayt": 64058,
+      "sha256": "eee7537b47798112873248c702489fe852d73043f847774aa701fe548637ea01"
+    },
+    {
+      "dosya": "2-bakara.html",
+      "bayt": 301640,
+      "sha256": "8524a3df6669579481b9adc81c8a57c4013085a5389140ace322f24a4b1cc995"
+    },
+    {
+      "dosya": "20-taha.html",
+      "bayt": 87491,
+      "sha256": "5cbf8a71f71ede17574b229b77693684580e3992e0f4a1f52daeedffacf02df7"
+    },
+    {
+      "dosya": "21-enbiya.html",
+      "bayt": 77021,
+      "sha256": "6b8e5c73d19107684dcbea29b7300f68f09effb28b86b6ef2ed032f76d38ba2f"
+    },
+    {
+      "dosya": "22-hac.html",
+      "bayt": 69782,
+      "sha256": "353a02c809a342639a8dfaf8d76253b170dde5c18a352dfe76e92440159d167c"
+    },
+    {
+      "dosya": "23-muminun.html",
+      "bayt": 74609,
+      "sha256": "b2f58c19073b2d3c7d9f771d6ce77408a1577094fbb18b8bf53f26e1eb46a2dd"
+    },
+    {
+      "dosya": "24-nur.html",
+      "bayt": 69085,
+      "sha256": "d8ffe6d65cd42ce1da123a5052574fe8e18f868fec895ab3c5731b2f83cd4970"
+    },
+    {
+      "dosya": "25-furkan.html",
+      "bayt": 57049,
+      "sha256": "d521c0cc3aaa958ba89302caa60fda817194acb4c00862104f34a5d502caae4f"
+    },
+    {
+      "dosya": "26-suara.html",
+      "bayt": 112537,
+      "sha256": "d59b4e94fcdf6d6a70f5da9a32a31e4442df9002ba5eb568d4290ec374f481a8"
+    },
+    {
+      "dosya": "27-neml.html",
+      "bayt": 70338,
+      "sha256": "7b2600e9f2246691898148886678f0d65910f6c1ecaefd0b27f22e79de2c5b81"
+    },
+    {
+      "dosya": "28-kasas.html",
+      "bayt": 78194,
+      "sha256": "d36ac648cd2bd58f25577cd5200c74fdfe0a8c7391d528bc8957cc393cb03329"
+    },
+    {
+      "dosya": "29-ankebut.html",
+      "bayt": 58478,
+      "sha256": "9c91aa0a010c20825cb01c51eb66b0f960b10b30d7abdb816be70690c921b33b"
+    },
+    {
+      "dosya": "3-al-i-imran.html",
+      "bayt": 183746,
+      "sha256": "6073ae952cd3a0df207f846ba2890b0c371aa41195ebec75ab1ad6da2bf4159e"
+    },
+    {
+      "dosya": "30-rum.html",
+      "bayt": 49302,
+      "sha256": "4ba0240203c66b87386b25fa81c464b91c0c0bee7caa5b5f9e17a035c7b1b6cd"
+    },
+    {
+      "dosya": "31-lokman.html",
+      "bayt": 32249,
+      "sha256": "8403566a1e2018b19854418ec950ee69e43730ffb51c2b5d97166e47a966dad9"
+    },
+    {
+      "dosya": "32-secde.html",
+      "bayt": 25073,
+      "sha256": "be8dfc987c6165c8a1bab57621a4b2dca33ec2c4c137ecdd211ee8a0af59f10c"
+    },
+    {
+      "dosya": "33-ahzab.html",
+      "bayt": 71831,
+      "sha256": "648afb856bc60f28e857b4635ea76689c6fddce5fd399120f476e3d806527b1c"
+    },
+    {
+      "dosya": "34-sebe.html",
+      "bayt": 49694,
+      "sha256": "70e023b61d3ca979f1dc0842273700733a318821f3ddd9e0e6062fe89cef08c6"
+    },
+    {
+      "dosya": "35-fatir.html",
+      "bayt": 43655,
+      "sha256": "c26ec92bcfda92b00741134629902b497b6e9abd752f0fa1c8f4c437dca24323"
+    },
+    {
+      "dosya": "36-yasin.html",
+      "bayt": 52186,
+      "sha256": "8e2fb35a662aa48459b7cb582cd260295e7dc91fc55370799595c3e650e652cb"
+    },
+    {
+      "dosya": "37-saffat.html",
+      "bayt": 85416,
+      "sha256": "e21a9da8b28548dd20accd598c15d06ac19532e3b7f01bad414d44055f8c9379"
+    },
+    {
+      "dosya": "38-sad.html",
+      "bayt": 53924,
+      "sha256": "bfa393ded9fa7a441c7da70657c4f8100bf790ea29c6da1f26c557d44131a801"
+    },
+    {
+      "dosya": "39-zumer.html",
+      "bayt": 65770,
+      "sha256": "e4fab4f97f21d651f071de8f9a192fe647c89bbcb3280e5b71fc8069e91eeaef"
+    },
+    {
+      "dosya": "4-nisa.html",
+      "bayt": 186159,
+      "sha256": "5485ceb2c5a55043045479509ce9a9344bf6d05da5f8774f4f5712925f244d62"
+    },
+    {
+      "dosya": "40-mumin-gafir.html",
+      "bayt": 71420,
+      "sha256": "89b8df5792b1fada89e082ca6c8b4b82ffc7c4c35cd136b1790c3e69459cff9c"
+    },
+    {
+      "dosya": "41-fussilet.html",
+      "bayt": 47311,
+      "sha256": "227603b158e280ef28d8af2e847292db78d4467f102d5768b5c8057b6f4c2551"
+    },
+    {
+      "dosya": "42-sura.html",
+      "bayt": 47879,
+      "sha256": "39ce07afda1bd7d354f590a7a531f926a797488ce0abb10abe5f26439852d984"
+    },
+    {
+      "dosya": "43-zuhruf.html",
+      "bayt": 59167,
+      "sha256": "040d7a88a6d7c2917643aac33e958a9e2bf5eb92c0348c8e607d36a6a15bea92"
+    },
+    {
+      "dosya": "44-duhan.html",
+      "bayt": 31749,
+      "sha256": "8e35268c195a49cc2ca7a7be5853fa5ccd1e0072c5884a47211130fec4f7b1f1"
+    },
+    {
+      "dosya": "45-casiye.html",
+      "bayt": 31558,
+      "sha256": "1a0d99544d502d6223adde3f07c314ef23d2801459b4669fa64a53edaed72470"
+    },
+    {
+      "dosya": "46-ahkaf.html",
+      "bayt": 36425,
+      "sha256": "8c2a668633c69224f03898acee411e8b0cdb2dd40ababd5189e94c7a67232361"
+    },
+    {
+      "dosya": "47-muhammed.html",
+      "bayt": 35231,
+      "sha256": "84abe359f5d9b8219a5835a6135ee7b673a89ce359a0ac0b1194e755a4760951"
+    },
+    {
+      "dosya": "48-fetih.html",
+      "bayt": 33136,
+      "sha256": "ea5bae6706759be9f1dbe127550b88ea313c610d3ddc6f48bc0be328e7edc1ae"
+    },
+    {
+      "dosya": "49-hucurat.html",
+      "bayt": 21599,
+      "sha256": "52dfb3d739561177812ccdcc36ca3c2ce084827b8859a0482a9f5bedd923e53f"
+    },
+    {
+      "dosya": "5-maide.html",
+      "bayt": 136810,
+      "sha256": "b7f823abd896a75fc1a19713c4e79570958c6e09df1548ac080e3df71bead947"
+    },
+    {
+      "dosya": "50-kaf.html",
+      "bayt": 29125,
+      "sha256": "2aa279dbc8bda4a9013bfe4ef1abeadfb935c72469f90e9194aaa7ae5757d1b5"
+    },
+    {
+      "dosya": "51-zariyat.html",
+      "bayt": 33235,
+      "sha256": "eba964cd25c0ea841055c700bfcea03bcf9918d3dba1df741e88a7b5719008e3"
+    },
+    {
+      "dosya": "52-tur.html",
+      "bayt": 28156,
+      "sha256": "05d1cae585a02c37cf2e4a78656781e00bd6c7d574caf1a9d7a4b78a3c4c140f"
+    },
+    {
+      "dosya": "53-necm.html",
+      "bayt": 32247,
+      "sha256": "31ca37b8d52dfef848e200ad0a7772daa0b8e0ea8409dc7b239bd3b3d140b1ff"
+    },
+    {
+      "dosya": "54-kamer.html",
+      "bayt": 32096,
+      "sha256": "e0c9822c248fb96348ef2794b69c4d7eff7fe0c72e6d9de99d51fac1da7cd14a"
+    },
+    {
+      "dosya": "55-rahman.html",
+      "bayt": 38330,
+      "sha256": "6425d52756d28f7d6dff1ffe697862e9a1712bd735350b650c206fc4d315dd2f"
+    },
+    {
+      "dosya": "56-vakia.html",
+      "bayt": 43710,
+      "sha256": "2a6833a3f7269e2243723b28559f0a0c558364a5e91063f1f56d65ea9fa099b8"
+    },
+    {
+      "dosya": "57-hadid.html",
+      "bayt": 33336,
+      "sha256": "c6620c9e3d523f4ab8f371da5b990b7eac6ef95b45c4b9e54cd94b0d476c44f6"
+    },
+    {
+      "dosya": "58-mucadele.html",
+      "bayt": 27625,
+      "sha256": "b0e9c688529f1bd87615a5a7cf75fbe80d9c66f80b8b9c1d55d0b6b5d209abb5"
+    },
+    {
+      "dosya": "59-hasr.html",
+      "bayt": 26981,
+      "sha256": "20dc52166630511b34efb0961fa272acc7c8ec9f19ae83f8fd683d2af50c8d3b"
+    },
+    {
+      "dosya": "6-enam.html",
+      "bayt": 158192,
+      "sha256": "438c6214f24975492090dfa02b1e6c552667b8ecc23a838de06b508ee533f136"
+    },
+    {
+      "dosya": "60-mumtehine.html",
+      "bayt": 20886,
+      "sha256": "af745b24af66d5f6a8355b312749da569a2dc534dc4edbd2f674f9775d2b4f76"
+    },
+    {
+      "dosya": "61-saff.html",
+      "bayt": 15556,
+      "sha256": "29aa4ce661fe742cf7dd421b582e5ca3ef7cdd99c01ce36fb2b52a8b230d0cf4"
+    },
+    {
+      "dosya": "62-cuma.html",
+      "bayt": 13379,
+      "sha256": "304b31555ffe2ad46e1626440e0f162d703338398fc86b86b224c5d321567997"
+    },
+    {
+      "dosya": "63-munafikun.html",
+      "bayt": 13934,
+      "sha256": "be52b511984048a68682f16c33d646367c9c90f60545350e1500e126f6717058"
+    },
+    {
+      "dosya": "64-tegabun.html",
+      "bayt": 18254,
+      "sha256": "41e99d81184450861c86eace37aaa22040ebf92fb3ef78c0e404f7eef0169b9e"
+    },
+    {
+      "dosya": "65-talak.html",
+      "bayt": 17869,
+      "sha256": "1ac6b597855adc9bcd2ae434f00a0028b18cc593c3a1546651bcb3be3d537b93"
+    },
+    {
+      "dosya": "66-tahrim.html",
+      "bayt": 16486,
+      "sha256": "ae93adf2c14e701ed21ea5341abc44b3540e18ac34cf1cd08dfdc6a316b7016d"
+    },
+    {
+      "dosya": "67-mulk.html",
+      "bayt": 23797,
+      "sha256": "882cd277b23b8dfdd1d07a538b28698424c42e9e5431666cfac3e095f63cde60"
+    },
+    {
+      "dosya": "68-kalem.html",
+      "bayt": 28987,
+      "sha256": "33f90c3e9d2f7fd9ec096a0cea6a7355da572bbaaa88e5adce3b0740ca641d1c"
+    },
+    {
+      "dosya": "69-hakka.html",
+      "bayt": 27297,
+      "sha256": "e101e76d68cf1bbc04e5be4c1837301567da6c40a783b0c85881e6d679af09eb"
+    },
+    {
+      "dosya": "7-araf.html",
+      "bayt": 182700,
+      "sha256": "d2c73c7eac4c54b12b95e8f658c40920e1238369e401283c8364b9b54799f3d5"
+    },
+    {
+      "dosya": "70-mearic.html",
+      "bayt": 23539,
+      "sha256": "2e227c969192a59283d2dd85685346d1da9c2552c72be54c32a265940fe02978"
+    },
+    {
+      "dosya": "71-nuh.html",
+      "bayt": 19614,
+      "sha256": "42a56216e7bd314492a67c8a8c339f36dfdc6cd89794b7f33c60e296d10549c8"
+    },
+    {
+      "dosya": "72-cin.html",
+      "bayt": 21616,
+      "sha256": "290a88ba2dec48447f06fc25b75cb2ede9e53718ed81d5fc852bdb13ba0398e2"
+    },
+    {
+      "dosya": "73-muzzemmil.html",
+      "bayt": 16692,
+      "sha256": "4f5570b2eca10b8209ef1e9332eb4a918590c18d3b673ff217978fce838e455a"
+    },
+    {
+      "dosya": "74-muddessir.html",
+      "bayt": 27673,
+      "sha256": "c47b617607a61f6e81d45158464a7787b7d2879a0edf9b5558bc7a2b28892104"
+    },
+    {
+      "dosya": "75-kiyame.html",
+      "bayt": 20381,
+      "sha256": "995dbb8e1cdd3d97017f12ece40a4451b52182c8fe2b947121c02e68b9659a8d"
+    },
+    {
+      "dosya": "76-insan.html",
+      "bayt": 21196,
+      "sha256": "c0a4d8185542c9fd6ddeedf6f7b7d3011a76b6cf6a3f58f5943e89b90ee52fa9"
+    },
+    {
+      "dosya": "77-murselat.html",
+      "bayt": 24084,
+      "sha256": "3f4733ed6601e15adac012af852bd877b571d55d6c4acf73d7d5dcda810a8224"
+    },
+    {
+      "dosya": "78-nebe.html",
+      "bayt": 20684,
+      "sha256": "666f48242670b91a5f6d747051a61dae043480cd62bf2986d2bae89b09c96c7f"
+    },
+    {
+      "dosya": "79-naziat.html",
+      "bayt": 22541,
+      "sha256": "6fbc49884ded2b07c1ee119a951c8677b4068d211c6abc3fdcb63e0fa5051d0e"
+    },
+    {
+      "dosya": "8-enfal.html",
+      "bayt": 69580,
+      "sha256": "0a2c8ca3cfc03d1c37e4434300c4dbefb38b9be9ddbf687d17ca4b39e956fb2f"
+    },
+    {
+      "dosya": "80-abese.html",
+      "bayt": 19565,
+      "sha256": "df3c92d2c8f6549e7f801cfa8c086694e3eb79bed7518f93a870984fcf4cfc79"
+    },
+    {
+      "dosya": "81-tekvir.html",
+      "bayt": 15284,
+      "sha256": "e3d76b78266fe9fab7ce8100a7bf6671607c1aa83360c516f6f0e4bc937b325c"
+    },
+    {
+      "dosya": "82-infitar.html",
+      "bayt": 11797,
+      "sha256": "8d43dba2eab9ac06211999009edaf43faae6c31acf0a89025b170c7998c9b9f7"
+    },
+    {
+      "dosya": "83-mutaffifin.html",
+      "bayt": 19619,
+      "sha256": "f76920ad1d05ce92bfea8e1735336a60ecb1ad8bf1b24c3f693ac596d4bfa38d"
+    },
+    {
+      "dosya": "84-insikak.html",
+      "bayt": 14254,
+      "sha256": "1c3a46579b7296bdc219591c0c9aca292664435c34e66632cac24dddbd475cda"
+    },
+    {
+      "dosya": "85-buruc.html",
+      "bayt": 13476,
+      "sha256": "c4ff720faf084b4f0e356f43650c6c0ad30bdfa2bfebb41951b78ca9ca0ad441"
+    },
+    {
+      "dosya": "86-tarik.html",
+      "bayt": 10424,
+      "sha256": "dbeb92089f3198f7094bdcaa0aaf6c22669c27467a701df9f3fe05270ecf47ea"
+    },
+    {
+      "dosya": "87-ala.html",
+      "bayt": 11339,
+      "sha256": "2becd1f35633e0d819f64085817f7629a6647e0633e27b1ce738fed39470404e"
+    },
+    {
+      "dosya": "88-gasiye.html",
+      "bayt": 13899,
+      "sha256": "e39320b89e61dde3b561fa5a92a1174777776b2852a45488cae42e321d39a22c"
+    },
+    {
+      "dosya": "89-fecr.html",
+      "bayt": 16447,
+      "sha256": "6a89667199334e67ea01e4db176fcf768d59ea0c3367cfc62d9dc75533c6a0b8"
+    },
+    {
+      "dosya": "9-tevbe.html",
+      "bayt": 131410,
+      "sha256": "5b3a2787187490b509336f1a633e36468d33489efb9a0306ac62efabcca0ca83"
+    },
+    {
+      "dosya": "90-beled.html",
+      "bayt": 11836,
+      "sha256": "3f3f2a78e8a373b8345ec89ad1bc982529aa843b644ad8be0309ce2986376d4d"
+    },
+    {
+      "dosya": "91-sems.html",
+      "bayt": 10052,
+      "sha256": "cfba0d728ff48fb517870e6138fc9eeb57ba5969c6f94f4134f3af6b8060f7ad"
+    },
+    {
+      "dosya": "92-leyl.html",
+      "bayt": 12054,
+      "sha256": "b64a80a2aff1fe0bba332b4f230a07d22e322cf9dd1f137ed708a1a2483b7318"
+    },
+    {
+      "dosya": "93-duha.html",
+      "bayt": 8154,
+      "sha256": "9688bd049850502625808a3c31a13d9079936ce35aeb9c03cf22f74986606083"
+    },
+    {
+      "dosya": "94-insirah.html",
+      "bayt": 6961,
+      "sha256": "fc3040c740f3ad404e7506701572e501a9b2de4e52240b1672ae3ffaf3a8435f"
+    },
+    {
+      "dosya": "95-tin.html",
+      "bayt": 7184,
+      "sha256": "05bc804bdab78f1889e4b76d1affbe552db4973f89dbb28ad1749e55b9a7d659"
+    },
+    {
+      "dosya": "96-alak.html",
+      "bayt": 11147,
+      "sha256": "2dfe9c720a329513f2406e156093de9b4bfcc55bd13616cafe3d18fe42664139"
+    },
+    {
+      "dosya": "97-kadr.html",
+      "bayt": 6109,
+      "sha256": "41cb6e7427ea34effae851a363ffcfe9990b105e6320cce03c4561e0dd1de885"
+    },
+    {
+      "dosya": "98-beyyine.html",
+      "bayt": 9518,
+      "sha256": "58aa7cd60ac5e8ebfe2e8322c0b10c0a8a4e086ac4fdae24917c44e7cca07b07"
+    },
+    {
+      "dosya": "99-zilzal.html",
+      "bayt": 7362,
+      "sha256": "a8c5bf684f3ac213c9cd56490b5fa6df94569d5cdb9aadfd2073e5295451678a"
+    },
+    {
+      "dosya": "amiri-site.css",
+      "bayt": 3254,
+      "sha256": "31ba95f4acf438a6ac99c1f70abdb41d639e9ddd91c434085f99dc1f951f1700"
+    },
+    {
+      "dosya": "app_data.json",
+      "bayt": 8797513,
+      "sha256": "2db8fe12e83a141a4a9e2876f44c7f2ccfddb71f21dfa287db43cdb20408a4b6"
+    },
+    {
+      "dosya": "assets/fonts/ScheherazadeNew-OFL.txt",
+      "bayt": 4495,
+      "sha256": "5b9fd21ce2377fc542debebd9edfe1c48f2d3525e78a2a8abdba4a0ec3280163"
+    },
+    {
+      "dosya": "assets/fonts/ScheherazadeNew-Regular.woff2",
+      "bayt": 124783,
+      "sha256": "fd12c322cd8a0033d5c30b0a9fc0432e1d51288cd065f3f04a85a7974f1de3b7"
+    },
+    {
+      "dosya": "docs/HASENAT_R3_DESTEK_FONT_DOGRULAMA.json",
+      "bayt": 2396,
+      "sha256": "823c0a0b1a91b206a19d22350aacabae4dc848e16ec3aa0da61dc236298ff8ae"
+    },
+    {
+      "dosya": "docs/HASENAT_YAZIM_R3_CP01.json",
+      "bayt": 1284,
+      "sha256": "425561b2c7e5f975d561826fe5f95914afb8535ffd6129e98c641509e655cdc9"
+    },
+    {
+      "dosya": "docs/HASENAT_YAZIM_R3_CP02.json",
+      "bayt": 1929,
+      "sha256": "7cb538084c6c0135a910d8b87b6489d54bdf8d242d3fbd0c79299beac19a8353"
+    },
+    {
+      "dosya": "draft_esma.html",
+      "bayt": 63892,
+      "sha256": "67a8a4bca12b4b9e4b2069285bbd15f70da76fbbf85bfd6a64b33f6077ecdede"
+    },
+    {
+      "dosya": "guncel-286.html",
+      "bayt": 81112,
+      "sha256": "732630832a4b0d252bc2230aa4a174af5b181fb97cd43d54a145b73c0623eead"
+    },
+    {
+      "dosya": "guncel-287.html",
+      "bayt": 81304,
+      "sha256": "77875fc26dca1fc5e518ad3a3279e5d77cc58ced20663c33ff0897898221bf84"
+    },
+    {
+      "dosya": "hasenat-display.js",
+      "bayt": 8575,
+      "sha256": "7fd1c01b8e115e546b53111e10230728b75cc97364c738ad696af00f885d2bea"
+    },
+    {
+      "dosya": "index.html",
+      "bayt": 102232,
+      "sha256": "82467dad0bde128aa5b3cd19013bdbfbce13ffd6eba4a37867242ec029a5af2c"
+    },
+    {
+      "dosya": "kelime-kavram-deneme.html",
+      "bayt": 21323,
+      "sha256": "415422f1db51b86210edbb335c7684c3ed72f40ab31289ac4ca8ac9f08ea343b"
+    },
+    {
+      "dosya": "mutesabih-admin.html",
+      "bayt": 13926,
+      "sha256": "e2725aa167fb512d05d94a2368a15dbd1e088b6370fefa428945f7a5c09dc57b"
+    },
+    {
+      "dosya": "mutesabih-admin.js",
+      "bayt": 36428,
+      "sha256": "c832f6bb5e865f5f0fe03d12d8111f590e9d6a029ee193a7bcefc98e56bea111"
+    },
+    {
+      "dosya": "mutesabih-kavramlar-core.mjs",
+      "bayt": 15742,
+      "sha256": "0c52df32aded29da98dd8518ce06bdf9f396ce62d086e591bd0f381506aeaa95"
+    },
+    {
+      "dosya": "mutesabih-kavramlar-import.mjs",
+      "bayt": 14684,
+      "sha256": "40d930611c06182e1ce96f36df666d3a89fe0a6fff24e3bb92aca3e757436f86"
+    },
+    {
+      "dosya": "mutesabih-kavramlar.mjs",
+      "bayt": 32052,
+      "sha256": "c76711de5115cf0c2e540eef0843bf4f916c81b5f198e627fc7ad11f1b67e664"
+    },
+    {
+      "dosya": "mutesabih-public.js",
+      "bayt": 5588,
+      "sha256": "1b9dddf77c1326eb9e9c3fef24a3b85bfc89c07d96def426388f93800e630ef4"
+    },
+    {
+      "dosya": "mutesabih.html",
+      "bayt": 3358,
+      "sha256": "32e207086b4ed4ed3c4a559bcefd5e9dad0c0d5e832414ce6bc5ce3dccd3f194"
+    },
+    {
+      "dosya": "qa/HASENAT_R3_DEVAM_DISPLAY.stderr.log",
+      "bayt": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "dosya": "qa/HASENAT_R3_DEVAM_DISPLAY.stdout.log",
+      "bayt": 4419,
+      "sha256": "20f29577731ddb8c6275298aafd603257ff0a5eac79773e7c48d8ff470e98853"
+    },
+    {
+      "dosya": "qa/HASENAT_R3_DEVAM_KABUL.json",
+      "bayt": 8192,
+      "sha256": "e1e0119d3edef65f1a43b6618c73b12162747b47e39591f0aeaa5442ae0fe955"
+    },
+    {
+      "dosya": "qa/HASENAT_R3_DEVAM_PAGE.stderr.log",
+      "bayt": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "dosya": "qa/HASENAT_R3_DEVAM_PAGE.stdout.log",
+      "bayt": 598,
+      "sha256": "b14db0f98ac750aef6680e9634580b0c5ff5591b22d5f9131613492e047a72a2"
+    },
+    {
+      "dosya": "qa/HASENAT_R3_KAVRAM_PANEL.json",
+      "bayt": 10877,
+      "sha256": "b57bc75f7cb177df3457e48ca3d2c0b2904430e82b233bb774fa71888e9d752b"
+    },
+    {
+      "dosya": "qa/HASENAT_R3_MEVCUT_ISLEV_KABUL.json",
+      "bayt": 4241,
+      "sha256": "0bbf5bbaa6654aa8f4cc5494f285aa264929728c5f56a5f8a259009e695e452d"
+    },
+    {
+      "dosya": "qa/HASENAT_R3_R234_UI_KABUL.json",
+      "bayt": 1708,
+      "sha256": "b360f758be44f69efae13544914066f6c69165d3289397fc9f6789a9be1b24cc"
+    },
+    {
+      "dosya": "qa/HASENAT_R3_VERI_KABUL.json",
+      "bayt": 6242,
+      "sha256": "8ea6bae338098a7cdd58b79a32d785a8ca3e2ba3bdd76180aaf17bc136f93ff5"
+    },
+    {
+      "dosya": "qa/HASENAT_R3_r23-word-matrix.log",
+      "bayt": 627,
+      "sha256": "027d770da8ee1bf3de5a45b7ddd5bd3aa4b9190d7a9abd257899d13d2918ca36"
+    },
+    {
+      "dosya": "qa/HASENAT_R3_r234-browser.log",
+      "bayt": 2961,
+      "sha256": "2b052e4d667a52e7c38d05f70a4d9ed6807bf467791b4395455f4ebfb920a84c"
+    },
+    {
+      "dosya": "qa/HASENAT_R3_r234-core.log",
+      "bayt": 1063,
+      "sha256": "6245b6e718550e233c98081a0691a1a97c7f32d7339f316949c864755657b34e"
+    },
+    {
+      "dosya": "qa/HASENAT_R3_r234-regressions.log",
+      "bayt": 712,
+      "sha256": "01675d09b314614dc71f6198d656535627fbd80d4d5b61b87d755ae0f1f0653c"
+    },
+    {
+      "dosya": "sure-1-fatiha.html",
+      "bayt": 6327,
+      "sha256": "dd0f749b59c106c4ce44a6eedbdff842baedd8a83e56953a90911c3c127d220a"
+    },
+    {
+      "dosya": "sure-10-yunus.html",
+      "bayt": 97407,
+      "sha256": "c0904cda5e07a0abbd8270e1c3a8444d35b3f4b14e1708e76c7310232350e37b"
+    },
+    {
+      "dosya": "sure-100-adiyat.html",
+      "bayt": 7883,
+      "sha256": "d63091d547f3a26d6541d4ac8883a5339e71b79fb881c0816d36867b6926ab00"
+    },
+    {
+      "dosya": "sure-101-karia.html",
+      "bayt": 7648,
+      "sha256": "0b22f44a20f523e1ee8a6ebbb3649f1470ed5c3a9a1a6233201e6084369a2b07"
+    },
+    {
+      "dosya": "sure-102-tekasur.html",
+      "bayt": 6798,
+      "sha256": "d77ed35cecd80a22b39b5e1378c5b82e13c7c22f154d94b61d12198a956171c6"
+    },
+    {
+      "dosya": "sure-103-asr.html",
+      "bayt": 4846,
+      "sha256": "8933321acf4f54ac86e0424b62f29af813216f759ec7be09fb87d7b699d1379a"
+    },
+    {
+      "dosya": "sure-104-humeze.html",
+      "bayt": 7093,
+      "sha256": "2f4508f03aa999428a0149504370b7efeb1728f22521e174599c95747c5b673d"
+    },
+    {
+      "dosya": "sure-105-fil.html",
+      "bayt": 5641,
+      "sha256": "d955f15303c438fb05fd5b329a700e6f12bdb637fbcf5ef6f08e672801413fdc"
+    },
+    {
+      "dosya": "sure-106-kureys.html",
+      "bayt": 5331,
+      "sha256": "9655f04c021b9c4fba1a15e939d80374d4205b3aac5c08343268552786bbb8c3"
+    },
+    {
+      "dosya": "sure-107-maun.html",
+      "bayt": 6226,
+      "sha256": "7b9ef39d32870b447b2ac380443dfd9a26b67e1e2fb4c102a20b6a32451ccc0d"
+    },
+    {
+      "dosya": "sure-108-kevser.html",
+      "bayt": 4695,
+      "sha256": "6af6f6da235cfe35ee6169821ac43f574e7c33dff0bf25222f98bda21a46bee4"
+    },
+    {
+      "dosya": "sure-109-kafirun.html",
+      "bayt": 5923,
+      "sha256": "1ebd5c1dbb9ef56e41b2cd8f25094520fcd0d3b572234883f4b19b3b531e2dc3"
+    },
+    {
+      "dosya": "sure-11-hud.html",
+      "bayt": 104244,
+      "sha256": "a7c406333078d8b84c8d1b160c233e2038725e5cf3d70cdde63c160f0fa9b30b"
+    },
+    {
+      "dosya": "sure-110-nasr.html",
+      "bayt": 4959,
+      "sha256": "c9451cd4d825dd0a03437c4ec94eb8c360dd3a9a76d1ae7cb052a238de6a5932"
+    },
+    {
+      "dosya": "sure-111-mesed.html",
+      "bayt": 5455,
+      "sha256": "ea2c568b7cd7d053335a56765718c33b0b747671fc04f99d3e0a84bf717103ba"
+    },
+    {
+      "dosya": "sure-112-ihlas.html",
+      "bayt": 5026,
+      "sha256": "f61974b57a51c76010953a5fa638ce7bd381d8c7bed295e3ad2bfb4bbb78e2e6"
+    },
+    {
+      "dosya": "sure-113-felak.html",
+      "bayt": 5451,
+      "sha256": "6cdf0d6dbe0fed1fc77978ad1fe8898ab2e30ceb5495eee8c75293cba368f38d"
+    },
+    {
+      "dosya": "sure-114-nas.html",
+      "bayt": 6075,
+      "sha256": "ac35b36911bf241309f24ac103582d6c57b16cf76b3fb25c40f5909cc5cf6af4"
+    },
+    {
+      "dosya": "sure-12-yusuf.html",
+      "bayt": 97910,
+      "sha256": "d1576bc8ac63e7968ae5d0960744441c4c2d6e777addac79eb5aac220cee7091"
+    },
+    {
+      "dosya": "sure-13-rad.html",
+      "bayt": 45901,
+      "sha256": "50cfcebc24f20a62bc8f31b25b48a70f0a405ec1d13f270e23ce64017df0b095"
+    },
+    {
+      "dosya": "sure-14-ibrahim.html",
+      "bayt": 47761,
+      "sha256": "4f102aeb75ac561ba03af2b8909345b2cc1fd151fd4c8121e34345e75a9b1c91"
+    },
+    {
+      "dosya": "sure-15-hicr.html",
+      "bayt": 53436,
+      "sha256": "2bcaeed9c28fc3a975863e28acd44129a3b27e08c971ef106d7704075b404f90"
+    },
+    {
+      "dosya": "sure-16-nahl.html",
+      "bayt": 103217,
+      "sha256": "60f7c1146f77c6eaf9309fbcc030c494abcc915adc742b63439f2e63a26826b9"
+    },
+    {
+      "dosya": "sure-17-isra.html",
+      "bayt": 88817,
+      "sha256": "0b84eeb5e1a23e5c003069bff6462f3af0b03e2c5a56a8613142c28e628da053"
+    },
+    {
+      "dosya": "sure-18-kehf.html",
+      "bayt": 90073,
+      "sha256": "2e1892260c3bb853157942878067bf3bbb498530a93dc406b98343858877829f"
+    },
+    {
+      "dosya": "sure-19-meryem.html",
+      "bayt": 63637,
+      "sha256": "4000b6147e21947ca7adec163fbe7e826b64aa0ef7d8a5cfd0e25a4283e4e997"
+    },
+    {
+      "dosya": "sure-2-bakara.html",
+      "bayt": 301219,
+      "sha256": "388543927e2448e205f560ebeeb0d5101df7a7060758265efd536a900d332dd8"
+    },
+    {
+      "dosya": "sure-20-taha.html",
+      "bayt": 87070,
+      "sha256": "4a812db4e3f0673fa9dea07e03dc64b667e3a519805eb076b0b4ed920863b8c5"
+    },
+    {
+      "dosya": "sure-21-enbiya.html",
+      "bayt": 76600,
+      "sha256": "0ca461fe460a60ebc5a49f9ce8568217c31e4e660bb297404f34f75735c660a8"
+    },
+    {
+      "dosya": "sure-22-hac.html",
+      "bayt": 69361,
+      "sha256": "7771ff97ebec7c9135d364b7a5de00a7439db587d03469a06f933ab705889ca0"
+    },
+    {
+      "dosya": "sure-23-muminun.html",
+      "bayt": 74188,
+      "sha256": "88812a8ec0fe4ffc42f1b305fb441310d164e78fb3492d6d779cbaea761f69b6"
+    },
+    {
+      "dosya": "sure-24-nur.html",
+      "bayt": 68664,
+      "sha256": "744a3d726781eca8bc76d91b842da4c3c25cb618ea6984b28601c3bd9525bac5"
+    },
+    {
+      "dosya": "sure-25-furkan.html",
+      "bayt": 56628,
+      "sha256": "22a55cd8c386a1f8a3c17b6c24e822edb26b2e06f94b037471d6b4bc6a5140cf"
+    },
+    {
+      "dosya": "sure-26-suara.html",
+      "bayt": 112116,
+      "sha256": "f3eba4d66a25c27a213d319d3a5ad51fb7b34ff40cfbd68fb870e16c31be0463"
+    },
+    {
+      "dosya": "sure-27-neml.html",
+      "bayt": 69917,
+      "sha256": "08933f8cbd2af7c97f0f9a1c3dc892511176f6639a67125055010b02bc277775"
+    },
+    {
+      "dosya": "sure-28-kasas.html",
+      "bayt": 77773,
+      "sha256": "b416f133c62b4d39159b97af89cff801d856d0c7b2cede90a4fe37439d89cc03"
+    },
+    {
+      "dosya": "sure-29-ankebut.html",
+      "bayt": 58057,
+      "sha256": "63fcf1eecc7db8d0f515e5081e04381496245cf1846a12a7ec1ecc01c7ed511b"
+    },
+    {
+      "dosya": "sure-3-al-i-imran.html",
+      "bayt": 183325,
+      "sha256": "08e7a14ba9d04ccc0f36d22a54e96dab3d2a7154e748afef7308e81d0094cf3a"
+    },
+    {
+      "dosya": "sure-30-rum.html",
+      "bayt": 48881,
+      "sha256": "fcc0d82ef755d352f8bd7348e7a132ebbc29f022bbba9c067da502fb3bf98082"
+    },
+    {
+      "dosya": "sure-31-lokman.html",
+      "bayt": 31828,
+      "sha256": "4a96b365e1cad41fe7a9c451bbae3d3ef8877c95e5ac015a9cb73b8e1e0128d1"
+    },
+    {
+      "dosya": "sure-32-secde.html",
+      "bayt": 24652,
+      "sha256": "c4c4a0d986fca340e53b093528ca8d143eb9f4eb593cb1b4d159b7a7f103464c"
+    },
+    {
+      "dosya": "sure-33-ahzab.html",
+      "bayt": 71410,
+      "sha256": "7c5ec1fe773792151108269092c43b6499cf9facfc895f08c21272c9f64d9cd1"
+    },
+    {
+      "dosya": "sure-34-sebe.html",
+      "bayt": 49273,
+      "sha256": "b58e47d3eeb1b0b64742b2b594e36f2938d20076e52439883d325a0c0bd92d4e"
+    },
+    {
+      "dosya": "sure-35-fatir.html",
+      "bayt": 43234,
+      "sha256": "de1bbf81f9a8e9bdaf410c6753b26ec9fc161bbff9ba1bbc3060bd96088d2606"
+    },
+    {
+      "dosya": "sure-36-yasin.html",
+      "bayt": 51765,
+      "sha256": "3f765ded9a5132195e5d9ea06a587f638694d4cb8fd58024ffe072d42d489d65"
+    },
+    {
+      "dosya": "sure-37-saffat.html",
+      "bayt": 84995,
+      "sha256": "8bf38868ec7bc9a02ecda9e2d7b5de720c6d2274bcddc8fa8bc5059a170c2f45"
+    },
+    {
+      "dosya": "sure-38-sad.html",
+      "bayt": 53503,
+      "sha256": "0c9f46ec7358e6743bae41c344981e3fe0ab61d4082d481d7f76b7b6ede16624"
+    },
+    {
+      "dosya": "sure-39-zumer.html",
+      "bayt": 65349,
+      "sha256": "e3ae2013e1c5e4a9eb7fd3c7c478076ca26ee4fa849f7774af3fd168a6f709b9"
+    },
+    {
+      "dosya": "sure-4-nisa.html",
+      "bayt": 185738,
+      "sha256": "4520ded814ae6fba2ea3b070fd6144ca6a3351e95bdd880630f44cd0bb6d7808"
+    },
+    {
+      "dosya": "sure-40-mumin-gafir.html",
+      "bayt": 70999,
+      "sha256": "732a277da54492538edcaea85139962a322d5f26e615e1b9e533931bf6950e46"
+    },
+    {
+      "dosya": "sure-41-fussilet.html",
+      "bayt": 46890,
+      "sha256": "81c8d4836ba549c9206222af1968731e57244f8dcd7ae0918827614e3ae4989b"
+    },
+    {
+      "dosya": "sure-42-sura.html",
+      "bayt": 47458,
+      "sha256": "a3b1ff755fe6267130e614caece240a61c9db93bbd01e07bc4d40aaefe2b2f4f"
+    },
+    {
+      "dosya": "sure-43-zuhruf.html",
+      "bayt": 58746,
+      "sha256": "5fd7d665623378f827ff19f766152b92730cf8dc29cd37d912a76c1c789c8ed3"
+    },
+    {
+      "dosya": "sure-44-duhan.html",
+      "bayt": 31330,
+      "sha256": "86f9cdd94c98eefcf3d60751af58a04ee5fc4c95d949cefb3e9cb85d2cd8e8da"
+    },
+    {
+      "dosya": "sure-45-casiye.html",
+      "bayt": 31137,
+      "sha256": "7a195c1a4226bc3d098ebccfcda306186c37eb449c82374dea147adf66be3b02"
+    },
+    {
+      "dosya": "sure-46-ahkaf.html",
+      "bayt": 36004,
+      "sha256": "aae2ab1240e7a73875c5d34af7daa1d5766b7a7646113e97915ffd4a1933e923"
+    },
+    {
+      "dosya": "sure-47-muhammed.html",
+      "bayt": 34810,
+      "sha256": "48e8ef06bcf93647ba9e81daa0ecbd1ca1a5e987e239597605bc123925ede1b4"
+    },
+    {
+      "dosya": "sure-48-fetih.html",
+      "bayt": 32717,
+      "sha256": "fa151c08046a1c67b9b0e23fd836195c287a0702837280c4749aa29732529de4"
+    },
+    {
+      "dosya": "sure-49-hucurat.html",
+      "bayt": 21180,
+      "sha256": "541efb4630d949992c1806345bf4e9465d2fef68269f26af19fb97793375feb1"
+    },
+    {
+      "dosya": "sure-5-maide.html",
+      "bayt": 136389,
+      "sha256": "986dbf16cf37a8b52c3000be0d717d2fb957c07e19aceda2798ce2673bf5a1e2"
+    },
+    {
+      "dosya": "sure-50-kaf.html",
+      "bayt": 28704,
+      "sha256": "4d7650286cebdceb6a7b48c753b4694e20ecd50994b415697d6815ef770e9654"
+    },
+    {
+      "dosya": "sure-51-zariyat.html",
+      "bayt": 32816,
+      "sha256": "41f7ceb6ebe6280f57890850cb1862fda391cb5ff535b929e08f44c54cac94c7"
+    },
+    {
+      "dosya": "sure-52-tur.html",
+      "bayt": 27737,
+      "sha256": "6f710ef64eca7a0554c8750e0878330585aa918cee9f706a607456d5ee1cf65e"
+    },
+    {
+      "dosya": "sure-53-necm.html",
+      "bayt": 31826,
+      "sha256": "8ebfa2e46d34859e2df55af8a58395ca0f9226a0c89a157b54ec2203949ea197"
+    },
+    {
+      "dosya": "sure-54-kamer.html",
+      "bayt": 31677,
+      "sha256": "88d07084b5c0130550eaa6787e442542ea92ad43cbb479049ccd7499df445eba"
+    },
+    {
+      "dosya": "sure-55-rahman.html",
+      "bayt": 37911,
+      "sha256": "20aa86d58ca25a25a7038b44716df1a477e7b23b21084b5fe107ffac6a0a6b4d"
+    },
+    {
+      "dosya": "sure-56-vakia.html",
+      "bayt": 43289,
+      "sha256": "48f28f16cca518dd34bcc39e9afcdda1f18341d1f4f46fed026dcf3389a80752"
+    },
+    {
+      "dosya": "sure-57-hadid.html",
+      "bayt": 32915,
+      "sha256": "c0d042cb4fe8bea79b8be8c7ca7c2bfd2f77b3ef4e30eaf8a5edcf28698d30de"
+    },
+    {
+      "dosya": "sure-58-mucadele.html",
+      "bayt": 27206,
+      "sha256": "a96253b5d0f77b2ca333c58c8515c807d4908021d3287bec55209d9968e20799"
+    },
+    {
+      "dosya": "sure-59-hasr.html",
+      "bayt": 26562,
+      "sha256": "06e94742b018e78aaae77bd1cb5553aced1997d8669afef5e59008422c62af68"
+    },
+    {
+      "dosya": "sure-6-enam.html",
+      "bayt": 157771,
+      "sha256": "88f6e42c23d7373c25fec2b3eb6b681a25d80c04c3a22217e556acf65267f2f7"
+    },
+    {
+      "dosya": "sure-60-mumtehine.html",
+      "bayt": 20467,
+      "sha256": "d35a24707fd643a64b00071517ecab2df02392bcc27ca90327aeaf0b74d06dae"
+    },
+    {
+      "dosya": "sure-61-saff.html",
+      "bayt": 15137,
+      "sha256": "9b78134a5d50fe62076d237854a8c38b39d3fe3ac9bc5450ac157a2cbfb8f158"
+    },
+    {
+      "dosya": "sure-62-cuma.html",
+      "bayt": 12960,
+      "sha256": "2218a9bcaa80a1dcbbfe0c4cf7383fa37a5cbfa473cfd19ee5d6f964805e6747"
+    },
+    {
+      "dosya": "sure-63-munafikun.html",
+      "bayt": 13515,
+      "sha256": "ca005ed3360df776f8b7760ef51b17decdd8363e06a5a2e07be27a682033c155"
+    },
+    {
+      "dosya": "sure-64-tegabun.html",
+      "bayt": 17835,
+      "sha256": "c4c81624213ae3b2d85b651a6fc0e77a81db6bb93d2d24fbc689c89343481398"
+    },
+    {
+      "dosya": "sure-65-talak.html",
+      "bayt": 17450,
+      "sha256": "3705fe5dd844c5303298c53a32f95407fea2b433787357910408b131e9637649"
+    },
+    {
+      "dosya": "sure-66-tahrim.html",
+      "bayt": 16067,
+      "sha256": "708adc12e7fd39ca91490a6881451e0fa66fe6fc4be7319f996a381d7f6937ad"
+    },
+    {
+      "dosya": "sure-67-mulk.html",
+      "bayt": 23378,
+      "sha256": "cc2c21306fd3a4bf8423e22343a8e94235e7077c4a977ad812bb894b55d1ee5c"
+    },
+    {
+      "dosya": "sure-68-kalem.html",
+      "bayt": 28566,
+      "sha256": "6800ed8e63261ab80f3f655a391889b874d3298f364203f1d2bbf12b3e784f9c"
+    },
+    {
+      "dosya": "sure-69-hakka.html",
+      "bayt": 26878,
+      "sha256": "289eaa2f38fe1fc9fe6a69c64caea50d3873ee58c540b447f1badc16f1dc205a"
+    },
+    {
+      "dosya": "sure-7-araf.html",
+      "bayt": 182279,
+      "sha256": "f748227a068d5e3c16f743e916daca04787be5d199d1731da0da54d4037e4f2d"
+    },
+    {
+      "dosya": "sure-70-mearic.html",
+      "bayt": 23120,
+      "sha256": "1e6cd3a7ad2e959fe8499cbec3fb5abe6b84f9495565cb3360ca0ab8a8e49b21"
+    },
+    {
+      "dosya": "sure-71-nuh.html",
+      "bayt": 19195,
+      "sha256": "231a76816e92fdf273243ad615c6d9d99689eeb0799abd10943951d40f2ed3fe"
+    },
+    {
+      "dosya": "sure-72-cin.html",
+      "bayt": 21197,
+      "sha256": "dd2c66f6428bf826f7d05d9a4ed5a7a2172b96c7aab1aa16fda7c4b50e13a5ee"
+    },
+    {
+      "dosya": "sure-73-muzzemmil.html",
+      "bayt": 16273,
+      "sha256": "1cbdd945cdfe3afe76066ec3350e5bf9771a652ea3c34338828e3e32638e932b"
+    },
+    {
+      "dosya": "sure-74-muddessir.html",
+      "bayt": 27254,
+      "sha256": "797b651df531c025ac3a6cfb1e6db5259623b4f38d8400a84ce1c3357220c73b"
+    },
+    {
+      "dosya": "sure-75-kiyame.html",
+      "bayt": 19962,
+      "sha256": "d3176be6e6bfa36c28b3ae9edfcc13fb0e50df721e6d8b33187c8c3288158838"
+    },
+    {
+      "dosya": "sure-76-insan.html",
+      "bayt": 20777,
+      "sha256": "70790b88e9254e29d0a28be4b06efddf4b19fb177d6b3774defe48922da69eb1"
+    },
+    {
+      "dosya": "sure-77-murselat.html",
+      "bayt": 23665,
+      "sha256": "884419f0ca5d5245b1dbb05f00eaebfa1b78db0614342b113fbc48221c8834b9"
+    },
+    {
+      "dosya": "sure-78-nebe.html",
+      "bayt": 20265,
+      "sha256": "5b5d413347d7ad227dfaa72128600411232403d35bf25070be5d9b554c329956"
+    },
+    {
+      "dosya": "sure-79-naziat.html",
+      "bayt": 22122,
+      "sha256": "e41b653a325e0a2f1a255682a63c9b5fcc0a91f8d20fd986c3ea6546df8347ad"
+    },
+    {
+      "dosya": "sure-8-enfal.html",
+      "bayt": 69159,
+      "sha256": "0169bd9f529b0200358bd7a9faa08248696a33f89f056660b6a4574e4135d6de"
+    },
+    {
+      "dosya": "sure-80-abese.html",
+      "bayt": 19146,
+      "sha256": "ddb302e6b5aa61c4329a060835ecece44e2235fec59f449a02aa3c4087b0fd11"
+    },
+    {
+      "dosya": "sure-81-tekvir.html",
+      "bayt": 14865,
+      "sha256": "a4ff527849a15586a4072d41fa0c28eadad7fc47967c6107ebc56a197f72890c"
+    },
+    {
+      "dosya": "sure-82-infitar.html",
+      "bayt": 11378,
+      "sha256": "9c1ec235e833b29163904374d6029fb2f868e27d170918f4bf88fbff7a266f0b"
+    },
+    {
+      "dosya": "sure-83-mutaffifin.html",
+      "bayt": 19200,
+      "sha256": "723e8e2f1a8b21325cc3b8a3b6551c09dd9fc91c29d25345c3091d09ee21598e"
+    },
+    {
+      "dosya": "sure-84-insikak.html",
+      "bayt": 13835,
+      "sha256": "1f18db73e387d684e4fcd1cb9fda20b24ef5a6d39c1d782dd60b93b491eb2a12"
+    },
+    {
+      "dosya": "sure-85-buruc.html",
+      "bayt": 13057,
+      "sha256": "a37edab2d2f3fa7f554f4053737ea18f694f564aefb982820229ff44ede6a726"
+    },
+    {
+      "dosya": "sure-86-tarik.html",
+      "bayt": 10005,
+      "sha256": "8bb422952778959e8a847201282618f41bb73758a5d180a30a9c1bd0d083b88e"
+    },
+    {
+      "dosya": "sure-87-ala.html",
+      "bayt": 10920,
+      "sha256": "65c22365b0eff2c38f01eb01602b94cfb70278d92b1cf80d65a036567dbf64aa"
+    },
+    {
+      "dosya": "sure-88-gasiye.html",
+      "bayt": 13480,
+      "sha256": "830b6c4b7bfad18cf7e1a61d66423787b8b59451ad1215817efed4ad0305cc27"
+    },
+    {
+      "dosya": "sure-89-fecr.html",
+      "bayt": 16028,
+      "sha256": "827c1a8722796a4af965e44bb1e05e6d6d87bbcaa31274dfac843affecfc7954"
+    },
+    {
+      "dosya": "sure-9-tevbe.html",
+      "bayt": 130989,
+      "sha256": "56f6276797f304b35c1b75e479eb4aca8e966a57e26ccf94d8abe75f7878a388"
+    },
+    {
+      "dosya": "sure-90-beled.html",
+      "bayt": 11417,
+      "sha256": "0e98e3ea366610e764660bf7294c28f46e96665b6d98f6c15060dc6e78189372"
+    },
+    {
+      "dosya": "sure-91-sems.html",
+      "bayt": 9633,
+      "sha256": "dc28bb7480c830eb452091c5da47cae12f3e7aae0f8394d95a8678761fd16665"
+    },
+    {
+      "dosya": "sure-92-leyl.html",
+      "bayt": 11635,
+      "sha256": "571e85ab8a1e40dd128b40a277a6e44b8db35bc44d6f941e005160f9f589b1b4"
+    },
+    {
+      "dosya": "sure-93-duha.html",
+      "bayt": 7735,
+      "sha256": "66ac9ded815ff669bf67710dc1577cfd82762e8d2dd2c18e747188b722ad89da"
+    },
+    {
+      "dosya": "sure-94-insirah.html",
+      "bayt": 6542,
+      "sha256": "a81e129e8c94c7a9a0cfa8b486d8c0d6244bb55b4f825a56961697a3dc5e8074"
+    },
+    {
+      "dosya": "sure-95-tin.html",
+      "bayt": 6765,
+      "sha256": "b359c930d459f9e0bf4de3162e7624b7a13af14d88cb9efe460d54dc1e16265f"
+    },
+    {
+      "dosya": "sure-96-alak.html",
+      "bayt": 10728,
+      "sha256": "ab58eda872390c31e42d38557e759412b44eece9993e211b39dd3d10b76095b7"
+    },
+    {
+      "dosya": "sure-97-kadr.html",
+      "bayt": 5691,
+      "sha256": "ee6ccfaf8477b721ff8994ffac3ac91f9813dc46192b0393642b12c4d09f6ac6"
+    },
+    {
+      "dosya": "sure-98-beyyine.html",
+      "bayt": 9099,
+      "sha256": "344c2a11a08ad41243cdb38531967c1f0714664444d356880d9ce3e4621d97c7"
+    },
+    {
+      "dosya": "sure-99-zilzal.html",
+      "bayt": 6943,
+      "sha256": "10913cea23baf78b24293dd4e56a0f6de2a5581820a1309677076197a824171f"
+    },
+    {
+      "dosya": "sw.js",
+      "bayt": 3164,
+      "sha256": "c399bb76fc54b2b1addce5429541c255d0d314052569b8e1becd28a2011ab098"
+    },
+    {
+      "dosya": "test-hasenat-concepts.mjs",
+      "bayt": 3334,
+      "sha256": "39d4d8bc1773d5f1326abc2831494cbc1acc566d8e5a8e8d5b30fef93e5bb8ea"
+    },
+    {
+      "dosya": "test-hasenat-data.mjs",
+      "bayt": 13637,
+      "sha256": "bebaea5a6c8af429cd912d11eda77c0d841a46d5d5bde6787b0e33fea5677c66"
+    },
+    {
+      "dosya": "test-hasenat-display.mjs",
+      "bayt": 16148,
+      "sha256": "d9b5afb77fda5dddb7a2bcaa815d29fefdf02ca49cf3c5b4beda71975edcae53"
+    },
+    {
+      "dosya": "test-hasenat-integration.mjs",
+      "bayt": 10098,
+      "sha256": "29a00319264faf4126adf7b167702d9793b20e13d4303060158b36a6b883d6db"
+    },
+    {
+      "dosya": "test-hasenat-page.mjs",
+      "bayt": 3595,
+      "sha256": "3064b333360fe5bcafd5c046f936dd60be6f3995f27ba93b3114b1b505e55f44"
+    },
+    {
+      "dosya": "test-kavramlar-panel.mjs",
+      "bayt": 63069,
+      "sha256": "af7ed447dbeaeed5bb9c0f664a496f3b7606a667cee9d055ff1cb3ea6533fb17"
+    },
+    {
+      "dosya": "tools/hasenat/KAYNAK_KAYDI.json",
+      "bayt": 2557,
+      "sha256": "b441a0f1521cd728a727e30ffb44285095e1981a0f7ecdeab49ebb6409b8360b"
+    },
+    {
+      "dosya": "tools/hasenat/README.md",
+      "bayt": 3398,
+      "sha256": "2919b083ce3d6e7dfe69adee6164fb5fc3b3d3c264c071f379bea15ee06616e2"
+    },
+    {
+      "dosya": "tools/hasenat/cikti/KURAN_HASENAT_YAZIMI.txt",
+      "bayt": 1337668,
+      "sha256": "74a934db426bf60de735f55f9a6340c195d188208255508c0619b356cd93c2d0"
+    },
+    {
+      "dosya": "tools/hasenat/diyanet_filtre.py",
+      "bayt": 5490,
+      "sha256": "66ce2e30cc8a58523235bb7fec882acb178fd2de8fac2a798d5f42b1433c6b3a"
+    },
+    {
+      "dosya": "tools/hasenat/kaynak_diyanet/LICENSE",
+      "bayt": 18657,
+      "sha256": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411"
+    },
+    {
+      "dosya": "tools/hasenat/kaynak_diyanet/kuran.json",
+      "bayt": 3894339,
+      "sha256": "da8b017dbdc5b568b54ed97472622d61ee82fcde6bbb6e25ff54210fa4fc3b83"
+    },
+    {
+      "dosya": "tools/hasenat/onceki_surum/079b2ed26bca3ccdce1a298f1310f68d29e0ef9996685441cfafa7a2cbe6c2f2/diyanet_filtre.py",
+      "bayt": 4862,
+      "sha256": "079b2ed26bca3ccdce1a298f1310f68d29e0ef9996685441cfafa7a2cbe6c2f2"
+    },
+    {
+      "dosya": "tools/hasenat/site_donustur.py",
+      "bayt": 4904,
+      "sha256": "2981e5126a7621dc0cbfa832b143f6e7580a41456a0e0f261160f50358061924"
+    },
+    {
+      "dosya": "tools/hasenat/test/referans.txt",
+      "bayt": 26339,
+      "sha256": "11e7c1423a3e4af953d4e8738910763c3cfddd0011369541620df48d5922af28"
+    },
+    {
+      "dosya": "tools/hasenat/test_esleme.py",
+      "bayt": 3639,
+      "sha256": "b789a6e12e1f667c11008181fc718e828fc26be8d4013f98db0f65b958aa9e45"
+    },
+    {
+      "dosya": "tools/hasenat/uret.py",
+      "bayt": 15627,
+      "sha256": "0ddd667a9f1f3ed13de65656f0a444c1f319cad18018e8a30a69b667b5b6e3ed"
+    }
+  ]
+}

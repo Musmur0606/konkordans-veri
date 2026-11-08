@@ -1,0 +1,9 @@
+PASS 1 MB üstü içerik aynı SHA blob yolundan okunuyor
+PASS Fallback farklı blob SHA yanıtını reddediyor
+PASS Normal base64 içerik tek istekle korunuyor
+PASS Taslak main dalı ağ isteğinden önce reddediliyor
+PASS Sure değişiminde eski end/error/result yeni sesi bozmuyor
+PASS Geçerli oturum normal yeniden başlatmayı sürdürüyor
+PASS Eski yeniden başlatma zamanlayıcısı oturum sınırını aşmıyor
+PASS Aynı ana ayette hızlı durdur/başlat eski oturumdan ayrılıyor
+{"sonuc":"PASS_R234_FIX_REGRESSION","test_sayisi":8,"admin_sha256":"c832f6bb5e865f5f0fe03d12d8111f590e9d6a029ee193a7bcefc98e56bea111","urun_dosyasi_degismedi":true,"github_yazmasi":false,"gercek_mikrofon_testi":false}

@@ -1,0 +1,13 @@
+✔ Ana uygulama ve bağımsız dizin betikleri sözdizimi bakımından geçerli (2.86211ms)
+✔ Arama ve esmâ gösterimi yeni köprüye, veri aynı site sürümüne bağlı (0.41723ms)
+✔ Dizine aktarım Hasenat özel harflerini ve eski sorguları tam kelime grubuyla bulur (309.145921ms)
+✔ Yerel app_data isteğinde eski önbellekten önce ağdaki yeni veri kullanılır (7.864331ms)
+✔ Bağlantı yokken kayıtlı veri çevrimdışı işaretiyle kullanılabilir (1.685173ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 495.368301

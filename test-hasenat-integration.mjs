@@ -10,7 +10,7 @@ const text=path=>read(path).toString('utf8');
 const sha256=value=>createHash('sha256').update(value).digest('hex');
 const expectedFontSha='1d37c471fcd5afc126a925c1b18f7727fa944692558a17c12da890abd8ae384c';
 const fontURL='/assets/fonts/hasenat.ttf?v=1d37c471';
-const cssURL='/amiri-site.css?v=hasenat-2';
+const cssURL='/amiri-site.css?v=hasenat-3';
 const css=text('./amiri-site.css').replace(/\/\*[\s\S]*?\*\//g,'');
 const compact=value=>value.replace(/\s+/g,'');
 const index=text('./index.html'), admin=text('./mutesabih-admin.html');
@@ -39,7 +39,7 @@ test('Özgün Hasenat dosyası 512.196 bayt ve SHA-256 ile birebir',()=>{
 });
 
 test('Tek Hasenat yüzü aynı kökten yüklenir; yerel kurulum şartı yok',()=>{
-  assert.equal(faces.length,1);
+  assert.equal(faces.filter(([,body])=>body.includes("font-family:'AyatulKuran Hasenat'")).length,1);
   assert.match(face,/font-family\s*:\s*'AyatulKuran Hasenat'/);
   assert.ok(face.includes("url('"+fontURL+"') format('truetype')"));
   assert.doesNotMatch(face,/local\s*\(/i);
@@ -67,7 +67,7 @@ test('Latin harfleri Hasenat aralığına girmez; genel Türkçe alanlar seçilm
     .filter(([,selector,body])=>!selector.trim().startsWith('@')&&/font-family\s*:/.test(body));
   assert.equal(rules.length,2);
   for(const [,selector] of rules)for(const item of selector.split(',').map(s=>s.trim()))assert.ok(allowed.has(item),'Daraltılmamış font seçicisi: '+item);
-  assert.match(css,/#term\s*\{[^}]*font-family\s*:\s*'AyatulKuran Hasenat',system-ui,'Segoe UI',sans-serif!important/);
+  assert.match(css,/#term\s*\{[^}]*font-family\s*:\s*'AyatulKuran Hasenat','Scheherazade New',system-ui,'Segoe UI',sans-serif!important/);
 });
 
 test('Yalnız Arapça klavye harfleri biçimlenir; Türkçe eylem düğmeleri korunur',()=>{
@@ -130,13 +130,28 @@ test('Esmâ adları büyür; yeni boyutlar Türkçe/klavye/karma kutuya taşmaz'
   assert.doesNotMatch(css,/#term\s*\{[^}]*font-size\s*:/);
 });
 
-test('Site/önbellek 2.8.22 eşleşir; ortak stil ve özgün font önbelleğe eklenir',()=>{
-  assert.match(index,/const SITE_SURUM\s*=\s*'2\.8\.22'/);
-  assert.match(sw,/const SURUM\s*=\s*'v2\.8\.22'/);
-  assert.ok(index.includes("register('/sw.js?v=2.8.22', {updateViaCache:'none'})"));
+test('Site/önbellek 2.8.23 eşleşir; ortak stil ve özgün font önbelleğe eklenir',()=>{
+  assert.match(index,/const SITE_SURUM\s*=\s*'2\.8\.23'/);
+  assert.match(sw,/const SURUM\s*=\s*'v2\.8\.23'/);
+  assert.ok(index.includes("register('/sw.js?v=2.8.23', {updateViaCache:'none'})"));
   const core=sw.match(/const CEKIRDEK\s*=\s*\[([\s\S]*?)\];/)?.[1]||'';
   assert.ok(core.includes("'"+cssURL+"'"));assert.ok(core.includes("'"+fontURL+"'"));
   assert.match(sw,/x\s*!==\s*AD/,'Eski önbellek sürümü bırakılmaz');
+});
+
+test('İki eksik işaret için sabit Arapça destek fontu ve lisansı korunur',()=>{
+  const url='/assets/fonts/ScheherazadeNew-Regular.woff2?v=fd12c322';
+  const bytes=read('./assets/fonts/ScheherazadeNew-Regular.woff2');
+  assert.equal(sha256(bytes),'fd12c322cd8a0033d5c30b0a9fc0432e1d51288cd065f3f04a85a7974f1de3b7');
+  assert.equal(bytes.toString('ascii',0,4),'wOF2');
+  assert.equal(sha256(read('./assets/fonts/ScheherazadeNew-OFL.txt')),'5b9fd21ce2377fc542debebd9edfe1c48f2d3525e78a2a8abdba4a0ec3280163');
+  const fallback=faces.find(([,body])=>body.includes("font-family:'Scheherazade New'"))?.[1]||'';
+  assert.ok(fallback.includes(url));
+  assert.match(fallback,/unicode-range:[^;]*U\+0600-06FF[^;]*U\+08A0-08FF/);
+  assert.match(css,/font-family:'AyatulKuran Hasenat','Scheherazade New','Amiri',serif!important/);
+  assert.ok(sw.includes(url));
+  assert.ok(sw.includes('/hasenat-display.js?v=hasenat-3'));
+  evidence.destek_font_sha256=sha256(bytes);
 });
 
 test('Font yayını kavram çalışma verisini portal okuyucularına bağlamaz',()=>{

@@ -262,7 +262,7 @@ function makeRemote(initial, core) {
 
 let sessionNumber = 0;
 let CORE;
-async function harness({selected='2.2', initial=null, authorized=true} = {}) {
+async function harness({selected='2.2', initial=null, authorized=true, corpus=CORPUS} = {}) {
   const doc = new FakeDocument();
   const nodes = {};
   for (const [id, tag] of Object.entries(IDS)) {
@@ -275,8 +275,9 @@ async function harness({selected='2.2', initial=null, authorized=true} = {}) {
   nodes['concepts-file'].type='file';nodes['concepts-import-preview'].hidden=true;
   nodes['concepts-status-filter'].value='active';
   nodes['concepts-context-menu'].hidden=true;
-  const ctx={token:authorized?'FAKE_QA_KEY_DO_NOT_SEND':'',actor:authorized?'Musmur0606':'',corpus:CORPUS,selected,busy:false};
-  nodes['main-arabic'].textContent=CORPUS.verses[selected.replace('.',':')].ar;
+  const ctx={token:authorized?'FAKE_QA_KEY_DO_NOT_SEND':'',actor:authorized?'Musmur0606':'',corpus,selected,busy:false};
+  const shownVerse=corpus.verses[selected.replace('.',':')];
+  nodes['main-arabic'].textContent=shownVerse.arh||shownVerse.ar;
   nodes['main-translation'].textContent='Rahmân ve Rahîm olan Allah’ın adıyla';
   const remote=makeRemote(initial || CORE.emptyConceptHistory(TEST_DAY+'T12:00:00.000Z'),CORE);
   const win = new FakeNode(0,'',doc);
@@ -324,7 +325,7 @@ async function harness({selected='2.2', initial=null, authorized=true} = {}) {
       await api.select(text);
       await nodes['concepts-transfer'].click();await settle();
     },
-    async switchVerse(value) {ctx.selected=value;nodes['main-arabic'].textContent=CORPUS.verses[value.replace('.',':')].ar;doc.clearSelection();await panel.syncAuth();},
+    async switchVerse(value) {ctx.selected=value;const verse=corpus.verses[value.replace('.',':')];nodes['main-arabic'].textContent=verse.arh||verse.ar;doc.clearSelection();await panel.syncAuth();},
   };
   return api;
 }
@@ -340,6 +341,7 @@ async function test(name, fn) {
 async function main() {
   CORE = await import(pathToFileURL(join(DIR,'mutesabih-kavramlar-core.mjs')).href);
   await runTests();
+  await runHasenatTests();
   const regressionCount=results.length;
   await runFileImportTests();
   const report={date:TEST_DAY,test_type:'AGSIZ_DOM_API_BENZETIMI',real_browser:'HOLD_NOT_RUN',real_github_writes:0,
@@ -348,8 +350,10 @@ async function main() {
     file_import:{total:results.length-regressionCount,passed:results.slice(regressionCount).filter(r=>r.status==='PASS').length},
     product_hashes: Object.fromEntries(await Promise.all(['mutesabih-kavramlar-core.mjs','mutesabih-kavramlar.mjs','mutesabih-kavramlar-import.mjs'].map(async name=>[name,createHash('sha256').update(await readFile(join(DIR,name))).digest('hex')]))),
     passed:results.filter(r=>r.status==='PASS').length,failed:results.filter(r=>r.status==='FAIL').length,tests:results};
-  await writeFile(join(DIR,'KAVRAMLAR_PANEL_DOSYA_R2_QA_RAPORU.json'),JSON.stringify(report,null,2)+'\n');
-  console.log(JSON.stringify({passed:report.passed,failed:report.failed,regression:report.regression,file_import:report.file_import,report:join(DIR,'KAVRAMLAR_PANEL_DOSYA_R2_QA_RAPORU.json')}));
+  report.run_at_utc=new Date().toISOString();
+  const reportPath=process.env.HASENAT_QA_OUTPUT||join(DIR,'KAVRAMLAR_PANEL_DOSYA_R2_QA_RAPORU.json');
+  await writeFile(reportPath,JSON.stringify(report,null,2)+'\n');
+  console.log(JSON.stringify({passed:report.passed,failed:report.failed,regression:report.regression,file_import:report.file_import,report:reportPath}));
   if(report.failed) process.exitCode=1;
 }
 
@@ -632,6 +636,49 @@ function dummyFile(name,content,{size,gate,readError}={}) {
   return {name,size:size??bytes.byteLength,readCalls:0,
     sha256:createHash('sha256').update(bytes).digest('hex'),
     async arrayBuffer(){this.readCalls++;if(gate)await gate.promise;if(readError)throw new Error(readError);return bytes.slice().buffer;}};
+}
+
+async function runHasenatTests() {
+  const full=JSON.parse(await readFile(join(DIR,'app_data.json'),'utf8'));
+  const corpus={verses:{'2:6':full.verses['2:6'],'2:219':full.verses['2:219']}};
+  const shown='تُنْذِرْھُمْ',original=corpus.verses['2:6'].ar;
+  const authorize=async h=>{await h.panel.onAuthorized();await settle();};
+  await test('HASENAT: sağtık aktarımı görünen ham metni ve arh konumunu kaydeder',async()=>{
+    const h=await harness({selected:'2.6',corpus});await authorize(h);
+    await h.transfer(shown);
+    assert.equal(h.remote.puts.length,1);
+    const record=h.remote.doc.records[0],source=record.sources[0];
+    assert.equal(record.arabic_text,shown);
+    assert.equal(source.text_field,'arh');
+    assert.equal(corpus.verses['2:6'].arh.slice(source.start,source.end),shown);
+    CORE.assertConceptHistory(h.remote.doc,corpus);
+    assert.equal(h.remote.puts[0].branch,CORE.CONCEPTS_BRANCH);
+  });
+  await test('HASENAT: eski ar kaynak kaydı yeni seçim eklenince aynen korunur',async()=>{
+    const old=CORE.addConcept(CORE.emptyConceptHistory(TEST_DAY+'T12:00:00.000Z'),
+      {arabicText:original,source:{verse:'2.6',start:0,end:original.length,origin:'manual'}},
+      'Musmur0606',corpus,TEST_DAY+'T12:01:00.000Z').doc;
+    const before=JSON.stringify(old.records[0]),event=JSON.stringify(old.events[0]);
+    const h=await harness({selected:'2.6',corpus,initial:old});await authorize(h);await h.transfer(shown);
+    assert.equal(h.remote.puts.length,1);
+    assert.equal(JSON.stringify(h.remote.doc.records[0]),before);
+    assert.equal(JSON.stringify(h.remote.doc.events[0]),event);
+    CORE.assertConceptHistory(h.remote.doc,corpus);
+  });
+  await test('HASENAT: elle yapıştırılan yeni ifade tek konumuyla doğrulanır',async()=>{
+    const h=await harness({selected:'2.6',corpus});await authorize(h);
+    await h.input('concepts-text',shown);await h.input('concepts-source','2.6');
+    await h.$('concepts-save').click();await settle();
+    assert.equal(h.remote.puts.length,1);
+    assert.equal(h.remote.doc.records[0].sources[0].text_field,'arh');
+    CORE.assertConceptHistory(h.remote.doc,corpus);
+  });
+  await test('HASENAT: âyet değişince eski sağtık seçimi başka âyete kaydedilmez',async()=>{
+    const h=await harness({selected:'2.6',corpus});await authorize(h);
+    await h.select(shown);await h.switchVerse('2.219');
+    await h.$('concepts-transfer').click();await settle();
+    assert.equal(h.remote.puts.length,0);
+  });
 }
 
 async function runFileImportTests() {

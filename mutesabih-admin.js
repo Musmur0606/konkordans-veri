@@ -1,5 +1,6 @@
 import { parseVerses, normalizeMain, otherVerseBase, wordMatrixBaseline, cleanState, getMerged, applyEdit, undoOne, undoDay, dayInTurkey, eventLabel } from '/mutesabih-core.mjs?v=3';
 import { DRAFT234_PATH, DRAFT234_BRANCH, PUBLIC_HISTORY_PATH, PUBLIC_HISTORY_BRANCH, isDraftMain, storageForMain, draftBase, assertDraftHistory, assertRouteDocument, assertStorageTarget, applyDraftEdit, undoDraftOne, undoDraftDay } from '/mutesabih-draft234.mjs?v=1';
+import { compareConceptVerses, fillArabicHighlights } from '/mutesabih-kavram-eslestirme.mjs?v=kavram-1';
 
 const OWNER = 'Musmur0606';
 const REPO = 'konkordans-veri';
@@ -28,10 +29,11 @@ async function initializeConceptsPanel() {
   // Ayrı modül hatası ana benzeşen/sesli giriş modülünün yüklenmesini kesmez.
   // Yetki anahtarı bir depoya, global değişkene veya günlük çıktısına aktarılmaz.
   try{
-    const {initConceptPanel}=await import('/mutesabih-kavramlar.mjs?v=hasenat-3');
+    const {initConceptPanel}=await import('/mutesabih-kavramlar.mjs?v=kavram-1');
     conceptsPanel=initConceptPanel({
       getContext:()=>({token:runtime.token,actor:runtime.actor,corpus:runtime.corpus,selected:runtime.selected,busy:runtime.busy}),
-      setBusy:(value)=>{if(value&&voiceActive)stopVoiceRefs();setBusy(value);}
+      setBusy:(value)=>{if(value&&voiceActive)stopVoiceRefs();setBusy(value);},
+      onChanged:()=>renderSelected()
     });
     if(!conceptsPanel.available)throw Error('Kavram bölümünün gerekli ekran alanları bulunamadı.');
     conceptsPanel.syncAuth();
@@ -238,7 +240,7 @@ function renderSelected() {
   const verse=runtime.corpus?.verses?.[base.main.replace('.',':')];
   $('main-title').textContent=base.status==='site' && verse?.sa?verse.sa+' Sûresi · '+verse.a+'. Âyet':base.heading;
   $('main-source').textContent=destination.draft?'Kaynak: kullanıcı çalışması · Motor ilişkileri bu listeye otomatik alınmaz.':base.status==='site'?'Kaynak: '+base.source.file+' · Mevcut site ilişkileri korunur.':'Kaynak: '+base.source.file+' · 114 Word belgesinden çıkarılan sûre/âyet matrisi';
-  $('main-arabic').textContent=verse?.arh||verse?.ar||'Bu âyetin Arapça metni bulunamadı.';
+  const mainArabic=verse?.arh||verse?.ar||'Bu âyetin Arapça metni bulunamadı.';
   $('main-turkish').textContent=verse?.mb||'Bu âyetin Türkçe meali bulunamadı.';
   $('source-note').textContent=base.status==='site'?'Korumalı sûrenin mevcut site kayıtları gösterilir; bu ana âyet değiştirilemez.':'Word kaynaklı 175.478 bağlantı ayrı bir kaynak olarak korunur. Bu ana âyet için ekleme/çıkarma GitHub MLOG dosyasına ve ana sitenin görünümüne yansır. İlişkilerin anlamı ayrıca incelenebilir.';
   if(destination.draft)$('source-note').textContent=runtime.draftError?'Çalışma veri seti okunamadı; kayıt kapalı. Yayımlanan dosyaya yönlendirme yapılmaz. '+runtime.draftError:'Bakara, Âl-i İmrân ve Nisâ girişleri ayrı çalışma veri setine yazılır. Portal bu dosyayı okumaz; mevcut motor sonuçları değişmez. Kaydı doğrulamak da yayın onayı değildir.';
@@ -246,15 +248,50 @@ function renderSelected() {
   $('save-target').dataset.scope=destination.draft?'draft234':'public';
   $('main-status').textContent=label;$('main-status').className='pill '+color;
   const links=getMerged(base,currentState);
-  $('link-count').textContent=destination.draft?links.length+' çalışma ilişkisi · yayımlanmaz':links.length+' ilişki ('+base.links.length+(base.status==='site'?' mevcut site':' Word matrisi')+' kaydı)';
+  const conceptsReady=!!runtime.token && $('concepts-panel')?.dataset.ready==='true';
+  const compared=compareConceptVerses({
+    main:base.main, existingLinks:links, corpus:runtime.corpus,
+    records:conceptsReady?conceptsPanel?.getActiveRecords()||[]:[]
+  });
+  fillArabicHighlights($('main-arabic'),mainArabic,compared.mainHighlights);
+  $('link-count').textContent=
+    links.length+(destination.draft?' çalışma ilişkisi':' mevcut benzeşen')+
+    (compared.addedCount?' + '+compared.addedCount+' kavram adayı':'')+
+    (destination.draft?' · yayımlanmaz':'');
+  $('concepts-match-status').textContent=conceptsReady
+    ? compared.matchedConcepts.length+' kayıtlı kavram ana âyette bulundu · '+
+      compared.addedCount+' yeni âyet adayı · '+compared.sharedCount+
+      ' mevcut benzeşende ortak kavram. Bir âyet bir kez gösterilir; kavram adayları benzeşen verisine otomatik kaydedilmez.'
+    : 'Kavram çalışma dosyası henüz yüklenmedi. Mevcut benzeşenler aynen gösteriliyor.';
   const target=$('link-list');target.replaceChildren();
-  for (const ref of links) {
-    const pill=createText('span','link'+(ref.added?' added':''),'');
-    pill.append(createText('strong','',ref.key));
-    if(ref.added)pill.append(createText('small','source','Yönetici ekledi'));
-    target.append(pill);
+  target.classList.toggle('has-concepts', compared.links.some(link => link.concepts.length));
+  for (const ref of compared.links) {
+    if (!ref.concepts.length) {
+      const pill=createText('span','link'+(ref.added?' added':''),'');
+      pill.append(createText('strong','',ref.key));
+      if(ref.added)pill.append(createText('small','source','Yönetici ekledi'));
+      target.append(pill);continue;
+    }
+    const card=createText('article','link concept-match'+(ref.added?' added':''),'');
+    const title=createText('div','concept-link-title','');
+    title.append(createText('strong','',ref.key),
+      createText('small','source',ref.viaConcept?'Kavramla bulunan yeni âyet adayı':'Mevcut benzeşen âyet'));
+    if(ref.added)title.append(createText('small','source','Yönetici ekledi'));
+    card.append(title);
+    const phraseList=createText('div','concept-labels','');
+    for(const concept of ref.concepts) {
+      const label=createText('span','concept-chip concept-tone-'+concept.color,concept.label);
+      label.title='İki âyette de eşleşen kayıtlı kavram';
+      phraseList.append(label);
+    }
+    card.append(phraseList);
+    const arabic=createText('p','concept-link-verse','');
+    arabic.lang='ar';arabic.dir='rtl';
+    fillArabicHighlights(arabic,ref.arabic,ref.concepts.flatMap(concept=>
+      concept.ranges.map(range=>({...range, ...concept}))));
+    card.append(arabic);target.append(card);
   }
-  if(!links.length)target.append(createText('p','micro','Bu ana âyet için görünür benzeşen kayıt yok.'));
+  if(!compared.links.length)target.append(createText('p','micro','Bu ana âyet için görünür benzeşen veya kavram adayı yok.'));
   updateParsed();
 }
 

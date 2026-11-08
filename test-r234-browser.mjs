@@ -8,6 +8,7 @@ import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
 import {createHash,webcrypto} from 'node:crypto';
 import * as publicCore from './mutesabih-core.mjs';
 import * as draftCore from './mutesabih-draft234.mjs';
+import {compareConceptVerses,fillArabicHighlights} from './mutesabih-kavram-eslestirme.mjs';
 
 const read=name=>readFileSync(new URL(name,import.meta.url),'utf8');
 const html=read('./mutesabih-admin.html');
@@ -50,7 +51,7 @@ function harness(options={}) {
     remove(){if(this.parent)this.parent.children=this.parent.children.filter(x=>x!==this);}
   }
   for(const id of ids)elements.set(id,new Element('div',id));
-  const document={getElementById(id){if(!elements.has(id))throw Error('HTML kimliği yok: '+id);return elements.get(id);},createElement(tag){return new Element(tag);},body:new Element('body')};
+  const document={getElementById(id){if(!elements.has(id))throw Error('HTML kimliği yok: '+id);return elements.get(id);},createElement(tag){return new Element(tag);},createTextNode(text){return {textContent:String(text)};},body:new Element('body')};
   const blobMap=new Map();
   class FakeURL extends URL {}
   FakeURL.createObjectURL=blob=>{const url='blob:test-'+blobMap.size;blobMap.set(url,blob);return url;};
@@ -104,7 +105,11 @@ function harness(options={}) {
     failures.push({method,url:u.href});
     throw Error('Test ağı dışı istek engellendi: '+method+' '+u.origin+u.pathname);
   }
-  const scope={...publicCore,...draftCore,document,console:{log:()=>{},error:e=>errors.push(String(e))},fetch:fetchMock,TextEncoder,TextDecoder,Blob,URL:FakeURL,Event:FakeEvent,crypto:webcrypto,Date,Map,Set,Uint8Array,atob:s=>Buffer.from(s,'base64').toString('binary'),btoa:s=>Buffer.from(s,'binary').toString('base64'),setTimeout:(fn,ms)=>{const id=++timerId;timers.set(id,{fn,ms});return id;},clearTimeout:id=>timers.delete(id),SpeechRecognition:SpeechAPI,confirm:message=>{confirmations.push(message);return controls.confirm;}};
+  const highlightForFakeDocument=(node,text,ranges)=>{
+    const previous=globalThis.document;globalThis.document=document;
+    try{return fillArabicHighlights(node,text,ranges);}finally{globalThis.document=previous;}
+  };
+  const scope={...publicCore,...draftCore,compareConceptVerses,fillArabicHighlights:highlightForFakeDocument,document,console:{log:()=>{},error:e=>errors.push(String(e))},fetch:fetchMock,TextEncoder,TextDecoder,Blob,URL:FakeURL,Event:FakeEvent,crypto:webcrypto,Date,Map,Set,Uint8Array,atob:s=>Buffer.from(s,'base64').toString('binary'),btoa:s=>Buffer.from(s,'binary').toString('base64'),setTimeout:(fn,ms)=>{const id=++timerId;timers.set(id,{fn,ms});return id;},clearTimeout:id=>timers.delete(id),SpeechRecognition:SpeechAPI,confirm:message=>{confirmations.push(message);return controls.confirm;}};
   scope.window=scope;
   vm.createContext(scope);
   vm.runInContext(source.replace(/^import[^\n]+\n/gm,''),scope,{filename:'mutesabih-admin.js'});

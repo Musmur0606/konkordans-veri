@@ -2,7 +2,7 @@
 
 Proje: ayatulkuran · Musmur0606/konkordans-veri  
 Karar tarihi: 7 Kasım 2026  
-Kullanıcının son ve bağlayıcı akışı: Arapça kelime / kelime grubunu seç → sağ tık → **Kavram veri setine aktar**.
+Kullanıcının 8 Kasım 2026 tarihinde güncellediği bağlayıcı akış: Arapça kelime / kelime grubunu fareyle seç → kayıt önizlemesini gör → **OK — Veri setine kaydet**. İsteğe bağlı sağ tık menüsündeki **Kavram veri setine aktar** komutu da yalnız onay ekranını hazırlar.
 
 ## Kayıt yeri
 
@@ -18,9 +18,11 @@ Kullanıcının son ve bağlayıcı akışı: Arapça kelime / kelime grubunu se
 
 ## Giriş ve kaynak kuralları
 
-Aynı yönetim panelindeki seçili ana âyetin Arapça metninde kelime veya kelime grubu seçilir. Sağ tık yalnız menüyü açar. **Kavram veri setine aktar** öğesine tıklamak ayrı çalışma dosyasına kaydı başlatır; ikinci kopyala/yapıştır veya OK gerekmez. Diğer alanlardaki olağan sağ tık menüsü korunur.
+Aynı yönetim panelindeki seçili ana âyetin Arapça metninde kelime veya kelime grubu fareyle seçilir. Seçim, kaynak âyet numarası ve özgün tam ifade ile bekleyen önizlemeye alınır. Sağ tık yalnız menüyü açar; **Kavram veri setine aktar** öğesi seçimi onaya hazırlar. **Yalnız “OK — Veri setine kaydet” düğmesine basılması GitHub çalışma dosyası yazmasını başlatır.** Vazgeç veya Escape yazma yapmadan bekleyen seçimi iptal eder. Diğer alanlardaki olağan sağ tık menüsü korunur.
 
-Kayıtla birlikte özgün Arapça metin, kaynak sûre/âyet, âyet içindeki seçim aralığı, ekleyen kişi ve zaman tutulur. Seçim, asıl âyet metninin tam dilimiyle doğrulanır. Harekeler, uzatmalar ve özgün yazım değiştirilmez. Ayrı bir arama anahtarı ilerideki arama için saklanır; bu anahtar kavramları otomatik birleştirmez veya yeni benzeşen ilişkiler üretmez.
+Kayıtla birlikte özgün Arapça metin, kaynak sûre/âyet, âyet içindeki seçim aralığı, ekleyen kişi ve zaman tutulur. Seçim, asıl âyet metninin tam dilimiyle doğrulanır. Harekeler, uzatmalar ve özgün yazım değiştirilmez. Ayrı bir arama anahtarı saklanır; bu anahtar kavram kayıtlarını otomatik birleştirmez.
+
+8 Kasım 2026 kavram benzeşmesi: Yönetim paneli, seçili ana âyette geçen **etkin ve kaydedilmiş** kavramları bütün Kur’an âyetlerinde tam kelime / ardışık kelime grubu olarak, arama sırasında harekeleri eşitleyerek arar. Bulduğu diğer âyetler mevcut benzeşen listesine **yalnız görüntüde** eklenir. Sûre ve âyet numarasına göre mükerrer sonuç ve ana âyetin kendisi çıkarılır. Eşleşen çok kelimeli ifade ana âyet ve diğer âyette aynı renkle bütün olarak vurgulanır. Arşivdeki veya henüz OK ile kaydedilmemiş kavramlar kullanılmaz. Kavramdan bulunan ilişki **mevcut Word / site benzeşen veri setine yazılmaz**. Kod ayrı geliştirme dalında hazırlanır ve yayın onayı verilmeden `main` dalına alınmaz.
 
 Elle kopyalayıp kavram kutusuna yapıştırma ve **OK** ile ekleme alternatif olarak kullanılabilir. Dışarıdan yapıştırılan metne açık ana âyet kendiliğinden kaynak atanmaz. Kullanıcı kaynak âyet yazarsa metin o âyetle doğrulanır. Arapça dışındaki harfler ve boş giriş reddedilir.
 
@@ -41,4 +43,4 @@ Kavram modülü yüklenemezse yalnız kavram bölümü hata gösterir; ana benze
 
 ## Kontrol ve devam
 
-Kabul ve gerçek tarayıcıda bekleyen kontroller [kontrol noktasında](HASENAT_KAVRAMLAR_KONTROL_20261107.json) kayıtlıdır. Sonraki güvenli adım: yetkili kullanıcı gerçek tarayıcıda bir Arapça kelimeyi sağ tıkla aktarır, kaydın ayrı listede ve doğru kaynak âyetle göründüğünü kontrol eder. Deneme verisi portalın veri dosyalarına yazılmaz.
+Önceki kontroller [kontrol noktasında](HASENAT_KAVRAMLAR_KONTROL_20261107.json) kayıtlıdır; 8 Kasım değişikliklerinin ayrı testi [yeni devirde](DEVIR_2026-11-08_KAVRAM_BENZESME_V1.md) tutulur. Sonraki güvenli adım: yetkili kullanıcı gerçek tarayıcıda bir Arapça kelime veya kelime grubunu fareyle seçer, bekleyen onay ekranını inceler, **OK** basınca kaydın doğru kaynak âyetle ayrı listede göründüğünü ve benzeşen âyetlerde ortak ibarenin aynı renkte işaretlendiğini doğrular. Deneme verisi portalın veri dosyalarına yazılmaz.

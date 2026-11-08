@@ -57,6 +57,74 @@
 .concepts-context-menu .micro { font-size: .8rem; color: #496858; }
 .concepts-quick-status { min-height: 0; margin: 5px 0 10px; }
 .concepts-quick-status:empty { display: none; }
+.concepts-quick-preview {
+  margin: 8px 0 17px;
+  padding: 13px 15px;
+  border: 2px solid #43866a;
+  border-radius: 8px;
+  background: #f0faf2;
+  color: #265743;
+}
+.concepts-quick-preview[hidden] { display: none; }
+.concepts-quick-preview > strong { font-size: .86rem; }
+.concepts-quick-preview #concepts-quick-text {
+  font-family: "AyatulKuran Hasenat", "Scheherazade New", serif;
+  font-size: 1.5rem;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+  background: white;
+  padding: 7px 12px;
+  border-radius: 5px;
+  margin: 8px 0;
+}
+.links.has-concepts { max-height: 470px; }
+.links .link.concept-match {
+  display: block;
+  width: 100%;
+  padding: 12px 13px;
+  background: #f4f9f7;
+  border-color: #b8d4c7;
+  overflow-wrap: anywhere;
+}
+.links .link.concept-match .concept-link-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.concept-link-verse {
+  font-family: "AyatulKuran Hasenat", "Scheherazade New", Amiri, serif;
+  font-size: 1.65rem;
+  line-height: 2;
+  padding: 5px 2px;
+  margin: 5px 0 0;
+  white-space: pre-wrap;
+  font-weight: 400;
+  color: #24382d;
+}
+.concept-labels { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.concept-chip {
+  font-size: .76rem;
+  line-height: 1.8;
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: #183c2a;
+  border: 1px solid #a6b9ad;
+  font-family: "AyatulKuran Hasenat", "Scheherazade New", Amiri, serif;
+}
+.concept-highlight {
+  font: inherit;
+  color: #132b21;
+  padding: 0 2px;
+  border-radius: 3px;
+  box-decoration-break: clone;
+}
+.concept-tone-0 { background: #ffe8a5; }
+.concept-tone-1 { background: #c8ebff; }
+.concept-tone-2 { background: #d5efc1; }
+.concept-tone-3 { background: #fbd0e9; }
+.concept-tone-4 { background: #e1d8ff; }
+.concept-tone-5 { background: #ffdcca; }
 .concepts-filters { display: grid; grid-template-columns: minmax(0, 1fr) 130px; gap: 10px; }
 .concepts-list { display: grid; gap: 10px; margin-top: 12px; max-height: 420px; overflow: auto; }
 .concepts-record { border: 1px solid #d0ddd5; border-radius: 8px; padding: 12px; background: #fff; }

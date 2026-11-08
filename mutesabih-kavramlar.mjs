@@ -57,10 +57,11 @@ function textNode(tag, className, text) {
   return node;
 }
 
-export function initConceptPanel({ getContext, setBusy } = {}) {
+export function initConceptPanel({ getContext, setBusy, onChanged } = {}) {
   const ids = [
     'concepts-panel', 'concepts-context-menu', 'concepts-transfer', 'concepts-selection-note',
-    'concepts-quick-status', 'concepts-text', 'concepts-source',
+    'concepts-quick-status', 'concepts-quick-preview', 'concepts-quick-text',
+    'concepts-quick-confirm', 'concepts-quick-cancel', 'concepts-text', 'concepts-source',
     'concepts-source-note', 'concepts-note', 'concepts-save', 'concepts-refresh',
     'concepts-export', 'concepts-filter', 'concepts-status-filter', 'concepts-count',
     'concepts-list', 'concepts-message', 'concepts-target', 'main-arabic',
@@ -74,7 +75,7 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     return Object.freeze({
       available: false,
       onAuthorized: async () => false, refresh: async () => false,
-      onLogout() {}, syncAuth() {},
+      onLogout() {}, syncAuth() {}, getActiveRecords: () => [],
     });
   }
   const node = id => nodes[id];
@@ -84,6 +85,15 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
   let readingFile = false, fileSequence = 0, pendingImport = null;
   let recordButtons = [];
 
+  function getActiveRecords() {
+    return authorized() && doc && sha && !needsRefresh
+      ? doc.records.filter(record => record.status === 'active')
+        .map(record => ({id: record.id, arabic_text: record.arabic_text, status: record.status}))
+      : [];
+  }
+  function notifyChanged() {
+    if (typeof onChanged === 'function') onChanged();
+  }
   function context() { return getContext() || {}; }
   function authorized(ctx = context()) {
     return typeof ctx.token === 'string' && !!ctx.token && ctx.actor === OWNER;
@@ -211,6 +221,9 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
       node('concepts-context-menu').hidden = true;
     }
     node('concepts-transfer').disabled = !ready || occupied || !pendingSelection;
+    node('concepts-quick-preview').hidden = !pendingSelection;
+    node('concepts-quick-confirm').disabled = !ready || occupied || !pendingSelection;
+    node('concepts-quick-cancel').disabled = occupied;
     node('concepts-save').disabled = !ready || occupied ||
       !hasArabic(node('concepts-text').value);
     node('concepts-refresh').disabled = !logged || occupied || loading;
@@ -284,12 +297,14 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
       doc = result.doc; sha = result.sha; needsRefresh = false; loading = false;
       renderRecords();
       message('Kavram çalışma kayıtları yüklendi. Portal ve motor verisi değişmez.', 'success');
+      notifyChanged();
       return true;
     } catch (error) {
       if (!sameSession(captured) || sequence !== readSequence) return false;
       doc = null; sha = ''; loading = false;
       renderRecords();
       message('Kavram kaydı kapalı: ' + error.message, 'error');
+      notifyChanged();
       return false;
     }
   }
@@ -315,15 +330,33 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     return sourceMatches(source, raw, ctx.corpus) ? { text: raw, source } : null;
   }
   function closeContextMenu() {
-    pendingSelection = null;
     node('concepts-context-menu').hidden = true;
+  }
+  function cancelQuickSelection() {
+    pendingSelection = null;
+    closeContextMenu();
+    node('concepts-quick-text').textContent = '';
+    syncAuth();
+  }
+  function stageSelection(captured) {
+    pendingSelection = captured;
+    node('concepts-quick-text').textContent =
+      captured.source.verse + ' · ' + captured.text;
+    quickMessage('Seçim bekliyor. Kontrol edip “OK — Veri setine kaydet” düğmesine basın.');
+    syncAuth();
+  }
+  function selectWithMouse() {
+    const captured = readSelection();
+    if (!captured) return;
+    closeContextMenu();
+    stageSelection(captured);
   }
   function openContextMenu(event) {
     const captured = readSelection();
     // Yalnız geçerli Arapça seçimi üzerinde özel menü: diğer sağ tıklar değişmez.
     if (!captured) { closeContextMenu(); return; }
     event.preventDefault();
-    pendingSelection = captured;
+    stageSelection(captured);
     node('concepts-selection-note').textContent = captured.source.verse + ' · seçilen Arapça ifade';
     const menu = node('concepts-context-menu');
     menu.hidden = false;
@@ -337,13 +370,21 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     const ctx = context();
     if (!authorized(ctx) || saving || ctx.busy || !pendingIsCurrent()) {
       quickMessage('Seçim veya oturum değişti. Arapça metni yeniden seçip sağ tıklayın.', 'error');
-      closeContextMenu(); return;
+      cancelQuickSelection(); return;
     }
-    // Menü öğesi, yalnız bu anlık görüntüyü kaydeder. Formun metni/notu kullanılmaz.
-    const captured = {
-      text: pendingSelection.text, source: { ...pendingSelection.source },
-    };
     closeContextMenu();
+    quickMessage('Aktarım hazır. Yalnız “OK — Veri setine kaydet” onayından sonra yazılacak.');
+    syncAuth();
+  }
+  function confirmQuickSelection() {
+    if (!pendingIsCurrent()) {
+      cancelQuickSelection();
+      quickMessage('Ana âyet veya seçili ifade değişti; işlem yapılmadı.', 'error');
+      return;
+    }
+    const captured = {
+      text: pendingSelection.text, source: {...pendingSelection.source},
+    };
     return mutate('quick', '', captured);
   }
   function clearSource() {
@@ -529,7 +570,9 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
         node('concepts-text').value = ''; node('concepts-note').value = '';
         clearSource();
       }
+      if (quick) cancelQuickSelection();
       renderRecords();
+      notifyChanged();
       report(operation === 'import'
         ? result.newCount + ' yeni kavram ve ' + result.updatedCount +
           ' mevcut kayda dosya kaynağı/notu kaydedildi. Portala veya motora aktarılmadı.' :
@@ -571,12 +614,14 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     clearImport();
     for (const id of ['concepts-text', 'concepts-source', 'concepts-note', 'concepts-filter']) node(id).value = '';
     node('concepts-context-menu').hidden = true;
+    node('concepts-quick-text').textContent = '';
     node('concepts-list').replaceChildren(); recordButtons = [];
     node('concepts-count').textContent = 'Kayıtlar yüklenmedi.';
     message('Kavramlar için yönetici girişi bekleniyor.');
     quickMessage('');
     if (release) setBusy(false);
     syncAuth();
+    notifyChanged();
   }
   async function onAuthorized() {
     epoch++; readSequence++;
@@ -588,16 +633,22 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     return refresh();
   }
 
+  // Fareyle seçme yalnızca onay kartını açar; seçim sırasında GitHub'a yazılmaz.
+  node('main-arabic').addEventListener('mouseup', selectWithMouse);
   node('main-arabic').addEventListener('contextmenu', openContextMenu);
   node('concepts-transfer').addEventListener('mousedown', event => {
     if (event.button === 0) event.preventDefault();
   });
   node('concepts-transfer').addEventListener('click', transferSelection);
+  node('concepts-quick-confirm').addEventListener('click', confirmQuickSelection);
+  node('concepts-quick-cancel').addEventListener('click', () => {
+    cancelQuickSelection(); quickMessage('Aktarım iptal edildi. Veri seti değişmedi.');
+  });
   document.addEventListener('mousedown', event => {
     if (!node('concepts-context-menu').hidden && !node('concepts-context-menu').contains(event.target)) closeContextMenu();
   });
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') closeContextMenu();
+    if (event.key === 'Escape') cancelQuickSelection();
   });
   node('concepts-text').addEventListener('paste', () => {
     // Doğal Ctrl+V aynen sürer; açık ana âyet veya eski seçim kaynak atanmaz.
@@ -631,5 +682,5 @@ export function initConceptPanel({ getContext, setBusy } = {}) {
     ' · Portal ve motor bu dosyayı okumaz.';
   message('Kavramlar için yönetici girişi bekleniyor.');
   syncAuth();
-  return Object.freeze({ available: true, onAuthorized, refresh, onLogout, syncAuth });
+  return Object.freeze({ available: true, onAuthorized, refresh, onLogout, syncAuth, getActiveRecords });
 }

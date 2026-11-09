@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-09T12:36:08.199Z",
+  "updated_at": "2026-11-09T12:54:32.327Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -834,11 +834,21 @@
           "added_at": "2026-11-09T12:36:08.199Z",
           "added_by": "Musmur0606",
           "event_id": "kavram-olay-00000039"
+        },
+        {
+          "verse": "4.12",
+          "start": 562,
+          "end": 572,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-09T12:54:32.327Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000040"
         }
       ],
       "notes": [],
       "created_at": "2026-11-09T12:36:08.199Z",
-      "updated_at": "2026-11-09T12:36:08.199Z",
+      "updated_at": "2026-11-09T12:54:32.327Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     }
@@ -2493,6 +2503,77 @@
         "notes": [],
         "created_at": "2026-11-09T12:36:08.199Z",
         "updated_at": "2026-11-09T12:36:08.199Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000040",
+      "type": "enrich",
+      "at": "2026-11-09T12:54:32.327Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000035",
+      "note": "",
+      "source": {
+        "verse": "4.12",
+        "start": 562,
+        "end": 572,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": {
+        "id": "kavram-00000035",
+        "arabic_text": "وَصِيَّةٍ ",
+        "search_key": "وصية",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.11",
+            "start": 412,
+            "end": 422,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T12:36:08.199Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000039"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-09T12:36:08.199Z",
+        "updated_at": "2026-11-09T12:36:08.199Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      },
+      "after": {
+        "id": "kavram-00000035",
+        "arabic_text": "وَصِيَّةٍ ",
+        "search_key": "وصية",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.11",
+            "start": 412,
+            "end": 422,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T12:36:08.199Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000039"
+          },
+          {
+            "verse": "4.12",
+            "start": 562,
+            "end": 572,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T12:54:32.327Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000040"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-09T12:36:08.199Z",
+        "updated_at": "2026-11-09T12:54:32.327Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

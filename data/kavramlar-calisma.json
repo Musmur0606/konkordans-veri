@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-09T13:21:45.229Z",
+  "updated_at": "2026-11-09T13:22:20.585Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -895,6 +895,29 @@
       "notes": [],
       "created_at": "2026-11-09T13:21:45.229Z",
       "updated_at": "2026-11-09T13:21:45.229Z",
+      "created_by": "Musmur0606",
+      "updated_by": "Musmur0606"
+    },
+    {
+      "id": "kavram-00000038",
+      "arabic_text": "جَنَّاتٍ تَجْرٖى مِنْ تَحْتِهَا الْاَنْهَارُ",
+      "search_key": "جنات تجرى من تحتها الانهار",
+      "status": "active",
+      "sources": [
+        {
+          "verse": "4.13",
+          "start": 68,
+          "end": 112,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-09T13:22:20.585Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000043"
+        }
+      ],
+      "notes": [],
+      "created_at": "2026-11-09T13:22:20.585Z",
+      "updated_at": "2026-11-09T13:22:20.585Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     }
@@ -2698,6 +2721,45 @@
         "notes": [],
         "created_at": "2026-11-09T13:21:45.229Z",
         "updated_at": "2026-11-09T13:21:45.229Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000043",
+      "type": "add",
+      "at": "2026-11-09T13:22:20.585Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000038",
+      "note": "",
+      "source": {
+        "verse": "4.13",
+        "start": 68,
+        "end": 112,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": null,
+      "after": {
+        "id": "kavram-00000038",
+        "arabic_text": "جَنَّاتٍ تَجْرٖى مِنْ تَحْتِهَا الْاَنْهَارُ",
+        "search_key": "جنات تجرى من تحتها الانهار",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.13",
+            "start": 68,
+            "end": 112,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T13:22:20.585Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000043"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-09T13:22:20.585Z",
+        "updated_at": "2026-11-09T13:22:20.585Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

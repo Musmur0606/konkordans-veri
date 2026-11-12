@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-12T16:09:09.848Z",
+  "updated_at": "2026-11-12T16:09:26.581Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -785,11 +785,21 @@
           "added_at": "2026-11-09T15:25:45.034Z",
           "added_by": "Musmur0606",
           "event_id": "kavram-olay-00000054"
+        },
+        {
+          "verse": "4.24",
+          "start": 365,
+          "end": 382,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-12T16:09:26.581Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000080"
         }
       ],
       "notes": [],
       "created_at": "2026-11-09T12:26:17.692Z",
-      "updated_at": "2026-11-09T15:25:45.034Z",
+      "updated_at": "2026-11-12T16:09:26.581Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     },
@@ -5066,6 +5076,97 @@
         "notes": [],
         "created_at": "2026-11-12T15:58:35.714Z",
         "updated_at": "2026-11-12T16:09:09.848Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000080",
+      "type": "enrich",
+      "at": "2026-11-12T16:09:26.581Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000032",
+      "note": "",
+      "source": {
+        "verse": "4.24",
+        "start": 365,
+        "end": 382,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": {
+        "id": "kavram-00000032",
+        "arabic_text": "عَلٖيمًا حَكٖيمًا",
+        "search_key": "عليما حكيما",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.11",
+            "start": 566,
+            "end": 583,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T12:26:17.692Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000036"
+          },
+          {
+            "verse": "4.17",
+            "start": 164,
+            "end": 181,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T15:25:45.034Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000054"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-09T12:26:17.692Z",
+        "updated_at": "2026-11-09T15:25:45.034Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      },
+      "after": {
+        "id": "kavram-00000032",
+        "arabic_text": "عَلٖيمًا حَكٖيمًا",
+        "search_key": "عليما حكيما",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.11",
+            "start": 566,
+            "end": 583,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T12:26:17.692Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000036"
+          },
+          {
+            "verse": "4.17",
+            "start": 164,
+            "end": 181,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T15:25:45.034Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000054"
+          },
+          {
+            "verse": "4.24",
+            "start": 365,
+            "end": 382,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-12T16:09:26.581Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000080"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-09T12:26:17.692Z",
+        "updated_at": "2026-11-12T16:09:26.581Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

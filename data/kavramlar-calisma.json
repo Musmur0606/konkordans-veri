@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-12T16:08:56.104Z",
+  "updated_at": "2026-11-12T16:09:09.848Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -1528,11 +1528,21 @@
           "added_at": "2026-11-12T15:58:35.714Z",
           "added_by": "Musmur0606",
           "event_id": "kavram-olay-00000074"
+        },
+        {
+          "verse": "4.24",
+          "start": 275,
+          "end": 283,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-12T16:09:09.848Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000079"
         }
       ],
       "notes": [],
       "created_at": "2026-11-12T15:58:35.714Z",
-      "updated_at": "2026-11-12T15:58:35.714Z",
+      "updated_at": "2026-11-12T16:09:09.848Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     },
@@ -4985,6 +4995,77 @@
         "notes": [],
         "created_at": "2026-11-09T12:28:44.835Z",
         "updated_at": "2026-11-12T16:08:56.104Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000079",
+      "type": "enrich",
+      "at": "2026-11-12T16:09:09.848Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000063",
+      "note": "",
+      "source": {
+        "verse": "4.24",
+        "start": 275,
+        "end": 283,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": {
+        "id": "kavram-00000063",
+        "arabic_text": "جُنَاحَ ",
+        "search_key": "جناح",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.23",
+            "start": 364,
+            "end": 372,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-12T15:58:35.714Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000074"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-12T15:58:35.714Z",
+        "updated_at": "2026-11-12T15:58:35.714Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      },
+      "after": {
+        "id": "kavram-00000063",
+        "arabic_text": "جُنَاحَ ",
+        "search_key": "جناح",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.23",
+            "start": 364,
+            "end": 372,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-12T15:58:35.714Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000074"
+          },
+          {
+            "verse": "4.24",
+            "start": 275,
+            "end": 283,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-12T16:09:09.848Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000079"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-12T15:58:35.714Z",
+        "updated_at": "2026-11-12T16:09:09.848Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

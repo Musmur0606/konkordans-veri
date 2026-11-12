@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-12T16:37:33.225Z",
+  "updated_at": "2026-11-12T16:37:54.646Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -1341,11 +1341,21 @@
           "added_at": "2026-11-09T16:27:11.035Z",
           "added_by": "Musmur0606",
           "event_id": "kavram-olay-00000061"
+        },
+        {
+          "verse": "4.25",
+          "start": 384,
+          "end": 393,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-12T16:37:54.646Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000084"
         }
       ],
       "notes": [],
       "created_at": "2026-11-09T16:27:11.035Z",
-      "updated_at": "2026-11-09T16:28:09.478Z",
+      "updated_at": "2026-11-12T16:37:54.646Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     },
@@ -5392,6 +5402,77 @@
         "notes": [],
         "created_at": "2026-11-12T16:37:33.225Z",
         "updated_at": "2026-11-12T16:37:33.225Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000084",
+      "type": "enrich",
+      "at": "2026-11-12T16:37:54.646Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000054",
+      "note": "",
+      "source": {
+        "verse": "4.25",
+        "start": 384,
+        "end": 393,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": {
+        "id": "kavram-00000054",
+        "arabic_text": "فَاحِشَةٍ",
+        "search_key": "فاحشة",
+        "status": "archived",
+        "sources": [
+          {
+            "verse": "4.19",
+            "start": 172,
+            "end": 181,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T16:27:11.035Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000061"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-09T16:27:11.035Z",
+        "updated_at": "2026-11-09T16:28:09.478Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      },
+      "after": {
+        "id": "kavram-00000054",
+        "arabic_text": "فَاحِشَةٍ",
+        "search_key": "فاحشة",
+        "status": "archived",
+        "sources": [
+          {
+            "verse": "4.19",
+            "start": 172,
+            "end": 181,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T16:27:11.035Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000061"
+          },
+          {
+            "verse": "4.25",
+            "start": 384,
+            "end": 393,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-12T16:37:54.646Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000084"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-09T16:27:11.035Z",
+        "updated_at": "2026-11-12T16:37:54.646Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

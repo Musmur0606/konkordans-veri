@@ -10,7 +10,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T18:20:28Z",
-  "updated_at": "2026-11-12T10:52:54.896Z",
+  "updated_at": "2026-11-12T11:03:18.287Z",
   "overrides": {
     "4.1": {
       "added": [
@@ -755,6 +755,16 @@
         "4.19",
         "4.21",
         "4.24"
+      ],
+      "removed": [],
+      "status": "review"
+    },
+    "4.21": {
+      "added": [
+        "2.229",
+        "2.231",
+        "2.237",
+        "30.21"
       ],
       "removed": [],
       "status": "review"
@@ -4792,6 +4802,42 @@
               "4.19",
               "4.21",
               "4.24"
+            ],
+            "removed": [],
+            "status": "review"
+          }
+        }
+      ]
+    },
+    {
+      "id": "88120d8a-17ec-40b8-8a92-ddd266f64d60",
+      "at": "2026-11-12T11:03:18.287Z",
+      "day_tr": "2026-11-12",
+      "actor": "Musmur0606",
+      "action": "add",
+      "scope": "draft234",
+      "source": "kullanici_calismasi",
+      "note": "",
+      "refs": [
+        "2.229",
+        "2.231",
+        "2.237",
+        "30.21"
+      ],
+      "changes": [
+        {
+          "main": "4.21",
+          "before": {
+            "added": [],
+            "removed": [],
+            "status": null
+          },
+          "after": {
+            "added": [
+              "2.229",
+              "2.231",
+              "2.237",
+              "30.21"
             ],
             "removed": [],
             "status": "review"

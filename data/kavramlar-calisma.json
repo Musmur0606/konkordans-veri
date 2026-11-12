@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-12T17:25:14.393Z",
+  "updated_at": "2026-11-12T17:28:13.003Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -1813,6 +1813,29 @@
       "notes": [],
       "created_at": "2026-11-12T17:25:14.393Z",
       "updated_at": "2026-11-12T17:25:14.393Z",
+      "created_by": "Musmur0606",
+      "updated_by": "Musmur0606"
+    },
+    {
+      "id": "kavram-00000074",
+      "arabic_text": "يُرٖيدُ اللّٰهُ",
+      "search_key": "يريد الله",
+      "status": "active",
+      "sources": [
+        {
+          "verse": "4.26",
+          "start": 0,
+          "end": 15,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-12T17:28:13.003Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000091"
+        }
+      ],
+      "notes": [],
+      "created_at": "2026-11-12T17:28:13.003Z",
+      "updated_at": "2026-11-12T17:28:13.003Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     }
@@ -5864,6 +5887,45 @@
         "notes": [],
         "created_at": "2026-11-12T17:25:14.393Z",
         "updated_at": "2026-11-12T17:25:14.393Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000091",
+      "type": "add",
+      "at": "2026-11-12T17:28:13.003Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000074",
+      "note": "",
+      "source": {
+        "verse": "4.26",
+        "start": 0,
+        "end": 15,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": null,
+      "after": {
+        "id": "kavram-00000074",
+        "arabic_text": "يُرٖيدُ اللّٰهُ",
+        "search_key": "يريد الله",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.26",
+            "start": 0,
+            "end": 15,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-12T17:28:13.003Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000091"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-12T17:28:13.003Z",
+        "updated_at": "2026-11-12T17:28:13.003Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-13T17:37:49.211Z",
+  "updated_at": "2026-11-13T17:38:05.562Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -2127,11 +2127,21 @@
           "added_at": "2026-11-13T17:14:06.271Z",
           "added_by": "Musmur0606",
           "event_id": "kavram-olay-00000104"
+        },
+        {
+          "verse": "4.34",
+          "start": 47,
+          "end": 62,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-13T17:38:05.562Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000109"
         }
       ],
       "notes": [],
       "created_at": "2026-11-13T17:14:06.271Z",
-      "updated_at": "2026-11-13T17:14:06.271Z",
+      "updated_at": "2026-11-13T17:38:05.562Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     },
@@ -7018,6 +7028,77 @@
         "notes": [],
         "created_at": "2026-11-13T17:37:49.211Z",
         "updated_at": "2026-11-13T17:37:49.211Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000109",
+      "type": "enrich",
+      "at": "2026-11-13T17:38:05.562Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000086",
+      "note": "",
+      "source": {
+        "verse": "4.34",
+        "start": 47,
+        "end": 62,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": {
+        "id": "kavram-00000086",
+        "arabic_text": "فَضَّلَ اللّٰهُ",
+        "search_key": "فضل الله",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.32",
+            "start": 23,
+            "end": 38,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-13T17:14:06.271Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000104"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-13T17:14:06.271Z",
+        "updated_at": "2026-11-13T17:14:06.271Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      },
+      "after": {
+        "id": "kavram-00000086",
+        "arabic_text": "فَضَّلَ اللّٰهُ",
+        "search_key": "فضل الله",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.32",
+            "start": 23,
+            "end": 38,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-13T17:14:06.271Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000104"
+          },
+          {
+            "verse": "4.34",
+            "start": 47,
+            "end": 62,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-13T17:38:05.562Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000109"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-13T17:14:06.271Z",
+        "updated_at": "2026-11-13T17:38:05.562Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

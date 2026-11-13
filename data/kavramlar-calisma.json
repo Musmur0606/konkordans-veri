@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-13T18:22:32.384Z",
+  "updated_at": "2026-11-13T18:22:53.642Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -328,11 +328,21 @@
           "added_at": "2026-11-08T16:11:29.286Z",
           "added_by": "Musmur0606",
           "event_id": "kavram-olay-00000013"
+        },
+        {
+          "verse": "4.36",
+          "start": 226,
+          "end": 248,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-13T18:22:53.642Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000125"
         }
       ],
       "notes": [],
       "created_at": "2026-11-08T16:11:29.286Z",
-      "updated_at": "2026-11-08T16:11:29.286Z",
+      "updated_at": "2026-11-13T18:22:53.642Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     },
@@ -8088,6 +8098,77 @@
         "notes": [],
         "created_at": "2026-11-13T18:22:32.384Z",
         "updated_at": "2026-11-13T18:22:32.384Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000125",
+      "type": "enrich",
+      "at": "2026-11-13T18:22:53.642Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000013",
+      "note": "",
+      "source": {
+        "verse": "4.36",
+        "start": 226,
+        "end": 248,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": {
+        "id": "kavram-00000013",
+        "arabic_text": "مَلَكَتْ اَيْمَانُكُمْ",
+        "search_key": "ملكت ايمانكم",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.3",
+            "start": 177,
+            "end": 199,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-08T16:11:29.286Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000013"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-08T16:11:29.286Z",
+        "updated_at": "2026-11-08T16:11:29.286Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      },
+      "after": {
+        "id": "kavram-00000013",
+        "arabic_text": "مَلَكَتْ اَيْمَانُكُمْ",
+        "search_key": "ملكت ايمانكم",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.3",
+            "start": 177,
+            "end": 199,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-08T16:11:29.286Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000013"
+          },
+          {
+            "verse": "4.36",
+            "start": 226,
+            "end": 248,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-13T18:22:53.642Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000125"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-08T16:11:29.286Z",
+        "updated_at": "2026-11-13T18:22:53.642Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

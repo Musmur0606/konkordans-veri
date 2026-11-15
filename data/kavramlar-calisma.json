@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-15T17:32:15.585Z",
+  "updated_at": "2026-11-15T17:32:36.156Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -812,11 +812,21 @@
           "added_at": "2026-11-09T12:17:28.059Z",
           "added_by": "Musmur0606",
           "event_id": "kavram-olay-00000035"
+        },
+        {
+          "verse": "4.55",
+          "start": 77,
+          "end": 84,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-15T17:32:36.156Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000196"
         }
       ],
       "notes": [],
       "created_at": "2026-11-09T12:17:28.059Z",
-      "updated_at": "2026-11-09T12:17:28.059Z",
+      "updated_at": "2026-11-15T17:32:36.156Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     },
@@ -12675,6 +12685,77 @@
         "notes": [],
         "created_at": "2026-11-15T17:32:15.585Z",
         "updated_at": "2026-11-15T17:32:15.585Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000196",
+      "type": "enrich",
+      "at": "2026-11-15T17:32:36.156Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000031",
+      "note": "",
+      "source": {
+        "verse": "4.55",
+        "start": 77,
+        "end": 84,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": {
+        "id": "kavram-00000031",
+        "arabic_text": "سَعٖيرً",
+        "search_key": "سعير",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.10",
+            "start": 117,
+            "end": 124,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T12:17:28.059Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000035"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-09T12:17:28.059Z",
+        "updated_at": "2026-11-09T12:17:28.059Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      },
+      "after": {
+        "id": "kavram-00000031",
+        "arabic_text": "سَعٖيرً",
+        "search_key": "سعير",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.10",
+            "start": 117,
+            "end": 124,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T12:17:28.059Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000035"
+          },
+          {
+            "verse": "4.55",
+            "start": 77,
+            "end": 84,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-15T17:32:36.156Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000196"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-09T12:17:28.059Z",
+        "updated_at": "2026-11-15T17:32:36.156Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-16T16:22:05.179Z",
+  "updated_at": "2026-11-16T16:22:28.640Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -3811,11 +3811,21 @@
           "added_at": "2026-11-15T16:43:11.490Z",
           "added_by": "Musmur0606",
           "event_id": "kavram-olay-00000181"
+        },
+        {
+          "verse": "4.60",
+          "start": 148,
+          "end": 159,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-16T16:22:28.640Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000221"
         }
       ],
       "notes": [],
       "created_at": "2026-11-15T16:43:11.490Z",
-      "updated_at": "2026-11-15T16:43:11.490Z",
+      "updated_at": "2026-11-16T16:22:28.640Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     },
@@ -14256,6 +14266,77 @@
         "notes": [],
         "created_at": "2026-11-16T16:22:05.179Z",
         "updated_at": "2026-11-16T16:22:05.179Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000221",
+      "type": "enrich",
+      "at": "2026-11-16T16:22:28.640Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000154",
+      "note": "",
+      "source": {
+        "verse": "4.60",
+        "start": 148,
+        "end": 159,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": {
+        "id": "kavram-00000154",
+        "arabic_text": "الطَّاغُوتِ",
+        "search_key": "الطاغوت",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.51",
+            "start": 87,
+            "end": 98,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-15T16:43:11.490Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000181"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-15T16:43:11.490Z",
+        "updated_at": "2026-11-15T16:43:11.490Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      },
+      "after": {
+        "id": "kavram-00000154",
+        "arabic_text": "الطَّاغُوتِ",
+        "search_key": "الطاغوت",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.51",
+            "start": 87,
+            "end": 98,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-15T16:43:11.490Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000181"
+          },
+          {
+            "verse": "4.60",
+            "start": 148,
+            "end": 159,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-16T16:22:28.640Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000221"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-15T16:43:11.490Z",
+        "updated_at": "2026-11-16T16:22:28.640Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-22T18:15:31.848Z",
+  "updated_at": "2026-11-22T18:15:48.935Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -4525,11 +4525,21 @@
           "added_at": "2026-11-16T15:51:56.523Z",
           "added_by": "Musmur0606",
           "event_id": "kavram-olay-00000214"
+        },
+        {
+          "verse": "4.83",
+          "start": 111,
+          "end": 127,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-22T18:15:48.935Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000318"
         }
       ],
       "notes": [],
       "created_at": "2026-11-16T15:51:56.523Z",
-      "updated_at": "2026-11-16T15:51:56.523Z",
+      "updated_at": "2026-11-22T18:15:48.935Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     },
@@ -20581,6 +20591,77 @@
         "notes": [],
         "created_at": "2026-11-22T18:15:31.848Z",
         "updated_at": "2026-11-22T18:15:31.848Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000318",
+      "type": "enrich",
+      "at": "2026-11-22T18:15:48.935Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000182",
+      "note": "",
+      "source": {
+        "verse": "4.83",
+        "start": 111,
+        "end": 127,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": {
+        "id": "kavram-00000182",
+        "arabic_text": "اُولِى الْاَمْرِ",
+        "search_key": "اولى الامر",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.59",
+            "start": 75,
+            "end": 91,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-16T15:51:56.523Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000214"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-16T15:51:56.523Z",
+        "updated_at": "2026-11-16T15:51:56.523Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      },
+      "after": {
+        "id": "kavram-00000182",
+        "arabic_text": "اُولِى الْاَمْرِ",
+        "search_key": "اولى الامر",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.59",
+            "start": 75,
+            "end": 91,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-16T15:51:56.523Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000214"
+          },
+          {
+            "verse": "4.83",
+            "start": 111,
+            "end": 127,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-22T18:15:48.935Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000318"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-16T15:51:56.523Z",
+        "updated_at": "2026-11-22T18:15:48.935Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

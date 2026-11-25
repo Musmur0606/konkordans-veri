@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-25T17:09:41.003Z",
+  "updated_at": "2026-11-25T17:10:21.059Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -7237,11 +7237,21 @@
           "added_at": "2026-11-25T15:46:38.249Z",
           "added_by": "Musmur0606",
           "event_id": "kavram-olay-00000348"
+        },
+        {
+          "verse": "4.92",
+          "start": 324,
+          "end": 333,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-25T17:10:21.059Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000355"
         }
       ],
       "notes": [],
       "created_at": "2026-11-25T15:46:38.249Z",
-      "updated_at": "2026-11-25T15:46:38.249Z",
+      "updated_at": "2026-11-25T17:10:21.059Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     },
@@ -23106,6 +23116,77 @@
         "notes": [],
         "created_at": "2026-11-25T17:09:41.003Z",
         "updated_at": "2026-11-25T17:09:41.003Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000355",
+      "type": "enrich",
+      "at": "2026-11-25T17:10:21.059Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000296",
+      "note": "",
+      "source": {
+        "verse": "4.92",
+        "start": 324,
+        "end": 333,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": {
+        "id": "kavram-00000296",
+        "arabic_text": "مٖيثَاقٌ ",
+        "search_key": "ميثاق",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.90",
+            "start": 64,
+            "end": 73,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-25T15:46:38.249Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000348"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-25T15:46:38.249Z",
+        "updated_at": "2026-11-25T15:46:38.249Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      },
+      "after": {
+        "id": "kavram-00000296",
+        "arabic_text": "مٖيثَاقٌ ",
+        "search_key": "ميثاق",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.90",
+            "start": 64,
+            "end": 73,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-25T15:46:38.249Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000348"
+          },
+          {
+            "verse": "4.92",
+            "start": 324,
+            "end": 333,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-25T17:10:21.059Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000355"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-25T15:46:38.249Z",
+        "updated_at": "2026-11-25T17:10:21.059Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

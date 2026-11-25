@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-22T18:50:57.333Z",
+  "updated_at": "2026-11-25T15:15:50.852Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -4752,11 +4752,21 @@
           "added_at": "2026-11-16T16:33:48.548Z",
           "added_by": "Musmur0606",
           "event_id": "kavram-olay-00000225"
+        },
+        {
+          "verse": "4.88",
+          "start": 17,
+          "end": 33,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-25T15:15:50.852Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000341"
         }
       ],
       "notes": [],
       "created_at": "2026-11-16T16:33:48.548Z",
-      "updated_at": "2026-11-16T16:33:48.548Z",
+      "updated_at": "2026-11-25T15:15:50.852Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     },
@@ -22122,6 +22132,77 @@
         "notes": [],
         "created_at": "2026-11-22T18:50:57.333Z",
         "updated_at": "2026-11-22T18:50:57.333Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000341",
+      "type": "enrich",
+      "at": "2026-11-25T15:15:50.852Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000191",
+      "note": "",
+      "source": {
+        "verse": "4.88",
+        "start": 17,
+        "end": 33,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": {
+        "id": "kavram-00000191",
+        "arabic_text": "الْمُنَافِقٖينَ ",
+        "search_key": "المنافقين",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.61",
+            "start": 87,
+            "end": 103,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-16T16:33:48.548Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000225"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-16T16:33:48.548Z",
+        "updated_at": "2026-11-16T16:33:48.548Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      },
+      "after": {
+        "id": "kavram-00000191",
+        "arabic_text": "الْمُنَافِقٖينَ ",
+        "search_key": "المنافقين",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.61",
+            "start": 87,
+            "end": 103,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-16T16:33:48.548Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000225"
+          },
+          {
+            "verse": "4.88",
+            "start": 17,
+            "end": 33,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-25T15:15:50.852Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000341"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-16T16:33:48.548Z",
+        "updated_at": "2026-11-25T15:15:50.852Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

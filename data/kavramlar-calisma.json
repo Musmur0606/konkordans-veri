@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-27T16:07:17.876Z",
+  "updated_at": "2026-11-27T16:07:33.214Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -1425,11 +1425,21 @@
           "added_at": "2026-11-22T16:24:18.493Z",
           "added_by": "Musmur0606",
           "event_id": "kavram-olay-00000291"
+        },
+        {
+          "verse": "4.100",
+          "start": 171,
+          "end": 181,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-27T16:07:33.214Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000392"
         }
       ],
       "notes": [],
       "created_at": "2026-11-09T16:02:17.265Z",
-      "updated_at": "2026-11-22T16:24:18.493Z",
+      "updated_at": "2026-11-27T16:07:33.214Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     },
@@ -25930,6 +25940,97 @@
         "notes": [],
         "created_at": "2026-11-27T16:07:17.876Z",
         "updated_at": "2026-11-27T16:07:17.876Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000392",
+      "type": "enrich",
+      "at": "2026-11-27T16:07:33.214Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000052",
+      "note": "",
+      "source": {
+        "verse": "4.100",
+        "start": 171,
+        "end": 181,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": {
+        "id": "kavram-00000052",
+        "arabic_text": "الْمَوْتُ ",
+        "search_key": "الموت",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.18",
+            "start": 91,
+            "end": 101,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T16:02:17.265Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000059"
+          },
+          {
+            "verse": "4.78",
+            "start": 34,
+            "end": 44,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-22T16:24:18.493Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000291"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-09T16:02:17.265Z",
+        "updated_at": "2026-11-22T16:24:18.493Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      },
+      "after": {
+        "id": "kavram-00000052",
+        "arabic_text": "الْمَوْتُ ",
+        "search_key": "الموت",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.18",
+            "start": 91,
+            "end": 101,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-09T16:02:17.265Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000059"
+          },
+          {
+            "verse": "4.78",
+            "start": 34,
+            "end": 44,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-22T16:24:18.493Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000291"
+          },
+          {
+            "verse": "4.100",
+            "start": 171,
+            "end": 181,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-27T16:07:33.214Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000392"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-09T16:02:17.265Z",
+        "updated_at": "2026-11-27T16:07:33.214Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }

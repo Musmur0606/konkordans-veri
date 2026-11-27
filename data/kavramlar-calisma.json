@@ -5,7 +5,7 @@
     "automatic": false
   },
   "created_at": "2026-11-07T19:11:54.000Z",
-  "updated_at": "2026-11-27T16:42:27.993Z",
+  "updated_at": "2026-11-27T16:42:46.885Z",
   "records": [
     {
       "id": "kavram-00000001",
@@ -2902,11 +2902,21 @@
           "added_at": "2026-11-14T15:55:36.483Z",
           "added_by": "Musmur0606",
           "event_id": "kavram-olay-00000134"
+        },
+        {
+          "verse": "4.102",
+          "start": 566,
+          "end": 583,
+          "origin": "admin_selection",
+          "text_field": "arh",
+          "added_at": "2026-11-27T16:42:46.885Z",
+          "added_by": "Musmur0606",
+          "event_id": "kavram-olay-00000401"
         }
       ],
       "notes": [],
       "created_at": "2026-11-14T15:55:36.483Z",
-      "updated_at": "2026-11-14T15:55:36.483Z",
+      "updated_at": "2026-11-27T16:42:46.885Z",
       "created_by": "Musmur0606",
       "updated_by": "Musmur0606"
     },
@@ -26604,6 +26614,77 @@
         "notes": [],
         "created_at": "2026-11-27T16:42:27.993Z",
         "updated_at": "2026-11-27T16:42:27.993Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      }
+    },
+    {
+      "id": "kavram-olay-00000401",
+      "type": "enrich",
+      "at": "2026-11-27T16:42:46.885Z",
+      "actor": "Musmur0606",
+      "record_id": "kavram-00000111",
+      "note": "",
+      "source": {
+        "verse": "4.102",
+        "start": 566,
+        "end": 583,
+        "origin": "admin_selection",
+        "text_field": "arh"
+      },
+      "before": {
+        "id": "kavram-00000111",
+        "arabic_text": "عَذَابًا مُهٖينًا",
+        "search_key": "عذابا مهينا",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.37",
+            "start": 137,
+            "end": 154,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-14T15:55:36.483Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000134"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-14T15:55:36.483Z",
+        "updated_at": "2026-11-14T15:55:36.483Z",
+        "created_by": "Musmur0606",
+        "updated_by": "Musmur0606"
+      },
+      "after": {
+        "id": "kavram-00000111",
+        "arabic_text": "عَذَابًا مُهٖينًا",
+        "search_key": "عذابا مهينا",
+        "status": "active",
+        "sources": [
+          {
+            "verse": "4.37",
+            "start": 137,
+            "end": 154,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-14T15:55:36.483Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000134"
+          },
+          {
+            "verse": "4.102",
+            "start": 566,
+            "end": 583,
+            "origin": "admin_selection",
+            "text_field": "arh",
+            "added_at": "2026-11-27T16:42:46.885Z",
+            "added_by": "Musmur0606",
+            "event_id": "kavram-olay-00000401"
+          }
+        ],
+        "notes": [],
+        "created_at": "2026-11-14T15:55:36.483Z",
+        "updated_at": "2026-11-27T16:42:46.885Z",
         "created_by": "Musmur0606",
         "updated_by": "Musmur0606"
       }
